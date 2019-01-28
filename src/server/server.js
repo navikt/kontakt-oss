@@ -23,18 +23,12 @@ const renderApp = (decoratorFragments) =>
     });
 
 const startServer = (html) => {
-    app.use('/kontakt-oss/static/js', express.static(path.join(buildPath, 'static/js')));
-    app.use('/kontakt-oss/static/css', express.static(path.join(buildPath, 'static/css')));
-    app.use('/service-worker.js', express.static(path.join(buildPath, 'service-worker.js')));
-
-    app.get(['/', '/kontakt-oss/?', /^\/kontakt-oss\/(?!.*static).*$/], (req, res) => {
-        res.send(html);
-    });
+    app.use('/kontakt-oss', express.static(buildPath, { index: false }));
 
     app.get('/kontakt-oss/internal/isAlive', (req, res) => res.sendStatus(200));
     app.get('/kontakt-oss/internal/isReady', (req, res) => res.sendStatus(200));
 
-    app.get(/^\/(?!.*static).*$/, (req, res) => {
+    app.get('*', (req, res) => {
         res.send(html);
     });
 
