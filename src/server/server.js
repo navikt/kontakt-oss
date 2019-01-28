@@ -12,7 +12,7 @@ app.set('views', buildPath);
 app.use('/', express.static(buildPath));
 
 getDecorator().then((decorator) => {
-  app.get('/*', (req, res) => {
+  app.get('/kontakt-oss*', (req, res) => {
     res.render('index.html', Object.assign(decorator));
   });
 

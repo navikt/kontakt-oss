@@ -1,6 +1,6 @@
 {
-  "name": "tag-kontaktskjema-frontend",
-  "homepage": "/kontaktskjema",
+  "name": "kontakt-oss",
+  "homepage": "/kontakt-oss",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
