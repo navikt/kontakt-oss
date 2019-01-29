@@ -1,11 +1,7 @@
 FROM node:alpine as builder
 WORKDIR /usr/src/app
 
-RUN yarn add express
-RUN yarn add mustache-express
-RUN yarn add jsdom
-RUN yarn add request
-RUN yarn add promise
+RUN yarn add express mustache-express jsdom request promise
 
 
 FROM node:alpine
