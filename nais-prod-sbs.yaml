@@ -1,0 +1,19 @@
+apiVersion: "nais.io/v1alpha1"
+kind: "Application"
+metadata:
+  name: kontakt-oss
+  namespace: default
+  labels:
+    team: teamtag
+spec:
+  image: navikt/kontakt-oss:latest
+  team: teamtag
+  port: 3000
+  ingresses:
+    - https://arbeidsgiver.nav.no/kontakt-oss
+  liveness:
+    path: /kontakt-oss/internal/isAlive
+    initialDelay: 20
+  readiness:
+    path: /kontakt-oss/internal/isReady
+    initialDelay: 20
