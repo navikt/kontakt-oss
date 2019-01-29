@@ -14,7 +14,7 @@ jobs:
     - run:
         name: Bygg React app
         command: |
-          yarn install --production --frozen-lockfile
+          yarn install --frozen-lockfile
           yarn build
     - save_cache:
         name: Lagre Yarn cache

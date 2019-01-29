@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import './App.less';
 
-class App extends Component {
+class App extends React.Component {
   render() {
     return (
       <div className="App">
