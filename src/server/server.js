@@ -28,7 +28,7 @@ const startServer = (html) => {
     app.get('/kontakt-oss/internal/isAlive', (req, res) => res.sendStatus(200));
     app.get('/kontakt-oss/internal/isReady', (req, res) => res.sendStatus(200));
 
-    app.get('/kontakt-oss/*', (req, res) => {
+    app.get('*', (req, res) => {
         res.send(html);
     });
 
