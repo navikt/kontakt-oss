@@ -17,3 +17,6 @@ spec:
   readiness:
     path: /kontakt-oss/internal/isReady
     initialDelay: 20
+  env:
+    - name: API_GATEWAY
+      value: https://api-gw.oera.no
