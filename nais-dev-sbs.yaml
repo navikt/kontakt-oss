@@ -6,9 +6,11 @@ metadata:
   labels:
     team: teamtag
 spec:
-  image: navikt/kontakt-oss:25
+  image: navikt/kontakt-oss:latest
   team: teamtag
   port: 3000
+  vault:
+    enabled: true
   ingresses:
     - https://arbeidsgiver-q.nav.no/kontakt-oss/
   liveness:
