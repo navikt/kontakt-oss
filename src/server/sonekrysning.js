@@ -12,9 +12,7 @@ const proxyConfig = {
         ['^' + basePath('/api')]: `/kontakt-oss-api`,
     },
     target: envProperties.API_GATEWAY,
-    // TODO: Last inn riktige credentials
-    // https://stackoverflow.com/questions/29283040/how-to-add-custom-certificate-authority-ca-to-nodejs
-    secure: false,
+    secure: true,
     xfwd: true,
 };
 
