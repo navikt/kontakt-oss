@@ -5,9 +5,9 @@ const mustacheExpress = require('mustache-express');
 const getDecorator = require('./decorator');
 const Promise = require('promise');
 const sonekrysning = require('./sonekrysning');
+const basePath = require('./basePath');
 
 const buildPath = path.join(__dirname, '../../build');
-const basePath = (subPath) => '/kontakt-oss' + subPath;
 
 app.use(basePath('/api'), sonekrysning);
 
