@@ -1,15 +1,14 @@
 FROM node:alpine as builder
 WORKDIR /usr/src/app
 
-RUN yarn add express mustache-express jsdom request promise
+RUN yarn add express mustache-express jsdom request promise http-proxy-middleware
 
 
 FROM node:alpine
 WORKDIR /usr/src/app
 
 COPY build ./build
-COPY src/server/server.js ./src/server/server.js
-COPY src/server/decorator.js src/server/decorator.js
+COPY src/server ./src/server
 COPY --from=builder /usr/src/app/node_modules ./node_modules
 
 EXPOSE 3000
