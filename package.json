@@ -23,7 +23,9 @@
   "scripts": {
     "start": "craco start",
     "build": "craco build",
-    "test": "craco test"
+    "test": "craco test",
+    "docker:build": "docker build -t kontakt-oss .",
+    "docker:start": "docker run -p 3000:3000 kontakt-oss"
   },
   "eslintConfig": {
     "extends": "react-app"
