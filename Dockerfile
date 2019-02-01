@@ -13,5 +13,5 @@ COPY last-inn-secrets.sh ./
 COPY --from=builder /usr/src/app/node_modules ./node_modules
 
 EXPOSE 3000
-CMD ["/bin/sh", "last-inn-secrets.sh"]
+RUN /bin/sh last-inn-secrets.sh
 CMD ["node", "src/server/server.js"]
