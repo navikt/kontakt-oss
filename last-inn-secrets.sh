@@ -10,3 +10,5 @@ then
         done
     done
 fi
+
+exec npm run src/server/server.js
