@@ -10,5 +10,3 @@ then
         done
     done
 fi
-
-exec npm run server
