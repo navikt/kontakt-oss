@@ -4,8 +4,12 @@ const app = express();
 const mustacheExpress = require('mustache-express');
 const getDecorator = require('./decorator');
 const Promise = require('promise');
+const sonekrysning = require('./sonekrysning');
 
 const buildPath = path.join(__dirname, '../../build');
+const basePath = (subPath) => '/kontakt-oss' + subPath;
+
+app.use(basePath('/api'), sonekrysning);
 
 app.engine('html', mustacheExpress());
 app.set('view engine', 'mustache');
@@ -13,7 +17,7 @@ app.set('views', buildPath);
 
 const renderApp = (decoratorFragments) =>
     new Promise((resolve, reject) => {
-      app.render('index.html', Object.assign(decoratorFragments), (err, html) => {
+      app.render('index.html', decoratorFragments, (err, html) => {
         if (err) {
           reject(err);
         } else {
@@ -23,10 +27,10 @@ const renderApp = (decoratorFragments) =>
     });
 
 const startServer = (html) => {
-    app.use('/kontakt-oss', express.static(buildPath, { index: false }));
+    app.use(basePath('/'), express.static(buildPath, { index: false }));
 
-    app.get('/kontakt-oss/internal/isAlive', (req, res) => res.sendStatus(200));
-    app.get('/kontakt-oss/internal/isReady', (req, res) => res.sendStatus(200));
+    app.get(basePath('/internal/isAlive'), (req, res) => res.sendStatus(200));
+    app.get(basePath('/internal/isReady'), (req, res) => res.sendStatus(200));
 
     app.get('*', (req, res) => {
         res.send(html);
