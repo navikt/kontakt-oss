@@ -7,7 +7,7 @@ class App extends React.Component {
       <div className="App">
         <h1>Kontaktskjema</h1>
         <button onClick={() => {
-            (window as any).frontendLogger.event('en.test.event');
+            (window as any).frontendlogger.event('en.test.event');
         }}>
             Logg til Grafana
         </button>
