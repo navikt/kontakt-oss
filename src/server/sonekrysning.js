@@ -18,8 +18,8 @@ const proxyConfig = {
 
 if (envProperties.APIGW_HEADER) {
     proxyConfig.headers = {
-        'x-nav-apiKey': envProperties.APIGW_HEADER
-    }
+        'x-nav-apiKey': envProperties.APIGW_HEADER,
+    };
 }
 
 module.exports = proxy(proxyConfig);

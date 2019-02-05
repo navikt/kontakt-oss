@@ -1,1 +1,1 @@
-module.exports = (subPath) => '/kontakt-oss' + subPath;
+module.exports = subPath => '/kontakt-oss' + subPath;

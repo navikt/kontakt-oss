@@ -15,24 +15,24 @@ app.engine('html', mustacheExpress());
 app.set('view engine', 'mustache');
 app.set('views', buildPath);
 
-const renderApp = (decoratorFragments) =>
+const renderApp = decoratorFragments =>
     new Promise((resolve, reject) => {
-      app.render('index.html', decoratorFragments, (err, html) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(html);
-        }
-      });
+        app.render('index.html', decoratorFragments, (err, html) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(html);
+            }
+        });
     });
 
-const startServer = (html) => {
+const startServer = html => {
     app.use(basePath('/'), express.static(buildPath, { index: false }));
 
     app.get(basePath('/internal/isAlive'), (req, res) => res.sendStatus(200));
     app.get(basePath('/internal/isReady'), (req, res) => res.sendStatus(200));
 
-    app.get('*', (req, res) => {
+    app.get(basePath('/*'), (req, res) => {
         res.send(html);
     });
 
@@ -42,5 +42,5 @@ const startServer = (html) => {
 };
 
 getDecorator()
-    .then(renderApp, (error) => console.log('Kunne ikke hente dekoratør ', error))
-    .then(startServer, (error) => console.log('Kunne ikke rendre app ', error));
+    .then(renderApp, error => console.log('Kunne ikke hente dekoratør ', error))
+    .then(startServer, error => console.log('Kunne ikke rendre app ', error));
