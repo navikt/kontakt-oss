@@ -1,6 +1,6 @@
 import * as React from 'react';
 import './App.less';
-import { log } from './utils/metricsUtils';
+import { logError, logEvent } from './utils/metricsUtils';
 
 class App extends React.Component {
     render() {
@@ -9,7 +9,14 @@ class App extends React.Component {
                 <h1>Kontaktskjema</h1>
                 <button
                     onClick={() => {
-                        log('en.test.event');
+                        logEvent('kontakt-oss.en.test.event');
+                    }}
+                >
+                    Logg event
+                </button>
+                <button
+                    onClick={() => {
+                        logError('En feil har skjedd.');
                     }}
                 >
                     Logg til Grafana
