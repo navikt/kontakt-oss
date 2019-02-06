@@ -1,0 +1,26 @@
+.bekreftelseboks {
+    .nav-veilederpanel {
+      background-color: @navGronnLighten80;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      padding: 5rem 1rem 3rem;
+
+      .nav-veileder__frame img, .nav-veileder__frame svg {
+        height: 100%;
+      }
+    }
+
+  &__tittel {
+    margin-bottom: 1rem;
+  }
+}
+
+@media (min-width: @screen-sm-min) {
+  .bekreftelseboks {
+    .nav-veilederpanel {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+    }
+  }
+}

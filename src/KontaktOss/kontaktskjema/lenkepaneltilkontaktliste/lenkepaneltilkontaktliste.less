@@ -1,0 +1,35 @@
+@import '~nav-frontend-core/less/_variabler';
+
+.stortlenkepanel {
+  width: 100%;
+  background-color: @navDypBlaLighten80;
+
+  &__innhold {
+    width: 100%;
+
+    &-tittel {
+      margin-bottom: 1rem;
+    }
+  }
+
+  &__bilde {
+    display: none;
+  }
+
+  &:hover {
+    .stortlenkepanel {
+      &__innhold {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+@media (min-width: @screen-sm-min) {
+  .stortlenkepanel {
+    &__bilde {
+      margin: 0 2rem 0 1rem;
+      display: block;
+    }
+  }
+}
