@@ -18,10 +18,7 @@ import {
     pilotfylkerForKontaktskjema,
 } from '../../utils/fylker';
 import { FeatureToggles, medFeatureToggles } from '../FeatureTogglesProvider';
-import {
-    KONTAKTSKJEMA_BEKREFTELSE_PATH,
-    SAMLESIDE_PATH,
-} from '../../utils/konstanter';
+import { BEKREFTELSE_PATH, SAMLESIDE_PATH } from '../../utils/konstanter';
 import './Kontaktskjema.less';
 
 export interface Besvarelse {
@@ -54,7 +51,7 @@ class Kontaktskjema extends React.Component<Props, State> {
         innsendingFeilet: false,
     };
 
-    avgiSvar = (id: SkjemaId, input: string): void => {
+    avgiSvar = (id: SkjemaId, input: string) => {
         // TODO: Fiks any
         const nyBesvarelse: any = { ...this.state.besvarelse };
         nyBesvarelse[id.toString()] = input;
@@ -64,7 +61,7 @@ class Kontaktskjema extends React.Component<Props, State> {
         });
     };
 
-    sendInnBesvarelse = (): void => {
+    sendInnBesvarelse = () => {
         logEvent(
             'veiviserarbeidsgiver.inkludering.kontaktskjema.send-inn-klikk'
         );
@@ -84,7 +81,7 @@ class Kontaktskjema extends React.Component<Props, State> {
                         tema: mapTilTemaEvent(this.props.tema),
                     }
                 );
-                this.props.history.push(KONTAKTSKJEMA_BEKREFTELSE_PATH);
+                this.props.history.push(BEKREFTELSE_PATH);
             },
             () => {
                 logEvent('veiviserarbeidsgiver.inkludering.kontaktskjema.fail');

@@ -20,7 +20,7 @@ export class FeatureTogglesProvider extends React.Component<
         this.state = defaultFeatureToggles;
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.setState({ kontaktskjemaForPilotfylker: true });
         // TODO: Legg til Unleash
         // fetch(

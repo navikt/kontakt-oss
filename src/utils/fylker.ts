@@ -1,5 +1,5 @@
 import { kommuner } from './kommuner';
-import { KONTAKTSKJEMA_BASE_PATH } from './konstanter';
+import { BASE_PATH } from './konstanter';
 
 export interface FylkeModell {
     nokkel: string;
@@ -96,7 +96,7 @@ export const fylker: FylkeModell[] = [
     .map(fylke => ({
         ...fylke,
         hrefKontaktliste: fylke.hrefKontaktliste,
-        hrefKontaktskjema: `${KONTAKTSKJEMA_BASE_PATH}/${fylke.nokkel}`,
+        hrefKontaktskjema: `${BASE_PATH}/${fylke.nokkel}`,
     }))
     .sort((a, b) => a.navn.localeCompare(b.navn, 'nb-NO'));
 
