@@ -1,9 +1,23 @@
 import * as React from 'react';
 import { Element } from 'nav-frontend-typografi';
 import { Input, Select } from 'nav-frontend-skjema';
-import { KontaktskjemaInputProps, SkjemaId } from '../Kontaktskjema';
 import { fylker, getAlfabetiserteKommuner } from '../../../utils/fylker';
 import './Inputfelter.less';
+
+interface KontaktskjemaInputProps {
+    avgiSvar: (id: SkjemaId, input: string) => void;
+}
+
+export enum SkjemaId {
+    kommune = 'kommune',
+    bedriftsnavn = 'bedriftsnavn',
+    bedriftsnr = 'bedriftsnr', // TODO Dette skal være orgnr. Må endres i backend og frontend.
+    fornavn = 'fornavn',
+    etternavn = 'etternavn',
+    epost = 'epost',
+    telefonnr = 'telefonnr',
+    fylke = 'fylke',
+}
 
 interface OwnProps {
     fylkeNokkel?: string;

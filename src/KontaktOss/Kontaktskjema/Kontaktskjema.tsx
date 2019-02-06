@@ -1,7 +1,7 @@
 import { Hovedknapp } from 'nav-frontend-knapper';
 import * as React from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import Inputfelter from './Inputfelter/Inputfelter';
+import Inputfelter, { SkjemaId } from './Inputfelter/Inputfelter';
 import LenkepanelBekreftelse from './LenkepanelKontaktliste/LenkepanelKontaktliste';
 import Infoboks from './Infoboks/Infoboks';
 import { besvarelseErGyldig } from './validering';
@@ -23,21 +23,6 @@ import {
     SAMLESIDE_PATH,
 } from '../../utils/konstanter';
 import './Kontaktskjema.less';
-
-export interface KontaktskjemaInputProps {
-    avgiSvar: (id: SkjemaId, input: string) => void;
-}
-
-export enum SkjemaId {
-    kommune = 'kommune',
-    bedriftsnavn = 'bedriftsnavn',
-    bedriftsnr = 'bedriftsnr', // TODO Dette skal være orgnr. Må endres i backend og frontend.
-    fornavn = 'fornavn',
-    etternavn = 'etternavn',
-    epost = 'epost',
-    telefonnr = 'telefonnr',
-    fylke = 'fylke',
-}
 
 export interface Besvarelse {
     kommune?: KommuneModell;
