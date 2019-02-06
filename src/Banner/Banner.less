@@ -1,7 +1,7 @@
 @import '~nav-frontend-core/less/_variabler';
 
 .banner {
-  height: 11rem;
+  height: 7.5rem;
   background-color: @navDypBlaLighten60;
   border-bottom: 2px solid @navDypBla;
   padding-left: 1.25rem;
@@ -22,9 +22,13 @@
 }
 
 @media (min-width: @screen-sm-min) {
-  .banner__illustrasjon {
-    display: block;
-    align-self: flex-end;
-    height: 9rem;
+  .banner {
+    height: 11rem;
+
+    &__illustrasjon {
+      display: block;
+      align-self: flex-end;
+      height: 9rem;
+    }
   }
 }

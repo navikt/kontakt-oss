@@ -12,6 +12,7 @@ const LenkepanelBekreftelse = () => (
         href={SAMLESIDE_PATH}
         className="bekreftelse-lenkepanel"
         // TODO: Fiks any
+        // TODO: Fiks href
         linkCreator={(props: any) => (
             <Link to={props.href} className={props.className}>
                 {props.children}

@@ -20,7 +20,7 @@ class App extends React.Component {
                             path={BEKREFTELSE_PATH}
                             component={Bekreftelse}
                         />
-                        <Redirect to={BASE_PATH} />
+                        <Redirect to="/" />
                     </Switch>
                 </BrowserRouter>
             </FeatureTogglesProvider>
