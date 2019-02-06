@@ -3,8 +3,8 @@ import * as React from 'react';
 // import Banner from '../../komponenter/banner/banner';
 import { RouteComponentProps } from 'react-router';
 import Temaknapper from './Temaknapper/Temaknapper';
-import ArbeidsgiverTlfInfo from './arbeidsgiverTlfIInfo/arbeidsgiverTlfInfo';
-import KontaktSkjema from './kontaktskjema/KontaktSkjema';
+import ArbeidsgiverTlfInfo from './ArbeidsgiverTlfIInfo/ArbeidsgiverTlfInfo';
+import Kontaktskjema from './Kontaktskjema/Kontaktskjema';
 import { scrollToBanner } from '../utils/scrollUtils';
 import { Tema } from '../utils/kontaktskjemaApi';
 import './KontaktOss.less';
@@ -35,11 +35,11 @@ class KontaktOss extends React.Component<RouteComponentProps, State> {
     };
 
     render() {
-        const skalViseKontaktSkjema = this.skalViseKontaktskjema(
+        const skalViseKontaktskjema = this.skalViseKontaktskjema(
             this.state.tema
         );
         const skalViseArbeidsgiverTlf =
-            this.state.tema && !skalViseKontaktSkjema;
+            this.state.tema && !skalViseKontaktskjema;
 
         return (
             <>
@@ -50,8 +50,8 @@ class KontaktOss extends React.Component<RouteComponentProps, State> {
                         velgTema={this.velgTema}
                         valgtTema={this.state.tema}
                     />
-                    {skalViseKontaktSkjema && (
-                        <KontaktSkjema tema={this.state.tema} {...this.props} />
+                    {skalViseKontaktskjema && (
+                        <Kontaktskjema tema={this.state.tema} {...this.props} />
                     )}
                     {skalViseArbeidsgiverTlf && <ArbeidsgiverTlfInfo />}
                 </div>

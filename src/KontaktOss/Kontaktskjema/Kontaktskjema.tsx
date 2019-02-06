@@ -1,8 +1,8 @@
 import { Hovedknapp } from 'nav-frontend-knapper';
 import * as React from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
-import KontaktskjemaInputfelter from './kontaktskjemainputfelter/KontaktskjemaInputfelter';
-import LenkepanelTilKontaktliste from './lenkepaneltilkontaktliste/LenkepanelTilKontaktliste';
+import Inputfelter from './Inputfelter/Inputfelter';
+import LenkepanelBekreftelse from './LenkepanelKontaktliste/LenkepanelKontaktliste';
 import Infoboks from './Infoboks/Infoboks';
 import { besvarelseErGyldig } from './validering';
 import Feilmelding from './Feilmelding/Feilmelding';
@@ -22,7 +22,7 @@ import {
     KONTAKTSKJEMA_BEKREFTELSE_PATH,
     SAMLESIDE_PATH,
 } from '../../utils/konstanter';
-import './KontaktSkjema.less';
+import './Kontaktskjema.less';
 
 export interface KontaktskjemaInputProps {
     avgiSvar: (id: SkjemaId, input: string) => void;
@@ -62,7 +62,7 @@ type Props = RouteComponentProps &
         tema?: Tema;
     };
 
-class KontaktSkjema extends React.Component<Props, State> {
+class Kontaktskjema extends React.Component<Props, State> {
     state: State = {
         besvarelse: {},
         besvarelseErGyldig: true,
@@ -134,7 +134,7 @@ class KontaktSkjema extends React.Component<Props, State> {
         const skalBareViseLenkeTilTlfListe = fylke && !skalViseHeleSkjemaet;
 
         const vilDuHellerRinge = skalViseHeleSkjemaet && (
-            <LenkepanelTilKontaktliste
+            <LenkepanelBekreftelse
                 href={hrefKontaktlisteMedQueryParam}
                 tittel="Vil du heller ringe?"
                 undertekst="Kontakt en av våre medarbeidere direkte."
@@ -142,7 +142,7 @@ class KontaktSkjema extends React.Component<Props, State> {
         );
 
         const kontaktVareMedarbeidere = skalBareViseLenkeTilTlfListe && (
-            <LenkepanelTilKontaktliste
+            <LenkepanelBekreftelse
                 href={hrefKontaktlisteMedQueryParam}
                 tittel="Ring en av våre medarbeidere"
                 undertekst="Vi kan hjelpe deg med arbeidstrening og rekruttering med eller uten tilrettelegging"
@@ -191,7 +191,7 @@ class KontaktSkjema extends React.Component<Props, State> {
                     className="kontaktskjema__innhold"
                     onSubmit={this.sendInnBesvarelse}
                 >
-                    <KontaktskjemaInputfelter
+                    <Inputfelter
                         avgiSvar={this.avgiSvar}
                         fylkeNokkel={fylke}
                         visKunFylkesvalg={!skalViseHeleSkjemaet}
@@ -205,4 +205,4 @@ class KontaktSkjema extends React.Component<Props, State> {
     }
 }
 
-export default medFeatureToggles(KontaktSkjema);
+export default medFeatureToggles(Kontaktskjema);

@@ -4,7 +4,7 @@ import { Undertittel } from 'nav-frontend-typografi';
 import Normaltekst from 'nav-frontend-typografi/lib/normaltekst';
 import { logEvent } from '../../../utils/metricsUtils';
 import telefonSvg from './telefon.svg';
-import './lenkepaneltilkontaktliste.less';
+import './LenkepanelKontaktliste.less';
 
 interface Props {
     href: string;
@@ -12,11 +12,12 @@ interface Props {
     undertekst: string;
 }
 
-const LenkepanelTilKontaktliste: React.FunctionComponent<Props> = props => {
+const LenkepanelKontaktliste: React.FunctionComponent<Props> = props => {
     // TODO: Fiks any
     const linkCreator = (linkProps: any) => (
         <a
             onClick={() => {
+                // TODO: Endre navn på event
                 logEvent(
                     'veiviserarbeidsgiver.inkludering.kontaktskjema.vil-ringe-knapp'
                 );
@@ -44,4 +45,4 @@ const LenkepanelTilKontaktliste: React.FunctionComponent<Props> = props => {
     );
 };
 
-export default LenkepanelTilKontaktliste;
+export default LenkepanelKontaktliste;

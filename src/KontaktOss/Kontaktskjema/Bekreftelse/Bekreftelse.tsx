@@ -1,12 +1,12 @@
 import * as React from 'react';
 import Bekreftelseboks from './Bekreftelseboks/Bekreftelseboks';
-import BekreftelseLenkepanel from './bekreftelse-lenkepanel/bekreftelse-lenkepanel';
+import BekreftelseLenkepanel from './LenkepanelBekreftelse/LenkepanelBekreftelse';
 // TODO: Legg til Banner
 // import Banner from '../../../../komponenter/banner/banner';
 import { scrollToBanner } from '../../../utils/scrollUtils';
-import './kontaktskjemabekreftelse.less';
+import './Bekreftelse.less';
 
-class KontaktskjemaBekreftelse extends React.Component {
+class Bekreftelse extends React.Component {
     componentDidMount() {
         scrollToBanner();
     }
@@ -27,4 +27,4 @@ class KontaktskjemaBekreftelse extends React.Component {
     }
 }
 
-export default KontaktskjemaBekreftelse;
+export default Bekreftelse;

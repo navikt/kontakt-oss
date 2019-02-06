@@ -3,7 +3,7 @@ import Veilederpanel from 'nav-frontend-veilederpanel';
 import { Element } from 'nav-frontend-typografi';
 import Normaltekst from 'nav-frontend-typografi/lib/normaltekst';
 import veilederBilde from './kvinne.svg';
-import './arbeidsgiverTlfInfo.less';
+import './ArbeidsgiverTlfInfo.less';
 
 const ArbeidsgiverTlfInfo = () => {
     return (

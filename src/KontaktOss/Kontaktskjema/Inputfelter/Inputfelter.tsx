@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { Element } from 'nav-frontend-typografi';
 import { Input, Select } from 'nav-frontend-skjema';
-import { KontaktskjemaInputProps, SkjemaId } from '../KontaktSkjema';
+import { KontaktskjemaInputProps, SkjemaId } from '../Kontaktskjema';
 import { fylker, getAlfabetiserteKommuner } from '../../../utils/fylker';
-import './kontaktskjemainputfelter.less';
+import './Inputfelter.less';
 
 interface OwnProps {
     fylkeNokkel?: string;
@@ -12,7 +12,7 @@ interface OwnProps {
 
 type Props = OwnProps & KontaktskjemaInputProps;
 
-const KontaktskjemaInputfelter: React.FunctionComponent<Props> = props => {
+const Inputfelter: React.FunctionComponent<Props> = props => {
     const kommunerOptions = getAlfabetiserteKommuner(props.fylkeNokkel).map(
         kommune => (
             <option value={JSON.stringify(kommune)} key={kommune.nummer}>
@@ -112,4 +112,4 @@ const KontaktskjemaInputfelter: React.FunctionComponent<Props> = props => {
     );
 };
 
-export default KontaktskjemaInputfelter;
+export default Inputfelter;

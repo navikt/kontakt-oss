@@ -1,4 +1,4 @@
-import { Besvarelse } from './KontaktSkjema';
+import { Besvarelse } from './Kontaktskjema';
 
 const isFalsyOrEmpty = (str: string | undefined): boolean => {
     return !str || str === '';

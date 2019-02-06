@@ -5,9 +5,9 @@ import { LenkepanelBase } from 'nav-frontend-lenkepanel/lib';
 import { Link } from 'react-router-dom';
 import { SAMLESIDE_PATH } from '../../../../utils/konstanter';
 import veiledereIllustrasjon from './veiledere.svg';
-import './bekreftelse-lenkepanel.less';
+import './LenkepanelBekreftelse.less';
 
-const BekreftelseLenkepanel = () => (
+const LenkepanelBekreftelse = () => (
     <LenkepanelBase
         href={SAMLESIDE_PATH}
         className="bekreftelse-lenkepanel"
@@ -31,4 +31,4 @@ const BekreftelseLenkepanel = () => (
     </LenkepanelBase>
 );
 
-export default BekreftelseLenkepanel;
+export default LenkepanelBekreftelse;
