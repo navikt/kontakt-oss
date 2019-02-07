@@ -6,6 +6,7 @@ const getDecorator = require('./decorator');
 const Promise = require('promise');
 const sonekrysning = require('./sonekrysning');
 const basePath = require('./basePath');
+const createEnvSettingsFile = require('./envSettings');
 
 const buildPath = path.join(__dirname, '../../build');
 
@@ -14,6 +15,8 @@ app.use(basePath('/api'), sonekrysning);
 app.engine('html', mustacheExpress());
 app.set('view engine', 'mustache');
 app.set('views', buildPath);
+
+createEnvSettingsFile(path.resolve(`${buildPath}/static/js/settings.js`));
 
 const renderApp = decoratorFragments =>
     new Promise((resolve, reject) => {
@@ -31,6 +34,10 @@ const startServer = html => {
 
     app.get(basePath('/internal/isAlive'), (req, res) => res.sendStatus(200));
     app.get(basePath('/internal/isReady'), (req, res) => res.sendStatus(200));
+
+    app.get('/static/js/settings.js', (req, res) => {
+        res.sendFile(path.resolve(`${buildPath}/static/js/settings.js`));
+    });
 
     app.get(basePath('/*'), (req, res) => {
         res.send(html);
