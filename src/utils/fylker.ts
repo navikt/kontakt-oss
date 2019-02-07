@@ -1,5 +1,5 @@
 import { kommuner } from './kommuner';
-import { BASE_PATH } from './konstanter';
+import { BASE_PATH } from './paths';
 
 export interface FylkeModell {
     nokkel: string;

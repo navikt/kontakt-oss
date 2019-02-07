@@ -2,12 +2,12 @@ import * as React from 'react';
 import { Undertittel } from 'nav-frontend-typografi';
 import Normaltekst from 'nav-frontend-typografi/lib/normaltekst';
 import { LenkepanelBase } from 'nav-frontend-lenkepanel/lib';
-import { VEIVISER_PATH } from '../../../../utils/konstanter';
+import { VEIVISER_URL } from '../../../../utils/konstanter';
 import veiledereIllustrasjon from './veiledere.svg';
 import './LenkepanelBekreftelse.less';
 
 const LenkepanelBekreftelse = () => (
-    <LenkepanelBase href={VEIVISER_PATH} className="bekreftelse-lenkepanel">
+    <LenkepanelBase href={VEIVISER_URL} className="bekreftelse-lenkepanel">
         <img
             src={veiledereIllustrasjon}
             className="bekreftelse-lenkepanel__ikon"

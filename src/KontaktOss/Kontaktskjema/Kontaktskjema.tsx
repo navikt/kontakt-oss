@@ -1,6 +1,6 @@
 import { Hovedknapp } from 'nav-frontend-knapper';
 import * as React from 'react';
-import { Link, RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps } from 'react-router-dom';
 import Inputfelter, { SkjemaId } from './Inputfelter/Inputfelter';
 import LenkepanelBekreftelse from './LenkepanelKontaktliste/LenkepanelKontaktliste';
 import Infoboks from './Infoboks/Infoboks';
@@ -18,8 +18,9 @@ import {
     pilotfylkerForKontaktskjema,
 } from '../../utils/fylker';
 import { FeatureToggles, medFeatureToggles } from '../FeatureTogglesProvider';
-import { BEKREFTELSE_PATH, VEIVISER_PATH } from '../../utils/konstanter';
 import './Kontaktskjema.less';
+import { BEKREFTELSE_PATH } from '../../utils/paths';
+import { VEIVISER_URL } from '../../utils/konstanter';
 
 export interface Besvarelse {
     kommune?: KommuneModell;
@@ -105,7 +106,7 @@ class Kontaktskjema extends React.Component<Props, State> {
         );
 
         const skalViseHeleSkjemaet =
-            pilotfylkeErValgt && this.props.kontaktskjemaForPilotfylker;
+            pilotfylkeErValgt && this.props.pilotfylkerFeature;
         const skalBareViseLenkeTilTlfListe = fylke && !skalViseHeleSkjemaet;
 
         const vilDuHellerRinge = skalViseHeleSkjemaet && (
@@ -152,7 +153,7 @@ class Kontaktskjema extends React.Component<Props, State> {
                     Send inn
                 </Hovedknapp>
                 <a
-                    href={VEIVISER_PATH}
+                    href={VEIVISER_URL}
                     className="kontaktskjema__avbryt-lenke lenke typo-normal"
                 >
                     Avbryt

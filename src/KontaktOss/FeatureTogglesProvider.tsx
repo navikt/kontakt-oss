@@ -1,11 +1,12 @@
 import * as React from 'react';
+import { PILOTFYLKER_TOGGLE_URL } from '../utils/konstanter';
 
 export interface FeatureToggles {
-    kontaktskjemaForPilotfylker: boolean;
+    pilotfylkerFeature: boolean;
 }
 
 const defaultFeatureToggles: FeatureToggles = {
-    kontaktskjemaForPilotfylker: false,
+    pilotfylkerFeature: false,
 };
 
 const FeatureTogglesContext = React.createContext(defaultFeatureToggles);
@@ -21,20 +22,15 @@ export class FeatureTogglesProvider extends React.Component<
     }
 
     componentDidMount() {
-        this.setState({ kontaktskjemaForPilotfylker: true });
-        // TODO: Legg til Unleash, endre navn på feature
-        // fetch(
-        //     UNLEASH_URL +
-        //         '?feature=veiviserarbeidsgiver-inkluderingsknapp' +
-        //         '&feature=veiviserarbeidsgiver-kontaktskjema'
-        // )
-        //     .then(response => response.json())
-        //     .then(value =>
-        //         this.setState({
-        //             kontaktskjemaForPilotfylker:
-        //                 value['veiviserarbeidsgiver-kontaktskjema'],
-        //         })
-        //     );
+        // Bryr seg ikke om miljø, bare om feature er globalt av eller på
+        fetch(PILOTFYLKER_TOGGLE_URL)
+            .then(response => response.json())
+            .then(json => json['enabled'])
+            .then(toggle =>
+                this.setState({
+                    pilotfylkerFeature: toggle,
+                })
+            );
     }
 
     render() {

@@ -4,8 +4,8 @@ import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import KontaktOss from './KontaktOss/KontaktOss';
 import { FeatureTogglesProvider } from './KontaktOss/FeatureTogglesProvider';
 import Banner from './Banner/Banner';
-import { BASE_PATH, BEKREFTELSE_PATH } from './utils/konstanter';
 import Bekreftelse from './KontaktOss/Kontaktskjema/Bekreftelse/Bekreftelse';
+import { BASE_PATH, BEKREFTELSE_PATH } from './utils/paths';
 
 class App extends React.Component {
     render() {
