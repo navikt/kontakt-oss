@@ -1,6 +1,4 @@
 import * as React from 'react';
-// TODO: Legg til Banner
-// import Banner from '../../komponenter/banner/banner';
 import { RouteComponentProps } from 'react-router';
 import Temaknapper from './Temaknapper/Temaknapper';
 import ArbeidsgiverTlfInfo from './ArbeidsgiverTlfIInfo/ArbeidsgiverTlfInfo';
@@ -42,20 +40,16 @@ class KontaktOss extends React.Component<RouteComponentProps, State> {
             this.state.tema && !skalViseKontaktskjema;
 
         return (
-            <>
-                {/* TODO: Legg til Banner */}
-                {/*<Banner banner="kontaktskjema" tittel="Kom i kontakt med NAV" />*/}
-                <div className="kontakt-oss">
-                    <Temaknapper
-                        velgTema={this.velgTema}
-                        valgtTema={this.state.tema}
-                    />
-                    {skalViseKontaktskjema && (
-                        <Kontaktskjema tema={this.state.tema} {...this.props} />
-                    )}
-                    {skalViseArbeidsgiverTlf && <ArbeidsgiverTlfInfo />}
-                </div>
-            </>
+            <div className="kontakt-oss">
+                <Temaknapper
+                    velgTema={this.velgTema}
+                    valgtTema={this.state.tema}
+                />
+                {skalViseKontaktskjema && (
+                    <Kontaktskjema tema={this.state.tema!} {...this.props} />
+                )}
+                {skalViseArbeidsgiverTlf && <ArbeidsgiverTlfInfo />}
+            </div>
         );
     }
 }

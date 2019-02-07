@@ -23,7 +23,7 @@ export type KontaktskjemaModell = {
     etternavn?: string;
     epost?: string;
     telefonnr?: string;
-    tema?: Tema;
+    tema: Tema;
 };
 
 export const sendKontaktskjema = (

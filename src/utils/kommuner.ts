@@ -1,4 +1,3 @@
-// TODO: Fikse any
 export const kommuner: any = {
     'aust-agder': [
         {

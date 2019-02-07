@@ -18,7 +18,7 @@ import {
     pilotfylkerForKontaktskjema,
 } from '../../utils/fylker';
 import { FeatureToggles, medFeatureToggles } from '../FeatureTogglesProvider';
-import { BEKREFTELSE_PATH, SAMLESIDE_PATH } from '../../utils/konstanter';
+import { BEKREFTELSE_PATH, VEIVISER_PATH } from '../../utils/konstanter';
 import './Kontaktskjema.less';
 
 export interface Besvarelse {
@@ -39,9 +39,8 @@ interface State {
 }
 
 type Props = RouteComponentProps &
-    // TODO: Skal tema være optional?
     FeatureToggles & {
-        tema?: Tema;
+        tema: Tema;
     };
 
 class Kontaktskjema extends React.Component<Props, State> {
@@ -52,7 +51,6 @@ class Kontaktskjema extends React.Component<Props, State> {
     };
 
     avgiSvar = (id: SkjemaId, input: string) => {
-        // TODO: Fiks any
         const nyBesvarelse: any = { ...this.state.besvarelse };
         nyBesvarelse[id.toString()] = input;
         this.setState({
@@ -62,9 +60,7 @@ class Kontaktskjema extends React.Component<Props, State> {
     };
 
     sendInnBesvarelse = () => {
-        logEvent(
-            'veiviserarbeidsgiver.inkludering.kontaktskjema.send-inn-klikk'
-        );
+        logEvent('kontakt-oss.send-inn-klikk');
         const kommune = this.state.besvarelse.kommune;
         const kontaktskjema: KontaktskjemaModell = {
             ...this.state.besvarelse,
@@ -75,16 +71,13 @@ class Kontaktskjema extends React.Component<Props, State> {
 
         sendKontaktskjema(kontaktskjema).then(
             () => {
-                logEvent(
-                    'veiviserarbeidsgiver.inkludering.kontaktskjema.success',
-                    {
-                        tema: mapTilTemaEvent(this.props.tema),
-                    }
-                );
+                logEvent('kontakt-oss.success', {
+                    tema: mapTilTemaEvent(this.props.tema),
+                });
                 this.props.history.push(BEKREFTELSE_PATH);
             },
             () => {
-                logEvent('veiviserarbeidsgiver.inkludering.kontaktskjema.fail');
+                logEvent('kontakt-oss.fail');
                 this.setState({
                     innsendingFeilet: true,
                 });
@@ -158,12 +151,12 @@ class Kontaktskjema extends React.Component<Props, State> {
                 >
                     Send inn
                 </Hovedknapp>
-                <Link
-                    to={SAMLESIDE_PATH}
+                <a
+                    href={VEIVISER_PATH}
                     className="kontaktskjema__avbryt-lenke lenke typo-normal"
                 >
                     Avbryt
-                </Link>
+                </a>
             </>
         );
 

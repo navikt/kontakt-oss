@@ -22,7 +22,7 @@ export class FeatureTogglesProvider extends React.Component<
 
     componentDidMount() {
         this.setState({ kontaktskjemaForPilotfylker: true });
-        // TODO: Legg til Unleash
+        // TODO: Legg til Unleash, endre navn på feature
         // fetch(
         //     UNLEASH_URL +
         //         '?feature=veiviserarbeidsgiver-inkluderingsknapp' +

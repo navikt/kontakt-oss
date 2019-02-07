@@ -13,14 +13,10 @@ interface Props {
 }
 
 const LenkepanelKontaktliste: React.FunctionComponent<Props> = props => {
-    // TODO: Fiks any
     const linkCreator = (linkProps: any) => (
         <a
             onClick={() => {
-                // TODO: Endre navn på event
-                logEvent(
-                    'veiviserarbeidsgiver.inkludering.kontaktskjema.vil-ringe-knapp'
-                );
+                logEvent('kontakt-oss.vil-ringe-knapp');
             }}
             {...linkProps}
         >
