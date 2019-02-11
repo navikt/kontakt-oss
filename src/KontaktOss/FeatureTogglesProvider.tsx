@@ -24,7 +24,10 @@ export class FeatureTogglesProvider extends React.Component<
     componentDidMount() {
         // Bryr seg ikke om miljø, bare om feature er globalt av eller på
         fetch(PILOTFYLKER_TOGGLE_URL)
-            .then(response => response.json())
+            .then(response => {
+                console.log('Response', response.json()); // tslint:disable-line no-console
+                return response.json();
+            })
             .then(json => json['enabled'])
             .then(toggle =>
                 this.setState({
