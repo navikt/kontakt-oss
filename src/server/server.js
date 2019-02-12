@@ -35,10 +35,6 @@ const startServer = html => {
     app.get(basePath('/internal/isAlive'), (req, res) => res.sendStatus(200));
     app.get(basePath('/internal/isReady'), (req, res) => res.sendStatus(200));
 
-    app.get('/static/js/settings.js', (req, res) => {
-        res.sendFile(path.resolve(`${buildPath}/static/js/settings.js`));
-    });
-
     app.get(basePath('/*'), (req, res) => {
         res.send(html);
     });
