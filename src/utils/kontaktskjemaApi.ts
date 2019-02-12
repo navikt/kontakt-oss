@@ -1,11 +1,4 @@
-import Environment from './Environment';
-
-const erProd = Environment.MILJO === 'prod-sbs';
-const KONTAKTSKJEMA_API = erProd
-    ? 'https://arbeidsgiver.nav.no'
-    : 'https://arbeidsgiver-q.nav.no';
-
-export const KONTAKTSKJEMA_PATH = `${KONTAKTSKJEMA_API}/kontaktskjema/meldInteresse`;
+import { SEND_KONTAKTSKJEMA_PATH } from './paths';
 
 export type Tema =
     | 'Rekruttering'
@@ -30,11 +23,8 @@ export type KontaktskjemaModell = {
 export const sendKontaktskjema = (
     kontaktskjema: KontaktskjemaModell
 ): Promise<Response> => {
-    return fetch(KONTAKTSKJEMA_PATH, {
+    return fetch(SEND_KONTAKTSKJEMA_PATH, {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
         body: JSON.stringify(kontaktskjema),
     }).then(response => response.json());
 };
