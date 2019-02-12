@@ -25,6 +25,9 @@ export const sendKontaktskjema = (
 ): Promise<Response> => {
     return fetch(SEND_KONTAKTSKJEMA_PATH, {
         method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
         body: JSON.stringify(kontaktskjema),
     }).then(response => response.json());
 };
