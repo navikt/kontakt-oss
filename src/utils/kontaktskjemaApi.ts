@@ -1,5 +1,6 @@
-// TODO: Hent NAIS_CLUSTER_NAME i Node server og eksponer til frontend
-const erProd = document.location.href.includes('tjenester.nav.no');
+import Environment from './Environment';
+
+const erProd = Environment.MILJO === 'prod-sbs';
 const KONTAKTSKJEMA_API = erProd
     ? 'https://arbeidsgiver.nav.no'
     : 'https://arbeidsgiver-q.nav.no';
