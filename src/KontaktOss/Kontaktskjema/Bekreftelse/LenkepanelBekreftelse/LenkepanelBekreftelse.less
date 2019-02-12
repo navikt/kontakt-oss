@@ -1,0 +1,35 @@
+@import '~nav-frontend-core/less/_variabler';
+
+.bekreftelse-lenkepanel {
+  background-color: @navDypBlaLighten80;
+
+  &__innhold {
+    width: 100%;
+  }
+
+  &__ikon {
+    display: none;
+  }
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+@media (min-width: @screen-sm-min) {
+  .bekreftelse-lenkepanel {
+    height: 10rem;
+
+    &__tittel {
+      margin-bottom: 0.5rem;
+    }
+
+    &__ikon {
+      margin-left: 2rem;
+      margin-right: 3rem;
+      display: block;
+      margin-bottom: -2rem;
+      height: 100%;
+    }
+  }
+}
