@@ -6,7 +6,8 @@ export interface FeatureToggles {
 }
 
 const defaultFeatureToggles: FeatureToggles = {
-    pilotfylkerFeature: false,
+    // TODO: Endre til false.
+    pilotfylkerFeature: true,
 };
 
 const FeatureTogglesContext = React.createContext(defaultFeatureToggles);
@@ -22,18 +23,18 @@ export class FeatureTogglesProvider extends React.Component<
     }
 
     componentDidMount() {
+        // TODO: Hent featuretoggle.
+        //  Enten fra backend eller fra node backend.
+        //  Kan ikke hente direkte fra frontend pga. CORS.
         // Bryr seg ikke om miljø, bare om feature er globalt av eller på
-        fetch(PILOTFYLKER_TOGGLE_URL)
-            .then(response => {
-                console.log('Response', response.json()); // tslint:disable-line no-console
-                return response.json();
-            })
-            .then(json => json['enabled'])
-            .then(toggle =>
-                this.setState({
-                    pilotfylkerFeature: toggle,
-                })
-            );
+        // fetch(PILOTFYLKER_TOGGLE_URL)
+        //     .then(response => response.json())
+        //     .then(json => json['enabled'])
+        //     .then(toggle =>
+        //         this.setState({
+        //             pilotfylkerFeature: toggle,
+        //         })
+        //     );
     }
 
     render() {
