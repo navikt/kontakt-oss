@@ -32,17 +32,9 @@ export const sendKontaktskjema = (
 ): Promise<Response> => {
     return fetch(KONTAKTSKJEMA_PATH, {
         method: 'POST',
-        mode: 'cors',
         headers: {
             'Content-Type': 'application/json',
-            NAV_CSRF_PROTECTION: getCookie('NAV_CSRF_PROTECTION'),
         },
         body: JSON.stringify(kontaktskjema),
     }).then(response => response.json());
-};
-
-const getCookie = (name: string) => {
-    const re = new RegExp(`${name}=([^;]+)`);
-    const match = re.exec(document.cookie);
-    return match !== null ? match[1] : '';
 };
