@@ -145,19 +145,23 @@ class Kontaktskjema extends React.Component<Props, State> {
             />
         );
 
-        let feilmeldingTekst = undefined;
-        if (!this.state.besvarelseErGyldig) {
-            feilmeldingTekst = 'Du må fylle ut alle feltene for å sende inn.';
-            if (!this.state.gyldigOrgnr) {
+        const lagFeilmelding = () => {
+            let feilmeldingTekst = undefined;
+            if (!this.state.besvarelseErGyldig) {
                 feilmeldingTekst =
-                    'Ett eller flere av feltene er ikke fylt ut riktig.';
+                    'Du må fylle ut alle feltene for å sende inn.';
+                if (!this.state.gyldigOrgnr) {
+                    feilmeldingTekst =
+                        'Ett eller flere av feltene er ikke fylt ut riktig.';
+                }
+            } else if (this.state.innsendingFeilet) {
+                feilmeldingTekst =
+                    'Noe gikk feil med innsendingen. Vennligst prøv igjen senere.';
             }
-        } else if (this.state.innsendingFeilet) {
-            feilmeldingTekst =
-                'Noe gikk feil med innsendingen. Vennligst prøv igjen senere.';
-        } else {
-            feilmeldingTekst = undefined;
-        }
+            return feilmeldingTekst;
+        };
+
+        const feilmeldingTekst = lagFeilmelding();
 
         const skjemaInnsendingsInfo = (
             <>
