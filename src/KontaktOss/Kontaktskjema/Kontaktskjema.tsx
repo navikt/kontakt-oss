@@ -4,7 +4,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import Inputfelter, { SkjemaId } from './Inputfelter/Inputfelter';
 import LenkepanelBekreftelse from './LenkepanelKontaktliste/LenkepanelKontaktliste';
 import Infoboks from './Infoboks/Infoboks';
-import { besvarelseErGyldig } from './validering';
+import { besvarelseErGyldig, orgnrOk } from './validering';
 import Feilmelding from './Feilmelding/Feilmelding';
 import {
     KontaktskjemaModell,
@@ -23,20 +23,21 @@ import { BEKREFTELSE_PATH } from '../../utils/paths';
 import { VEIVISER_URL } from '../../utils/konstanter';
 
 export interface Besvarelse {
-    kommune?: KommuneModell;
-    bedriftsnavn?: string;
-    orgnr?: string;
-    fornavn?: string;
-    etternavn?: string;
-    epost?: string;
-    telefonnr?: string;
-    fylke?: string;
+    kommune: KommuneModell;
+    bedriftsnavn: string;
+    orgnr: string;
+    fornavn: string;
+    etternavn: string;
+    epost: string;
+    telefonnr: string;
+    fylke: string;
 }
 
 interface State {
     besvarelse: Besvarelse;
     besvarelseErGyldig: boolean;
     innsendingFeilet: boolean;
+    ugyldigOrgnr: boolean;
 }
 
 type Props = RouteComponentProps &
@@ -46,9 +47,19 @@ type Props = RouteComponentProps &
 
 class Kontaktskjema extends React.Component<Props, State> {
     state: State = {
-        besvarelse: {},
+        besvarelse: {
+            fylke: '',
+            kommune: { navn: '', nummer: '' },
+            bedriftsnavn: '',
+            orgnr: '',
+            fornavn: '',
+            etternavn: '',
+            epost: '',
+            telefonnr: '',
+        },
         besvarelseErGyldig: true,
         innsendingFeilet: false,
+        ugyldigOrgnr: false,
     };
 
     avgiSvar = (id: SkjemaId, input: string) => {
@@ -57,14 +68,17 @@ class Kontaktskjema extends React.Component<Props, State> {
         this.setState({
             besvarelse: nyBesvarelse,
             besvarelseErGyldig: true,
+            ugyldigOrgnr: false,
         });
     };
 
     sendInnBesvarelse = () => {
         logEvent('kontakt-oss.send-inn-klikk');
         const kommune = this.state.besvarelse.kommune;
+        const orgnr = this.state.besvarelse.orgnr.replace(/ /g, '');
         const kontaktskjema: KontaktskjemaModell = {
             ...this.state.besvarelse,
+            orgnr: orgnr,
             kommune: kommune!.navn,
             kommunenr: kommune!.nummer,
             tema: this.props.tema,
@@ -92,6 +106,12 @@ class Kontaktskjema extends React.Component<Props, State> {
             this.sendInnBesvarelse();
         } else {
             this.setState({ besvarelseErGyldig: false });
+        }
+
+        if (!orgnrOk(this.state.besvarelse.orgnr)) {
+            this.setState({ ugyldigOrgnr: true });
+        } else {
+            this.setState({ ugyldigOrgnr: false });
         }
     };
 
@@ -171,6 +191,7 @@ class Kontaktskjema extends React.Component<Props, State> {
                         avgiSvar={this.avgiSvar}
                         fylkeNokkel={fylke}
                         visKunFylkesvalg={!skalViseHeleSkjemaet}
+                        visOrgnrFeilmelding={this.state.ugyldigOrgnr}
                     />
                     {skalViseHeleSkjemaet && skjemaInnsendingsInfo}
                     {vilDuHellerRinge}

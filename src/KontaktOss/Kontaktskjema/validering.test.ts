@@ -1,10 +1,7 @@
 import { orgnrOk } from './validering';
 
-test('Orgnr kan være undefined', () => {
-    expect(orgnrOk(undefined)).toBeTruthy();
-});
-
-test('Orgnr skal ha 9 siffer', () => {
+test('Orgnr skal ha 0 eller 9 siffer', () => {
+    expect(orgnrOk('')).toBeTruthy();
     expect(orgnrOk('123456789')).toBeTruthy();
 });
 

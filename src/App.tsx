@@ -1,6 +1,6 @@
 import * as React from 'react';
 import './App.less';
-import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import KontaktOss from './KontaktOss/KontaktOss';
 import { FeatureTogglesProvider } from './KontaktOss/FeatureTogglesProvider';
 import Banner from './Banner/Banner';
@@ -20,7 +20,6 @@ class App extends React.Component {
                             path={BEKREFTELSE_PATH}
                             component={Bekreftelse}
                         />
-                        <Redirect to="/" />
                     </Switch>
                 </BrowserRouter>
             </FeatureTogglesProvider>

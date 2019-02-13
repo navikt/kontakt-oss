@@ -19,6 +19,7 @@ interface Props {
     avgiSvar: (id: SkjemaId, input: string) => void;
     fylkeNokkel?: string;
     visKunFylkesvalg: boolean;
+    visOrgnrFeilmelding?: boolean;
 }
 
 const Inputfelter: React.FunctionComponent<Props> = props => {
@@ -65,6 +66,14 @@ const Inputfelter: React.FunctionComponent<Props> = props => {
                 label={<Element>Organisasjonsnummer (valgfritt)</Element>}
                 onChange={event =>
                     props.avgiSvar(SkjemaId.orgnr, event.target.value)
+                }
+                feil={
+                    props.visOrgnrFeilmelding
+                        ? {
+                              feilmelding:
+                                  'Vennligst oppgi et gyldig organisasjonsnummer',
+                          }
+                        : undefined
                 }
             />
             <Input

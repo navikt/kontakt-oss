@@ -18,8 +18,11 @@ export const besvarelseErGyldig = (besvarelse: Besvarelse): boolean => {
     return !harTommeFelter && orgnrOk(besvarelse.orgnr);
 };
 
-export const orgnrOk = (orgnr?: string): boolean => {
-    if (!orgnr) {
+export const orgnrOk = (orgnr: string): boolean => {
+    orgnr = orgnr.replace(/ /g, '');
+    console.log('orgnr', orgnr); // tslint:disable-line no-console
+
+    if (orgnr.length === 0) {
         return true;
     }
 
