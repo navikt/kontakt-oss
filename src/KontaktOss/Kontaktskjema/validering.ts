@@ -21,5 +21,8 @@ export const besvarelseErGyldig = (besvarelse: Besvarelse): boolean => {
 
 export const orgnrOk = (orgnr: string): boolean => {
     orgnr = fjernWhitespace(orgnr);
-    return /^\d{0,9}$/.test(orgnr);
+    if (orgnr.length === 0) {
+        return true;
+    }
+    return /^\d{9}$/.test(orgnr);
 };
