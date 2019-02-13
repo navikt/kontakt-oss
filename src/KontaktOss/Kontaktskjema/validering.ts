@@ -15,5 +15,16 @@ export const besvarelseErGyldig = (besvarelse: Besvarelse): boolean => {
         isFalsyOrEmpty(besvarelse.etternavn) ||
         isFalsyOrEmpty(besvarelse.fornavn) ||
         isFalsyOrEmpty(besvarelse.telefonnr);
-    return !harTommeFelter;
+    return !harTommeFelter && orgnrOk(besvarelse.orgnr);
+};
+
+export const orgnrOk = (orgnr?: string): boolean => {
+    if (!orgnr) {
+        return true;
+    }
+
+    const inneholderBareTall = RegExp(/^[0-9]+$/).test(orgnr);
+    const inneholderNiTegn = orgnr.length <= 9;
+
+    return inneholderBareTall && inneholderNiTegn;
 };
