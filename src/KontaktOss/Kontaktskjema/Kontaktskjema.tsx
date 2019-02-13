@@ -21,6 +21,7 @@ import { FeatureToggles, medFeatureToggles } from '../FeatureTogglesProvider';
 import './Kontaktskjema.less';
 import { BEKREFTELSE_PATH } from '../../utils/paths';
 import { VEIVISER_URL } from '../../utils/konstanter';
+import { fjernWhitespace } from '../../utils/stringUtils';
 
 export interface Besvarelse {
     kommune: KommuneModell;
@@ -75,10 +76,9 @@ class Kontaktskjema extends React.Component<Props, State> {
     sendInnBesvarelse = () => {
         logEvent('kontakt-oss.send-inn-klikk');
         const kommune = this.state.besvarelse.kommune;
-        const orgnr = this.state.besvarelse.orgnr.replace(/ /g, '');
         const kontaktskjema: KontaktskjemaModell = {
             ...this.state.besvarelse,
-            orgnr: orgnr,
+            orgnr: fjernWhitespace(this.state.besvarelse.orgnr),
             kommune: kommune!.navn,
             kommunenr: kommune!.nummer,
             tema: this.props.tema,

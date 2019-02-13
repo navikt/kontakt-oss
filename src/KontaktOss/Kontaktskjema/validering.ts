@@ -1,4 +1,5 @@
 import { Besvarelse } from './Kontaktskjema';
+import { fjernWhitespace } from '../../utils/stringUtils';
 
 const isFalsyOrEmpty = (str: string | undefined): boolean => {
     return !str || str === '';
@@ -19,7 +20,7 @@ export const besvarelseErGyldig = (besvarelse: Besvarelse): boolean => {
 };
 
 export const orgnrOk = (orgnr: string): boolean => {
-    orgnr = orgnr.replace(/ /g, '');
+    orgnr = fjernWhitespace(orgnr);
 
     if (orgnr.length === 0) {
         return true;
