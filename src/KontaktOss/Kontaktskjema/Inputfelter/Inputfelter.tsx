@@ -4,10 +4,6 @@ import { Input, Select } from 'nav-frontend-skjema';
 import { fylker, getAlfabetiserteKommuner } from '../../../utils/fylker';
 import './Inputfelter.less';
 
-interface KontaktskjemaInputProps {
-    avgiSvar: (id: SkjemaId, input: string) => void;
-}
-
 export enum SkjemaId {
     kommune = 'kommune',
     bedriftsnavn = 'bedriftsnavn',
@@ -19,12 +15,11 @@ export enum SkjemaId {
     fylke = 'fylke',
 }
 
-interface OwnProps {
+interface Props {
+    avgiSvar: (id: SkjemaId, input: string) => void;
     fylkeNokkel?: string;
     visKunFylkesvalg: boolean;
 }
-
-type Props = OwnProps & KontaktskjemaInputProps;
 
 const Inputfelter: React.FunctionComponent<Props> = props => {
     const kommunerOptions = getAlfabetiserteKommuner(props.fylkeNokkel).map(
