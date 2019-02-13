@@ -12,7 +12,7 @@ export type KontaktskjemaModell = {
     kommune?: string;
     kommunenr?: string;
     bedriftsnavn?: string;
-    bedriftsnr?: string;
+    orgnr?: string;
     fornavn?: string;
     etternavn?: string;
     epost?: string;

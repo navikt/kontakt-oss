@@ -11,7 +11,7 @@ interface KontaktskjemaInputProps {
 export enum SkjemaId {
     kommune = 'kommune',
     bedriftsnavn = 'bedriftsnavn',
-    bedriftsnr = 'bedriftsnr', // TODO Dette skal være orgnr. Må endres i backend og frontend.
+    orgnr = 'orgnr',
     fornavn = 'fornavn',
     etternavn = 'etternavn',
     epost = 'epost',
@@ -69,7 +69,7 @@ const Inputfelter: React.FunctionComponent<Props> = props => {
                 className="kontaktskjema-input__felt"
                 label={<Element>Organisasjonsnummer (valgfritt)</Element>}
                 onChange={event =>
-                    props.avgiSvar(SkjemaId.bedriftsnr, event.target.value)
+                    props.avgiSvar(SkjemaId.orgnr, event.target.value)
                 }
             />
             <Input

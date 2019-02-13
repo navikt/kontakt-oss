@@ -25,7 +25,7 @@ import { VEIVISER_URL } from '../../utils/konstanter';
 export interface Besvarelse {
     kommune?: KommuneModell;
     bedriftsnavn?: string;
-    bedriftsnr?: string;
+    orgnr?: string;
     fornavn?: string;
     etternavn?: string;
     epost?: string;
