@@ -1,5 +1,6 @@
 import { Besvarelse } from './Kontaktskjema';
 import { validerOrgnr } from '../../utils/orgnrUtils';
+import { fjernWhitespace } from '../../utils/stringUtils';
 
 const isFalsyOrEmpty = (str: string | undefined): boolean => {
     return !str || str === '';
