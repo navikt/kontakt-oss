@@ -21,13 +21,5 @@ export const besvarelseErGyldig = (besvarelse: Besvarelse): boolean => {
 
 export const orgnrOk = (orgnr: string): boolean => {
     orgnr = fjernWhitespace(orgnr);
-
-    if (orgnr.length === 0) {
-        return true;
-    }
-
-    const inneholderBareTall = RegExp(/^[0-9]+$/).test(orgnr);
-    const inneholderNiTegn = orgnr.length <= 9;
-
-    return inneholderBareTall && inneholderNiTegn;
+    return /^\d{0,9}$/.test(orgnr);
 };
