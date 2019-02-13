@@ -4,7 +4,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import Inputfelter, { SkjemaId } from './Inputfelter/Inputfelter';
 import LenkepanelBekreftelse from './LenkepanelKontaktliste/LenkepanelKontaktliste';
 import Infoboks from './Infoboks/Infoboks';
-import { besvarelseErGyldig } from './validering';
+import { besvarelseErGyldig, orgnrOk } from './validering';
 import Feilmelding from './Feilmelding/Feilmelding';
 import {
     KontaktskjemaModell,
@@ -21,22 +21,24 @@ import { FeatureToggles, medFeatureToggles } from '../FeatureTogglesProvider';
 import './Kontaktskjema.less';
 import { BEKREFTELSE_PATH } from '../../utils/paths';
 import { VEIVISER_URL } from '../../utils/konstanter';
+import { fjernWhitespace } from '../../utils/stringUtils';
 
 export interface Besvarelse {
-    kommune?: KommuneModell;
-    bedriftsnavn?: string;
-    bedriftsnr?: string;
-    fornavn?: string;
-    etternavn?: string;
-    epost?: string;
-    telefonnr?: string;
-    fylke?: string;
+    kommune: KommuneModell;
+    bedriftsnavn: string;
+    orgnr: string;
+    fornavn: string;
+    etternavn: string;
+    epost: string;
+    telefonnr: string;
+    fylke: string;
 }
 
 interface State {
     besvarelse: Besvarelse;
     besvarelseErGyldig: boolean;
     innsendingFeilet: boolean;
+    gyldigOrgnr: boolean;
 }
 
 type Props = RouteComponentProps &
@@ -46,9 +48,19 @@ type Props = RouteComponentProps &
 
 class Kontaktskjema extends React.Component<Props, State> {
     state: State = {
-        besvarelse: {},
+        besvarelse: {
+            fylke: '',
+            kommune: { navn: '', nummer: '' },
+            bedriftsnavn: '',
+            orgnr: '',
+            fornavn: '',
+            etternavn: '',
+            epost: '',
+            telefonnr: '',
+        },
         besvarelseErGyldig: true,
         innsendingFeilet: false,
+        gyldigOrgnr: true,
     };
 
     avgiSvar = (id: SkjemaId, input: string) => {
@@ -57,6 +69,7 @@ class Kontaktskjema extends React.Component<Props, State> {
         this.setState({
             besvarelse: nyBesvarelse,
             besvarelseErGyldig: true,
+            gyldigOrgnr: true,
         });
     };
 
@@ -65,6 +78,7 @@ class Kontaktskjema extends React.Component<Props, State> {
         const kommune = this.state.besvarelse.kommune;
         const kontaktskjema: KontaktskjemaModell = {
             ...this.state.besvarelse,
+            orgnr: fjernWhitespace(this.state.besvarelse.orgnr),
             kommune: kommune!.navn,
             kommunenr: kommune!.nummer,
             tema: this.props.tema,
@@ -93,6 +107,27 @@ class Kontaktskjema extends React.Component<Props, State> {
         } else {
             this.setState({ besvarelseErGyldig: false });
         }
+
+        if (!orgnrOk(this.state.besvarelse.orgnr)) {
+            this.setState({ gyldigOrgnr: false });
+        } else {
+            this.setState({ gyldigOrgnr: true });
+        }
+    };
+
+    lagFeilmelding = () => {
+        let feilmeldingTekst = undefined;
+        if (!this.state.besvarelseErGyldig) {
+            feilmeldingTekst = 'Du må fylle ut alle feltene for å sende inn.';
+            if (!this.state.gyldigOrgnr) {
+                feilmeldingTekst =
+                    'Ett eller flere av feltene er ikke fylt ut riktig.';
+            }
+        } else if (this.state.innsendingFeilet) {
+            feilmeldingTekst =
+                'Noe gikk feil med innsendingen. Vennligst prøv igjen senere.';
+        }
+        return feilmeldingTekst;
     };
 
     render() {
@@ -125,6 +160,8 @@ class Kontaktskjema extends React.Component<Props, State> {
             />
         );
 
+        const feilmeldingTekst = this.lagFeilmelding();
+
         const skjemaInnsendingsInfo = (
             <>
                 <Infoboks>
@@ -135,15 +172,9 @@ class Kontaktskjema extends React.Component<Props, State> {
                         kontaktet deg.
                     </div>
                 </Infoboks>
-                {!this.state.besvarelseErGyldig && (
+                {feilmeldingTekst && (
                     <Feilmelding className="kontaktskjema__feilmelding">
-                        Alle feltene må være fylt ut før du sender inn.
-                    </Feilmelding>
-                )}
-                {this.state.innsendingFeilet && (
-                    <Feilmelding className="kontaktskjema__feilmelding">
-                        Noe gikk feil med innsendingen. Vennligst prøv igjen
-                        senere.
+                        {feilmeldingTekst}
                     </Feilmelding>
                 )}
                 <Hovedknapp
@@ -171,6 +202,7 @@ class Kontaktskjema extends React.Component<Props, State> {
                         avgiSvar={this.avgiSvar}
                         fylkeNokkel={fylke}
                         visKunFylkesvalg={!skalViseHeleSkjemaet}
+                        visOrgnrFeilmelding={!this.state.gyldigOrgnr}
                     />
                     {skalViseHeleSkjemaet && skjemaInnsendingsInfo}
                     {vilDuHellerRinge}

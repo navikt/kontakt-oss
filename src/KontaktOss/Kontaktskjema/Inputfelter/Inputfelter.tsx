@@ -4,14 +4,10 @@ import { Input, Select } from 'nav-frontend-skjema';
 import { fylker, getAlfabetiserteKommuner } from '../../../utils/fylker';
 import './Inputfelter.less';
 
-interface KontaktskjemaInputProps {
-    avgiSvar: (id: SkjemaId, input: string) => void;
-}
-
 export enum SkjemaId {
     kommune = 'kommune',
     bedriftsnavn = 'bedriftsnavn',
-    bedriftsnr = 'bedriftsnr', // TODO Dette skal være orgnr. Må endres i backend og frontend.
+    orgnr = 'orgnr',
     fornavn = 'fornavn',
     etternavn = 'etternavn',
     epost = 'epost',
@@ -19,12 +15,12 @@ export enum SkjemaId {
     fylke = 'fylke',
 }
 
-interface OwnProps {
+interface Props {
+    avgiSvar: (id: SkjemaId, input: string) => void;
     fylkeNokkel?: string;
     visKunFylkesvalg: boolean;
+    visOrgnrFeilmelding?: boolean;
 }
-
-type Props = OwnProps & KontaktskjemaInputProps;
 
 const Inputfelter: React.FunctionComponent<Props> = props => {
     const kommunerOptions = getAlfabetiserteKommuner(props.fylkeNokkel).map(
@@ -69,7 +65,15 @@ const Inputfelter: React.FunctionComponent<Props> = props => {
                 className="kontaktskjema-input__felt"
                 label={<Element>Organisasjonsnummer (valgfritt)</Element>}
                 onChange={event =>
-                    props.avgiSvar(SkjemaId.bedriftsnr, event.target.value)
+                    props.avgiSvar(SkjemaId.orgnr, event.target.value)
+                }
+                feil={
+                    props.visOrgnrFeilmelding
+                        ? {
+                              feilmelding:
+                                  'Vennligst oppgi et gyldig organisasjonsnummer',
+                          }
+                        : undefined
                 }
             />
             <Input

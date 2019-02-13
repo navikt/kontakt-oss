@@ -8,15 +8,15 @@ export type Tema =
     | 'Annet';
 
 export type KontaktskjemaModell = {
-    fylke?: string;
-    kommune?: string;
-    kommunenr?: string;
-    bedriftsnavn?: string;
-    bedriftsnr?: string;
-    fornavn?: string;
-    etternavn?: string;
-    epost?: string;
-    telefonnr?: string;
+    fylke: string;
+    kommune: string;
+    kommunenr: string;
+    bedriftsnavn: string;
+    orgnr: string;
+    fornavn: string;
+    etternavn: string;
+    epost: string;
+    telefonnr: string;
     tema: Tema;
 };
 
