@@ -12,15 +12,22 @@ jobs:
         keys:
         - yarn-packages-{{ checksum "yarn.lock" }}
     - run:
-        name: Bygg React app
+        name: Installer avhengigheter
         command: |
           yarn install --frozen-lockfile
-          yarn build
     - save_cache:
         name: Lagre Yarn cache
         key: yarn-packages-{{ checksum "yarn.lock" }}
         paths:
             - ~/.cache/yarn
+    - run:
+        name: Kjør tester
+        command: |
+          yarn test
+    - run:
+        name: Bygg produksjonsversjon av React app
+        command: |
+          yarn build
 
     - setup_remote_docker
     - run:
