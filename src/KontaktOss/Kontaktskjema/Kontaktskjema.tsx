@@ -4,7 +4,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import Inputfelter, { SkjemaId } from './Inputfelter/Inputfelter';
 import LenkepanelBekreftelse from './LenkepanelKontaktliste/LenkepanelKontaktliste';
 import Infoboks from './Infoboks/Infoboks';
-import { besvarelseErGyldig } from './validering';
+import { besvarelseErGyldig, orgnrOk } from './validering';
 import Feilmelding from './Feilmelding/Feilmelding';
 import {
     KontaktskjemaModell,
@@ -22,7 +22,6 @@ import './Kontaktskjema.less';
 import { BEKREFTELSE_PATH } from '../../utils/paths';
 import { VEIVISER_URL } from '../../utils/konstanter';
 import { fjernWhitespace } from '../../utils/stringUtils';
-import { validerOrgnr } from '../../utils/orgnrUtils';
 
 export interface Besvarelse {
     kommune: KommuneModell;
@@ -109,7 +108,7 @@ class Kontaktskjema extends React.Component<Props, State> {
             this.setState({ besvarelseErGyldig: false });
         }
 
-        if (!validerOrgnr(this.state.besvarelse.orgnr)) {
+        if (!orgnrOk(this.state.besvarelse.orgnr)) {
             this.setState({ gyldigOrgnr: false });
         } else {
             this.setState({ gyldigOrgnr: true });

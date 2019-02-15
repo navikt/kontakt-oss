@@ -1,9 +1,7 @@
 // https://www.miles.no/blogg/tema/teknisk/validering-av-norske-data
-import { fjernWhitespace } from './stringUtils';
 
-export const validerOrgnr = (orgNumber: any) => {
-    orgNumber = fjernWhitespace(orgNumber);
-    if (!orgNumber || orgNumber.length !== 9) {
+export const validerOrgnr = (orgNumber: string) => {
+    if (orgNumber.length !== 9) {
         return false;
     }
     return (

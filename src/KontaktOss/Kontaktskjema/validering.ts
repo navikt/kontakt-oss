@@ -17,5 +17,18 @@ export const besvarelseErGyldig = (besvarelse: Besvarelse): boolean => {
         isFalsyOrEmpty(besvarelse.etternavn) ||
         isFalsyOrEmpty(besvarelse.fornavn) ||
         isFalsyOrEmpty(besvarelse.telefonnr);
-    return !harTommeFelter && validerOrgnr(besvarelse.orgnr);
+    return !harTommeFelter && orgnrOk(besvarelse.orgnr);
+};
+
+export const orgnrOk = (orgnr?: string): boolean => {
+    if (!orgnr) {
+        return true;
+    }
+
+    orgnr = fjernWhitespace(orgnr);
+    if (orgnr.length == 0) {
+        return true;
+    }
+
+    return validerOrgnr(orgnr);
 };
