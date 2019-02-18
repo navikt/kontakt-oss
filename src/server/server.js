@@ -5,12 +5,14 @@ const mustacheExpress = require('mustache-express');
 const getDecorator = require('./decorator');
 const Promise = require('promise');
 const sonekrysning = require('./sonekrysning');
+const unleashProxy = require('./unleashProxy');
 const basePath = require('./basePath');
 const createEnvSettingsFile = require('./envSettings');
 
 const buildPath = path.join(__dirname, '../../build');
 
 app.use(basePath('/api'), sonekrysning);
+app.use(basePath('/features'), unleashProxy);
 
 app.engine('html', mustacheExpress());
 app.set('view engine', 'mustache');
