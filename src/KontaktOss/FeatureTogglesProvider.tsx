@@ -1,13 +1,12 @@
 import * as React from 'react';
-import { PILOTFYLKER_TOGGLE_URL } from '../utils/konstanter';
+import { PILOTFYLKER_TOGGLE_PATH } from '../utils/paths';
 
 export interface FeatureToggles {
     pilotfylkerFeature: boolean;
 }
 
 const defaultFeatureToggles: FeatureToggles = {
-    // TODO: Endre til false.
-    pilotfylkerFeature: true,
+    pilotfylkerFeature: false,
 };
 
 const FeatureTogglesContext = React.createContext(defaultFeatureToggles);
@@ -23,18 +22,15 @@ export class FeatureTogglesProvider extends React.Component<
     }
 
     componentDidMount() {
-        // TODO: Hent featuretoggle.
-        //  Enten fra backend eller fra node backend.
-        //  Kan ikke hente direkte fra frontend pga. CORS.
         // Bryr seg ikke om miljø, bare om feature er globalt av eller på
-        // fetch(PILOTFYLKER_TOGGLE_URL)
-        //     .then(response => response.json())
-        //     .then(json => json['enabled'])
-        //     .then(toggle =>
-        //         this.setState({
-        //             pilotfylkerFeature: toggle,
-        //         })
-        //     );
+        fetch(PILOTFYLKER_TOGGLE_PATH)
+            .then(response => response.json())
+            .then(json => json['enabled'])
+            .then(toggle =>
+                this.setState({
+                    pilotfylkerFeature: toggle,
+                })
+            );
     }
 
     render() {
