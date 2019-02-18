@@ -1,4 +1,5 @@
 import { Besvarelse } from './Kontaktskjema';
+import { validerOrgnr } from '../../utils/orgnrUtils';
 import { fjernWhitespace } from '../../utils/stringUtils';
 
 const isFalsyOrEmpty = (str: string | undefined): boolean => {
@@ -19,10 +20,15 @@ export const besvarelseErGyldig = (besvarelse: Besvarelse): boolean => {
     return !harTommeFelter && orgnrOk(besvarelse.orgnr);
 };
 
-export const orgnrOk = (orgnr: string): boolean => {
-    orgnr = fjernWhitespace(orgnr);
-    if (orgnr.length === 0) {
+export const orgnrOk = (orgnr?: string): boolean => {
+    if (!orgnr) {
         return true;
     }
-    return /^\d{9}$/.test(orgnr);
+
+    orgnr = fjernWhitespace(orgnr);
+    if (orgnr.length == 0) {
+        return true;
+    }
+
+    return validerOrgnr(orgnr);
 };
