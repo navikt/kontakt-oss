@@ -59,5 +59,5 @@ jobs:
             cd tag-iac
             bash ./set-image.sh preprod/$CIRCLE_PROJECT_REPONAME/naiserator.yaml $DOCKER_IMAGE_VERSIONED
             git add preprod/$CIRCLE_PROJECT_REPONAME/naiserator.yaml
-            git commit -m "Bump $CIRCLE_PROJECT_REPONAME" -m "Caused by $CIRCLE_BUILD_URL" --author "$CIRCLE_USERNAME"
+            git commit -m "Bump $CIRCLE_PROJECT_REPONAME" -m "Caused by $CIRCLE_BUILD_URL"
             git push origin master
