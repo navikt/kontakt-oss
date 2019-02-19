@@ -42,7 +42,6 @@ jobs:
             echo 'export GIT_COMMITTER_NAME="team-tag"' >> $BASH_ENV
             echo 'export GIT_AUTHOR_EMAIL="teamtag@nav.no"' >> $BASH_ENV
             echo 'export GIT_COMMITTER_EMAIL="teamtag@nav.no"' >> $BASH_ENV
-            echo "export ORIGINAL_COMMITTER=$(git log -1 --pretty=format:'%an <%ae>')" >> $BASH_ENV
       - run:
           name: Bygg Docker image
           command: docker build -t "$DOCKER_IMAGE_VERSIONED" -t "$DOCKER_IMAGE_UNVERSIONED" .
@@ -72,3 +71,5 @@ jobs:
             echo "committet"
             git push git@github.com:navikt/tag-iac.git
             echo "pushet"
+          environment:
+            ORIGINAL_COMMITTER: André Mossige <mossige.a@gmail.com>
