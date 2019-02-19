@@ -70,5 +70,5 @@ jobs:
             echo "added"
             git commit -m "Bump $CIRCLE_PROJECT_REPONAME" -m "Caused by $CIRCLE_BUILD_URL"
             echo "committet"
-            git push git@github.com:navikt/kontakt-oss.git
+            git push git@github.com:navikt/tag-iac.git
             echo "pushet"
