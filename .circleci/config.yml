@@ -53,8 +53,11 @@ jobs:
           - "6f:25:8f:4e:e5:95:e1:e4:b7:41:53:2b:68:01:78:59"
 
     - run:
-        name: Test å pulle privat iac repo
+        name: Oppdater app versjon i tag-iac
         command: |
           git clone git@github.com:navikt/tag-iac.git
           cd tag-iac
-          ls
+          ./set-image.sh preprod/$CIRCLE_PROJECT_REPONAME/naiserator.yaml $DOCKER_IMAGE_VERSIONED
+          git add preprod/$CIRCLE_PROJECT_REPONAME/naiserator.yaml
+          git commit -m "Bump $CIRCLE_PROJECT_REPONAME" -m "Caused by $CIRCLE_BUILD_URL" --author "$CIRCLE_USERNAME"
+          git push origin master
