@@ -51,12 +51,31 @@ jobs:
             docker push "$DOCKER_IMAGE_VERSIONED"
             docker push "$DOCKER_IMAGE_UNVERSIONED"
 
+  oppdater-preprod-versjon:
+    docker:
+      - image: circleci/node
+
+    steps:
+      - checkout
+
+      - run:
+          name: Sett miljøvariable
+          command: |
+            echo 'export RELEASE_VERSION="$(git rev-list --count $CIRCLE_SHA1)"' >> $BASH_ENV
+            echo 'export BRANCH_NAME="$(git rev-parse --abbrev-ref HEAD)"' >> $BASH_ENV
+            echo 'export BRANCH_PREFIX=`[ $BRANCH_NAME == "master" ] && echo "" || echo $BRANCH_NAME\_`' >> $BASH_ENV
+            echo 'export DOCKER_IMAGE_VERSIONED="$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME:$BRANCH_PREFIX$RELEASE_VERSION"' >> $BASH_ENV
+            echo 'export DOCKER_IMAGE_UNVERSIONED="$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME"' >> $BASH_ENV
+            echo 'export GIT_COMMITTER_NAME="team-tag"' >> $BASH_ENV
+            echo 'export GIT_COMMITTER_EMAIL="teamtag@nav.no"' >> $BASH_ENV
+            echo 'export ORIGINAL_COMMITTER=$(git log -1 --pretty=format:"%an <%ae>")' >> $BASH_ENV
+
       - add_ssh_keys:
           fingerprints:
             - "6f:25:8f:4e:e5:95:e1:e4:b7:41:53:2b:68:01:78:59"
 
       - run:
-          name: Oppdater app versjon i tag-iac
+          name: Oppdater preprod app versjon i tag-iac
           command: |
             git clone git@github.com:navikt/tag-iac.git
             cd tag-iac
@@ -64,3 +83,11 @@ jobs:
             git add preprod/$CIRCLE_PROJECT_REPONAME/naiserator.yaml
             git commit -m "Bump $CIRCLE_PROJECT_REPONAME" -m "Caused by $CIRCLE_BUILD_URL" --author "$ORIGINAL_COMMITTER"
             git push git@github.com:navikt/tag-iac.git
+
+workflows:
+  version: 2
+  bygg_og_opppdater_iac_repo:
+    - build
+    - oppdater-preprod-versjon:
+        requires:
+          - build
