@@ -87,7 +87,8 @@ jobs:
 workflows:
   version: 2
   bygg_og_opppdater_iac_repo:
-    - build
-    - oppdater-preprod-versjon:
-        requires:
-          - build
+    jobs:
+      - build
+      - oppdater-preprod-versjon:
+          requires:
+            - build
