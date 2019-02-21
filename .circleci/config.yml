@@ -47,7 +47,6 @@ jobs:
             docker login -u $DOCKER_USER -p $DOCKER_PASS
             docker push "$DOCKER_IMAGE_VERSIONED"
             docker push "$DOCKER_IMAGE_UNVERSIONED"
-            echo "Pushet $DOCKER_IMAGE_VERSIONED til dockerhub"
 
   oppdater-preprod-versjon:
     docker:
