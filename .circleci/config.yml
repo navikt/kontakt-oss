@@ -114,7 +114,17 @@ jobs:
 
 workflows:
   version: 2
+  bygg:
+    branches:
+      ignore:
+        - master
+    jobs:
+      - build
+
   bygg_og_opppdater_iac_repo:
+    branches:
+      only:
+        - master
     jobs:
       - build
       - oppdater-preprod-versjon:
