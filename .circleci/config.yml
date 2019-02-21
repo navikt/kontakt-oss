@@ -75,8 +75,8 @@ jobs:
           command: |
             git clone git@github.com:navikt/tag-iac.git
             cd tag-iac
-            bash ./set-image.sh preprod/$CIRCLE_PROJECT_REPONAME/naiserator.yaml $DOCKER_IMAGE_VERSIONED
-            git add preprod/$CIRCLE_PROJECT_REPONAME/naiserator.yaml
+            bash ./set-image.sh preprod/$CIRCLE_PROJECT_REPONAME/naiserator-sbs.yaml $DOCKER_IMAGE_VERSIONED
+            git add preprod/$CIRCLE_PROJECT_REPONAME/naiserator-sbs.yaml
             git commit -m "Bump preprod/$CIRCLE_PROJECT_REPONAME til v. $BRANCH_PREFIX$RELEASE_VERSION" -m "Caused by $CIRCLE_BUILD_URL" --author "$ORIGINAL_COMMITTER"
             git push git@github.com:navikt/tag-iac.git
 
@@ -107,8 +107,8 @@ jobs:
           command: |
             git clone git@github.com:navikt/tag-iac.git
             cd tag-iac
-            bash ./set-image.sh prod/$CIRCLE_PROJECT_REPONAME/naiserator.yaml $DOCKER_IMAGE_VERSIONED
-            git add prod/$CIRCLE_PROJECT_REPONAME/naiserator.yaml
+            bash ./set-image.sh prod/$CIRCLE_PROJECT_REPONAME/naiserator-sbs.yaml $DOCKER_IMAGE_VERSIONED
+            git add prod/$CIRCLE_PROJECT_REPONAME/naiserator-sbs.yaml
             git commit -m "Bump prod/$CIRCLE_PROJECT_REPONAME til v. $BRANCH_PREFIX$RELEASE_VERSION" -m "Caused by $CIRCLE_BUILD_URL" --author "$ORIGINAL_COMMITTER"
             git push git@github.com:navikt/tag-iac.git
 
