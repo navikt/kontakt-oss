@@ -120,10 +120,10 @@ workflows:
       - oppdater-preprod-versjon:
           requires:
             - build
-      - hold:
+      - godkjenn-til-prod:
           type: approval
           requires:
             - build
       - oppdater-prod-versjon:
           requires:
-            - hold
+            - godkjenn-til-prod
