@@ -38,9 +38,6 @@ jobs:
             echo 'export BRANCH_PREFIX=`[ $BRANCH_NAME == "master" ] && echo "" || echo $BRANCH_NAME\_`' >> $BASH_ENV
             echo 'export DOCKER_IMAGE_VERSIONED="$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME:$BRANCH_PREFIX$RELEASE_VERSION"' >> $BASH_ENV
             echo 'export DOCKER_IMAGE_UNVERSIONED="$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME"' >> $BASH_ENV
-            echo 'export GIT_COMMITTER_NAME="team-tag"' >> $BASH_ENV
-            echo 'export GIT_COMMITTER_EMAIL="teamtag@nav.no"' >> $BASH_ENV
-            echo 'export ORIGINAL_COMMITTER=$(git log -1 --pretty=format:"%an <%ae>")' >> $BASH_ENV
       - run:
           name: Bygg Docker image
           command: docker build -t "$DOCKER_IMAGE_VERSIONED" -t "$DOCKER_IMAGE_UNVERSIONED" .
@@ -50,6 +47,7 @@ jobs:
             docker login -u $DOCKER_USER -p $DOCKER_PASS
             docker push "$DOCKER_IMAGE_VERSIONED"
             docker push "$DOCKER_IMAGE_UNVERSIONED"
+            echo "Pushet $DOCKER_IMAGE_VERSIONED til dockerhub"
 
   oppdater-preprod-versjon:
     docker:
@@ -65,7 +63,6 @@ jobs:
             echo 'export BRANCH_NAME="$(git rev-parse --abbrev-ref HEAD)"' >> $BASH_ENV
             echo 'export BRANCH_PREFIX=`[ $BRANCH_NAME == "master" ] && echo "" || echo $BRANCH_NAME\_`' >> $BASH_ENV
             echo 'export DOCKER_IMAGE_VERSIONED="$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME:$BRANCH_PREFIX$RELEASE_VERSION"' >> $BASH_ENV
-            echo 'export DOCKER_IMAGE_UNVERSIONED="$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME"' >> $BASH_ENV
             echo 'export GIT_COMMITTER_NAME="team-tag"' >> $BASH_ENV
             echo 'export GIT_COMMITTER_EMAIL="teamtag@nav.no"' >> $BASH_ENV
             echo 'export ORIGINAL_COMMITTER=$(git log -1 --pretty=format:"%an <%ae>")' >> $BASH_ENV
@@ -81,7 +78,7 @@ jobs:
             cd tag-iac
             bash ./set-image.sh preprod/$CIRCLE_PROJECT_REPONAME/naiserator.yaml $DOCKER_IMAGE_VERSIONED
             git add preprod/$CIRCLE_PROJECT_REPONAME/naiserator.yaml
-            git commit -m "Bump $CIRCLE_PROJECT_REPONAME" -m "Caused by $CIRCLE_BUILD_URL" --author "$ORIGINAL_COMMITTER"
+            git commit -m "Bump preprod/$CIRCLE_PROJECT_REPONAME til versjon $DOCKER_IMAGE_VERSIONED" -m "Caused by $CIRCLE_BUILD_URL" --author "$ORIGINAL_COMMITTER"
             git push git@github.com:navikt/tag-iac.git
 
 workflows:
