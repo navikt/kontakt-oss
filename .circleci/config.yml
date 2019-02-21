@@ -114,26 +114,28 @@ jobs:
 
 workflows:
   version: 2
-  bygg:
-    branches:
-      ignore:
-        - master
-    jobs:
-      - build
-
   bygg_og_opppdater_iac_repo:
-    branches:
-      only:
-        - master
     jobs:
       - build
       - oppdater-preprod-versjon:
           requires:
             - build
+          filters:
+            branches:
+              only:
+                - master
       - godkjenn-til-prod:
           type: approval
           requires:
             - build
+          filters:
+            branches:
+              only:
+                - master
       - oppdater-prod-versjon:
           requires:
             - godkjenn-til-prod
+          filters:
+            branches:
+              only:
+                - master
