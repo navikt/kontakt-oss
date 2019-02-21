@@ -77,7 +77,39 @@ jobs:
             cd tag-iac
             bash ./set-image.sh preprod/$CIRCLE_PROJECT_REPONAME/naiserator.yaml $DOCKER_IMAGE_VERSIONED
             git add preprod/$CIRCLE_PROJECT_REPONAME/naiserator.yaml
-            git commit -m "Bump preprod/$CIRCLE_PROJECT_REPONAME til versjon $DOCKER_IMAGE_VERSIONED" -m "Caused by $CIRCLE_BUILD_URL" --author "$ORIGINAL_COMMITTER"
+            git commit -m "Bump preprod/$CIRCLE_PROJECT_REPONAME til v. $BRANCH_PREFIX$RELEASE_VERSION" -m "Caused by $CIRCLE_BUILD_URL" --author "$ORIGINAL_COMMITTER"
+            git push git@github.com:navikt/tag-iac.git
+
+  oppdater-prod-versjon:
+    docker:
+      - image: circleci/node
+
+    steps:
+      - checkout
+
+      - run:
+          name: Sett miljøvariable
+          command: |
+            echo 'export RELEASE_VERSION="$(git rev-list --count $CIRCLE_SHA1)"' >> $BASH_ENV
+            echo 'export BRANCH_NAME="$(git rev-parse --abbrev-ref HEAD)"' >> $BASH_ENV
+            echo 'export BRANCH_PREFIX=`[ $BRANCH_NAME == "master" ] && echo "" || echo $BRANCH_NAME\_`' >> $BASH_ENV
+            echo 'export DOCKER_IMAGE_VERSIONED="$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME:$BRANCH_PREFIX$RELEASE_VERSION"' >> $BASH_ENV
+            echo 'export GIT_COMMITTER_NAME="team-tag"' >> $BASH_ENV
+            echo 'export GIT_COMMITTER_EMAIL="teamtag@nav.no"' >> $BASH_ENV
+            echo 'export ORIGINAL_COMMITTER=$(git log -1 --pretty=format:"%an <%ae>")' >> $BASH_ENV
+
+      - add_ssh_keys:
+          fingerprints:
+            - "6f:25:8f:4e:e5:95:e1:e4:b7:41:53:2b:68:01:78:59"
+
+      - run:
+          name: Oppdater prod app versjon i tag-iac
+          command: |
+            git clone git@github.com:navikt/tag-iac.git
+            cd tag-iac
+            bash ./set-image.sh prod/$CIRCLE_PROJECT_REPONAME/naiserator.yaml $DOCKER_IMAGE_VERSIONED
+            git add prod/$CIRCLE_PROJECT_REPONAME/naiserator.yaml
+            git commit -m "Bump prod/$CIRCLE_PROJECT_REPONAME til v. $BRANCH_PREFIX$RELEASE_VERSION" -m "Caused by $CIRCLE_BUILD_URL" --author "$ORIGINAL_COMMITTER"
             git push git@github.com:navikt/tag-iac.git
 
 workflows:
@@ -88,3 +120,10 @@ workflows:
       - oppdater-preprod-versjon:
           requires:
             - build
+      - hold:
+          type: approval
+          requires:
+            - build
+      - oppdater-prod-versjon:
+          requires:
+            - hold
