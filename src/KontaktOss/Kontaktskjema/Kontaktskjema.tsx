@@ -149,6 +149,7 @@ class Kontaktskjema extends React.Component<Props, State> {
                 href={hrefKontaktlisteMedQueryParam}
                 tittel="Vil du heller ringe?"
                 undertekst="Kontakt en av våre medarbeidere direkte."
+                sendMetrikk={true}
             />
         );
 
