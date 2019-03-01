@@ -10,13 +10,14 @@ interface Props {
     href: string;
     tittel: string;
     undertekst: string;
+    sendMetrikk?: boolean;
 }
 
 const LenkepanelKontaktliste: React.FunctionComponent<Props> = props => {
     const linkCreator = (linkProps: any) => (
         <a
             onClick={() => {
-                logEvent('kontakt-oss.vil-ringe-knapp');
+                props.sendMetrikk && logEvent('kontakt-oss.vil-ringe-knapp');
             }}
             {...linkProps}
         >
