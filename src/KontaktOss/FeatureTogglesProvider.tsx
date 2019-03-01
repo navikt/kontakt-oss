@@ -23,6 +23,11 @@ export class FeatureTogglesProvider extends React.Component<
 
     componentDidMount() {
         // Bryr seg ikke om miljø, bare om feature er globalt av eller på
+
+        this.setState({
+            pilotfylkerFeature: true,
+        })
+        /* TODO fix?
         fetch(PILOTFYLKER_TOGGLE_PATH)
             .then(response => response.json())
             .then(json => json['enabled'])
@@ -31,6 +36,7 @@ export class FeatureTogglesProvider extends React.Component<
                     pilotfylkerFeature: toggle,
                 })
             );
+            */
     }
 
     render() {

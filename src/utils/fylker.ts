@@ -1,5 +1,6 @@
 import { kommuner } from './kommuner';
 import { BASE_PATH } from './paths';
+import { kommunerOgBydeler } from '../mocking/kommunerOgBydeler';
 
 export interface FylkeModell {
     nokkel: string;
@@ -17,6 +18,7 @@ export const pilotfylkerForKontaktskjema: string[] = [
     'nordland',
     'agder',
     'ost-viken',
+    ...Object.keys(kommunerOgBydeler)
 ];
 
 // tslint:disable max-line-length
@@ -107,7 +109,18 @@ export const getHrefTilKontaktliste = (fylkeNokkel?: string): string => {
     return gjeldendeFylke ? gjeldendeFylke.hrefKontaktliste : '#';
 };
 
-export const getAlfabetiserteKommuner = (
+export const getAlfabetiserteKommuner = (fylkeNr?: string): KommuneModell[] => {
+    if (!fylkeNr || !kommunerOgBydeler[fylkeNr]) {
+        return [];
+    } else {
+        return (kommunerOgBydeler[fylkeNr] as KommuneModell[]).sort(
+            (kommuneA, kommuneB) =>
+                kommuneA.navn.localeCompare(kommuneB.navn, 'nb-NO')
+        );
+    }
+};
+
+export const getAlfabetiserteKommunerOLD = (
     fylkeNokkel?: string
 ): KommuneModell[] => {
     if (!fylkeNokkel || !kommuner[fylkeNokkel]) {

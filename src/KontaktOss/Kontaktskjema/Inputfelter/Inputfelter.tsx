@@ -3,6 +3,7 @@ import { Element } from 'nav-frontend-typografi';
 import { Input, Select } from 'nav-frontend-skjema';
 import { fylker, getAlfabetiserteKommuner } from '../../../utils/fylker';
 import './Inputfelter.less';
+import { fylkeListe } from '../../fylkerOgKommunerUtils';
 
 export enum SkjemaId {
     kommune = 'kommune',
@@ -31,8 +32,8 @@ const Inputfelter: React.FunctionComponent<Props> = props => {
         )
     );
 
-    const fylkerOptions = fylker.map(fylke => (
-        <option value={fylke.nokkel} key={fylke.nokkel}>
+    const fylkerOptions = fylkeListe.map((fylke, index) => (
+        <option value={fylke.nummer} key={index}>
             {fylke.navn}
         </option>
     ));

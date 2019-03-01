@@ -1,4 +1,4 @@
-export const test = {
+export const kommunerOgBydeler: any = {
     "1000": [
         {
             nummer: "0901",
