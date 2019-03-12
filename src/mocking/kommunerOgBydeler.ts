@@ -124,35 +124,31 @@ export const kommunerOgBydeler: any = {
     "1100": [
         {
             nummer: "110301",
-            navn: "Stavanger–Hundvåg"
+            navn: "Stavanger - Hundvåg"
         },
         {
             nummer: "110302",
-            navn: "Stavanger–Tasta"
+            navn: "Stavanger - Tasta"
         },
         {
             nummer: "110303",
-            navn: "Stavanger–Eiganes og Våland"
+            navn: "Stavanger - Eiganes og Våland"
         },
         {
             nummer: "110304",
-            navn: "Stavanger–Madla"
+            navn: "Stavanger - Madla"
         },
         {
             nummer: "110305",
-            navn: "Stavanger–Storhaug"
+            navn: "Stavanger - Storhaug"
         },
         {
             nummer: "110306",
-            navn: "Stavanger–Hillevåg"
+            navn: "Stavanger - Hillevåg"
         },
         {
             nummer: "110307",
-            navn: "Stavanger–Hinna"
-        },
-        {
-            nummer: "110308",
-            navn: "Stavanger–Tasta 2"
+            navn: "Stavanger - Hinna"
         },
         {
             nummer: "1101",
@@ -258,35 +254,35 @@ export const kommunerOgBydeler: any = {
     "1200": [
         {
             nummer: "120101",
-            navn: "Bergen–Arna"
+            navn: "Bergen - Arna"
         },
         {
             nummer: "120102",
-            navn: "Bergen–Bergenhus"
+            navn: "Bergen - Bergenhus"
         },
         {
             nummer: "120103",
-            navn: "Bergen–Fana"
+            navn: "Bergen - Fana"
         },
         {
             nummer: "120104",
-            navn: "Bergen–Fyllingsdalen"
+            navn: "Bergen - Fyllingsdalen"
         },
         {
             nummer: "120105",
-            navn: "Bergen–Laksevåg"
+            navn: "Bergen - Laksevåg"
         },
         {
             nummer: "120106",
-            navn: "Bergen–Ytrebygda"
+            navn: "Bergen - Ytrebygda"
         },
         {
             nummer: "120107",
-            navn: "Bergen–Årstad"
+            navn: "Bergen - Årstad"
         },
         {
             nummer: "120108",
-            navn: "Bergen–Åsane"
+            navn: "Bergen - Åsane"
         },
         {
             nummer: "1211",
@@ -762,7 +758,7 @@ export const kommunerOgBydeler: any = {
         },
         {
             nummer: "1841",
-            navn: "Fauske"
+            navn: "Fauske – Fuossko"
         },
         {
             nummer: "1845",
@@ -778,7 +774,7 @@ export const kommunerOgBydeler: any = {
         },
         {
             nummer: "1850",
-            navn: "Tysfjord"
+            navn: "Divtasvuodna – Tysfjord"
         },
         {
             nummer: "1851",
@@ -868,7 +864,7 @@ export const kommunerOgBydeler: any = {
         },
         {
             nummer: "1920",
-            navn: "Lavangen"
+            navn: "Loabák – Lavangen"
         },
         {
             nummer: "1922",
@@ -920,11 +916,11 @@ export const kommunerOgBydeler: any = {
         },
         {
             nummer: "1939",
-            navn: "Storfjord"
+            navn: "Storfjord – Omasvuotna – Omasvuono"
         },
         {
             nummer: "1940",
-            navn: "Kåfjord"
+            navn: "Gáivuotna – Kåfjord – Kaivuono"
         },
         {
             nummer: "1941",
@@ -932,7 +928,7 @@ export const kommunerOgBydeler: any = {
         },
         {
             nummer: "1942",
-            navn: "Nordreisa"
+            navn: "Nordreisa - Ráisa - Raisi"
         },
         {
             nummer: "1943",
@@ -952,7 +948,7 @@ export const kommunerOgBydeler: any = {
         },
         {
             nummer: "2011",
-            navn: "Kautokeino"
+            navn: "Guovdageaidnu – Kautokeino"
         },
         {
             nummer: "2012",
@@ -980,11 +976,11 @@ export const kommunerOgBydeler: any = {
         },
         {
             nummer: "2020",
-            navn: "Porsanger"
+            navn: "Porsanger – Porsáŋgu – Porsanki"
         },
         {
             nummer: "2021",
-            navn: "Karasjok"
+            navn: "Kárášjohka – Karasjok"
         },
         {
             nummer: "2022",
@@ -1000,11 +996,11 @@ export const kommunerOgBydeler: any = {
         },
         {
             nummer: "2025",
-            navn: "Deatnu Tana"
+            navn: "Deatnu - Tana"
         },
         {
             nummer: "2027",
-            navn: "Nesseby"
+            navn: "Unjárga – Nesseby"
         },
         {
             nummer: "2028",
@@ -1018,19 +1014,19 @@ export const kommunerOgBydeler: any = {
     "5700": [
         {
             nummer: "500101",
-            navn: "Trondheim–Midtbyen"
+            navn: "Trondheim - Midtbyen"
         },
         {
             nummer: "500102",
-            navn: "Trondheim–Østbyen"
+            navn: "Trondheim - Østbyen"
         },
         {
             nummer: "500103",
-            navn: "Trondheim–Lerkendal"
+            navn: "Trondheim - Lerkendal"
         },
         {
             nummer: "500104",
-            navn: "Trondheim–Heimdal"
+            navn: "Trondheim - Heimdal"
         },
         {
             nummer: "0441",
@@ -1166,7 +1162,7 @@ export const kommunerOgBydeler: any = {
         },
         {
             nummer: "5041",
-            navn: "Snåsa"
+            navn: "Snåase-Snåsa"
         },
         {
             nummer: "5042",
@@ -1174,7 +1170,7 @@ export const kommunerOgBydeler: any = {
         },
         {
             nummer: "5043",
-            navn: "Røyrvik"
+            navn: "Raarvikhe – Røyrvik"
         },
         {
             nummer: "5044",
@@ -1666,157 +1662,157 @@ export const kommunerOgBydeler: any = {
     "0300": [
         {
             nummer: "030101",
-            navn: "Oslo–Gamle Oslo"
+            navn: "Oslo - Gamle Oslo"
         },
         {
             nummer: "030102",
-            navn: "Oslo–Grünerløkka"
+            navn: "Oslo - Grünerløkka"
         },
         {
             nummer: "030103",
-            navn: "Oslo–Sagene"
+            navn: "Oslo - Sagene"
         },
         {
             nummer: "030104",
-            navn: "Oslo–St.Hanshaugen"
+            navn: "Oslo - St.Hanshaugen"
         },
         {
             nummer: "030105",
-            navn: "Oslo–Frogner"
+            navn: "Oslo - Frogner"
         },
         {
             nummer: "030106",
-            navn: "Oslo–Ullern"
+            navn: "Oslo - Ullern"
         },
         {
             nummer: "030107",
-            navn: "Oslo–Vestre Aker"
+            navn: "Oslo - Vestre Aker"
         },
         {
             nummer: "030108",
-            navn: "Oslo–Nordre Aker"
+            navn: "Oslo - Nordre Aker"
         },
         {
             nummer: "030109",
-            navn: "Oslo–Bjerke"
+            navn: "Oslo - Bjerke"
         },
         {
             nummer: "030110",
-            navn: "Oslo–Grorud"
+            navn: "Oslo - Grorud"
         },
         {
             nummer: "030111",
-            navn: "Oslo–Stovner"
+            navn: "Oslo - Stovner"
         },
         {
             nummer: "030112",
-            navn: "Oslo–Alna"
+            navn: "Oslo - Alna"
         },
         {
             nummer: "030113",
-            navn: "Oslo–Østensjø"
+            navn: "Oslo - Østensjø"
         },
         {
             nummer: "030114",
-            navn: "Oslo–Nordstrand"
+            navn: "Oslo - Nordstrand"
         },
         {
             nummer: "030115",
-            navn: "Oslo–Søndre Nordstrand"
+            navn: "Oslo - Søndre Nordstrand"
         },
         {
             nummer: "030116",
-            navn: "Oslo–Sentrum"
+            navn: "Oslo - Sentrum"
         }
     ],
-    "0800": [
-    {
-        nummer: "0712",
-        navn: "Larvik"
-    },
-    {
-        nummer: "0713",
-        navn: "Sande"
-    },
-    {
-        nummer: "0715",
-        navn: "Holmestrand"
-    },
-    {
-        nummer: "0729",
-        navn: "Færder"
-    },
-    {
-        nummer: "0805",
-        navn: "Porsgrunn"
-    },
-    {
-        nummer: "0806",
-        navn: "Skien"
-    },
-    {
-        nummer: "0807",
-        navn: "Notodden"
-    },
-    {
-        nummer: "0811",
-        navn: "Siljan"
-    },
-    {
-        nummer: "0814",
-        navn: "Bamble"
-    },
-    {
-        nummer: "0815",
-        navn: "Kragerø"
-    },
-    {
-        nummer: "0817",
-        navn: "Drangedal"
-    },
-    {
-        nummer: "0819",
-        navn: "Nome"
-    },
-    {
-        nummer: "0821",
-        navn: "Bø"
-    },
-    {
-        nummer: "0822",
-        navn: "Sauherad"
-    },
-    {
-        nummer: "0826",
-        navn: "Tinn"
-    },
-    {
-        nummer: "0827",
-        navn: "Hjartdal"
-    },
-    {
-        nummer: "0828",
-        navn: "Seljord"
-    },
-    {
-        nummer: "0829",
-        navn: "Kviteseid"
-    },
-    {
-        nummer: "0830",
-        navn: "Nissedal"
-    },
-    {
-        nummer: "0831",
-        navn: "Fyresdal"
-    },
-    {
-        nummer: "0833",
-        navn: "Tokke"
-    },
-    {
-        nummer: "0834",
-        navn: "Vinje"
-    }
-]
-}
+        "0800": [
+        {
+            nummer: "0712",
+            navn: "Larvik"
+        },
+        {
+            nummer: "0713",
+            navn: "Sande"
+        },
+        {
+            nummer: "0715",
+            navn: "Holmestrand"
+        },
+        {
+            nummer: "0729",
+            navn: "Færder"
+        },
+        {
+            nummer: "0805",
+            navn: "Porsgrunn"
+        },
+        {
+            nummer: "0806",
+            navn: "Skien"
+        },
+        {
+            nummer: "0807",
+            navn: "Notodden"
+        },
+        {
+            nummer: "0811",
+            navn: "Siljan"
+        },
+        {
+            nummer: "0814",
+            navn: "Bamble"
+        },
+        {
+            nummer: "0815",
+            navn: "Kragerø"
+        },
+        {
+            nummer: "0817",
+            navn: "Drangedal"
+        },
+        {
+            nummer: "0819",
+            navn: "Nome"
+        },
+        {
+            nummer: "0821",
+            navn: "Bø"
+        },
+        {
+            nummer: "0822",
+            navn: "Sauherad"
+        },
+        {
+            nummer: "0826",
+            navn: "Tinn"
+        },
+        {
+            nummer: "0827",
+            navn: "Hjartdal"
+        },
+        {
+            nummer: "0828",
+            navn: "Seljord"
+        },
+        {
+            nummer: "0829",
+            navn: "Kviteseid"
+        },
+        {
+            nummer: "0830",
+            navn: "Nissedal"
+        },
+        {
+            nummer: "0831",
+            navn: "Fyresdal"
+        },
+        {
+            nummer: "0833",
+            navn: "Tokke"
+        },
+        {
+            nummer: "0834",
+            navn: "Vinje"
+        }
+    ]
+};
