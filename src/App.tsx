@@ -6,13 +6,13 @@ import { FeatureTogglesProvider } from './KontaktOss/FeatureTogglesProvider';
 import Banner from './Banner/Banner';
 import Bekreftelse from './KontaktOss/Kontaktskjema/Bekreftelse/Bekreftelse';
 import { BASE_PATH, BEKREFTELSE_PATH } from './utils/paths';
-import { KommuneProvider } from './KontaktOss/KommuneProvider';
+import { FylkesinndelingProvider } from './KontaktOss/FylkesinndelingProvider';
 
 class App extends React.Component {
     render() {
         return (
             <FeatureTogglesProvider>
-                <KommuneProvider>
+                <FylkesinndelingProvider>
                     <Banner tekst="Kom i kontakt med NAV" />
                     <BrowserRouter basename={BASE_PATH}>
                         <Switch>
@@ -24,7 +24,7 @@ class App extends React.Component {
                             />
                         </Switch>
                     </BrowserRouter>
-                </KommuneProvider>
+                </FylkesinndelingProvider>
             </FeatureTogglesProvider>
         );
     }

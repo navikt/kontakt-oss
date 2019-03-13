@@ -3,6 +3,7 @@ import { Element } from 'nav-frontend-typografi';
 import { Input, Select } from 'nav-frontend-skjema';
 import { fylker, getAlfabetiserteKommuner } from '../../../utils/fylker';
 import './Inputfelter.less';
+import { Fylkesinndeling, medFylkesinndeling } from '../../FylkesinndelingProvider';
 
 export enum SkjemaId {
     kommune = 'kommune',
@@ -15,15 +16,17 @@ export enum SkjemaId {
     fylke = 'fylke',
 }
 
-interface Props {
+interface OwnProps {
     avgiSvar: (id: SkjemaId, input: string) => void;
     fylkeNokkel?: string;
     visKunFylkesvalg: boolean;
     visOrgnrFeilmelding?: boolean;
 }
 
+type Props = OwnProps & Fylkesinndeling;
+
 const Inputfelter: React.FunctionComponent<Props> = props => {
-    const kommunerOptions = getAlfabetiserteKommuner(props.fylkeNokkel).map(
+    const kommunerOptions = getAlfabetiserteKommuner(props.fylkesinndeling, props.fylkeNokkel).map(
         kommune => (
             <option value={JSON.stringify(kommune)} key={kommune.nummer}>
                 {kommune.navn}
@@ -130,4 +133,4 @@ const Inputfelter: React.FunctionComponent<Props> = props => {
     );
 };
 
-export default Inputfelter;
+export default medFylkesinndeling(Inputfelter);

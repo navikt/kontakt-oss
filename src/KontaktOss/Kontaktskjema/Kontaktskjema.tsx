@@ -139,7 +139,6 @@ class Kontaktskjema extends React.Component<Props, State> {
         const pilotfylkeErValgt = pilotfylkerForKontaktskjema.some(
             pilot => pilot === fylke
         );
-        console.log(pilotfylkeErValgt);
 
         const skalViseHeleSkjemaet =
             pilotfylkeErValgt && this.props.pilotfylkerFeature;

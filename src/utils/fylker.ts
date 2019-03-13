@@ -1,5 +1,3 @@
-import { kommunerOgBydeler } from '../mocking/kommunerOgBydeler';
-
 export interface FylkeModell {
     nokkel: string;
     navn: string;
@@ -105,11 +103,11 @@ export const getHrefTilKontaktliste = (fylkeNokkel?: string): string => {
     return gjeldendeFylke ? gjeldendeFylke.hrefKontaktliste : '#';
 };
 
-export const getAlfabetiserteKommuner = (fylkeNr?: string): KommuneModell[] => {
-    if (!fylkeNr || !kommunerOgBydeler[fylkeNr]) {
+export const getAlfabetiserteKommuner = (fylkesinndeling: any, fylkeNr?: string): KommuneModell[] => {
+    if (!fylkeNr || !fylkesinndeling[fylkeNr]) {
         return [];
     } else {
-        return (kommunerOgBydeler[fylkeNr] as KommuneModell[]).sort(
+        return (fylkesinndeling[fylkeNr] as KommuneModell[]).sort(
             (kommuneA, kommuneB) =>
                 kommuneA.navn.localeCompare(kommuneB.navn, 'nb-NO')
         );
