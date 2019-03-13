@@ -2,7 +2,9 @@ version: 2
 jobs:
   build:
     docker:
-    - image: circleci/node:8.15.0
+      # TODO Det er en issue i Jest kombinert med node:8.15.1 som hindrer testene i å kjøre på CircleCI. https://github.com/facebook/create-react-app/issues/6591
+      # TODO Det er fikset i Jest, CRA har ikke oppdatert versjonen. Midlertidig fix: Nedgrader Node i circleCI-bygget.
+      - image: circleci/node:8.15.0
 
     steps:
     - checkout
