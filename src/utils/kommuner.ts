@@ -589,4 +589,94 @@ export const kommuner: any = {
             nummer: '1868',
         },
     ],
+    'vestfold-og-telemark': [
+        {
+            nummer: "0712",
+            navn: "Larvik"
+        },
+        {
+            nummer: "0713",
+            navn: "Sande"
+        },
+        {
+            nummer: "0715",
+            navn: "Holmestrand"
+        },
+        {
+            nummer: "0729",
+            navn: "Færder"
+        },
+        {
+            nummer: "0805",
+            navn: "Porsgrunn"
+        },
+        {
+            nummer: "0806",
+            navn: "Skien"
+        },
+        {
+            nummer: "0807",
+            navn: "Notodden"
+        },
+        {
+            nummer: "0811",
+            navn: "Siljan"
+        },
+        {
+            nummer: "0814",
+            navn: "Bamble"
+        },
+        {
+            nummer: "0815",
+            navn: "Kragerø"
+        },
+        {
+            nummer: "0817",
+            navn: "Drangedal"
+        },
+        {
+            nummer: "0819",
+            navn: "Nome"
+        },
+        {
+            nummer: "0821",
+            navn: "Bø"
+        },
+        {
+            nummer: "0822",
+            navn: "Sauherad"
+        },
+        {
+            nummer: "0826",
+            navn: "Tinn"
+        },
+        {
+            nummer: "0827",
+            navn: "Hjartdal"
+        },
+        {
+            nummer: "0828",
+            navn: "Seljord"
+        },
+        {
+            nummer: "0829",
+            navn: "Kviteseid"
+        },
+        {
+            nummer: "0830",
+            navn: "Nissedal"
+        },
+        {
+            nummer: "0831",
+            navn: "Fyresdal"
+        },
+        {
+            nummer: "0833",
+            navn: "Tokke"
+        },
+        {
+            nummer: "0834",
+            navn: "Vinje"
+        }
+    ]
 };

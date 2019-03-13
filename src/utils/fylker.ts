@@ -17,6 +17,7 @@ export const pilotfylkerForKontaktskjema: string[] = [
     'nordland',
     'agder',
     'ost-viken',
+    'vestfold-og-telemark',
 ];
 
 // tslint:disable max-line-length
