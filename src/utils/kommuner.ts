@@ -589,7 +589,23 @@ export const kommuner: any = {
             nummer: '1868',
         },
     ],
-    'vestfold-og-telemark': [
+    'vestfold-og-telemark':  [
+        {
+            nummer: "0701",
+            navn: "Horten"
+        },
+        {
+            nummer: "0704",
+            navn: "Tønsberg"
+        },
+        {
+            nummer: "0710",
+            navn: "Sandefjord"
+        },
+        {
+            nummer: "0711",
+            navn: "Svelvik"
+        },
         {
             nummer: "0712",
             navn: "Larvik"
@@ -601,6 +617,10 @@ export const kommuner: any = {
         {
             nummer: "0715",
             navn: "Holmestrand"
+        },
+        {
+            nummer: "0716",
+            navn: "Re"
         },
         {
             nummer: "0729",
