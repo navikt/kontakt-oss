@@ -27,7 +27,6 @@ export class FeatureTogglesProvider extends React.Component<
         this.setState({
             pilotfylkerFeature: true,
         })
-        /* TODO fix?
         fetch(PILOTFYLKER_TOGGLE_PATH)
             .then(response => response.json())
             .then(json => json['enabled'])
@@ -36,7 +35,6 @@ export class FeatureTogglesProvider extends React.Component<
                     pilotfylkerFeature: toggle,
                 })
             );
-            */
     }
 
     render() {
