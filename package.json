@@ -50,6 +50,7 @@
   "scripts": {
     "start": "craco start",
     "mock": "REACT_APP_MOCK=true yarn start",
+    "decorator": "yarn build && node src/server/server.js",
     "build": "craco build",
     "test": "craco test",
     "docker:build": "docker build -t kontakt-oss .",

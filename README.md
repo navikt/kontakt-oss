@@ -4,4 +4,4 @@ Startes med `yarn start`.
 
 Med mocking: `yarn mock`.
 
-Med dekoratør: `yarn build && node src/server/server.js`
+Med dekoratør (uten hot reload): `yarn decorator`

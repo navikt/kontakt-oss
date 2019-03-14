@@ -5,7 +5,7 @@ export type Fylkesinndeling = {
     fylkesinndeling: any
 };
 const defaultKommuner: Fylkesinndeling = {
-    fylkesinndeling: {}
+    fylkesinndeling: undefined
 };
 const FylkesinndelingContext = React.createContext(defaultKommuner);
 const FylkesinndelingConsumer = FylkesinndelingContext.Consumer;
@@ -18,6 +18,13 @@ export class FylkesinndelingProvider extends React.Component<{}, Fylkesinndeling
 
     componentDidMount(): void {
         fetch(FYLKER_OG_KOMMUNER_PATH)
+            .then(response => {
+                if (response.ok) {
+                    return response;
+                } else {
+                    throw new Error(response.statusText)
+                }
+            })
             .then(response => response.json())
             .then(json => this.setState({fylkesinndeling: json}));
     }
