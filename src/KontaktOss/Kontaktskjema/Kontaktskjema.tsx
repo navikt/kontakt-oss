@@ -22,6 +22,7 @@ import './Kontaktskjema.less';
 import { BEKREFTELSE_PATH } from '../../utils/paths';
 import { VEIVISER_URL } from '../../utils/konstanter';
 import { fjernWhitespace } from '../../utils/stringUtils';
+import { Fylkesinndeling, medFylkesinndeling } from '../FylkesinndelingProvider';
 
 export interface Besvarelse {
     kommune: KommuneModell;
@@ -41,10 +42,11 @@ interface State {
     gyldigOrgnr: boolean;
 }
 
-type Props = RouteComponentProps &
-    FeatureToggles & {
-        tema: Tema;
-    };
+interface OwnProps {
+    tema: Tema;
+}
+
+type Props = RouteComponentProps & FeatureToggles & Fylkesinndeling & OwnProps;
 
 class Kontaktskjema extends React.Component<Props, State> {
     state: State = {
@@ -140,8 +142,13 @@ class Kontaktskjema extends React.Component<Props, State> {
             pilot => pilot === fylke
         );
 
+        const fylkesinndelingHentetOK = !!this.props.fylkesinndeling;
+
         const skalViseHeleSkjemaet =
-            pilotfylkeErValgt && this.props.pilotfylkerFeature;
+            pilotfylkeErValgt
+            && this.props.pilotfylkerFeature
+            && fylkesinndelingHentetOK;
+
         const skalBareViseLenkeTilTlfListe = fylke && !skalViseHeleSkjemaet;
 
         const vilDuHellerRinge = skalViseHeleSkjemaet && (
@@ -214,4 +221,4 @@ class Kontaktskjema extends React.Component<Props, State> {
     }
 }
 
-export default medFeatureToggles(Kontaktskjema);
+export default medFylkesinndeling(medFeatureToggles(Kontaktskjema));

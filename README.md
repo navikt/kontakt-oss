@@ -1,5 +1,7 @@
 # Frontend for kontaktskjema for arbeidsgivere
 
-Startes med `yarn start`.
+Startes med `yarn start`. 
 
-Med dekoratør `node src/server/server.js`
+Med mocking: `yarn mock`.
+
+Med dekoratør (uten hot reload): `yarn decorator`
