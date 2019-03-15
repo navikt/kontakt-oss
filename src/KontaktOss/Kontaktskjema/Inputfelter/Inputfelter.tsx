@@ -5,7 +5,7 @@ import { fylker, getAlfabetiserteKommuner } from '../../../utils/fylker';
 import './Inputfelter.less';
 import { Fylkesinndeling, medFylkesinndeling } from '../../FylkesinndelingProvider';
 
-export enum SkjemaId {
+export enum SkjemaFelt {
     kommune = 'kommune',
     bedriftsnavn = 'bedriftsnavn',
     orgnr = 'orgnr',
@@ -17,7 +17,7 @@ export enum SkjemaId {
 }
 
 interface OwnProps {
-    avgiSvar: (id: SkjemaId, input: string) => void;
+    oppdaterBesvarelse: (id: SkjemaFelt, input: string) => void;
     fylkeNokkel?: string;
     visKunFylkesvalg: boolean;
     visOrgnrFeilmelding?: boolean;
@@ -49,8 +49,8 @@ const Inputfelter: React.FunctionComponent<Props> = props => {
                     }
                     className="kontaktskjema-input__felt"
                     onChange={event =>
-                        props.avgiSvar(
-                            SkjemaId.kommune,
+                        props.oppdaterBesvarelse(
+                            SkjemaFelt.kommune,
                             JSON.parse(event.target.value)
                         )
                     }
@@ -62,14 +62,14 @@ const Inputfelter: React.FunctionComponent<Props> = props => {
                     className="kontaktskjema-input__felt"
                     label={<Element>Bedriftens navn</Element>}
                     onChange={event =>
-                        props.avgiSvar(SkjemaId.bedriftsnavn, event.target.value)
+                        props.oppdaterBesvarelse(SkjemaFelt.bedriftsnavn, event.target.value)
                     }
                 />
                 <Input
                     className="kontaktskjema-input__felt"
                     label={<Element>Organisasjonsnummer (valgfritt)</Element>}
                     onChange={event =>
-                        props.avgiSvar(SkjemaId.orgnr, event.target.value)
+                        props.oppdaterBesvarelse(SkjemaFelt.orgnr, event.target.value)
                     }
                     feil={
                         props.visOrgnrFeilmelding
@@ -84,28 +84,28 @@ const Inputfelter: React.FunctionComponent<Props> = props => {
                     className="kontaktskjema-input__felt"
                     label={<Element>Fornavn</Element>}
                     onChange={event =>
-                        props.avgiSvar(SkjemaId.fornavn, event.target.value)
+                        props.oppdaterBesvarelse(SkjemaFelt.fornavn, event.target.value)
                     }
                 />
                 <Input
                     className="kontaktskjema-input__felt"
                     label={<Element>Etternavn</Element>}
                     onChange={event =>
-                        props.avgiSvar(SkjemaId.etternavn, event.target.value)
+                        props.oppdaterBesvarelse(SkjemaFelt.etternavn, event.target.value)
                     }
                 />
                 <Input
                     className="kontaktskjema-input__felt"
                     label={<Element>E-post</Element>}
                     onChange={event =>
-                        props.avgiSvar(SkjemaId.epost, event.target.value)
+                        props.oppdaterBesvarelse(SkjemaFelt.epost, event.target.value)
                     }
                 />
                 <Input
                     className="kontaktskjema-input__felt"
                     label={<Element>Telefonnummer</Element>}
                     onChange={event =>
-                        props.avgiSvar(SkjemaId.telefonnr, event.target.value)
+                        props.oppdaterBesvarelse(SkjemaFelt.telefonnr, event.target.value)
                     }
                 />
             </>
@@ -125,7 +125,7 @@ const Inputfelter: React.FunctionComponent<Props> = props => {
                     }
                     className="kontaktskjema-input__felt"
                     onChange={event =>
-                        props.avgiSvar(SkjemaId.fylke, event.target.value)
+                        props.oppdaterBesvarelse(SkjemaFelt.fylke, event.target.value)
                     }
                 >
                     <option value="" key="ingen valgt" />

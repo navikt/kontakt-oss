@@ -5,15 +5,18 @@ import Normaltekst from 'nav-frontend-typografi/lib/normaltekst';
 import { logEvent } from '../../../utils/metricsUtils';
 import telefonSvg from './telefon.svg';
 import './LenkepanelKontaktliste.less';
+import { getHrefTilKontaktliste } from '../../../utils/fylker';
 
 interface Props {
-    href: string;
     tittel: string;
     undertekst: string;
     sendMetrikk?: boolean;
+    fylke: string;
 }
 
 const LenkepanelKontaktliste: React.FunctionComponent<Props> = props => {
+    const href = getHrefTilKontaktliste(props.fylke) + '?fraKontaktskjema=true';
+
     const linkCreator = (linkProps: any) => (
         <a
             onClick={() => {
@@ -25,9 +28,10 @@ const LenkepanelKontaktliste: React.FunctionComponent<Props> = props => {
         </a>
     );
 
+
     return (
         <LenkepanelBase
-            href={props.href}
+            href={href}
             className="stortlenkepanel"
             linkCreator={linkCreator}
         >

@@ -1,4 +1,6 @@
 import { SEND_KONTAKTSKJEMA_PATH } from './paths';
+import { Besvarelse } from '../KontaktOss/Kontaktskjema/Kontaktskjema';
+import { fjernWhitespace } from './stringUtils';
 
 export type Tema =
     | 'Rekruttering'
@@ -7,7 +9,7 @@ export type Tema =
     | 'Oppfølging av en arbeidstaker'
     | 'Annet';
 
-export type KontaktskjemaModell = {
+export type BesvarelseBackend = { // bytte navn fra modell?
     fylke: string;
     kommune: string;
     kommunenr: string;
@@ -20,14 +22,30 @@ export type KontaktskjemaModell = {
     tema: Tema;
 };
 
-export const sendKontaktskjema = (
-    kontaktskjema: KontaktskjemaModell
-): Promise<Response> => {
-    return fetch(SEND_KONTAKTSKJEMA_PATH, {
+const oversettTilJson = (
+    besvarelse: Besvarelse,
+    tema: Tema
+) => {
+    const besvarelseBackend: BesvarelseBackend = {
+        ...besvarelse,
+        orgnr: fjernWhitespace(besvarelse.orgnr),
+        kommune: besvarelse.kommune.navn,
+        kommunenr: besvarelse.kommune.nummer,
+        tema: tema,
+    };
+    return JSON.stringify(besvarelseBackend);
+};
+
+export const sendKontaktskjema = async (
+    besvarelse: Besvarelse,
+    tema: Tema
+) => {
+    const response = await fetch(SEND_KONTAKTSKJEMA_PATH, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(kontaktskjema),
-    }).then(response => response.json());
+        body: (oversettTilJson(besvarelse, tema)),
+    });
+    return await response.json();
 };

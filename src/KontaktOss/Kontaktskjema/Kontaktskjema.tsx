@@ -1,21 +1,20 @@
 import { Hovedknapp } from 'nav-frontend-knapper';
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import Inputfelter, { SkjemaId } from './Inputfelter/Inputfelter';
-import LenkepanelBekreftelse from './LenkepanelKontaktliste/LenkepanelKontaktliste';
+import Inputfelter, { SkjemaFelt } from './Inputfelter/Inputfelter';
+import LenkepanelKontaktliste from './LenkepanelKontaktliste/LenkepanelKontaktliste';
 import Infoboks from './Infoboks/Infoboks';
 import { besvarelseErGyldig, orgnrOk } from './validering';
 import Feilmelding from './Feilmelding/Feilmelding';
 import {
-    KontaktskjemaModell,
+    BesvarelseBackend,
     sendKontaktskjema,
     Tema,
 } from '../../utils/kontaktskjemaApi';
-import { logEvent, mapTilTemaEvent } from '../../utils/metricsUtils';
+import { logFail, logSendInnKlikk, logSuccess } from '../../utils/metricsUtils';
 import {
-    getHrefTilKontaktliste,
+    erPilotfylke,
     KommuneModell,
-    pilotfylkerForKontaktskjema,
 } from '../../utils/fylker';
 import { FeatureToggles, medFeatureToggles } from '../FeatureTogglesProvider';
 import './Kontaktskjema.less';
@@ -65,41 +64,43 @@ class Kontaktskjema extends React.Component<Props, State> {
         gyldigOrgnr: true,
     };
 
-    avgiSvar = (id: SkjemaId, input: string) => {
-        const nyBesvarelse: any = { ...this.state.besvarelse };
-        nyBesvarelse[id.toString()] = input;
+    oppdaterBesvarelse = (felt: SkjemaFelt, feltverdi: string) => {
         this.setState({
-            besvarelse: nyBesvarelse,
-            besvarelseErGyldig: true,
-            gyldigOrgnr: true,
-        });
+            besvarelse: { ...this.state.besvarelse, [felt]: feltverdi },
+        }, this.fjernFeilmeldinger);
     };
 
-    sendInnBesvarelse = () => {
-        logEvent('kontakt-oss.send-inn-klikk');
-        const kommune = this.state.besvarelse.kommune;
-        const kontaktskjema: KontaktskjemaModell = {
-            ...this.state.besvarelse,
-            orgnr: fjernWhitespace(this.state.besvarelse.orgnr),
-            kommune: kommune!.navn,
-            kommunenr: kommune!.nummer,
-            tema: this.props.tema,
-        };
+    fjernFeilmeldinger() {
+        this.setState({
+            besvarelseErGyldig: true,
+            gyldigOrgnr: true,
+        })
+    }
 
-        sendKontaktskjema(kontaktskjema).then(
+    sendInnBesvarelse = async () => {
+        logSendInnKlikk();
+
+        try {
+            await sendKontaktskjema(this.state.besvarelse, this.props.tema);
+            logSuccess(this.props.tema);
+            this.props.history.push(BEKREFTELSE_PATH);
+        } catch (error) {
+            logFail();
+            this.setState({ innsendingFeilet: true, });
+        }
+
+        /*
+        sendKontaktskjema(this.state.besvarelse, this.props.tema).then(
             () => {
-                logEvent('kontakt-oss.success', {
-                    tema: mapTilTemaEvent(this.props.tema),
-                });
+                logSuccess(this.props.tema);
                 this.props.history.push(BEKREFTELSE_PATH);
             },
             () => {
-                logEvent('kontakt-oss.fail');
-                this.setState({
-                    innsendingFeilet: true,
-                });
+                logFail();
+                this.setState({ innsendingFeilet: true, });
             }
         );
+        */
     };
 
     sendInnOnClick = (e: React.FormEvent<HTMLButtonElement>): void => {
@@ -134,37 +135,30 @@ class Kontaktskjema extends React.Component<Props, State> {
 
     render() {
         const fylke = this.state.besvarelse.fylke;
-        const hrefKontaktliste = getHrefTilKontaktliste(fylke);
-        const hrefKontaktlisteMedQueryParam =
-            hrefKontaktliste + '?fraKontaktskjema=true';
-
-        const pilotfylkeErValgt = pilotfylkerForKontaktskjema.some(
-            pilot => pilot === fylke
-        );
 
         const fylkesinndelingHentetOK = !!this.props.fylkesinndeling;
 
         const skalViseHeleSkjemaet =
-            pilotfylkeErValgt
+            erPilotfylke(fylke)
             && this.props.pilotfylkerFeature
             && fylkesinndelingHentetOK;
 
-        const skalBareViseLenkeTilTlfListe = fylke && !skalViseHeleSkjemaet;
 
         const vilDuHellerRinge = skalViseHeleSkjemaet && (
-            <LenkepanelBekreftelse
-                href={hrefKontaktlisteMedQueryParam}
+            <LenkepanelKontaktliste
                 tittel="Vil du heller ringe?"
                 undertekst="Kontakt en av våre medarbeidere direkte."
                 sendMetrikk={true}
+                fylke={fylke}
             />
         );
 
+        const skalBareViseLenkeTilTlfListe = fylke && !skalViseHeleSkjemaet;
         const kontaktVareMedarbeidere = skalBareViseLenkeTilTlfListe && (
-            <LenkepanelBekreftelse
-                href={hrefKontaktlisteMedQueryParam}
+            <LenkepanelKontaktliste
                 tittel="Ring en av våre medarbeidere"
                 undertekst="Vi kan hjelpe deg med arbeidstrening og rekruttering med eller uten tilrettelegging"
+                fylke={fylke}
             />
         );
 
@@ -207,7 +201,7 @@ class Kontaktskjema extends React.Component<Props, State> {
                     onSubmit={this.sendInnBesvarelse}
                 >
                     <Inputfelter
-                        avgiSvar={this.avgiSvar}
+                        oppdaterBesvarelse={this.oppdaterBesvarelse}
                         fylkeNokkel={fylke}
                         visKunFylkesvalg={!skalViseHeleSkjemaet}
                         visOrgnrFeilmelding={!this.state.gyldigOrgnr}
