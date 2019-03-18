@@ -14,6 +14,7 @@ const pilotfylkerForKontaktskjema: string[] = [
     '1000', // Agder
     '0200', // Øst-Viken
     '0800', // Vestfold og Telemark
+    '1200', // Vestland
 ];
 
 export const erPilotfylke = (fylke: string): boolean => {
