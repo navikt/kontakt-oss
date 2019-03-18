@@ -1,12 +1,16 @@
-import { Besvarelse } from './Kontaktskjema';
 import { validerOrgnr } from '../../utils/orgnrUtils';
 import { fjernWhitespace } from '../../utils/stringUtils';
+import { Besvarelse } from './besvarelse';
 
 const isFalsyOrEmpty = (str: string | undefined): boolean => {
     return !str || str === '';
 };
 
-export const besvarelseErGyldig = (besvarelse: Besvarelse): boolean => {
+export const besvarelseErGyldig = (besvarelse: Besvarelse) => {
+    return orgnrOk(besvarelse.orgnr) && paakrevdeFelterErUtfylte(besvarelse);
+};
+
+export const paakrevdeFelterErUtfylte = (besvarelse: Besvarelse): boolean => {
     const harTommeFelter: boolean =
         !besvarelse ||
         !besvarelse.kommune ||
@@ -17,7 +21,7 @@ export const besvarelseErGyldig = (besvarelse: Besvarelse): boolean => {
         isFalsyOrEmpty(besvarelse.etternavn) ||
         isFalsyOrEmpty(besvarelse.fornavn) ||
         isFalsyOrEmpty(besvarelse.telefonnr);
-    return !harTommeFelter && orgnrOk(besvarelse.orgnr);
+    return !harTommeFelter;
 };
 
 export const orgnrOk = (orgnr?: string): boolean => {

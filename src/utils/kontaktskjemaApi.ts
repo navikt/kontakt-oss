@@ -1,6 +1,6 @@
 import { SEND_KONTAKTSKJEMA_PATH } from './paths';
-import { Besvarelse } from '../KontaktOss/Kontaktskjema/Kontaktskjema';
 import { fjernWhitespace } from './stringUtils';
+import { Besvarelse } from '../KontaktOss/Kontaktskjema/besvarelse';
 
 export type Tema =
     | 'Rekruttering'
@@ -9,7 +9,7 @@ export type Tema =
     | 'Oppfølging av en arbeidstaker'
     | 'Annet';
 
-export type BesvarelseBackend = { // bytte navn fra modell?
+export type BesvarelseBackend = {
     fylke: string;
     kommune: string;
     kommunenr: string;

@@ -4,6 +4,8 @@ import { Input, Select } from 'nav-frontend-skjema';
 import { fylker, getAlfabetiserteKommuner } from '../../../utils/fylker';
 import './Inputfelter.less';
 import { Fylkesinndeling, medFylkesinndeling } from '../../FylkesinndelingProvider';
+import { useState } from 'react';
+import { orgnrOk } from '../validering';
 
 export enum SkjemaFelt {
     kommune = 'kommune',
@@ -20,12 +22,16 @@ interface OwnProps {
     oppdaterBesvarelse: (id: SkjemaFelt, input: string) => void;
     fylkeNokkel?: string;
     visKunFylkesvalg: boolean;
-    visOrgnrFeilmelding?: boolean;
+    orgnr: string; // TODO Bytt ut med controlled inputfelter
 }
 
 type Props = OwnProps & Fylkesinndeling;
 
 const Inputfelter: React.FunctionComponent<Props> = props => {
+
+    const [visOrgnrFeilmelding, settVisOrgnrFeilmelding] = useState<boolean>(false);
+
+
     const fylkerOptions = fylker.map((fylke, index) => (
         <option value={fylke.nokkel} key={index}>
             {fylke.navn}
@@ -71,8 +77,12 @@ const Inputfelter: React.FunctionComponent<Props> = props => {
                     onChange={event =>
                         props.oppdaterBesvarelse(SkjemaFelt.orgnr, event.target.value)
                     }
+                    onBlur={() => {
+                        settVisOrgnrFeilmelding(!orgnrOk(props.orgnr));
+                        console.log(visOrgnrFeilmelding);
+                    }}
                     feil={
-                        props.visOrgnrFeilmelding
+                        visOrgnrFeilmelding
                             ? {
                                 feilmelding:
                                     'Vennligst oppgi et gyldig organisasjonsnummer',

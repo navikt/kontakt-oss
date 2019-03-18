@@ -4,41 +4,26 @@ import { RouteComponentProps } from 'react-router-dom';
 import Inputfelter, { SkjemaFelt } from './Inputfelter/Inputfelter';
 import LenkepanelKontaktliste from './LenkepanelKontaktliste/LenkepanelKontaktliste';
 import Infoboks from './Infoboks/Infoboks';
-import { besvarelseErGyldig, orgnrOk } from './validering';
+import { besvarelseErGyldig, paakrevdeFelterErUtfylte, orgnrOk } from './validering';
 import Feilmelding from './Feilmelding/Feilmelding';
 import {
-    BesvarelseBackend,
     sendKontaktskjema,
     Tema,
 } from '../../utils/kontaktskjemaApi';
 import { logFail, logSendInnKlikk, logSuccess } from '../../utils/metricsUtils';
 import {
     erPilotfylke,
-    KommuneModell,
 } from '../../utils/fylker';
 import { FeatureToggles, medFeatureToggles } from '../FeatureTogglesProvider';
 import './Kontaktskjema.less';
 import { BEKREFTELSE_PATH } from '../../utils/paths';
 import { VEIVISER_URL } from '../../utils/konstanter';
-import { fjernWhitespace } from '../../utils/stringUtils';
 import { Fylkesinndeling, medFylkesinndeling } from '../FylkesinndelingProvider';
-
-export interface Besvarelse {
-    kommune: KommuneModell;
-    bedriftsnavn: string;
-    orgnr: string;
-    fornavn: string;
-    etternavn: string;
-    epost: string;
-    telefonnr: string;
-    fylke: string;
-}
+import { Besvarelse, tomBesvarelse } from './besvarelse';
 
 interface State {
     besvarelse: Besvarelse;
-    besvarelseErGyldig: boolean;
-    innsendingFeilet: boolean;
-    gyldigOrgnr: boolean;
+    feilmelding?: string;
 }
 
 interface OwnProps {
@@ -49,19 +34,7 @@ type Props = RouteComponentProps & FeatureToggles & Fylkesinndeling & OwnProps;
 
 class Kontaktskjema extends React.Component<Props, State> {
     state: State = {
-        besvarelse: {
-            fylke: '',
-            kommune: { navn: '', nummer: '' },
-            bedriftsnavn: '',
-            orgnr: '',
-            fornavn: '',
-            etternavn: '',
-            epost: '',
-            telefonnr: '',
-        },
-        besvarelseErGyldig: true,
-        innsendingFeilet: false,
-        gyldigOrgnr: true,
+        besvarelse: tomBesvarelse
     };
 
     oppdaterBesvarelse = (felt: SkjemaFelt, feltverdi: string) => {
@@ -70,12 +43,11 @@ class Kontaktskjema extends React.Component<Props, State> {
         }, this.fjernFeilmeldinger);
     };
 
-    fjernFeilmeldinger() {
+    fjernFeilmeldinger = () => {
         this.setState({
-            besvarelseErGyldig: true,
-            gyldigOrgnr: true,
+            feilmelding: undefined
         })
-    }
+    };
 
     sendInnBesvarelse = async () => {
         logSendInnKlikk();
@@ -86,51 +58,26 @@ class Kontaktskjema extends React.Component<Props, State> {
             this.props.history.push(BEKREFTELSE_PATH);
         } catch (error) {
             logFail();
-            this.setState({ innsendingFeilet: true, });
+            this.setState({ feilmelding: 'Noe gikk feil med innsendingen. Vennligst prøv igjen senere.' });
         }
-
-        /*
-        sendKontaktskjema(this.state.besvarelse, this.props.tema).then(
-            () => {
-                logSuccess(this.props.tema);
-                this.props.history.push(BEKREFTELSE_PATH);
-            },
-            () => {
-                logFail();
-                this.setState({ innsendingFeilet: true, });
-            }
-        );
-        */
     };
 
-    sendInnOnClick = (e: React.FormEvent<HTMLButtonElement>): void => {
-        e.preventDefault();
+    sendInnOnClick = (event: any): void => {
+        event.preventDefault();
         if (besvarelseErGyldig(this.state.besvarelse)) {
             this.sendInnBesvarelse();
         } else {
-            this.setState({ besvarelseErGyldig: false });
-        }
-
-        if (!orgnrOk(this.state.besvarelse.orgnr)) {
-            this.setState({ gyldigOrgnr: false });
-        } else {
-            this.setState({ gyldigOrgnr: true });
+            this.settFeilmelding();
         }
     };
 
-    lagFeilmelding = () => {
-        let feilmeldingTekst = undefined;
-        if (!this.state.besvarelseErGyldig) {
-            feilmeldingTekst = 'Du må fylle ut alle feltene for å sende inn.';
-            if (!this.state.gyldigOrgnr) {
-                feilmeldingTekst =
-                    'Ett eller flere av feltene er ikke fylt ut riktig.';
-            }
-        } else if (this.state.innsendingFeilet) {
-            feilmeldingTekst =
-                'Noe gikk feil med innsendingen. Vennligst prøv igjen senere.';
+    settFeilmelding = () => {
+        if (!paakrevdeFelterErUtfylte(this.state.besvarelse)) {
+            this.setState({feilmelding: 'Du må fylle ut alle feltene for å sende inn.'});
         }
-        return feilmeldingTekst;
+        if (!orgnrOk(this.state.besvarelse.orgnr)) {
+            this.setState({feilmelding: 'Ett eller flere av feltene er ikke fylt ut riktig.'});
+        }
     };
 
     render() {
@@ -162,51 +109,44 @@ class Kontaktskjema extends React.Component<Props, State> {
             />
         );
 
-        const feilmeldingTekst = this.lagFeilmelding();
-
-        const skjemaInnsendingsInfo = (
-            <>
-                <Infoboks>
-                    <div className="typo-normal">
-                        NAV bruker disse opplysninger når vi kontakter deg.
-                        Opplysningene blir ikke delt eller brukt til andre
-                        formål. Vi sletter opplysningene etter at vi har
-                        kontaktet deg.
-                    </div>
-                </Infoboks>
-                {feilmeldingTekst && (
-                    <Feilmelding className="kontaktskjema__feilmelding">
-                        {feilmeldingTekst}
-                    </Feilmelding>
-                )}
-                <Hovedknapp
-                    className="kontaktskjema__knapp"
-                    onClick={this.sendInnOnClick}
-                >
-                    Send inn
-                </Hovedknapp>
-                <a
-                    href={VEIVISER_URL}
-                    className="kontaktskjema__avbryt-lenke lenke typo-normal"
-                >
-                    Avbryt
-                </a>
-            </>
-        );
-
         return (
             <div className="kontaktskjema">
-                <form
-                    className="kontaktskjema__innhold"
-                    onSubmit={this.sendInnBesvarelse}
-                >
+                <form className="kontaktskjema__innhold">
                     <Inputfelter
                         oppdaterBesvarelse={this.oppdaterBesvarelse}
                         fylkeNokkel={fylke}
                         visKunFylkesvalg={!skalViseHeleSkjemaet}
-                        visOrgnrFeilmelding={!this.state.gyldigOrgnr}
+                        orgnr={this.state.besvarelse.orgnr}
                     />
-                    {skalViseHeleSkjemaet && skjemaInnsendingsInfo}
+                    {skalViseHeleSkjemaet && (
+                        <>
+                            <Infoboks>
+                                <div className="typo-normal">
+                                    NAV bruker disse opplysninger når vi kontakter deg.
+                                    Opplysningene blir ikke delt eller brukt til andre
+                                    formål. Vi sletter opplysningene etter at vi har
+                                    kontaktet deg.
+                                </div>
+                            </Infoboks>
+                            {this.state.feilmelding && (
+                                <Feilmelding className="kontaktskjema__feilmelding">
+                                    {this.state.feilmelding}
+                                </Feilmelding>
+                            )}
+                            <Hovedknapp
+                                className="kontaktskjema__knapp"
+                                onClick={this.sendInnOnClick}
+                            >
+                                Send inn
+                            </Hovedknapp>
+                            <a
+                                href={VEIVISER_URL}
+                                className="kontaktskjema__avbryt-lenke lenke typo-normal"
+                            >
+                                Avbryt
+                            </a>
+                        </>
+                    )}
                     {vilDuHellerRinge}
                     {kontaktVareMedarbeidere}
                 </form>
