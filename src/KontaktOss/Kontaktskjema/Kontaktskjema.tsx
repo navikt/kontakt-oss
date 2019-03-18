@@ -4,21 +4,23 @@ import { RouteComponentProps } from 'react-router-dom';
 import Inputfelter, { SkjemaFelt } from './Inputfelter/Inputfelter';
 import LenkepanelKontaktliste from './LenkepanelKontaktliste/LenkepanelKontaktliste';
 import Infoboks from './Infoboks/Infoboks';
-import { besvarelseErGyldig, paakrevdeFelterErUtfylte, orgnrOk } from './validering';
+import {
+    besvarelseErGyldig,
+    paakrevdeFelterErUtfylte,
+    orgnrOk,
+} from './validering';
 import Feilmelding from './Feilmelding/Feilmelding';
-import {
-    sendKontaktskjema,
-    Tema,
-} from '../../utils/kontaktskjemaApi';
+import { sendKontaktskjema, Tema } from '../../utils/kontaktskjemaApi';
 import { logFail, logSendInnKlikk, logSuccess } from '../../utils/metricsUtils';
-import {
-    erPilotfylke,
-} from '../../utils/fylker';
+import { erPilotfylke } from '../../utils/fylker';
 import { FeatureToggles, medFeatureToggles } from '../FeatureTogglesProvider';
 import './Kontaktskjema.less';
 import { BEKREFTELSE_PATH } from '../../utils/paths';
 import { VEIVISER_URL } from '../../utils/konstanter';
-import { Fylkesinndeling, medFylkesinndeling } from '../FylkesinndelingProvider';
+import {
+    Fylkesinndeling,
+    medFylkesinndeling,
+} from '../FylkesinndelingProvider';
 import { Besvarelse, tomBesvarelse } from './besvarelse';
 
 interface State {
@@ -34,19 +36,22 @@ type Props = RouteComponentProps & FeatureToggles & Fylkesinndeling & OwnProps;
 
 class Kontaktskjema extends React.Component<Props, State> {
     state: State = {
-        besvarelse: tomBesvarelse
+        besvarelse: tomBesvarelse,
     };
 
     oppdaterBesvarelse = (felt: SkjemaFelt, feltverdi: string) => {
-        this.setState({
-            besvarelse: { ...this.state.besvarelse, [felt]: feltverdi },
-        }, this.fjernFeilmeldinger);
+        this.setState(
+            {
+                besvarelse: { ...this.state.besvarelse, [felt]: feltverdi },
+            },
+            this.fjernFeilmeldinger
+        );
     };
 
     fjernFeilmeldinger = () => {
         this.setState({
-            feilmelding: undefined
-        })
+            feilmelding: undefined,
+        });
     };
 
     sendInnBesvarelse = async () => {
@@ -58,7 +63,10 @@ class Kontaktskjema extends React.Component<Props, State> {
             this.props.history.push(BEKREFTELSE_PATH);
         } catch (error) {
             logFail();
-            this.setState({ feilmelding: 'Noe gikk feil med innsendingen. Vennligst prøv igjen senere.' });
+            this.setState({
+                feilmelding:
+                    'Noe gikk feil med innsendingen. Vennligst prøv igjen senere.',
+            });
         }
     };
 
@@ -73,10 +81,15 @@ class Kontaktskjema extends React.Component<Props, State> {
 
     settFeilmelding = () => {
         if (!paakrevdeFelterErUtfylte(this.state.besvarelse)) {
-            this.setState({feilmelding: 'Du må fylle ut alle feltene for å sende inn.'});
+            this.setState({
+                feilmelding: 'Du må fylle ut alle feltene for å sende inn.',
+            });
         }
         if (!orgnrOk(this.state.besvarelse.orgnr)) {
-            this.setState({feilmelding: 'Ett eller flere av feltene er ikke fylt ut riktig.'});
+            this.setState({
+                feilmelding:
+                    'Ett eller flere av feltene er ikke fylt ut riktig.',
+            });
         }
     };
 
@@ -86,10 +99,9 @@ class Kontaktskjema extends React.Component<Props, State> {
         const fylkesinndelingHentetOK = !!this.props.fylkesinndeling;
 
         const skalViseHeleSkjemaet =
-            erPilotfylke(fylke)
-            && this.props.pilotfylkerFeature
-            && fylkesinndelingHentetOK;
-
+            erPilotfylke(fylke) &&
+            this.props.pilotfylkerFeature &&
+            fylkesinndelingHentetOK;
 
         const vilDuHellerRinge = skalViseHeleSkjemaet && (
             <LenkepanelKontaktliste
@@ -122,10 +134,10 @@ class Kontaktskjema extends React.Component<Props, State> {
                         <>
                             <Infoboks>
                                 <div className="typo-normal">
-                                    NAV bruker disse opplysninger når vi kontakter deg.
-                                    Opplysningene blir ikke delt eller brukt til andre
-                                    formål. Vi sletter opplysningene etter at vi har
-                                    kontaktet deg.
+                                    NAV bruker disse opplysninger når vi
+                                    kontakter deg. Opplysningene blir ikke delt
+                                    eller brukt til andre formål. Vi sletter
+                                    opplysningene etter at vi har kontaktet deg.
                                 </div>
                             </Infoboks>
                             {this.state.feilmelding && (
