@@ -3,9 +3,14 @@ import { Element } from 'nav-frontend-typografi';
 import { Input, Select } from 'nav-frontend-skjema';
 import { fylker, getAlfabetiserteKommuner } from '../../../utils/fylker';
 import './Inputfelter.less';
-import { Fylkesinndeling, medFylkesinndeling } from '../../FylkesinndelingProvider';
+import {
+    Fylkesinndeling,
+    medFylkesinndeling,
+} from '../../FylkesinndelingProvider';
+import { useState } from 'react';
+import { orgnrOk } from '../validering';
 
-export enum SkjemaId {
+export enum SkjemaFelt {
     kommune = 'kommune',
     bedriftsnavn = 'bedriftsnavn',
     orgnr = 'orgnr',
@@ -17,15 +22,19 @@ export enum SkjemaId {
 }
 
 interface OwnProps {
-    avgiSvar: (id: SkjemaId, input: string) => void;
+    oppdaterBesvarelse: (id: SkjemaFelt, input: string) => void;
     fylkeNokkel?: string;
     visKunFylkesvalg: boolean;
-    visOrgnrFeilmelding?: boolean;
+    orgnr: string; // TODO Bytt ut med controlled inputfelter
 }
 
 type Props = OwnProps & Fylkesinndeling;
 
 const Inputfelter: React.FunctionComponent<Props> = props => {
+    const [visOrgnrFeilmelding, settVisOrgnrFeilmelding] = useState<boolean>(
+        false
+    );
+
     const fylkerOptions = fylker.map((fylke, index) => (
         <option value={fylke.nokkel} key={index}>
             {fylke.navn}
@@ -33,24 +42,27 @@ const Inputfelter: React.FunctionComponent<Props> = props => {
     ));
 
     const getOvrigeInputfelter = () => {
-        const kommunerOptions = getAlfabetiserteKommuner(props.fylkesinndeling, props.fylkeNokkel).map(
-            kommune => (
-                <option value={JSON.stringify(kommune)} key={kommune.nummer}>
-                    {kommune.navn}
-                </option>
-            )
-        );
+        const kommunerOptions = getAlfabetiserteKommuner(
+            props.fylkesinndeling,
+            props.fylkeNokkel
+        ).map(kommune => (
+            <option value={JSON.stringify(kommune)} key={kommune.nummer}>
+                {kommune.navn}
+            </option>
+        ));
 
         return (
             <>
                 <Select
                     label={
-                        <Element>Hvilken kommune ligger arbeidsplassen i?</Element>
+                        <Element>
+                            Hvilken kommune ligger arbeidsplassen i?
+                        </Element>
                     }
                     className="kontaktskjema-input__felt"
                     onChange={event =>
-                        props.avgiSvar(
-                            SkjemaId.kommune,
+                        props.oppdaterBesvarelse(
+                            SkjemaFelt.kommune,
                             JSON.parse(event.target.value)
                         )
                     }
@@ -62,21 +74,31 @@ const Inputfelter: React.FunctionComponent<Props> = props => {
                     className="kontaktskjema-input__felt"
                     label={<Element>Bedriftens navn</Element>}
                     onChange={event =>
-                        props.avgiSvar(SkjemaId.bedriftsnavn, event.target.value)
+                        props.oppdaterBesvarelse(
+                            SkjemaFelt.bedriftsnavn,
+                            event.target.value
+                        )
                     }
                 />
                 <Input
                     className="kontaktskjema-input__felt"
                     label={<Element>Organisasjonsnummer (valgfritt)</Element>}
                     onChange={event =>
-                        props.avgiSvar(SkjemaId.orgnr, event.target.value)
+                        props.oppdaterBesvarelse(
+                            SkjemaFelt.orgnr,
+                            event.target.value
+                        )
                     }
+                    onBlur={() => {
+                        settVisOrgnrFeilmelding(!orgnrOk(props.orgnr));
+                        console.log(visOrgnrFeilmelding);
+                    }}
                     feil={
-                        props.visOrgnrFeilmelding
+                        visOrgnrFeilmelding
                             ? {
-                                feilmelding:
-                                    'Vennligst oppgi et gyldig organisasjonsnummer',
-                            }
+                                  feilmelding:
+                                      'Vennligst oppgi et gyldig organisasjonsnummer',
+                              }
                             : undefined
                     }
                 />
@@ -84,28 +106,40 @@ const Inputfelter: React.FunctionComponent<Props> = props => {
                     className="kontaktskjema-input__felt"
                     label={<Element>Fornavn</Element>}
                     onChange={event =>
-                        props.avgiSvar(SkjemaId.fornavn, event.target.value)
+                        props.oppdaterBesvarelse(
+                            SkjemaFelt.fornavn,
+                            event.target.value
+                        )
                     }
                 />
                 <Input
                     className="kontaktskjema-input__felt"
                     label={<Element>Etternavn</Element>}
                     onChange={event =>
-                        props.avgiSvar(SkjemaId.etternavn, event.target.value)
+                        props.oppdaterBesvarelse(
+                            SkjemaFelt.etternavn,
+                            event.target.value
+                        )
                     }
                 />
                 <Input
                     className="kontaktskjema-input__felt"
                     label={<Element>E-post</Element>}
                     onChange={event =>
-                        props.avgiSvar(SkjemaId.epost, event.target.value)
+                        props.oppdaterBesvarelse(
+                            SkjemaFelt.epost,
+                            event.target.value
+                        )
                     }
                 />
                 <Input
                     className="kontaktskjema-input__felt"
                     label={<Element>Telefonnummer</Element>}
                     onChange={event =>
-                        props.avgiSvar(SkjemaId.telefonnr, event.target.value)
+                        props.oppdaterBesvarelse(
+                            SkjemaFelt.telefonnr,
+                            event.target.value
+                        )
                     }
                 />
             </>
@@ -125,7 +159,10 @@ const Inputfelter: React.FunctionComponent<Props> = props => {
                     }
                     className="kontaktskjema-input__felt"
                     onChange={event =>
-                        props.avgiSvar(SkjemaId.fylke, event.target.value)
+                        props.oppdaterBesvarelse(
+                            SkjemaFelt.fylke,
+                            event.target.value
+                        )
                     }
                 >
                     <option value="" key="ingen valgt" />

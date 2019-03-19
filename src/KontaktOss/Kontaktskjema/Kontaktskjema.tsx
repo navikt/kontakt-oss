@@ -1,45 +1,31 @@
 import { Hovedknapp } from 'nav-frontend-knapper';
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import Inputfelter, { SkjemaId } from './Inputfelter/Inputfelter';
-import LenkepanelBekreftelse from './LenkepanelKontaktliste/LenkepanelKontaktliste';
+import Inputfelter, { SkjemaFelt } from './Inputfelter/Inputfelter';
+import LenkepanelKontaktliste from './LenkepanelKontaktliste/LenkepanelKontaktliste';
 import Infoboks from './Infoboks/Infoboks';
-import { besvarelseErGyldig, orgnrOk } from './validering';
+import {
+    besvarelseErGyldig,
+    paakrevdeFelterErUtfylte,
+    orgnrOk,
+} from './validering';
 import Feilmelding from './Feilmelding/Feilmelding';
-import {
-    KontaktskjemaModell,
-    sendKontaktskjema,
-    Tema,
-} from '../../utils/kontaktskjemaApi';
-import { logEvent, mapTilTemaEvent } from '../../utils/metricsUtils';
-import {
-    getHrefTilKontaktliste,
-    KommuneModell,
-    pilotfylkerForKontaktskjema,
-} from '../../utils/fylker';
+import { sendKontaktskjema, Tema } from '../../utils/kontaktskjemaApi';
+import { logFail, logSendInnKlikk, logSuccess } from '../../utils/metricsUtils';
+import { erPilotfylke } from '../../utils/fylker';
 import { FeatureToggles, medFeatureToggles } from '../FeatureTogglesProvider';
 import './Kontaktskjema.less';
 import { BEKREFTELSE_PATH } from '../../utils/paths';
 import { VEIVISER_URL } from '../../utils/konstanter';
-import { fjernWhitespace } from '../../utils/stringUtils';
-import { Fylkesinndeling, medFylkesinndeling } from '../FylkesinndelingProvider';
-
-export interface Besvarelse {
-    kommune: KommuneModell;
-    bedriftsnavn: string;
-    orgnr: string;
-    fornavn: string;
-    etternavn: string;
-    epost: string;
-    telefonnr: string;
-    fylke: string;
-}
+import {
+    Fylkesinndeling,
+    medFylkesinndeling,
+} from '../FylkesinndelingProvider';
+import { Besvarelse, tomBesvarelse } from './besvarelse';
 
 interface State {
     besvarelse: Besvarelse;
-    besvarelseErGyldig: boolean;
-    innsendingFeilet: boolean;
-    gyldigOrgnr: boolean;
+    feilmelding?: string;
 }
 
 interface OwnProps {
@@ -50,169 +36,129 @@ type Props = RouteComponentProps & FeatureToggles & Fylkesinndeling & OwnProps;
 
 class Kontaktskjema extends React.Component<Props, State> {
     state: State = {
-        besvarelse: {
-            fylke: '',
-            kommune: { navn: '', nummer: '' },
-            bedriftsnavn: '',
-            orgnr: '',
-            fornavn: '',
-            etternavn: '',
-            epost: '',
-            telefonnr: '',
-        },
-        besvarelseErGyldig: true,
-        innsendingFeilet: false,
-        gyldigOrgnr: true,
+        besvarelse: tomBesvarelse,
     };
 
-    avgiSvar = (id: SkjemaId, input: string) => {
-        const nyBesvarelse: any = { ...this.state.besvarelse };
-        nyBesvarelse[id.toString()] = input;
-        this.setState({
-            besvarelse: nyBesvarelse,
-            besvarelseErGyldig: true,
-            gyldigOrgnr: true,
-        });
-    };
-
-    sendInnBesvarelse = () => {
-        logEvent('kontakt-oss.send-inn-klikk');
-        const kommune = this.state.besvarelse.kommune;
-        const kontaktskjema: KontaktskjemaModell = {
-            ...this.state.besvarelse,
-            orgnr: fjernWhitespace(this.state.besvarelse.orgnr),
-            kommune: kommune!.navn,
-            kommunenr: kommune!.nummer,
-            tema: this.props.tema,
-        };
-
-        sendKontaktskjema(kontaktskjema).then(
-            () => {
-                logEvent('kontakt-oss.success', {
-                    tema: mapTilTemaEvent(this.props.tema),
-                });
-                this.props.history.push(BEKREFTELSE_PATH);
+    oppdaterBesvarelse = (felt: SkjemaFelt, feltverdi: string) => {
+        this.setState(
+            {
+                besvarelse: { ...this.state.besvarelse, [felt]: feltverdi },
             },
-            () => {
-                logEvent('kontakt-oss.fail');
-                this.setState({
-                    innsendingFeilet: true,
-                });
-            }
+            this.fjernFeilmeldinger
         );
     };
 
-    sendInnOnClick = (e: React.FormEvent<HTMLButtonElement>): void => {
-        e.preventDefault();
-        if (besvarelseErGyldig(this.state.besvarelse)) {
-            this.sendInnBesvarelse();
-        } else {
-            this.setState({ besvarelseErGyldig: false });
-        }
+    fjernFeilmeldinger = () => {
+        this.setState({
+            feilmelding: undefined,
+        });
+    };
 
-        if (!orgnrOk(this.state.besvarelse.orgnr)) {
-            this.setState({ gyldigOrgnr: false });
-        } else {
-            this.setState({ gyldigOrgnr: true });
+    sendInnBesvarelse = async () => {
+        logSendInnKlikk();
+
+        try {
+            await sendKontaktskjema(this.state.besvarelse, this.props.tema);
+            logSuccess(this.props.tema);
+            this.props.history.push(BEKREFTELSE_PATH);
+        } catch (error) {
+            logFail();
+            this.setState({
+                feilmelding:
+                    'Noe gikk feil med innsendingen. Vennligst prøv igjen senere.',
+            });
         }
     };
 
-    lagFeilmelding = () => {
-        let feilmeldingTekst = undefined;
-        if (!this.state.besvarelseErGyldig) {
-            feilmeldingTekst = 'Du må fylle ut alle feltene for å sende inn.';
-            if (!this.state.gyldigOrgnr) {
-                feilmeldingTekst =
-                    'Ett eller flere av feltene er ikke fylt ut riktig.';
-            }
-        } else if (this.state.innsendingFeilet) {
-            feilmeldingTekst =
-                'Noe gikk feil med innsendingen. Vennligst prøv igjen senere.';
+    sendInnOnClick = (event: any): void => {
+        event.preventDefault();
+        if (besvarelseErGyldig(this.state.besvarelse)) {
+            this.sendInnBesvarelse();
+        } else {
+            this.settFeilmelding();
         }
-        return feilmeldingTekst;
+    };
+
+    settFeilmelding = () => {
+        if (!paakrevdeFelterErUtfylte(this.state.besvarelse)) {
+            this.setState({
+                feilmelding: 'Du må fylle ut alle feltene for å sende inn.',
+            });
+        }
+        if (!orgnrOk(this.state.besvarelse.orgnr)) {
+            this.setState({
+                feilmelding:
+                    'Ett eller flere av feltene er ikke fylt ut riktig.',
+            });
+        }
     };
 
     render() {
         const fylke = this.state.besvarelse.fylke;
-        const hrefKontaktliste = getHrefTilKontaktliste(fylke);
-        const hrefKontaktlisteMedQueryParam =
-            hrefKontaktliste + '?fraKontaktskjema=true';
-
-        const pilotfylkeErValgt = pilotfylkerForKontaktskjema.some(
-            pilot => pilot === fylke
-        );
 
         const fylkesinndelingHentetOK = !!this.props.fylkesinndeling;
 
         const skalViseHeleSkjemaet =
-            pilotfylkeErValgt
-            && this.props.pilotfylkerFeature
-            && fylkesinndelingHentetOK;
-
-        const skalBareViseLenkeTilTlfListe = fylke && !skalViseHeleSkjemaet;
+            erPilotfylke(fylke) &&
+            this.props.pilotfylkerFeature &&
+            fylkesinndelingHentetOK;
 
         const vilDuHellerRinge = skalViseHeleSkjemaet && (
-            <LenkepanelBekreftelse
-                href={hrefKontaktlisteMedQueryParam}
+            <LenkepanelKontaktliste
                 tittel="Vil du heller ringe?"
                 undertekst="Kontakt en av våre medarbeidere direkte."
                 sendMetrikk={true}
+                fylke={fylke}
             />
         );
 
+        const skalBareViseLenkeTilTlfListe = fylke && !skalViseHeleSkjemaet;
         const kontaktVareMedarbeidere = skalBareViseLenkeTilTlfListe && (
-            <LenkepanelBekreftelse
-                href={hrefKontaktlisteMedQueryParam}
+            <LenkepanelKontaktliste
                 tittel="Ring en av våre medarbeidere"
                 undertekst="Vi kan hjelpe deg med arbeidstrening og rekruttering med eller uten tilrettelegging"
+                fylke={fylke}
             />
-        );
-
-        const feilmeldingTekst = this.lagFeilmelding();
-
-        const skjemaInnsendingsInfo = (
-            <>
-                <Infoboks>
-                    <div className="typo-normal">
-                        NAV bruker disse opplysninger når vi kontakter deg.
-                        Opplysningene blir ikke delt eller brukt til andre
-                        formål. Vi sletter opplysningene etter at vi har
-                        kontaktet deg.
-                    </div>
-                </Infoboks>
-                {feilmeldingTekst && (
-                    <Feilmelding className="kontaktskjema__feilmelding">
-                        {feilmeldingTekst}
-                    </Feilmelding>
-                )}
-                <Hovedknapp
-                    className="kontaktskjema__knapp"
-                    onClick={this.sendInnOnClick}
-                >
-                    Send inn
-                </Hovedknapp>
-                <a
-                    href={VEIVISER_URL}
-                    className="kontaktskjema__avbryt-lenke lenke typo-normal"
-                >
-                    Avbryt
-                </a>
-            </>
         );
 
         return (
             <div className="kontaktskjema">
-                <form
-                    className="kontaktskjema__innhold"
-                    onSubmit={this.sendInnBesvarelse}
-                >
+                <form className="kontaktskjema__innhold">
                     <Inputfelter
-                        avgiSvar={this.avgiSvar}
+                        oppdaterBesvarelse={this.oppdaterBesvarelse}
                         fylkeNokkel={fylke}
                         visKunFylkesvalg={!skalViseHeleSkjemaet}
-                        visOrgnrFeilmelding={!this.state.gyldigOrgnr}
+                        orgnr={this.state.besvarelse.orgnr}
                     />
-                    {skalViseHeleSkjemaet && skjemaInnsendingsInfo}
+                    {skalViseHeleSkjemaet && (
+                        <>
+                            <Infoboks>
+                                <div className="typo-normal">
+                                    NAV bruker disse opplysninger når vi
+                                    kontakter deg. Opplysningene blir ikke delt
+                                    eller brukt til andre formål. Vi sletter
+                                    opplysningene etter at vi har kontaktet deg.
+                                </div>
+                            </Infoboks>
+                            {this.state.feilmelding && (
+                                <Feilmelding className="kontaktskjema__feilmelding">
+                                    {this.state.feilmelding}
+                                </Feilmelding>
+                            )}
+                            <Hovedknapp
+                                className="kontaktskjema__knapp"
+                                onClick={this.sendInnOnClick}
+                            >
+                                Send inn
+                            </Hovedknapp>
+                            <a
+                                href={VEIVISER_URL}
+                                className="kontaktskjema__avbryt-lenke lenke typo-normal"
+                            >
+                                Avbryt
+                            </a>
+                        </>
+                    )}
                     {vilDuHellerRinge}
                     {kontaktVareMedarbeidere}
                 </form>

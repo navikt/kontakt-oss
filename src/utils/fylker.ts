@@ -9,13 +9,19 @@ export interface KommuneModell {
     nummer: string;
 }
 
-export const pilotfylkerForKontaktskjema: string[] = [
+const pilotfylkerForKontaktskjema: string[] = [
     '1800', // Nordland
     '1000', // Agder
     '0200', // Øst-Viken
     '0800', // Vestfold og Telemark
     '1200', // Vestland
 ];
+
+export const erPilotfylke = (fylke: string): boolean => {
+    return pilotfylkerForKontaktskjema.some(
+        pilot => pilot === fylke
+    )
+};
 
 // tslint:disable max-line-length
 export const fylker: FylkeModell[] = [
