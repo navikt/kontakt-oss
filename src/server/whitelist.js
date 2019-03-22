@@ -5,7 +5,7 @@ const whitelistUrler = ['/meldInteresse', '/fylkerOgKommuner'];
 
 const whitelist = {};
 whitelistUrler.forEach(url => {
-    const fraUrl = '^' + basePath('/api' + url);
+    const fraUrl = '^' + basePath('/api' + url) + '(|/)$';
     const tilUrl = apiBasePath + url;
     whitelist[fraUrl] = tilUrl;
 });
