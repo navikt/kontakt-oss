@@ -28,7 +28,6 @@ const LenkepanelKontaktliste: React.FunctionComponent<Props> = props => {
         </a>
     );
 
-
     return (
         <LenkepanelBase
             href={href}

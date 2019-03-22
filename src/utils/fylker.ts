@@ -18,9 +18,7 @@ const pilotfylkerForKontaktskjema: string[] = [
 ];
 
 export const erPilotfylke = (fylke: string): boolean => {
-    return pilotfylkerForKontaktskjema.some(
-        pilot => pilot === fylke
-    )
+    return pilotfylkerForKontaktskjema.some(pilot => pilot === fylke);
 };
 
 // tslint:disable max-line-length
@@ -110,7 +108,10 @@ export const getHrefTilKontaktliste = (fylkeNokkel?: string): string => {
     return gjeldendeFylke ? gjeldendeFylke.hrefKontaktliste : '#';
 };
 
-export const getAlfabetiserteKommuner = (fylkesinndeling: any, fylkeNr?: string): KommuneModell[] => {
+export const getAlfabetiserteKommuner = (
+    fylkesinndeling: any,
+    fylkeNr?: string
+): KommuneModell[] => {
     if (!fylkeNr || !fylkesinndeling[fylkeNr]) {
         return [];
     } else {

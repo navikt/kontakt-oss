@@ -2,15 +2,18 @@ import * as React from 'react';
 import { FYLKER_OG_KOMMUNER_PATH } from '../utils/paths';
 
 export type Fylkesinndeling = {
-    fylkesinndeling: any
+    fylkesinndeling: any;
 };
 const defaultKommuner: Fylkesinndeling = {
-    fylkesinndeling: undefined
+    fylkesinndeling: undefined,
 };
 const FylkesinndelingContext = React.createContext(defaultKommuner);
 const FylkesinndelingConsumer = FylkesinndelingContext.Consumer;
 
-export class FylkesinndelingProvider extends React.Component<{}, Fylkesinndeling> {
+export class FylkesinndelingProvider extends React.Component<
+    {},
+    Fylkesinndeling
+> {
     constructor(props: {}) {
         super(props);
         this.state = defaultKommuner;
@@ -22,11 +25,11 @@ export class FylkesinndelingProvider extends React.Component<{}, Fylkesinndeling
                 if (response.ok) {
                     return response;
                 } else {
-                    throw new Error(response.statusText)
+                    throw new Error(response.statusText);
                 }
             })
             .then(response => response.json())
-            .then(json => this.setState({fylkesinndeling: json}));
+            .then(json => this.setState({ fylkesinndeling: json }));
     }
 
     render() {
@@ -38,13 +41,14 @@ export class FylkesinndelingProvider extends React.Component<{}, Fylkesinndeling
     }
 }
 
-
 export function medFylkesinndeling<PROPS>(
     Component: React.ComponentType<Fylkesinndeling & PROPS>
 ): React.ComponentType<PROPS> {
     return (props: PROPS) => (
         <FylkesinndelingConsumer>
-            {(fylkesinndeling: Fylkesinndeling) => <Component {...props} {...fylkesinndeling} />}
+            {(fylkesinndeling: Fylkesinndeling) => (
+                <Component {...props} {...fylkesinndeling} />
+            )}
         </FylkesinndelingConsumer>
     );
 }
