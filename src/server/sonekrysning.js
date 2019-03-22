@@ -1,5 +1,5 @@
 const proxy = require('http-proxy-middleware');
-const basePath = require('./basePath');
+const whitelist = require('./whitelist');
 
 const envProperties = {
     API_GATEWAY: process.env.API_GATEWAY || 'http://localhost:8080',
@@ -8,9 +8,7 @@ const envProperties = {
 
 const proxyConfig = {
     changeOrigin: true,
-    pathRewrite: {
-        ['^' + basePath('/api')]: `/kontakt-oss-api`,
-    },
+    pathRewrite: whitelist,
     target: envProperties.API_GATEWAY,
     secure: true,
     xfwd: true,

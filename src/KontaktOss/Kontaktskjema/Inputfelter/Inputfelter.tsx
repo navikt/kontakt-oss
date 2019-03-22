@@ -91,7 +91,6 @@ const Inputfelter: React.FunctionComponent<Props> = props => {
                     }
                     onBlur={() => {
                         settVisOrgnrFeilmelding(!orgnrOk(props.orgnr));
-                        console.log(visOrgnrFeilmelding);
                     }}
                     feil={
                         visOrgnrFeilmelding
