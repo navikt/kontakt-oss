@@ -22,10 +22,7 @@ export type BesvarelseBackend = {
     tema: Tema;
 };
 
-const oversettTilJson = (
-    besvarelse: Besvarelse,
-    tema: Tema
-) => {
+const oversettTilJson = (besvarelse: Besvarelse, tema: Tema) => {
     const besvarelseBackend: BesvarelseBackend = {
         ...besvarelse,
         orgnr: fjernWhitespace(besvarelse.orgnr),
@@ -36,16 +33,13 @@ const oversettTilJson = (
     return JSON.stringify(besvarelseBackend);
 };
 
-export const sendKontaktskjema = async (
-    besvarelse: Besvarelse,
-    tema: Tema
-) => {
+export const sendKontaktskjema = async (besvarelse: Besvarelse, tema: Tema) => {
     const response = await fetch(SEND_KONTAKTSKJEMA_PATH, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: (oversettTilJson(besvarelse, tema)),
+        body: oversettTilJson(besvarelse, tema),
     });
     return await response.json();
 };

@@ -16,7 +16,11 @@ class App extends React.Component {
                     <Banner tekst="Kom i kontakt med NAV" />
                     <BrowserRouter basename={BASE_PATH}>
                         <Switch>
-                            <Route exact={true} path="/" component={KontaktOss} />
+                            <Route
+                                exact={true}
+                                path="/"
+                                component={KontaktOss}
+                            />
                             <Route
                                 exact={true}
                                 path={BEKREFTELSE_PATH}
