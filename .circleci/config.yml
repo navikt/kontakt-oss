@@ -23,13 +23,14 @@ jobs:
         paths:
             - ~/.cache/yarn
     - run:
-        name: Kjør tester
-        command: |
-          yarn test
+        name: Kjør enhetstester
+        command: yarn test
+    - run:
+        name: Kjør ende-til-ende-tester
+        command: yarn test:e2e
     - run:
         name: Bygg produksjonsversjon av React app
-        command: |
-          yarn build
+        command: yarn build
 
     - setup_remote_docker
     - run:
