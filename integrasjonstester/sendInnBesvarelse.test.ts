@@ -3,7 +3,7 @@ import { Selector } from 'testcafe';
 fixture('Sende inn besvarelse').page('localhost:3000/kontakt-oss/');
 
 test('Skal kunne sende inn en besvarelse', async t => {
-    // const rekrutteringKnapp = Selector('div.temaknapp:nth-child(1)');
+    // Mulig const rekrutteringKnapp = Selector('div.temaknapp:nth-child(1)');
     const rekrutteringKnapp = Selector('div.temaknapp').withText(
         'Rekruttering'
     );
