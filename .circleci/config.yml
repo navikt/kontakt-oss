@@ -96,11 +96,11 @@ workflows:
   version: 2
   bygg_og_kjør_e2e_test:
     jobs:
-      - build
+      - bygg-og-lag-dockerimage
       - enhetstester
       - e2e-test
       - bygg-og-lag-dockerimage:
           requires:
-            - build
+            - bygg-og-lag-dockerimage
             - enhetstester
             - e2e-test
