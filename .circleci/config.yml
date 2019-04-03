@@ -63,9 +63,9 @@ jobs:
           key: yarn-packages-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
-    - run:
-        name: Kjør enhetstester
-        command: yarn test
+      - run:
+          name: Kjør enhetstester
+          command: yarn test
 
   # TODO: Gjenbruk av installasjon av avhengigheter
   e2e-test:
