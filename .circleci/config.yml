@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build:
+  bygg-og-lag-dockerimage:
     docker:
     # TODO Det er en issue i Jest kombinert med node:8.15.1 som hindrer testene i å kjøre på CircleCI. https://github.com/facebook/create-react-app/issues/6591
     # TODO Det er fikset i Jest, CRA har ikke oppdatert versjonen. Midlertidig fix: Nedgrader Node i circleCI-bygget.
@@ -23,9 +23,6 @@ jobs:
         paths:
             - ~/.cache/yarn
     - run:
-        name: Kjør enhetstester
-        command: yarn test
-    - run:
         name: Bygg produksjonsversjon av React app
         command: yarn build
 
@@ -47,6 +44,30 @@ jobs:
           docker push "$DOCKER_IMAGE_VERSIONED"
           docker push "$DOCKER_IMAGE_UNVERSIONED"
 
+  enhetstester:
+    docker:
+      - image: circleci/node:8.15.0-browsers
+
+    steps:
+      - checkout
+      - restore_cache:
+          name: Hent Yarn cache
+          keys:
+            - yarn-packages-{{ checksum "yarn.lock" }}
+      - run:
+          name: Installer avhengigheter
+          command: |
+            yarn install --frozen-lockfile
+      - save_cache:
+          name: Lagre Yarn cache
+          key: yarn-packages-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+    - run:
+        name: Kjør enhetstester
+        command: yarn test
+
+  # TODO: Gjenbruk av installasjon av avhengigheter
   e2e-test:
     docker:
       - image: circleci/node:8.15.0-browsers
@@ -71,10 +92,15 @@ jobs:
         name: Kjør ende-til-ende-tester
         command: yarn test:e2e
 
-
 workflows:
   version: 2
   bygg_og_kjør_e2e_test:
     jobs:
       - build
+      - enhetstester
       - e2e-test
+      - bygg-og-lag-dockerimage:
+          requires:
+            - build
+            - enhetstester
+            - e2e-test
