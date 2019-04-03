@@ -27,18 +27,22 @@ test('Skal kunne sende inn en besvarelse', async t => {
         .click(rekrutteringKnapp)
         .expect(fylkerDropdown.exists)
         .ok()
+
         .click(fylkerDropdown)
         .click(agderOption)
         .expect(kommunerDropdown.exists)
         .ok()
+
         .click(kommunerDropdown)
         .click(arendalOption)
+
         .typeText(bedriftsnavn, 'Bedriftsnavn')
         .typeText(orgnr, '999999999')
         .typeText(fornavn, 'Fornavn')
         .typeText(etternavn, 'Etternavn')
         .typeText(epost, 'test@test.no')
         .typeText(tlfnr, '12345678')
+
         .click(sendInnKnapp)
         .expect(bekreftelse.exists)
         .ok();

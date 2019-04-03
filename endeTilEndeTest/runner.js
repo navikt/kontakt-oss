@@ -8,7 +8,7 @@ createTestCafe('localhost', 1337, 1338)
 
         return runner
             .startApp('yarn mock', 5000)
-            .src(['integrasjonstester/sendInnBesvarelse.test.ts'])
+            .src(['endeTilEndeTest/sendInnBesvarelse.test.ts'])
             .browsers(['chrome:headless'])
             .run();
     })
