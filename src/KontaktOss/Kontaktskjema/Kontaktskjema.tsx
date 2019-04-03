@@ -148,6 +148,7 @@ class Kontaktskjema extends React.Component<Props, State> {
                             <Hovedknapp
                                 className="kontaktskjema__knapp"
                                 onClick={this.sendInnOnClick}
+                                data-testid="sendinn"
                             >
                                 Send inn
                             </Hovedknapp>

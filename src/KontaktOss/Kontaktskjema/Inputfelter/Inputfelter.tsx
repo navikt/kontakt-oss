@@ -66,6 +66,7 @@ const Inputfelter: React.FunctionComponent<Props> = props => {
                             JSON.parse(event.target.value)
                         )
                     }
+                    data-testid="kommunerDropdown"
                 >
                     <option value="" key="ingen valgt" />
                     {kommunerOptions}
@@ -79,6 +80,7 @@ const Inputfelter: React.FunctionComponent<Props> = props => {
                             event.target.value
                         )
                     }
+                    data-testid="bedriftsnavn"
                 />
                 <Input
                     className="kontaktskjema-input__felt"
@@ -100,6 +102,7 @@ const Inputfelter: React.FunctionComponent<Props> = props => {
                               }
                             : undefined
                     }
+                    data-testid="orgnr"
                 />
                 <Input
                     className="kontaktskjema-input__felt"
@@ -110,6 +113,7 @@ const Inputfelter: React.FunctionComponent<Props> = props => {
                             event.target.value
                         )
                     }
+                    data-testid="fornavn"
                 />
                 <Input
                     className="kontaktskjema-input__felt"
@@ -120,6 +124,7 @@ const Inputfelter: React.FunctionComponent<Props> = props => {
                             event.target.value
                         )
                     }
+                    data-testid="etternavn"
                 />
                 <Input
                     className="kontaktskjema-input__felt"
@@ -130,6 +135,7 @@ const Inputfelter: React.FunctionComponent<Props> = props => {
                             event.target.value
                         )
                     }
+                    data-testid="epost"
                 />
                 <Input
                     className="kontaktskjema-input__felt"
@@ -140,6 +146,7 @@ const Inputfelter: React.FunctionComponent<Props> = props => {
                             event.target.value
                         )
                     }
+                    data-testid="tlfnr"
                 />
             </>
         );
@@ -163,6 +170,7 @@ const Inputfelter: React.FunctionComponent<Props> = props => {
                             event.target.value
                         )
                     }
+                    data-testid="fylkerDropdown"
                 >
                     <option value="" key="ingen valgt" />
                     {fylkerOptions}

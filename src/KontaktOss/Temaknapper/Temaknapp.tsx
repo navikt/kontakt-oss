@@ -9,9 +9,9 @@ interface Props {
     className?: string;
 }
 
-const Temaknapp: React.SFC<Props> = props => {
+const Temaknapp: React.FunctionComponent<Props> = props => {
     return (
-        <div className={props.className || ''}>
+        <div className={props.className || ''} data-testid="temaknapp">
             <RadioPanel
                 onChange={() => props.onClick(props.tema)}
                 inputProps={{ className: 'blokk-xs' }}

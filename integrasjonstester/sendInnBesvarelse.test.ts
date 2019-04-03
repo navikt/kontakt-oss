@@ -3,36 +3,25 @@ import { Selector } from 'testcafe';
 fixture('Sende inn besvarelse').page('localhost:3000/kontakt-oss/');
 
 test('Skal kunne sende inn en besvarelse', async t => {
-    // Mulig const rekrutteringKnapp = Selector('div.temaknapp:nth-child(1)');
-    const rekrutteringKnapp = Selector('div.temaknapp').withText(
+    const rekrutteringKnapp = Selector('[data-testid="temaknapp"]').withText(
         'Rekruttering'
     );
 
-    const fylkerDropdown = Selector('select').withText('');
+    const fylkerDropdown = Selector('[data-testid="fylkerDropdown"]');
     const agderOption = fylkerDropdown.find('option').withText('Agder');
 
-    // Er det bedre å gjøre select basert på plassering i skjema?
-    // const kommunerDropdown = Selector('div.skjemaelement:nth-child(2)');
-    const kommunerDropdown = Selector('div.skjemaelement').withText(
-        'Hvilken kommune ligger arbeidsplassen i?'
-    );
+    const kommunerDropdown = Selector('[data-testid="kommunerDropdown"]');
     const arendalOption = kommunerDropdown.find('option').withText('Arendal');
 
-    // Også mulig med const bedriftsnavn = Selector('div.skjemaelement:nth-child(3)');
-    const bedriftsnavn = Selector('div.skjemaelement').withText(
-        'Bedriftens navn'
-    );
-    const orgnr = Selector('div.skjemaelement').withText('Organisasjonsnummer');
-    const fornavn = Selector('div.skjemaelement').withText('Fornavn');
-    const etternavn = Selector('div.skjemaelement').withText('Etternavn');
-    const epost = Selector('div.skjemaelement').withText('E-post');
-    const tlfnr = Selector('div.skjemaelement').withText('Telefonnummer');
+    const bedriftsnavn = Selector('[data-testid="bedriftsnavn"]');
+    const orgnr = Selector('[data-testid="orgnr"]');
+    const fornavn = Selector('[data-testid="fornavn"]');
+    const etternavn = Selector('[data-testid="etternavn"]');
+    const epost = Selector('[data-testid="epost"]');
+    const tlfnr = Selector('[data-testid="tlfnr"]');
 
-    const sendInnKnapp = Selector('button').withAttribute('type', 'submit');
-
-    const bekreftelse = Selector('div.nav-veilederpanel').withText(
-        'Din henvendelse er mottatt'
-    );
+    const sendInnKnapp = Selector('[data-testid="sendinn"]');
+    const bekreftelse = Selector('[data-testid="bekreftelse"]');
 
     await t
         .click(rekrutteringKnapp)

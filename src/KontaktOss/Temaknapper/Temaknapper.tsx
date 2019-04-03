@@ -10,7 +10,7 @@ interface Props {
     valgtTema?: Tema;
 }
 
-const Temaknapper: React.SFC<Props> = props => {
+const Temaknapper: React.FunctionComponent<Props> = props => {
     const alleTema: Tema[] = [
         'Rekruttering',
         'Rekruttering med tilrettelegging',

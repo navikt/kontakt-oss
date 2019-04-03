@@ -11,7 +11,10 @@ class Bekreftelse extends React.Component {
 
     render() {
         return (
-            <div className="kontaktskjema-bekreftelse">
+            <div
+                className="kontaktskjema-bekreftelse"
+                data-testid="bekreftelse"
+            >
                 <div className="kontaktskjema-bekreftelse__innhold">
                     <Bekreftelseboks />
                     <BekreftelseLenkepanel />
