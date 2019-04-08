@@ -4,7 +4,7 @@ jobs:
     docker:
     # TODO Det er en issue i Jest kombinert med node:8.15.1 som hindrer testene i å kjøre på CircleCI. https://github.com/facebook/create-react-app/issues/6591
     # TODO Det er fikset i Jest, CRA har ikke oppdatert versjonen. Midlertidig fix: Nedgrader Node i circleCI-bygget.
-    - image: circleci/node:8.15.0
+    - image: circleci/node:8.15.0-browsers
 
     steps:
     - checkout
@@ -23,21 +23,21 @@ jobs:
         paths:
             - ~/.cache/yarn
     - run:
-        name: Kjør tester
-        command: |
-          yarn test
+        name: Kjør enhetstester
+        command: yarn test
+    - run:
+        name: Kjør ende-til-ende-tester
+        command: yarn test:e2e
     - run:
         name: Bygg produksjonsversjon av React app
-        command: |
-          yarn build
+        command: yarn build
 
     - setup_remote_docker
     - run:
         name: Sett miljøvariable
         command: |
           echo 'export RELEASE_VERSION="$(git rev-list --count $CIRCLE_SHA1)"' >> $BASH_ENV
-          echo 'export BRANCH_NAME="$(git rev-parse --abbrev-ref HEAD)"' >> $BASH_ENV
-          echo 'export BRANCH_PREFIX=`[ $BRANCH_NAME == "master" ] && echo "" || echo $BRANCH_NAME\_`' >> $BASH_ENV
+          echo 'export BRANCH_PREFIX=`[ $CIRCLE_BRANCH == "master" ] && echo "" || echo $CIRCLE_BRANCH\_`' >> $BASH_ENV
           echo 'export DOCKER_IMAGE_VERSIONED="$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME:$BRANCH_PREFIX$RELEASE_VERSION"' >> $BASH_ENV
           echo 'export DOCKER_IMAGE_UNVERSIONED="$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME"' >> $BASH_ENV
     - run:
