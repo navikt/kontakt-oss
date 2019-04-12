@@ -1,7 +1,7 @@
 import { Hovedknapp } from 'nav-frontend-knapper';
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import Inputfelter, { SkjemaFelt } from './Inputfelter/Inputfelter';
+import Felter, { SkjemaFelt } from './Felter/Felter';
 import LenkepanelKontaktliste from './LenkepanelKontaktliste/LenkepanelKontaktliste';
 import Infoboks from './Infoboks/Infoboks';
 import {
@@ -124,7 +124,7 @@ class Kontaktskjema extends React.Component<Props, State> {
         return (
             <div className="kontaktskjema">
                 <form className="kontaktskjema__innhold">
-                    <Inputfelter
+                    <Felter
                         oppdaterBesvarelse={this.oppdaterBesvarelse}
                         fylkeNokkel={fylke}
                         visKunFylkesvalg={!skalViseHeleSkjemaet}

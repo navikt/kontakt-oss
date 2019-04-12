@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Element } from 'nav-frontend-typografi';
 import { Input, Select } from 'nav-frontend-skjema';
 import { fylker, getAlfabetiserteKommuner } from '../../../utils/fylker';
-import './Inputfelter.less';
+import './Felter.less';
 import {
     Fylkesinndeling,
     medFylkesinndeling,
@@ -30,7 +30,7 @@ interface OwnProps {
 
 type Props = OwnProps & Fylkesinndeling;
 
-const Inputfelter: React.FunctionComponent<Props> = props => {
+const Felter: React.FunctionComponent<Props> = props => {
     const [visOrgnrFeilmelding, settVisOrgnrFeilmelding] = useState<boolean>(
         false
     );
@@ -41,7 +41,7 @@ const Inputfelter: React.FunctionComponent<Props> = props => {
         </option>
     ));
 
-    const getOvrigeInputfelter = () => {
+    const ovrigeFelter = () => {
         const kommunerOptions = getAlfabetiserteKommuner(
             props.fylkesinndeling,
             props.fylkeNokkel
@@ -152,7 +152,7 @@ const Inputfelter: React.FunctionComponent<Props> = props => {
         );
     };
 
-    const ovrigeInputfelter = !props.visKunFylkesvalg && getOvrigeInputfelter();
+    const ovrigeInputfelter = !props.visKunFylkesvalg && ovrigeFelter();
 
     return (
         <div className="kontaktskjema-input">
@@ -181,4 +181,4 @@ const Inputfelter: React.FunctionComponent<Props> = props => {
     );
 };
 
-export default medFylkesinndeling(Inputfelter);
+export default medFylkesinndeling(Felter);
