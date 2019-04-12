@@ -1,14 +1,11 @@
 import * as React from 'react';
 import { Element } from 'nav-frontend-typografi';
 import { Select } from 'nav-frontend-skjema';
-import { fylker, getAlfabetiserteKommuner } from '../../../utils/fylker';
+import { fylker } from '../../../utils/fylker';
 import './Felter.less';
-import {
-    Fylkesinndeling,
-    medFylkesinndeling,
-} from '../../FylkesinndelingProvider';
 import Felt from './Felt/Felt';
 import OrgnrFelt from './OrgnrFelt/OrgnrFelt';
+import KommuneFelt from './KommuneFelt/KommuneFelt';
 
 export enum SkjemaFelt {
     kommune = 'kommune',
@@ -21,14 +18,12 @@ export enum SkjemaFelt {
     fylke = 'fylke',
 }
 
-interface OwnProps {
+interface Props {
     oppdaterBesvarelse: (id: SkjemaFelt, input: string) => void;
     fylkeNokkel?: string;
     visKunFylkesvalg: boolean;
     orgnr: string; // TODO Bytt ut med controlled inputfelter
 }
-
-type Props = OwnProps & Fylkesinndeling;
 
 const Felter: React.FunctionComponent<Props> = props => {
     const fylkerOptions = fylker.map((fylke, index) => (
@@ -38,35 +33,15 @@ const Felter: React.FunctionComponent<Props> = props => {
     ));
 
     const ovrigeFelter = () => {
-        const kommunerOptions = getAlfabetiserteKommuner(
-            props.fylkesinndeling,
-            props.fylkeNokkel
-        ).map(kommune => (
-            <option value={JSON.stringify(kommune)} key={kommune.nummer}>
-                {kommune.navn}
-            </option>
-        ));
-
         return (
             <>
-                <Select
-                    label={
-                        <Element>
-                            Hvilken kommune ligger arbeidsplassen i?
-                        </Element>
-                    }
-                    className="kontaktskjema-input__felt"
-                    onChange={event =>
-                        props.oppdaterBesvarelse(
-                            SkjemaFelt.kommune,
-                            JSON.parse(event.target.value)
-                        )
-                    }
+                <KommuneFelt
+                    label="Hvilken kommune ligger arbeidsplassen i?"
+                    felt={SkjemaFelt.kommune}
+                    fylkeNokkel={props.fylkeNokkel}
+                    oppdaterBesvarelse={props.oppdaterBesvarelse}
                     data-testid="kommunerDropdown"
-                >
-                    <option value="" key="ingen valgt" />
-                    {kommunerOptions}
-                </Select>
+                />
                 <Felt
                     label="Bedriftens navn"
                     felt={SkjemaFelt.bedriftsnavn}
@@ -80,7 +55,6 @@ const Felter: React.FunctionComponent<Props> = props => {
                     orgnr={props.orgnr}
                     data-testid="orgnr"
                 />
-
                 <Felt
                     label="Fornavn"
                     felt={SkjemaFelt.fornavn}
@@ -138,4 +112,4 @@ const Felter: React.FunctionComponent<Props> = props => {
     );
 };
 
-export default medFylkesinndeling(Felter);
+export default Felter;
