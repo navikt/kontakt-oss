@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { Element } from 'nav-frontend-typografi';
-import { Input, Select } from 'nav-frontend-skjema';
+import { Select } from 'nav-frontend-skjema';
 import { fylker, getAlfabetiserteKommuner } from '../../../utils/fylker';
 import './Felter.less';
 import {
     Fylkesinndeling,
     medFylkesinndeling,
 } from '../../FylkesinndelingProvider';
-import { useState } from 'react';
-import { orgnrOk } from '../validering';
+import Felt from './Felt/Felt';
+import OrgnrFelt from './OrgnrFelt/OrgnrFelt';
 
 export enum SkjemaFelt {
     kommune = 'kommune',
@@ -31,10 +31,6 @@ interface OwnProps {
 type Props = OwnProps & Fylkesinndeling;
 
 const Felter: React.FunctionComponent<Props> = props => {
-    const [visOrgnrFeilmelding, settVisOrgnrFeilmelding] = useState<boolean>(
-        false
-    );
-
     const fylkerOptions = fylker.map((fylke, index) => (
         <option value={fylke.nokkel} key={index}>
             {fylke.navn}
@@ -71,81 +67,42 @@ const Felter: React.FunctionComponent<Props> = props => {
                     <option value="" key="ingen valgt" />
                     {kommunerOptions}
                 </Select>
-                <Input
-                    className="kontaktskjema-input__felt"
-                    label={<Element>Bedriftens navn</Element>}
-                    onChange={event =>
-                        props.oppdaterBesvarelse(
-                            SkjemaFelt.bedriftsnavn,
-                            event.target.value
-                        )
-                    }
+                <Felt
+                    label="Bedriftens navn"
+                    felt={SkjemaFelt.bedriftsnavn}
+                    oppdaterBesvarelse={props.oppdaterBesvarelse}
                     data-testid="bedriftsnavn"
                 />
-                <Input
-                    className="kontaktskjema-input__felt"
-                    label={<Element>Organisasjonsnummer (valgfritt)</Element>}
-                    onChange={event =>
-                        props.oppdaterBesvarelse(
-                            SkjemaFelt.orgnr,
-                            event.target.value
-                        )
-                    }
-                    onBlur={() => {
-                        settVisOrgnrFeilmelding(!orgnrOk(props.orgnr));
-                    }}
-                    feil={
-                        visOrgnrFeilmelding
-                            ? {
-                                  feilmelding:
-                                      'Vennligst oppgi et gyldig organisasjonsnummer',
-                              }
-                            : undefined
-                    }
+                <OrgnrFelt
+                    label="Organisasjonsnummer (valgfritt)"
+                    felt={SkjemaFelt.orgnr}
+                    oppdaterBesvarelse={props.oppdaterBesvarelse}
+                    orgnr={props.orgnr}
                     data-testid="orgnr"
                 />
-                <Input
-                    className="kontaktskjema-input__felt"
-                    label={<Element>Fornavn</Element>}
-                    onChange={event =>
-                        props.oppdaterBesvarelse(
-                            SkjemaFelt.fornavn,
-                            event.target.value
-                        )
-                    }
+
+                <Felt
+                    label="Fornavn"
+                    felt={SkjemaFelt.fornavn}
+                    oppdaterBesvarelse={props.oppdaterBesvarelse}
                     data-testid="fornavn"
                 />
-                <Input
-                    className="kontaktskjema-input__felt"
-                    label={<Element>Etternavn</Element>}
-                    onChange={event =>
-                        props.oppdaterBesvarelse(
-                            SkjemaFelt.etternavn,
-                            event.target.value
-                        )
-                    }
+                <Felt
+                    label="Etternavn"
+                    felt={SkjemaFelt.etternavn}
+                    oppdaterBesvarelse={props.oppdaterBesvarelse}
                     data-testid="etternavn"
                 />
-                <Input
-                    className="kontaktskjema-input__felt"
-                    label={<Element>E-post</Element>}
-                    onChange={event =>
-                        props.oppdaterBesvarelse(
-                            SkjemaFelt.epost,
-                            event.target.value
-                        )
-                    }
+                <Felt
+                    label="E-post"
+                    felt={SkjemaFelt.epost}
+                    oppdaterBesvarelse={props.oppdaterBesvarelse}
                     data-testid="epost"
                 />
-                <Input
-                    className="kontaktskjema-input__felt"
-                    label={<Element>Telefonnummer</Element>}
-                    onChange={event =>
-                        props.oppdaterBesvarelse(
-                            SkjemaFelt.telefonnr,
-                            event.target.value
-                        )
-                    }
+                <Felt
+                    label="Telefonnummer"
+                    felt={SkjemaFelt.telefonnr}
+                    oppdaterBesvarelse={props.oppdaterBesvarelse}
                     data-testid="tlfnr"
                 />
             </>
