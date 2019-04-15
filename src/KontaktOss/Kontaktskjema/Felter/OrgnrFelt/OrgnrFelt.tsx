@@ -32,6 +32,7 @@ const OrgnrFelt = (props: Props) => {
                 settVisFeilmelding(!orgnrOk(props.orgnr));
             }}
             feil={feilmelding}
+            {...props}
         />
     );
 };
