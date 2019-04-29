@@ -20,7 +20,6 @@ const Felt = (props: Props) => {
             className="felt"
             label={<Element>{props.label}</Element>}
             onChange={onChange}
-            {...props}
         />
     );
 };

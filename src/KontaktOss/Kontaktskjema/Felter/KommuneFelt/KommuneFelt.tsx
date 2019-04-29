@@ -35,7 +35,6 @@ const KommuneFelt: FunctionComponent<Props & Fylkesinndeling> = props => {
             label={<Element>{props.label}</Element>}
             className="felt"
             onChange={onChange}
-            {...props}
         >
             <option value="" key="ingen valgt" />
             {kommunerOptions}
