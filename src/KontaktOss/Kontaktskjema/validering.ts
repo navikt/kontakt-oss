@@ -1,5 +1,5 @@
 import { validerOrgnr } from '../../utils/orgnrUtils';
-import { fjernWhitespace } from '../../utils/stringUtils';
+import { fjernWhitespace, inneholderKunSifre } from '../../utils/stringUtils';
 import { Besvarelse } from './besvarelse';
 
 const isFalsyOrEmpty = (str: string | undefined): boolean => {
@@ -35,4 +35,18 @@ export const orgnrOk = (orgnr?: string): boolean => {
     }
 
     return validerOrgnr(orgnr);
+};
+
+export const telefonnummerOk = (telefonnummer: string = ''): boolean => {
+    telefonnummer = fjernWhitespace(telefonnummer);
+
+    if (telefonnummer.length === 0) {
+        return false;
+    }
+
+    if (telefonnummer[0] === '+') {
+        telefonnummer = telefonnummer.substring(1);
+    }
+
+    return inneholderKunSifre(telefonnummer);
 };

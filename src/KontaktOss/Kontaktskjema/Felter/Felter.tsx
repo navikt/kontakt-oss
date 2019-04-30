@@ -6,6 +6,7 @@ import './Felter.less';
 import Felt from './Felt/Felt';
 import OrgnrFelt from './OrgnrFelt/OrgnrFelt';
 import KommuneFelt from './KommuneFelt/KommuneFelt';
+import TelefonnummerFelt from './TelefonnummerFelt/TelefonnummerFelt';
 
 export enum SkjemaFelt {
     kommune = 'kommune',
@@ -23,6 +24,7 @@ interface Props {
     fylkeNokkel?: string;
     visKunFylkesvalg: boolean;
     orgnr: string; // TODO Bytt ut med controlled inputfelter
+    telefonnr: string;
 }
 
 const Felter: React.FunctionComponent<Props> = props => {
@@ -73,9 +75,10 @@ const Felter: React.FunctionComponent<Props> = props => {
                     oppdaterBesvarelse={props.oppdaterBesvarelse}
                     data-testid="epost"
                 />
-                <Felt
+                <TelefonnummerFelt
                     label="Telefonnummer"
                     felt={SkjemaFelt.telefonnr}
+                    telefonnr={props.telefonnr}
                     oppdaterBesvarelse={props.oppdaterBesvarelse}
                     data-testid="tlfnr"
                 />

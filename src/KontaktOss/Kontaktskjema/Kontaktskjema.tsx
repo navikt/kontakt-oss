@@ -129,6 +129,7 @@ class Kontaktskjema extends React.Component<Props, State> {
                         fylkeNokkel={fylke}
                         visKunFylkesvalg={!skalViseHeleSkjemaet}
                         orgnr={this.state.besvarelse.orgnr}
+                        telefonnr={this.state.besvarelse.telefonnr}
                     />
                     {skalViseHeleSkjemaet && (
                         <>
