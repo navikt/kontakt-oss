@@ -7,8 +7,13 @@ const isFalsyOrEmpty = (str: string | undefined): boolean => {
 };
 
 export const besvarelseErGyldig = (besvarelse: Besvarelse) => {
-    return orgnrOk(besvarelse.orgnr) && paakrevdeFelterErUtfylte(besvarelse);
+    return felterErGyldige(besvarelse) && paakrevdeFelterErUtfylte(besvarelse);
 };
+
+export const felterErGyldige = (besvarelse: Besvarelse) =>
+    orgnrOk(besvarelse.orgnr) &&
+    telefonnummerOk(besvarelse.telefonnr) &&
+    epostOk(besvarelse.epost);
 
 export const paakrevdeFelterErUtfylte = (besvarelse: Besvarelse): boolean => {
     const harTommeFelter: boolean =
