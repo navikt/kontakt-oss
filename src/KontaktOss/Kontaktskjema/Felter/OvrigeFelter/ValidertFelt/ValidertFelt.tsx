@@ -1,22 +1,23 @@
 import React, { useState } from 'react';
 import { Input } from 'nav-frontend-skjema';
 import { Element } from 'nav-frontend-typografi';
-import { SkjemaFelt } from '../Felter';
-import { orgnrOk } from '../../validering';
+import { SkjemaFelt } from '../../Felter';
 import '../Felt/Felt.less';
 
 interface Props {
     label: string;
     felt: SkjemaFelt;
+    feilmelding: string;
+    validering: (input: string) => boolean;
     oppdaterBesvarelse: (id: SkjemaFelt, input: string) => void;
-    orgnr: string;
+    verdi: string;
 }
 
-const OrgnrFelt = (props: Props) => {
+const ValidertFelt = (props: Props) => {
     const [visFeilmelding, settVisFeilmelding] = useState<boolean>(false);
 
     const feilmelding = visFeilmelding
-        ? { feilmelding: 'Vennligst oppgi et gyldig organisasjonsnummer' }
+        ? { feilmelding: props.feilmelding }
         : undefined;
 
     const onChange = (event: any) => {
@@ -29,11 +30,11 @@ const OrgnrFelt = (props: Props) => {
             label={<Element>{props.label}</Element>}
             onChange={onChange}
             onBlur={() => {
-                settVisFeilmelding(!orgnrOk(props.orgnr));
+                settVisFeilmelding(!props.validering(props.verdi));
             }}
             feil={feilmelding}
         />
     );
 };
 
-export default OrgnrFelt;
+export default ValidertFelt;

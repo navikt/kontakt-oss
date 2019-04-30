@@ -1,4 +1,4 @@
-import { orgnrOk, telefonnummerOk } from './validering';
+import { orgnrOk, telefonnummerOk, epostOk } from './validering';
 
 test('Orgnr kan være undefined', () => {
     expect(orgnrOk(undefined)).toBeTruthy();
@@ -35,4 +35,12 @@ test('Telefonnummer kan starte med ett plusstegn', () => {
 test('Telefonnummer kan ikke inneholde andre tegn', () => {
     expect(telefonnummerOk('-47 960 27 852')).toBeFalsy();
     expect(telefonnummerOk('📞')).toBeFalsy();
+});
+
+test('E-post må være på formatet "noe@noe.noe"', () => {
+    expect(epostOk('noe@noe.noe')).toBeTruthy();
+    expect(epostOk('ceo@evil.org')).toBeTruthy();
+    expect(epostOk('ds091nxm+1p09w$"@æøå¨^.21io&%')).toBeTruthy();
+    expect(epostOk('ola@typisk@nordmann.no')).toBeFalsy();
+    expect(epostOk('ola@nordmann')).toBeFalsy();
 });

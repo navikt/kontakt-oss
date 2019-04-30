@@ -126,10 +126,8 @@ class Kontaktskjema extends React.Component<Props, State> {
                 <form className="kontaktskjema__innhold">
                     <Felter
                         oppdaterBesvarelse={this.oppdaterBesvarelse}
-                        fylkeNokkel={fylke}
                         visKunFylkesvalg={!skalViseHeleSkjemaet}
-                        orgnr={this.state.besvarelse.orgnr}
-                        telefonnr={this.state.besvarelse.telefonnr}
+                        besvarelse={this.state.besvarelse}
                     />
                     {skalViseHeleSkjemaet && (
                         <>

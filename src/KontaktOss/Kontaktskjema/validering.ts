@@ -50,3 +50,6 @@ export const telefonnummerOk = (telefonnummer: string = ''): boolean => {
 
     return inneholderKunSifre(telefonnummer);
 };
+
+export const epostOk = (epost: string = ''): boolean =>
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(epost);
