@@ -1,5 +1,5 @@
 import { validerOrgnr } from '../../utils/orgnrUtils';
-import { fjernWhitespace } from '../../utils/stringUtils';
+import { fjernWhitespace, inneholderKunSifre } from '../../utils/stringUtils';
 import { Besvarelse } from './besvarelse';
 
 const isFalsyOrEmpty = (str: string | undefined): boolean => {
@@ -7,8 +7,13 @@ const isFalsyOrEmpty = (str: string | undefined): boolean => {
 };
 
 export const besvarelseErGyldig = (besvarelse: Besvarelse) => {
-    return orgnrOk(besvarelse.orgnr) && paakrevdeFelterErUtfylte(besvarelse);
+    return felterErGyldige(besvarelse) && paakrevdeFelterErUtfylte(besvarelse);
 };
+
+export const felterErGyldige = (besvarelse: Besvarelse) =>
+    orgnrOk(besvarelse.orgnr) &&
+    telefonnummerOk(besvarelse.telefonnr) &&
+    epostOk(besvarelse.epost);
 
 export const paakrevdeFelterErUtfylte = (besvarelse: Besvarelse): boolean => {
     const harTommeFelter: boolean =
@@ -36,3 +41,20 @@ export const orgnrOk = (orgnr?: string): boolean => {
 
     return validerOrgnr(orgnr);
 };
+
+export const telefonnummerOk = (telefonnummer: string = ''): boolean => {
+    telefonnummer = fjernWhitespace(telefonnummer);
+
+    if (telefonnummer.length === 0) {
+        return false;
+    }
+
+    if (telefonnummer[0] === '+') {
+        telefonnummer = telefonnummer.substring(1);
+    }
+
+    return inneholderKunSifre(telefonnummer);
+};
+
+export const epostOk = (epost: string = ''): boolean =>
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(epost);

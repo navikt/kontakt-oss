@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { Element } from 'nav-frontend-typografi';
 import { Select } from 'nav-frontend-skjema';
+
+import { Besvarelse } from '../besvarelse';
 import { fylker } from '../../../utils/fylker';
+import OvrigeFelter from './OvrigeFelter/OvrigeFelter';
 import './Felter.less';
-import Felt from './Felt/Felt';
-import OrgnrFelt from './OrgnrFelt/OrgnrFelt';
-import KommuneFelt from './KommuneFelt/KommuneFelt';
 
 export enum SkjemaFelt {
     kommune = 'kommune',
@@ -20,9 +20,8 @@ export enum SkjemaFelt {
 
 interface Props {
     oppdaterBesvarelse: (id: SkjemaFelt, input: string) => void;
-    fylkeNokkel?: string;
     visKunFylkesvalg: boolean;
-    orgnr: string; // TODO Bytt ut med controlled inputfelter
+    besvarelse: Besvarelse;
 }
 
 const Felter: React.FunctionComponent<Props> = props => {
@@ -31,59 +30,6 @@ const Felter: React.FunctionComponent<Props> = props => {
             {fylke.navn}
         </option>
     ));
-
-    const ovrigeFelter = () => {
-        return (
-            <>
-                <KommuneFelt
-                    label="Hvilken kommune ligger arbeidsplassen i?"
-                    felt={SkjemaFelt.kommune}
-                    fylkeNokkel={props.fylkeNokkel}
-                    oppdaterBesvarelse={props.oppdaterBesvarelse}
-                    data-testid="kommunerDropdown"
-                />
-                <Felt
-                    label="Bedriftens navn"
-                    felt={SkjemaFelt.bedriftsnavn}
-                    oppdaterBesvarelse={props.oppdaterBesvarelse}
-                    data-testid="bedriftsnavn"
-                />
-                <OrgnrFelt
-                    label="Organisasjonsnummer (valgfritt)"
-                    felt={SkjemaFelt.orgnr}
-                    oppdaterBesvarelse={props.oppdaterBesvarelse}
-                    orgnr={props.orgnr}
-                    data-testid="orgnr"
-                />
-                <Felt
-                    label="Fornavn"
-                    felt={SkjemaFelt.fornavn}
-                    oppdaterBesvarelse={props.oppdaterBesvarelse}
-                    data-testid="fornavn"
-                />
-                <Felt
-                    label="Etternavn"
-                    felt={SkjemaFelt.etternavn}
-                    oppdaterBesvarelse={props.oppdaterBesvarelse}
-                    data-testid="etternavn"
-                />
-                <Felt
-                    label="E-post"
-                    felt={SkjemaFelt.epost}
-                    oppdaterBesvarelse={props.oppdaterBesvarelse}
-                    data-testid="epost"
-                />
-                <Felt
-                    label="Telefonnummer"
-                    felt={SkjemaFelt.telefonnr}
-                    oppdaterBesvarelse={props.oppdaterBesvarelse}
-                    data-testid="tlfnr"
-                />
-            </>
-        );
-    };
-
-    const ovrigeInputfelter = !props.visKunFylkesvalg && ovrigeFelter();
 
     return (
         <div className="kontaktskjema-input">
@@ -106,7 +52,12 @@ const Felter: React.FunctionComponent<Props> = props => {
                     <option value="" key="ingen valgt" />
                     {fylkerOptions}
                 </Select>
-                {ovrigeInputfelter}
+                {!props.visKunFylkesvalg && (
+                    <OvrigeFelter
+                        besvarelse={props.besvarelse}
+                        oppdaterBesvarelse={props.oppdaterBesvarelse}
+                    />
+                )}
             </div>
         </div>
     );

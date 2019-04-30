@@ -8,6 +8,7 @@ import {
     besvarelseErGyldig,
     paakrevdeFelterErUtfylte,
     orgnrOk,
+    felterErGyldige,
 } from './validering';
 import Feilmelding from './Feilmelding/Feilmelding';
 import { sendKontaktskjema, Tema } from '../../utils/kontaktskjemaApi';
@@ -84,8 +85,7 @@ class Kontaktskjema extends React.Component<Props, State> {
             this.setState({
                 feilmelding: 'Du må fylle ut alle feltene for å sende inn.',
             });
-        }
-        if (!orgnrOk(this.state.besvarelse.orgnr)) {
+        } else if (!felterErGyldige(this.state.besvarelse)) {
             this.setState({
                 feilmelding:
                     'Ett eller flere av feltene er ikke fylt ut riktig.',
@@ -126,9 +126,8 @@ class Kontaktskjema extends React.Component<Props, State> {
                 <form className="kontaktskjema__innhold">
                     <Felter
                         oppdaterBesvarelse={this.oppdaterBesvarelse}
-                        fylkeNokkel={fylke}
                         visKunFylkesvalg={!skalViseHeleSkjemaet}
-                        orgnr={this.state.besvarelse.orgnr}
+                        besvarelse={this.state.besvarelse}
                     />
                     {skalViseHeleSkjemaet && (
                         <>

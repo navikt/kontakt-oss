@@ -1,7 +1,7 @@
 import React from 'react';
 import { Input } from 'nav-frontend-skjema';
 import { Element } from 'nav-frontend-typografi';
-import { SkjemaFelt } from '../Felter';
+import { SkjemaFelt } from '../../Felter';
 import './Felt.less';
 
 interface Props {
@@ -20,7 +20,6 @@ const Felt = (props: Props) => {
             className="felt"
             label={<Element>{props.label}</Element>}
             onChange={onChange}
-            {...props}
         />
     );
 };
