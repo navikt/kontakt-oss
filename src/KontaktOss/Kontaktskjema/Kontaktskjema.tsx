@@ -135,8 +135,7 @@ class Kontaktskjema extends React.Component<Props, State> {
                                 <div className="typo-normal">
                                     NAV bruker disse opplysninger når vi
                                     kontakter deg. Opplysningene blir ikke delt
-                                    eller brukt til andre formål. Vi sletter
-                                    opplysningene etter at vi har kontaktet deg.
+                                    eller brukt til andre formål.
                                 </div>
                             </Infoboks>
                             {this.state.feilmelding && (
