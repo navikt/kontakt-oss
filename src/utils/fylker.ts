@@ -10,13 +10,18 @@ export interface KommuneModell {
 }
 
 const pilotfylkerForKontaktskjema: string[] = [
-    '1800', // Nordland
     '1000', // Agder
+    '0400', // Innlandet
+    '1800', // Nordland
     '0200', // Øst-Viken
     '0800', // Vestfold og Telemark
     '1200', // Vestland
-    '0400', // Innlandet
     '1900', // Troms og Finnmark
+    '1500',
+    '0300',
+    '1100',
+    '5700',
+    '0600',
 ];
 
 export const erPilotfylke = (fylke: string): boolean => {
