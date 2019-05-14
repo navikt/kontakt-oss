@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Element } from 'nav-frontend-typografi';
 import Temaknapp from './Temaknapp';
 import { logEvent, mapTilTemaEvent } from '../../utils/metricsUtils';
-import { Tema } from '../../utils/kontaktskjemaApi';
+import { Tema, temaer } from '../../utils/kontaktskjemaApi';
 import './Temaknapper.less';
 
 interface Props {
@@ -11,22 +11,14 @@ interface Props {
 }
 
 const Temaknapper: React.FunctionComponent<Props> = props => {
-    const alleTema: Tema[] = [
-        'Rekruttering',
-        'Rekruttering med tilrettelegging',
-        'Arbeidstrening',
-        'Oppfølging av en arbeidstaker',
-        'Annet',
-    ];
-
     const onVelgTema = (tema: Tema) => {
         props.velgTema(tema);
         logEvent(`kontakt-oss.tema.${mapTilTemaEvent(tema)}`);
     };
 
-    const temaKnapper = alleTema.map(tema => (
+    const temaKnapper = temaer.map(tema => (
         <Temaknapp
-            key={tema}
+            key={tema.type}
             tema={tema}
             onClick={onVelgTema}
             valgt={tema === props.valgtTema}

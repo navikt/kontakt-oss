@@ -1,4 +1,4 @@
-import { Tema } from './kontaktskjemaApi';
+import { Tema, TemaType } from './kontaktskjemaApi';
 
 interface Logger {
     event: (navn: string, fields: {}, tags: {}) => void;
@@ -25,16 +25,19 @@ export const logError = (melding: string) => {
 };
 
 export const mapTilTemaEvent = (tema?: Tema): string => {
-    switch (tema) {
-        case 'Rekruttering':
+    if (!tema) {
+        return 'default';
+    }
+    switch (tema.type) {
+        case TemaType.REKRUTTERING:
             return 'rekruttering';
-        case 'Rekruttering med tilrettelegging':
+        case TemaType.REKRUTTERING_MED_TILRETTELEGGING:
             return 'rekruttering-med-tilrettelegging';
-        case 'Arbeidstrening':
+        case TemaType.ARBEIDSTRENING:
             return 'arbeidstrening';
-        case 'Oppfølging av en arbeidstaker':
+        case TemaType.OPPFØLGING_AV_EN_ARBEIDSTAKER:
             return 'oppfolging-av-arbeidstaker';
-        case 'Annet':
+        case TemaType.ANNET:
             return 'annet';
         default:
             return 'default';

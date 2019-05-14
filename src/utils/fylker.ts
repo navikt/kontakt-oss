@@ -25,7 +25,7 @@ const pilotfylkerForKontaktskjema: string[] = [
 ];
 
 export const erPilotfylke = (fylke: string): boolean => {
-    return pilotfylkerForKontaktskjema.some(pilot => pilot === fylke);
+    return true;
 };
 
 // tslint:disable max-line-length

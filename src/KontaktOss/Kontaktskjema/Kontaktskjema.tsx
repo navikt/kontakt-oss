@@ -6,9 +6,8 @@ import LenkepanelKontaktliste from './LenkepanelKontaktliste/LenkepanelKontaktli
 import Infoboks from './Infoboks/Infoboks';
 import {
     besvarelseErGyldig,
-    paakrevdeFelterErUtfylte,
-    orgnrOk,
     felterErGyldige,
+    paakrevdeFelterErUtfylte,
 } from './validering';
 import Feilmelding from './Feilmelding/Feilmelding';
 import { sendKontaktskjema, Tema } from '../../utils/kontaktskjemaApi';
@@ -133,10 +132,12 @@ class Kontaktskjema extends React.Component<Props, State> {
                         <>
                             <Infoboks>
                                 <div className="typo-normal">
-                                    NAV bruker disse opplysningene når vi kontakter deg.
-                                    Vi lagrer disse opplysningene om deg,
-                                    slik at vi kan kontakte deg om rekruttering og inkludering i bedriften du
-                                    representerer. Opplysningene blir ikke delt eller brukt til andre formål.
+                                    NAV bruker disse opplysningene når vi
+                                    kontakter deg. Vi lagrer disse opplysningene
+                                    om deg, slik at vi kan kontakte deg om
+                                    rekruttering og inkludering i bedriften du
+                                    representerer. Opplysningene blir ikke delt
+                                    eller brukt til andre formål.
                                 </div>
                             </Infoboks>
                             {this.state.feilmelding && (

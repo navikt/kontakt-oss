@@ -16,8 +16,8 @@ const Temaknapp: React.FunctionComponent<Props> = props => {
                 onChange={() => props.onClick(props.tema)}
                 inputProps={{ className: 'blokk-xs' }}
                 name={'alternativ'}
-                label={props.tema}
-                value={props.tema}
+                label={props.tema.tekst}
+                value={props.tema.tekst}
                 checked={props.valgt}
             />
         </div>

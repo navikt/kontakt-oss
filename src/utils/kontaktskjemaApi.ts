@@ -2,12 +2,41 @@ import { SEND_KONTAKTSKJEMA_PATH } from './paths';
 import { fjernWhitespace } from './stringUtils';
 import { Besvarelse } from '../KontaktOss/Kontaktskjema/besvarelse';
 
-export type Tema =
-    | 'Rekruttering'
-    | 'Rekruttering med tilrettelegging'
-    | 'Arbeidstrening'
-    | 'Oppfølging av en arbeidstaker'
-    | 'Annet';
+export enum TemaType {
+    REKRUTTERING = 'REKRUTTERING',
+    REKRUTTERING_MED_TILRETTELEGGING = 'REKRUTTERING_MED_TILRETTELEGGING',
+    ARBEIDSTRENING = 'ARBEIDSTRENING',
+    OPPFØLGING_AV_EN_ARBEIDSTAKER = 'OPPFØLGING_AV_EN_ARBEIDSTAKER',
+    ANNET = 'ANNET',
+}
+
+export interface Tema {
+    type: TemaType;
+    tekst: string;
+}
+
+export const temaer: Tema[] = [
+    {
+        type: TemaType.REKRUTTERING,
+        tekst: 'Rekruttering',
+    },
+    {
+        type: TemaType.REKRUTTERING_MED_TILRETTELEGGING,
+        tekst: 'Rekruttering med tilrettelegging',
+    },
+    {
+        type: TemaType.ARBEIDSTRENING,
+        tekst: 'Arbeidstrening',
+    },
+    {
+        type: TemaType.OPPFØLGING_AV_EN_ARBEIDSTAKER,
+        tekst: 'Oppfølging av en arbeidstaker',
+    },
+    {
+        type: TemaType.ANNET,
+        tekst: 'Annet',
+    },
+];
 
 export type BesvarelseBackend = {
     fylke: string;
