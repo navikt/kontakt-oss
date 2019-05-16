@@ -10,7 +10,11 @@ import {
     paakrevdeFelterErUtfylte,
 } from './validering';
 import Feilmelding from './Feilmelding/Feilmelding';
-import { sendKontaktskjema, Tema } from '../../utils/kontaktskjemaApi';
+import {
+    sendKontaktskjema,
+    Tema,
+    TemaType,
+} from '../../utils/kontaktskjemaApi';
 import { logFail, logSendInnKlikk, logSuccess } from '../../utils/metricsUtils';
 import { erPilotfylke } from '../../utils/fylker';
 import { FeatureToggles, medFeatureToggles } from '../FeatureTogglesProvider';
@@ -39,7 +43,7 @@ class Kontaktskjema extends React.Component<Props, State> {
         besvarelse: tomBesvarelse,
     };
 
-    oppdaterBesvarelse = (felt: SkjemaFelt, feltverdi: string) => {
+    oppdaterBesvarelse = (felt: SkjemaFelt, feltverdi: string | boolean) => {
         this.setState(
             {
                 besvarelse: { ...this.state.besvarelse, [felt]: feltverdi },
@@ -127,6 +131,9 @@ class Kontaktskjema extends React.Component<Props, State> {
                         oppdaterBesvarelse={this.oppdaterBesvarelse}
                         visKunFylkesvalg={!skalViseHeleSkjemaet}
                         besvarelse={this.state.besvarelse}
+                        visFeltForAnsattrepresentant={
+                            this.props.tema.type === TemaType.FOREBYGGE_SYKEFRAVÆR
+                        }
                     />
                     {skalViseHeleSkjemaet && (
                         <>

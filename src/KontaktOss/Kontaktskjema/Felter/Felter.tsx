@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Element } from 'nav-frontend-typografi';
-import { Select } from 'nav-frontend-skjema';
+import { Checkbox, Select } from 'nav-frontend-skjema';
 
 import { Besvarelse } from '../besvarelse';
 import { fylker } from '../../../utils/fylker';
@@ -16,11 +16,13 @@ export enum SkjemaFelt {
     epost = 'epost',
     telefonnr = 'telefonnr',
     fylke = 'fylke',
+    kontaktMedAnsattrepresentant = 'kontaktMedAnsattrepresentant',
 }
 
 interface Props {
-    oppdaterBesvarelse: (id: SkjemaFelt, input: string) => void;
+    oppdaterBesvarelse: (id: SkjemaFelt, input: string | boolean) => void;
     visKunFylkesvalg: boolean;
+    visFeltForAnsattrepresentant: boolean;
     besvarelse: Besvarelse;
 }
 
@@ -56,6 +58,17 @@ const Felter: React.FunctionComponent<Props> = props => {
                     <OvrigeFelter
                         besvarelse={props.besvarelse}
                         oppdaterBesvarelse={props.oppdaterBesvarelse}
+                    />
+                )}
+                {props.visFeltForAnsattrepresentant && (
+                    <Checkbox
+                        label={'Jeg har snakket med ansattansvarlig'}
+                        onChange={event =>
+                            props.oppdaterBesvarelse(
+                                SkjemaFelt.kontaktMedAnsattrepresentant,
+                                event.target.checked
+                            )
+                        }
                     />
                 )}
             </div>

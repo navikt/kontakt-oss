@@ -8,6 +8,7 @@ export enum TemaType {
     ARBEIDSTRENING = 'ARBEIDSTRENING',
     OPPFØLGING_AV_EN_ARBEIDSTAKER = 'OPPFØLGING_AV_EN_ARBEIDSTAKER',
     ANNET = 'ANNET',
+    FOREBYGGE_SYKEFRAVÆR = 'FOREBYGGE_SYKEFRAVÆR',
 }
 
 export interface Tema {
@@ -63,6 +64,7 @@ const oversettTilJson = (besvarelse: Besvarelse, tema: Tema) => {
 };
 
 export const sendKontaktskjema = async (besvarelse: Besvarelse, tema: Tema) => {
+    console.log(oversettTilJson(besvarelse, tema));
     const response = await fetch(SEND_KONTAKTSKJEMA_PATH, {
         method: 'POST',
         headers: {
