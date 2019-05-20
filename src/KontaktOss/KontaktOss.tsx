@@ -24,32 +24,33 @@ class KontaktOss extends React.Component<RouteComponentProps, State> {
         this.setState({ tema });
     };
 
-    skalViseKontaktskjema = (tema?: Tema) => {
-        return (
-            !!tema &&
-            (tema.type === TemaType.REKRUTTERING ||
-                tema.type === TemaType.REKRUTTERING_MED_TILRETTELEGGING ||
-                tema.type === TemaType.ARBEIDSTRENING)
-        );
+    hentSide = (tema?: Tema) => {
+        if (!tema) {
+            return null;
+        }
+        switch (tema.type) {
+            case TemaType.REKRUTTERING_MED_TILRETTELEGGING:
+            case TemaType.ARBEIDSTRENING:
+            case TemaType.REKRUTTERING:
+                return <Kontaktskjema tema={this.state.tema!} {...this.props} />;
+            case TemaType.FOREBYGGE_SYKEFRAVÆR:
+                return <div>IA-skjema</div>;
+            case TemaType.OPPFØLGING_AV_EN_ARBEIDSTAKER:
+            case TemaType.ANNET:
+                return <ArbeidsgiverTlfInfo/>;
+            default:
+                return null;
+        }
     };
 
     render() {
-        const skalViseKontaktskjema = this.skalViseKontaktskjema(
-            this.state.tema
-        );
-        const skalViseArbeidsgiverTlf =
-            this.state.tema && !skalViseKontaktskjema;
-
         return (
             <div className="kontakt-oss">
                 <Temaknapper
                     velgTema={this.velgTema}
                     valgtTema={this.state.tema}
                 />
-                {skalViseKontaktskjema && (
-                    <Kontaktskjema tema={this.state.tema!} {...this.props} />
-                )}
-                {skalViseArbeidsgiverTlf && <ArbeidsgiverTlfInfo />}
+                {this.hentSide(this.state.tema)}
             </div>
         );
     }
