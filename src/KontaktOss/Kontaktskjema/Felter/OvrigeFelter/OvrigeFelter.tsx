@@ -1,8 +1,8 @@
 import React, { FunctionComponent } from 'react';
 import { Besvarelse } from '../../besvarelse';
-import KommuneFelt from './KommuneFelt/KommuneFelt';
-import Felt from './Felt/Felt';
-import ValidertFelt from './ValidertFelt/ValidertFelt';
+import KommuneFelt from '../KommuneFelt/KommuneFelt';
+import Felt from '../Felt/Felt';
+import ValidertFelt from '../ValidertFelt/ValidertFelt';
 import { SkjemaFelt } from '../Felter';
 import { orgnrOk, epostOk, telefonnummerOk } from '../../validering';
 
