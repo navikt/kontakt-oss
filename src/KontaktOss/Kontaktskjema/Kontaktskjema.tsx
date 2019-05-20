@@ -26,6 +26,7 @@ import {
     medFylkesinndeling,
 } from '../FylkesinndelingProvider';
 import { Besvarelse, tomBesvarelse } from './besvarelse';
+import { sendInnBesvarelse } from './kontaktskjemaUtils';
 
 interface State {
     besvarelse: Besvarelse;
@@ -58,40 +59,15 @@ class Kontaktskjema extends React.Component<Props, State> {
         });
     };
 
-    sendInnBesvarelse = async () => {
-        logSendInnKlikk();
-
-        try {
-            await sendKontaktskjema(this.state.besvarelse, this.props.tema);
-            logSuccess(this.props.tema);
-            this.props.history.push(BEKREFTELSE_PATH);
-        } catch (error) {
-            logFail();
-            this.setState({
-                feilmelding:
-                    'Noe gikk feil med innsendingen. Vennligst prøv igjen senere.',
-            });
-        }
-    };
-
-    sendInnOnClick = (event: any): void => {
+    sendInnOnClick = async (event: any): Promise<void> => {
         event.preventDefault();
-        if (besvarelseErGyldig(this.state.besvarelse)) {
-            this.sendInnBesvarelse();
-        } else {
-            this.settFeilmelding();
-        }
-    };
+        const sendInnResultat = await sendInnBesvarelse(this.state.besvarelse, this.props.tema);
 
-    settFeilmelding = () => {
-        if (!paakrevdeFelterErUtfylte(this.state.besvarelse)) {
+        if (sendInnResultat.ok) {
+            this.props.history.push(BEKREFTELSE_PATH);
+        } else {
             this.setState({
-                feilmelding: 'Du må fylle ut alle feltene for å sende inn.',
-            });
-        } else if (!felterErGyldige(this.state.besvarelse)) {
-            this.setState({
-                feilmelding:
-                    'Ett eller flere av feltene er ikke fylt ut riktig.',
+                feilmelding: sendInnResultat.feilmelding
             });
         }
     };
@@ -99,27 +75,11 @@ class Kontaktskjema extends React.Component<Props, State> {
     render() {
         const fylke = this.state.besvarelse.fylke;
 
-        const fylkesinndelingHentetOK = !!this.props.fylkesinndeling;
-
-        const skalViseHeleSkjemaet =
-            erPilotfylke(fylke) &&
-            this.props.pilotfylkerFeature &&
-            fylkesinndelingHentetOK;
-
-        const vilDuHellerRinge = skalViseHeleSkjemaet && (
+        const vilDuHellerRinge = (
             <LenkepanelKontaktliste
                 tittel="Vil du heller ringe?"
                 undertekst="Kontakt en av våre medarbeidere direkte."
                 sendMetrikk={true}
-                fylke={fylke}
-            />
-        );
-
-        const skalBareViseLenkeTilTlfListe = fylke && !skalViseHeleSkjemaet;
-        const kontaktVareMedarbeidere = skalBareViseLenkeTilTlfListe && (
-            <LenkepanelKontaktliste
-                tittel="Ring en av våre medarbeidere"
-                undertekst="Vi kan hjelpe deg med arbeidstrening og rekruttering med eller uten tilrettelegging"
                 fylke={fylke}
             />
         );
@@ -129,43 +89,30 @@ class Kontaktskjema extends React.Component<Props, State> {
                 <form className="kontaktskjema__innhold">
                     <Felter
                         oppdaterBesvarelse={this.oppdaterBesvarelse}
-                        visKunFylkesvalg={!skalViseHeleSkjemaet}
                         besvarelse={this.state.besvarelse}
                     />
-                    {skalViseHeleSkjemaet && (
-                        <>
-                            <Infoboks>
-                                <div className="typo-normal">
-                                    NAV bruker disse opplysningene når vi
-                                    kontakter deg. Vi lagrer disse opplysningene
-                                    om deg, slik at vi kan kontakte deg om
-                                    rekruttering og inkludering i bedriften du
-                                    representerer. Opplysningene blir ikke delt
-                                    eller brukt til andre formål.
-                                </div>
-                            </Infoboks>
-                            {this.state.feilmelding && (
-                                <Feilmelding className="kontaktskjema__feilmelding">
-                                    {this.state.feilmelding}
-                                </Feilmelding>
-                            )}
-                            <Hovedknapp
-                                className="kontaktskjema__knapp"
-                                onClick={this.sendInnOnClick}
-                                data-testid="sendinn"
-                            >
-                                Send inn
-                            </Hovedknapp>
-                            <a
-                                href={VEIVISER_URL}
-                                className="kontaktskjema__avbryt-lenke lenke typo-normal"
-                            >
-                                Avbryt
-                            </a>
-                        </>
+                    <Infoboks>
+                        <div className="typo-normal">
+                            NAV bruker disse opplysningene når vi kontakter deg.
+                            Vi lagrer disse opplysningene om deg, slik at vi kan
+                            kontakte deg om rekruttering og inkludering i
+                            bedriften du representerer. Opplysningene blir ikke
+                            delt eller brukt til andre formål.
+                        </div>
+                    </Infoboks>
+                    {this.state.feilmelding && (
+                        <Feilmelding className="kontaktskjema__feilmelding">
+                            {this.state.feilmelding}
+                        </Feilmelding>
                     )}
-                    {vilDuHellerRinge}
-                    {kontaktVareMedarbeidere}
+                    <Hovedknapp
+                        className="kontaktskjema__knapp"
+                        onClick={this.sendInnOnClick}
+                        data-testid="sendinn"
+                    >
+                        Send inn
+                    </Hovedknapp>
+                    {fylke && vilDuHellerRinge}
                 </form>
             </div>
         );
