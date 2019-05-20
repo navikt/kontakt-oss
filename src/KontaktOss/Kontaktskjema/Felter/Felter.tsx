@@ -16,7 +16,6 @@ export enum SkjemaFelt {
     epost = 'epost',
     telefonnr = 'telefonnr',
     fylke = 'fylke',
-    kontaktMedAnsattrepresentant = 'kontaktMedAnsattrepresentant',
 }
 
 interface Props {
@@ -58,17 +57,6 @@ const Felter: React.FunctionComponent<Props> = props => {
                     <OvrigeFelter
                         besvarelse={props.besvarelse}
                         oppdaterBesvarelse={props.oppdaterBesvarelse}
-                    />
-                )}
-                {props.visFeltForAnsattrepresentant && (
-                    <Checkbox
-                        label={'Jeg har snakket med ansattansvarlig'}
-                        onChange={event =>
-                            props.oppdaterBesvarelse(
-                                SkjemaFelt.kontaktMedAnsattrepresentant,
-                                event.target.checked
-                            )
-                        }
                     />
                 )}
             </div>
