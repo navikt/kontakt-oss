@@ -22,7 +22,6 @@ export enum SkjemaFelt {
 interface Props {
     oppdaterBesvarelse: (id: SkjemaFelt, input: string | boolean) => void;
     visKunFylkesvalg: boolean;
-    visFeltForAnsattrepresentant: boolean;
     besvarelse: Besvarelse;
 }
 

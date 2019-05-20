@@ -131,9 +131,6 @@ class Kontaktskjema extends React.Component<Props, State> {
                         oppdaterBesvarelse={this.oppdaterBesvarelse}
                         visKunFylkesvalg={!skalViseHeleSkjemaet}
                         besvarelse={this.state.besvarelse}
-                        visFeltForAnsattrepresentant={
-                            this.props.tema.type === TemaType.FOREBYGGE_SYKEFRAVÆR
-                        }
                     />
                     {skalViseHeleSkjemaet && (
                         <>
