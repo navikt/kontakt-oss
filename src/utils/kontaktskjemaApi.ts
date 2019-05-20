@@ -49,7 +49,8 @@ export type BesvarelseBackend = {
     etternavn: string;
     epost: string;
     telefonnr: string;
-    tema: Tema;
+    tema: string;
+    temaType: TemaType;
 };
 
 const oversettTilJson = (besvarelse: Besvarelse, tema: Tema) => {
@@ -58,7 +59,8 @@ const oversettTilJson = (besvarelse: Besvarelse, tema: Tema) => {
         orgnr: fjernWhitespace(besvarelse.orgnr),
         kommune: besvarelse.kommune.navn,
         kommunenr: besvarelse.kommune.nummer,
-        tema: tema,
+        tema: tema.tekst,
+        temaType: tema.type,
     };
     return JSON.stringify(besvarelseBackend);
 };
