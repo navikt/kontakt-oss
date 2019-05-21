@@ -7,6 +7,7 @@ import ValidertFelt from './ValidertFelt/ValidertFelt';
 import { epostOk, orgnrOk, telefonnummerOk } from '../validering';
 
 import './FellesFelter.less';
+import { Undertittel } from 'nav-frontend-typografi';
 
 export enum SkjemaFelt {
     kommune = 'kommune',
@@ -58,6 +59,9 @@ const FellesFelter: React.FunctionComponent<Props> = props => {
                     oppdaterBesvarelse={props.oppdaterBesvarelse}
                     data-testid="orgnr"
                 />
+            </div>
+            <Undertittel className={"blokk-s"}>Dine kontaktopplysninger</Undertittel>
+            <div className="kontaktskjema-input__wrapper">
                 <Felt
                     label="Fornavn"
                     felt={SkjemaFelt.fornavn}
