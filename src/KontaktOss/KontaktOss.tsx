@@ -6,7 +6,7 @@ import { scrollToBanner } from '../utils/scrollUtils';
 import { Tema, TemaType } from '../utils/kontaktskjemaApi';
 import './KontaktOss.less';
 import KontaktskjemaStandard from './Kontaktskjema/KontaktskjemaStandard';
-import KontaktskjemaSykefravær from './Kontaktskjema/KontaktskjemaSykefravær';
+import KontaktskjemaSykefravær from './Kontaktskjema/KontaktskjemaSykefravær/KontaktskjemaSykefravær';
 
 interface State {
     tema?: Tema;

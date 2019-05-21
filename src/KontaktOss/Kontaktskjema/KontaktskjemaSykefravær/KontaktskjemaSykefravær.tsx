@@ -1,22 +1,23 @@
 import { Hovedknapp } from 'nav-frontend-knapper';
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import Felter, { SkjemaFelt } from './Felter/Felter';
-import LenkepanelKontaktliste from './LenkepanelKontaktliste/LenkepanelKontaktliste';
-import Infoboks from './Infoboks/Infoboks';
-import Feilmelding from './Feilmelding/Feilmelding';
-import { Tema } from '../../utils/kontaktskjemaApi';
-import { FeatureToggles, medFeatureToggles } from '../FeatureTogglesProvider';
-import './Kontaktskjema.less';
-import { BEKREFTELSE_PATH } from '../../utils/paths';
+import Felter, { SkjemaFelt } from '../Felter/Felter';
+import LenkepanelKontaktliste from '../LenkepanelKontaktliste/LenkepanelKontaktliste';
+import Infoboks from '../Infoboks/Infoboks';
+import Feilmelding from '../Feilmelding/Feilmelding';
+import { Tema } from '../../../utils/kontaktskjemaApi';
+import { FeatureToggles, medFeatureToggles } from '../../FeatureTogglesProvider';
+import { BEKREFTELSE_PATH } from '../../../utils/paths';
 import {
     Fylkesinndeling,
     medFylkesinndeling,
-} from '../FylkesinndelingProvider';
-import { Besvarelse, tomBesvarelse } from './besvarelse';
-import { validerBesvarelseOgSendInn } from './kontaktskjemaUtils';
+} from '../../FylkesinndelingProvider';
+import { Besvarelse, tomBesvarelse } from '../besvarelse';
+import { validerBesvarelseOgSendInn } from '../kontaktskjemaUtils';
 import { Normaltekst } from 'nav-frontend-typografi';
 import { AlertStripeInfo } from 'nav-frontend-alertstriper';
+
+import './kontaktskjemaSykefravær.less';
 
 interface State {
     besvarelse: Besvarelse;
@@ -78,9 +79,9 @@ class KontaktskjemaSykefravær extends React.Component<Props, State> {
         );
 
         return (
-            <div className="kontaktskjema">
+            <div className="kontaktskjema kontaktskjemaSykefravær">
                 <form className="kontaktskjema__innhold">
-                    <AlertStripeInfo className="kontaktskjema__alertstripe typo-normal">
+                    <AlertStripeInfo className="kontaktskjemaSykefravær__alertstripe typo-normal">
                         Arbeidet med å forebygge sykefravær og sikre godt
                         arbeidsmiljø, er et ansvar som deles mellom arbeidsgiver
                         og tillitsvalgte (eller ansattrepresentanter). NAV
