@@ -66,7 +66,6 @@ const oversettTilJson = (besvarelse: Besvarelse, tema: Tema) => {
 };
 
 export const sendKontaktskjema = async (besvarelse: Besvarelse, tema: Tema) => {
-    console.log(oversettTilJson(besvarelse, tema));
     const response = await fetch(SEND_KONTAKTSKJEMA_PATH, {
         method: 'POST',
         headers: {
