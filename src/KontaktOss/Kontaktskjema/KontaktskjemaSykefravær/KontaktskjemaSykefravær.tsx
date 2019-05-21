@@ -27,6 +27,7 @@ import veilederBilde from '../../ArbeidsgiverTlfIInfo/kvinne.svg';
 interface State {
     besvarelse: Besvarelse;
     feilmelding?: string;
+    senderInn: boolean;
 }
 
 interface OwnProps {
@@ -38,6 +39,7 @@ type Props = RouteComponentProps & FeatureToggles & Fylkesinndeling & OwnProps;
 class KontaktskjemaSykefravær extends React.Component<Props, State> {
     state: State = {
         besvarelse: tomBesvarelse,
+        senderInn: false,
     };
 
     oppdaterBesvarelse = (felt: SkjemaFelt, feltverdi: string | boolean) => {
@@ -57,6 +59,13 @@ class KontaktskjemaSykefravær extends React.Component<Props, State> {
 
     sendInnOnClick = async (event: any): Promise<void> => {
         event.preventDefault();
+
+        if (this.state.senderInn) {
+            return;
+        } else {
+            this.setState({ senderInn: true });
+        }
+
         const sendInnResultat = await validerBesvarelseOgSendInn(
             this.state.besvarelse,
             this.props.tema
@@ -67,6 +76,7 @@ class KontaktskjemaSykefravær extends React.Component<Props, State> {
         } else {
             this.setState({
                 feilmelding: sendInnResultat.feilmelding,
+                senderInn: false,
             });
         }
     };
