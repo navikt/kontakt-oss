@@ -1,6 +1,5 @@
-import { FunctionComponent, default as React } from 'react';
-import { Fylkesinndeling } from '../../../FylkesinndelingProvider';
-import { SkjemaFelt } from '../Felter';
+import { default as React, FunctionComponent } from 'react';
+import { SkjemaFelt } from '../FellesFelter';
 import { Select } from 'nav-frontend-skjema';
 import { Element } from 'nav-frontend-typografi';
 import { fylker } from '../../../../utils/fylker';

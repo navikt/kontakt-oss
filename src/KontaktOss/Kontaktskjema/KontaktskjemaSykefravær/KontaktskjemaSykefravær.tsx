@@ -1,12 +1,14 @@
 import { Hovedknapp } from 'nav-frontend-knapper';
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import Felter, { SkjemaFelt } from '../Felter/Felter';
 import LenkepanelKontaktliste from '../LenkepanelKontaktliste/LenkepanelKontaktliste';
 import Infoboks from '../Infoboks/Infoboks';
 import Feilmelding from '../Feilmelding/Feilmelding';
 import { Tema } from '../../../utils/kontaktskjemaApi';
-import { FeatureToggles, medFeatureToggles } from '../../FeatureTogglesProvider';
+import {
+    FeatureToggles,
+    medFeatureToggles,
+} from '../../FeatureTogglesProvider';
 import { BEKREFTELSE_PATH } from '../../../utils/paths';
 import {
     Fylkesinndeling,
@@ -18,6 +20,7 @@ import { Normaltekst } from 'nav-frontend-typografi';
 import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 
 import './kontaktskjemaSykefravær.less';
+import FellesFelter, { SkjemaFelt } from '../FellesFelter/FellesFelter';
 
 interface State {
     besvarelse: Besvarelse;
@@ -88,7 +91,7 @@ class KontaktskjemaSykefravær extends React.Component<Props, State> {
                         Arbeidslivssenter kan bistå i dette arbeidet.
                     </AlertStripeInfo>
                     <div>Har du snakka med reppresentanta</div>
-                    <Felter
+                    <FellesFelter
                         oppdaterBesvarelse={this.oppdaterBesvarelse}
                         besvarelse={this.state.besvarelse}
                     />

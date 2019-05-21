@@ -1,7 +1,7 @@
 import { Hovedknapp } from 'nav-frontend-knapper';
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import Felter, { SkjemaFelt } from './Felter/Felter';
+import FellesFelter, { SkjemaFelt } from './FellesFelter/FellesFelter';
 import LenkepanelKontaktliste from './LenkepanelKontaktliste/LenkepanelKontaktliste';
 import Infoboks from './Infoboks/Infoboks';
 import Feilmelding from './Feilmelding/Feilmelding';
@@ -76,7 +76,7 @@ class KontaktskjemaStandard extends React.Component<Props, State> {
         return (
             <div className="kontaktskjema">
                 <form className="kontaktskjema__innhold">
-                    <Felter
+                    <FellesFelter
                         oppdaterBesvarelse={this.oppdaterBesvarelse}
                         besvarelse={this.state.besvarelse}
                     />

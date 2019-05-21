@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { Element } from 'nav-frontend-typografi';
 import { getAlfabetiserteKommuner } from '../../../../utils/fylker';
-import { SkjemaFelt } from '../Felter';
+import { SkjemaFelt } from '../FellesFelter';
 import { Select } from 'nav-frontend-skjema';
 import {
     Fylkesinndeling,

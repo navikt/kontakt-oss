@@ -1,12 +1,12 @@
 import * as React from 'react';
-
 import { Besvarelse } from '../besvarelse';
-import './Felter.less';
 import FylkeFelt from './FylkeFelt/FylkeFelt';
 import KommuneFelt from './KommuneFelt/KommuneFelt';
 import Felt from './Felt/Felt';
 import ValidertFelt from './ValidertFelt/ValidertFelt';
 import { epostOk, orgnrOk, telefonnummerOk } from '../validering';
+
+import './FellesFelter.less';
 
 export enum SkjemaFelt {
     kommune = 'kommune',
@@ -24,7 +24,7 @@ interface Props {
     besvarelse: Besvarelse;
 }
 
-const Felter: React.FunctionComponent<Props> = props => {
+const FellesFelter: React.FunctionComponent<Props> = props => {
     const { fylke, orgnr, epost, telefonnr } = props.besvarelse;
 
     return (
@@ -92,4 +92,4 @@ const Felter: React.FunctionComponent<Props> = props => {
     );
 };
 
-export default Felter;
+export default FellesFelter;

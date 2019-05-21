@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Input } from 'nav-frontend-skjema';
 import { Element } from 'nav-frontend-typografi';
-import { SkjemaFelt } from '../Felter';
+import { SkjemaFelt } from '../FellesFelter';
 import '../Felt/Felt.less';
 
 interface Props {
