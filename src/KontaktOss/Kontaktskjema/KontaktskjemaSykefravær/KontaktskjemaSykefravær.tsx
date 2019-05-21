@@ -1,86 +1,19 @@
 import { Hovedknapp } from 'nav-frontend-knapper';
 import * as React from 'react';
-import { RouteComponentProps } from 'react-router-dom';
 import Infoboks from '../Infoboks/Infoboks';
 import Feilmelding from '../Feilmelding/Feilmelding';
-import { Tema } from '../../../utils/kontaktskjemaApi';
-import {
-    FeatureToggles,
-    medFeatureToggles,
-} from '../../FeatureTogglesProvider';
-import { BEKREFTELSE_PATH } from '../../../utils/paths';
-import {
-    Fylkesinndeling,
-    medFylkesinndeling,
-} from '../../FylkesinndelingProvider';
-import { Besvarelse, tomBesvarelse } from '../besvarelse';
-import { validerBesvarelseOgSendInn } from '../kontaktskjemaUtils';
+import { medFylkesinndeling } from '../../FylkesinndelingProvider';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
 import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 
 import './kontaktskjemaSykefravær.less';
-import FellesFelter, { SkjemaFelt } from '../FellesFelter/FellesFelter';
+import FellesFelter from '../FellesFelter/FellesFelter';
 import { AnsattrepresentantFelter } from './AnsattrepresentantFelter/AnsattrepresentantFelter';
 import Veilederpanel from 'nav-frontend-veilederpanel';
 import veilederBilde from '../../ArbeidsgiverTlfIInfo/kvinne.svg';
+import KontaktskjemaStateContainer from '../KontaktskjemaStateContainer';
 
-interface State {
-    besvarelse: Besvarelse;
-    feilmelding?: string;
-    senderInn: boolean;
-}
-
-interface OwnProps {
-    tema: Tema;
-}
-
-type Props = RouteComponentProps & FeatureToggles & Fylkesinndeling & OwnProps;
-
-class KontaktskjemaSykefravær extends React.Component<Props, State> {
-    state: State = {
-        besvarelse: tomBesvarelse,
-        senderInn: false,
-    };
-
-    oppdaterBesvarelse = (felt: SkjemaFelt, feltverdi: string | boolean) => {
-        this.setState(
-            {
-                besvarelse: { ...this.state.besvarelse, [felt]: feltverdi },
-            },
-            this.fjernFeilmeldinger
-        );
-    };
-
-    fjernFeilmeldinger = () => {
-        this.setState({
-            feilmelding: undefined,
-        });
-    };
-
-    sendInnOnClick = async (event: any): Promise<void> => {
-        event.preventDefault();
-
-        if (this.state.senderInn) {
-            return;
-        } else {
-            this.setState({ senderInn: true });
-        }
-
-        const sendInnResultat = await validerBesvarelseOgSendInn(
-            this.state.besvarelse,
-            this.props.tema
-        );
-
-        if (sendInnResultat.ok) {
-            this.props.history.push(BEKREFTELSE_PATH);
-        } else {
-            this.setState({
-                feilmelding: sendInnResultat.feilmelding,
-                senderInn: false,
-            });
-        }
-    };
-
+class KontaktskjemaSykefravær extends KontaktskjemaStateContainer {
     render() {
         return (
             <div className="kontaktskjema kontaktskjemaSykefravær">
@@ -136,4 +69,4 @@ class KontaktskjemaSykefravær extends React.Component<Props, State> {
     }
 }
 
-export default medFylkesinndeling(medFeatureToggles(KontaktskjemaSykefravær));
+export default medFylkesinndeling(KontaktskjemaSykefravær);
