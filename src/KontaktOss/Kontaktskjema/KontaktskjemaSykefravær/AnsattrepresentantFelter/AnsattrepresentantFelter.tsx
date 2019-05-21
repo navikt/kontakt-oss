@@ -1,38 +1,53 @@
 import * as React from 'react';
-import { Input, RadioPanel } from 'nav-frontend-skjema';
-import { Element } from 'nav-frontend-typografi';
+import { RadioPanel } from 'nav-frontend-skjema';
 import { SkjemaFelt } from '../../FellesFelter/FellesFelter';
 import { Besvarelse } from '../../besvarelse';
 
+import "./ansattrepresentantFelter.less";
+
 interface Props {
     besvarelse: Besvarelse;
-    oppdaterBesvarelse: (id: SkjemaFelt, input: string) => void;
+    oppdaterBesvarelse: (id: SkjemaFelt, input: boolean) => void;
 }
 
 export const AnsattrepresentantFelter: React.FunctionComponent<
     Props
 > = props => {
-    const onChange = (event: any) => {
+    const oppdaterBesvarelse = (svar: boolean) => {
         props.oppdaterBesvarelse(
             SkjemaFelt.harSnakketMedAnsattrepresentant,
-            event.target.value
+            svar
         );
     };
 
     return (
-        <>
-        <Element>
-            Har du snakket med tillitsvalgt eller annen ansattrepresentant om
-            forebygging av sykefravær?
-        </Element>
-            <RadioPanel
-                onChange={() => {}}
-                inputProps={{ className: 'blokk-xs' }}
-                name={'alternativ'}
-                label="Ja"
-                value="Ja"
-                checked={true}
-            />
-        </>
+        <fieldset className="ansattrepresentant">
+            <legend className={"ansattrepresentant__label typo-element"}>
+                Har du snakket med tillitsvalgt eller annen ansattrepresentant
+                om forebygging av sykefravær?
+            </legend>
+            <div className="ansattrepresentant__felt-wrapper">
+                <RadioPanel
+                    onChange={() => oppdaterBesvarelse(true)}
+                    name="ansattrepresentant"
+                    label="Ja"
+                    value="Ja"
+                    checked={
+                        props.besvarelse.harSnakketMedAnsattrepresentant ===
+                        true
+                    }
+                />
+                <RadioPanel
+                    onChange={() => oppdaterBesvarelse(false)}
+                    name="ansattrepresentant"
+                    label="Nei"
+                    value="Nei"
+                    checked={
+                        props.besvarelse.harSnakketMedAnsattrepresentant ===
+                        false
+                    }
+                />
+            </div>
+        </fieldset>
     );
 };

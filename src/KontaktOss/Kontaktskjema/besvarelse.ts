@@ -9,6 +9,7 @@ export interface Besvarelse {
     epost: string;
     telefonnr: string;
     fylke: string;
+    harSnakketMedAnsattrepresentant?: boolean;
 }
 
 export const tomBesvarelse = {
