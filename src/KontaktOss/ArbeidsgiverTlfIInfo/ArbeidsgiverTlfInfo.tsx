@@ -15,9 +15,9 @@ const ArbeidsgiverTlfInfo = () => {
                 <Normaltekst className="arbeidsgiver-tlf-info__beskrivelse">
                     For denne typen henvendelser ber vi deg å ta kontakt med
                     arbeidsgivertelefonen på{' '}
-                    <span className="arbeidsgiver-tlf-info__tlfnr">
+                    <a href={'tel:+4755553336'} className={'lenke'}>
                         55 55 33 36
-                    </span>
+                    </a>
                 </Normaltekst>
             </Veilederpanel>
         </div>

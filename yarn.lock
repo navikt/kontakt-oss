@@ -7613,6 +7613,16 @@ nav-frontend-lenkepanel@^1.0.22:
   resolved "https://registry.yarnpkg.com/nav-frontend-lenkepanel/-/nav-frontend-lenkepanel-1.0.23.tgz#85995cee7d8b7bdd66a407743dfb4e14fcffe0e8"
   integrity sha512-1qSxdZQVTsQbxSCyGXk3j80uAoTl/Q9L1VNXRxiAxL1oEldpSxYXQll3CnQ/PBeW0jm4/thVhFSbs01UZEtswg==
 
+nav-frontend-lenker-style@^0.2.20:
+  version "0.2.20"
+  resolved "https://registry.yarnpkg.com/nav-frontend-lenker-style/-/nav-frontend-lenker-style-0.2.20.tgz#2a79cc7014dc7286778b2b9fc55bac9fa254196c"
+  integrity sha512-0RGEhYsH/xACgARAyuV/OeLXE62fXc4v5bzfkQ0bP/dAOZl483aZV7NHGxwm1eiY/wT1RqcBBCjg/Y7S+G3nCQ==
+
+nav-frontend-lenker@^1.0.27:
+  version "1.0.27"
+  resolved "https://registry.yarnpkg.com/nav-frontend-lenker/-/nav-frontend-lenker-1.0.27.tgz#e16faad8164987411566e791207f801c53a35d4b"
+  integrity sha512-psWIkxAPkqOYbQJIKHGBIkZON089TTNcxerkr93f9+I7dX6G++Dqm0EO5ONZ4y7R6gCKbs8VqKvdj3pY90CJhQ==
+
 nav-frontend-paneler-style@^0.3.15:
   version "0.3.15"
   resolved "https://registry.yarnpkg.com/nav-frontend-paneler-style/-/nav-frontend-paneler-style-0.3.15.tgz#b9dee564e601c1d149fa4e3ba19e97aa3f9454c4"
@@ -7650,15 +7660,15 @@ nav-frontend-veileder@^2.0.6:
   resolved "https://registry.yarnpkg.com/nav-frontend-veileder/-/nav-frontend-veileder-2.0.7.tgz#710d6fc41d9e601a7dd0e78b8e8f092e0d2c46d1"
   integrity sha512-0bEz/HnHIUyUJBM6oMMZb3aR7ZG8OA24mnoAChsOprwsdDKt0J4lTEDDIqTMMUbZ729k/6Qy8Mhv+HV9JVUb2g==
 
-nav-frontend-veilederpanel-style@^0.0.14:
-  version "0.0.14"
-  resolved "https://registry.yarnpkg.com/nav-frontend-veilederpanel-style/-/nav-frontend-veilederpanel-style-0.0.14.tgz#931a883e2143ea956bd666ea6ea021b87a149e45"
-  integrity sha512-dklAh7GVywar4A65H2NC4MWa2HbBLbt8cGrzotkLm9jcrhMe+jtZp9p/GFuyvWipD071zuoqE0RQK82XKFfyMA==
+nav-frontend-veilederpanel-style@^0.0.17:
+  version "0.0.17"
+  resolved "https://registry.yarnpkg.com/nav-frontend-veilederpanel-style/-/nav-frontend-veilederpanel-style-0.0.17.tgz#dfa8d4fae37e0aa1b1e605fd9ac02142a5aa9fdc"
+  integrity sha512-ecOlhIfkl8oLlJjb68f45org4tkz/7FLAZZF88y9QVLhXwAyWyb7dqzm12JYsGBthjdUpIOTHv9iXLyNqYAWjg==
 
-nav-frontend-veilederpanel@^0.1.8:
-  version "0.1.9"
-  resolved "https://registry.yarnpkg.com/nav-frontend-veilederpanel/-/nav-frontend-veilederpanel-0.1.9.tgz#a40de628c55a7c73ec05885534fcb51610e49e57"
-  integrity sha512-EYrREDtkc2k1TXd5UVAj++WHK+blATs88LQoupBvogRH2/ldaP1z4Cdn2xDw+G0sXXzNkNjYOQGdGwA5aeJA5g==
+nav-frontend-veilederpanel@^0.1.14:
+  version "0.1.14"
+  resolved "https://registry.yarnpkg.com/nav-frontend-veilederpanel/-/nav-frontend-veilederpanel-0.1.14.tgz#3aec9e396c63b938944c17952053dd2e51096152"
+  integrity sha512-DXF08Wct0g30hE2p6VG2HBHaRgwKPaaXgqkgVNdKSKS3BVdtmtUKgQG69tbd/kfVSORBEdqsfWvjAz3y8s3uWA==
 
 needle@^2.2.1:
   version "2.2.4"
