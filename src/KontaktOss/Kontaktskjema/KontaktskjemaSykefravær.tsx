@@ -5,14 +5,18 @@ import Felter, { SkjemaFelt } from './Felter/Felter';
 import LenkepanelKontaktliste from './LenkepanelKontaktliste/LenkepanelKontaktliste';
 import Infoboks from './Infoboks/Infoboks';
 import Feilmelding from './Feilmelding/Feilmelding';
-import { Tema, } from '../../utils/kontaktskjemaApi';
+import { Tema } from '../../utils/kontaktskjemaApi';
 import { FeatureToggles, medFeatureToggles } from '../FeatureTogglesProvider';
 import './Kontaktskjema.less';
 import { BEKREFTELSE_PATH } from '../../utils/paths';
-import { Fylkesinndeling, medFylkesinndeling, } from '../FylkesinndelingProvider';
+import {
+    Fylkesinndeling,
+    medFylkesinndeling,
+} from '../FylkesinndelingProvider';
 import { Besvarelse, tomBesvarelse } from './besvarelse';
 import { validerBesvarelseOgSendInn } from './kontaktskjemaUtils';
 import { Normaltekst } from 'nav-frontend-typografi';
+import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 
 interface State {
     besvarelse: Besvarelse;
@@ -76,9 +80,13 @@ class KontaktskjemaSykefravær extends React.Component<Props, State> {
         return (
             <div className="kontaktskjema">
                 <form className="kontaktskjema__innhold">
-                    <div>
-                        Har du snakka med reppresentanta
-                    </div>
+                    <AlertStripeInfo className="kontaktskjema__alertstripe typo-normal">
+                        Arbeidet med å forebygge sykefravær og sikre godt
+                        arbeidsmiljø, er et ansvar som deles mellom arbeidsgiver
+                        og tillitsvalgte (eller ansattrepresentanter). NAV
+                        Arbeidslivssenter kan bistå i dette arbeidet.
+                    </AlertStripeInfo>
+                    <div>Har du snakka med reppresentanta</div>
                     <Felter
                         oppdaterBesvarelse={this.oppdaterBesvarelse}
                         besvarelse={this.state.besvarelse}
