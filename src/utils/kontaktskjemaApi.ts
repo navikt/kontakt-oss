@@ -2,12 +2,42 @@ import { SEND_KONTAKTSKJEMA_PATH } from './paths';
 import { fjernWhitespace } from './stringUtils';
 import { Besvarelse } from '../KontaktOss/Kontaktskjema/besvarelse';
 
-export type Tema =
-    | 'Rekruttering'
-    | 'Rekruttering med tilrettelegging'
-    | 'Arbeidstrening'
-    | 'Oppfølging av en arbeidstaker'
-    | 'Annet';
+export enum TemaType {
+    Rekruttering = 'REKRUTTERING',
+    RekrutteringMedTilrettelegging = 'REKRUTTERING_MED_TILRETTELEGGING',
+    Arbeidstrening = 'ARBEIDSTRENING',
+    OppfølgingAvEnArbeidstaker = 'OPPFØLGING_AV_EN_ARBEIDSTAKER',
+    Annet = 'ANNET',
+    ForebyggeSykefravær = 'FOREBYGGE_SYKEFRAVÆR',
+}
+
+export interface Tema {
+    type: TemaType;
+    tekst: string;
+}
+
+export const temaer: Tema[] = [
+    {
+        type: TemaType.Rekruttering,
+        tekst: 'Rekruttering',
+    },
+    {
+        type: TemaType.RekrutteringMedTilrettelegging,
+        tekst: 'Rekruttering med tilrettelegging',
+    },
+    {
+        type: TemaType.Arbeidstrening,
+        tekst: 'Arbeidstrening',
+    },
+    {
+        type: TemaType.OppfølgingAvEnArbeidstaker,
+        tekst: 'Oppfølging av en arbeidstaker',
+    },
+    {
+        type: TemaType.Annet,
+        tekst: 'Annet',
+    },
+];
 
 export type BesvarelseBackend = {
     fylke: string;
@@ -19,7 +49,8 @@ export type BesvarelseBackend = {
     etternavn: string;
     epost: string;
     telefonnr: string;
-    tema: Tema;
+    tema: string;
+    temaType: TemaType;
 };
 
 const oversettTilJson = (besvarelse: Besvarelse, tema: Tema) => {
@@ -28,12 +59,14 @@ const oversettTilJson = (besvarelse: Besvarelse, tema: Tema) => {
         orgnr: fjernWhitespace(besvarelse.orgnr),
         kommune: besvarelse.kommune.navn,
         kommunenr: besvarelse.kommune.nummer,
-        tema: tema,
+        tema: tema.tekst,
+        temaType: tema.type,
     };
     return JSON.stringify(besvarelseBackend);
 };
 
 export const sendKontaktskjema = async (besvarelse: Besvarelse, tema: Tema) => {
+    console.log(oversettTilJson(besvarelse, tema));
     const response = await fetch(SEND_KONTAKTSKJEMA_PATH, {
         method: 'POST',
         headers: {

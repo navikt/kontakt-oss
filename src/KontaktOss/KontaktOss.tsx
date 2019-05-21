@@ -4,7 +4,7 @@ import Temaknapper from './Temaknapper/Temaknapper';
 import ArbeidsgiverTlfInfo from './ArbeidsgiverTlfIInfo/ArbeidsgiverTlfInfo';
 import Kontaktskjema from './Kontaktskjema/Kontaktskjema';
 import { scrollToBanner } from '../utils/scrollUtils';
-import { Tema } from '../utils/kontaktskjemaApi';
+import { Tema, TemaType } from '../utils/kontaktskjemaApi';
 import './KontaktOss.less';
 
 interface State {
@@ -26,9 +26,10 @@ class KontaktOss extends React.Component<RouteComponentProps, State> {
 
     skalViseKontaktskjema = (tema?: Tema) => {
         return (
-            tema === 'Rekruttering' ||
-            tema === 'Rekruttering med tilrettelegging' ||
-            tema === 'Arbeidstrening'
+            !!tema &&
+            (tema.type === TemaType.Rekruttering ||
+                tema.type === TemaType.RekrutteringMedTilrettelegging ||
+                tema.type === TemaType.Arbeidstrening)
         );
     };
 

@@ -6,12 +6,15 @@ import LenkepanelKontaktliste from './LenkepanelKontaktliste/LenkepanelKontaktli
 import Infoboks from './Infoboks/Infoboks';
 import {
     besvarelseErGyldig,
-    paakrevdeFelterErUtfylte,
-    orgnrOk,
     felterErGyldige,
+    paakrevdeFelterErUtfylte,
 } from './validering';
 import Feilmelding from './Feilmelding/Feilmelding';
-import { sendKontaktskjema, Tema } from '../../utils/kontaktskjemaApi';
+import {
+    sendKontaktskjema,
+    Tema,
+    TemaType,
+} from '../../utils/kontaktskjemaApi';
 import { logFail, logSendInnKlikk, logSuccess } from '../../utils/metricsUtils';
 import { erPilotfylke } from '../../utils/fylker';
 import { FeatureToggles, medFeatureToggles } from '../FeatureTogglesProvider';
@@ -23,6 +26,7 @@ import {
     medFylkesinndeling,
 } from '../FylkesinndelingProvider';
 import { Besvarelse, tomBesvarelse } from './besvarelse';
+import { Normaltekst } from 'nav-frontend-typografi';
 
 interface State {
     besvarelse: Besvarelse;
@@ -40,7 +44,7 @@ class Kontaktskjema extends React.Component<Props, State> {
         besvarelse: tomBesvarelse,
     };
 
-    oppdaterBesvarelse = (felt: SkjemaFelt, feltverdi: string) => {
+    oppdaterBesvarelse = (felt: SkjemaFelt, feltverdi: string | boolean) => {
         this.setState(
             {
                 besvarelse: { ...this.state.besvarelse, [felt]: feltverdi },
@@ -132,12 +136,14 @@ class Kontaktskjema extends React.Component<Props, State> {
                     {skalViseHeleSkjemaet && (
                         <>
                             <Infoboks>
-                                <div className="typo-normal">
-                                    NAV bruker disse opplysningene når vi kontakter deg.
-                                    Vi lagrer disse opplysningene om deg,
-                                    slik at vi kan kontakte deg om rekruttering og inkludering i bedriften du
-                                    representerer. Opplysningene blir ikke delt eller brukt til andre formål.
-                                </div>
+                                <Normaltekst>
+                                    NAV bruker disse opplysningene når vi
+                                    kontakter deg. Vi lagrer disse opplysningene
+                                    om deg, slik at vi kan kontakte deg om
+                                    rekruttering og inkludering i bedriften du
+                                    representerer. Opplysningene blir ikke delt
+                                    eller brukt til andre formål.
+                                </Normaltekst>
                             </Infoboks>
                             {this.state.feilmelding && (
                                 <Feilmelding className="kontaktskjema__feilmelding">
