@@ -17,6 +17,7 @@ export enum SkjemaFelt {
     epost = 'epost',
     telefonnr = 'telefonnr',
     fylke = 'fylke',
+    harSnakketMedAnsattrepresentant = 'harSnakketMedAnsattrepresentant',
 }
 
 interface Props {

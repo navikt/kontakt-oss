@@ -21,6 +21,7 @@ import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 
 import './kontaktskjemaSykefravær.less';
 import FellesFelter, { SkjemaFelt } from '../FellesFelter/FellesFelter';
+import { AnsattrepresentantFelter } from './AnsattrepresentantFelter/AnsattrepresentantFelter';
 
 interface State {
     besvarelse: Besvarelse;
@@ -90,7 +91,10 @@ class KontaktskjemaSykefravær extends React.Component<Props, State> {
                         og tillitsvalgte (eller ansattrepresentanter). NAV
                         Arbeidslivssenter kan bistå i dette arbeidet.
                     </AlertStripeInfo>
-                    <div>Har du snakka med reppresentanta</div>
+                    <AnsattrepresentantFelter
+                        oppdaterBesvarelse={this.oppdaterBesvarelse}
+                        besvarelse={this.state.besvarelse}
+                    />
                     <FellesFelter
                         oppdaterBesvarelse={this.oppdaterBesvarelse}
                         besvarelse={this.state.besvarelse}
