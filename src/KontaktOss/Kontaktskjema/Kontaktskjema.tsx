@@ -26,6 +26,7 @@ import {
     medFylkesinndeling,
 } from '../FylkesinndelingProvider';
 import { Besvarelse, tomBesvarelse } from './besvarelse';
+import { Normaltekst } from 'nav-frontend-typografi';
 
 interface State {
     besvarelse: Besvarelse;
@@ -135,14 +136,14 @@ class Kontaktskjema extends React.Component<Props, State> {
                     {skalViseHeleSkjemaet && (
                         <>
                             <Infoboks>
-                                <div className="typo-normal">
+                                <Normaltekst>
                                     NAV bruker disse opplysningene når vi
                                     kontakter deg. Vi lagrer disse opplysningene
                                     om deg, slik at vi kan kontakte deg om
                                     rekruttering og inkludering i bedriften du
                                     representerer. Opplysningene blir ikke delt
                                     eller brukt til andre formål.
-                                </div>
+                                </Normaltekst>
                             </Infoboks>
                             {this.state.feilmelding && (
                                 <Feilmelding className="kontaktskjema__feilmelding">
