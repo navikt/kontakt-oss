@@ -29,15 +29,15 @@ export const mapTilTemaEvent = (tema?: Tema): string => {
         return 'default';
     }
     switch (tema.type) {
-        case TemaType.REKRUTTERING:
+        case TemaType.Rekruttering:
             return 'rekruttering';
-        case TemaType.REKRUTTERING_MED_TILRETTELEGGING:
+        case TemaType.RekrutteringMedTilrettelegging:
             return 'rekruttering-med-tilrettelegging';
-        case TemaType.ARBEIDSTRENING:
+        case TemaType.Arbeidstrening:
             return 'arbeidstrening';
-        case TemaType.OPPFØLGING_AV_EN_ARBEIDSTAKER:
+        case TemaType.OppfølgingAvEnArbeidstaker:
             return 'oppfolging-av-arbeidstaker';
-        case TemaType.ANNET:
+        case TemaType.Annet:
             return 'annet';
         default:
             return 'default';

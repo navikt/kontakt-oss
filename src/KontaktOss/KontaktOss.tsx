@@ -27,9 +27,9 @@ class KontaktOss extends React.Component<RouteComponentProps, State> {
     skalViseKontaktskjema = (tema?: Tema) => {
         return (
             !!tema &&
-            (tema.type === TemaType.REKRUTTERING ||
-                tema.type === TemaType.REKRUTTERING_MED_TILRETTELEGGING ||
-                tema.type === TemaType.ARBEIDSTRENING)
+            (tema.type === TemaType.Rekruttering ||
+                tema.type === TemaType.RekrutteringMedTilrettelegging ||
+                tema.type === TemaType.Arbeidstrening)
         );
     };
 

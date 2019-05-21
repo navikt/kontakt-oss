@@ -3,12 +3,12 @@ import { fjernWhitespace } from './stringUtils';
 import { Besvarelse } from '../KontaktOss/Kontaktskjema/besvarelse';
 
 export enum TemaType {
-    REKRUTTERING = 'REKRUTTERING',
-    REKRUTTERING_MED_TILRETTELEGGING = 'REKRUTTERING_MED_TILRETTELEGGING',
-    ARBEIDSTRENING = 'ARBEIDSTRENING',
-    OPPFØLGING_AV_EN_ARBEIDSTAKER = 'OPPFØLGING_AV_EN_ARBEIDSTAKER',
-    ANNET = 'ANNET',
-    FOREBYGGE_SYKEFRAVÆR = 'FOREBYGGE_SYKEFRAVÆR',
+    Rekruttering = 'REKRUTTERING',
+    RekrutteringMedTilrettelegging = 'REKRUTTERING_MED_TILRETTELEGGING',
+    Arbeidstrening = 'ARBEIDSTRENING',
+    OppfølgingAvEnArbeidstaker = 'OPPFØLGING_AV_EN_ARBEIDSTAKER',
+    Annet = 'ANNET',
+    ForebyggeSykefravær = 'FOREBYGGE_SYKEFRAVÆR',
 }
 
 export interface Tema {
@@ -18,23 +18,23 @@ export interface Tema {
 
 export const temaer: Tema[] = [
     {
-        type: TemaType.REKRUTTERING,
+        type: TemaType.Rekruttering,
         tekst: 'Rekruttering',
     },
     {
-        type: TemaType.REKRUTTERING_MED_TILRETTELEGGING,
+        type: TemaType.RekrutteringMedTilrettelegging,
         tekst: 'Rekruttering med tilrettelegging',
     },
     {
-        type: TemaType.ARBEIDSTRENING,
+        type: TemaType.Arbeidstrening,
         tekst: 'Arbeidstrening',
     },
     {
-        type: TemaType.OPPFØLGING_AV_EN_ARBEIDSTAKER,
+        type: TemaType.OppfølgingAvEnArbeidstaker,
         tekst: 'Oppfølging av en arbeidstaker',
     },
     {
-        type: TemaType.ANNET,
+        type: TemaType.Annet,
         tekst: 'Annet',
     },
 ];
@@ -66,6 +66,7 @@ const oversettTilJson = (besvarelse: Besvarelse, tema: Tema) => {
 };
 
 export const sendKontaktskjema = async (besvarelse: Besvarelse, tema: Tema) => {
+    console.log(oversettTilJson(besvarelse, tema));
     const response = await fetch(SEND_KONTAKTSKJEMA_PATH, {
         method: 'POST',
         headers: {
