@@ -5,8 +5,7 @@ import ArbeidsgiverTlfInfo from './ArbeidsgiverTlfIInfo/ArbeidsgiverTlfInfo';
 import { scrollToBanner } from '../utils/scrollUtils';
 import { Tema, TemaType } from '../utils/kontaktskjemaApi';
 import './KontaktOss.less';
-import KontaktskjemaStandard from './Kontaktskjema/KontaktskjemaStandard';
-import KontaktskjemaSykefravær from './Kontaktskjema/KontaktskjemaSykefravær/KontaktskjemaSykefravær';
+import KontaktskjemaContainer from './Kontaktskjema/KontaktskjemaContainer';
 
 interface State {
     tema?: Tema;
@@ -33,12 +32,16 @@ class KontaktOss extends React.Component<RouteComponentProps, State> {
             case TemaType.RekrutteringMedTilrettelegging:
             case TemaType.Arbeidstrening:
             case TemaType.Rekruttering:
-                return <KontaktskjemaStandard tema={this.state.tema!} {...this.props} />;
             case TemaType.ForebyggeSykefravær:
-                return <KontaktskjemaSykefravær tema={this.state.tema!} {...this.props} />;
+                return (
+                    <KontaktskjemaContainer
+                        tema={this.state.tema!}
+                        {...this.props}
+                    />
+                );
             case TemaType.OppfølgingAvEnArbeidstaker:
             case TemaType.Annet:
-                return <ArbeidsgiverTlfInfo/>;
+                return <ArbeidsgiverTlfInfo />;
             default:
                 return null;
         }

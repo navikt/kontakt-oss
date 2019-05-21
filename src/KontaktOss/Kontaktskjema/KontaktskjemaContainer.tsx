@@ -1,12 +1,24 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { SkjemaFelt } from './FellesFelter/FellesFelter';
-import { Tema } from '../../utils/kontaktskjemaApi';
+import { Tema, TemaType } from '../../utils/kontaktskjemaApi';
 import './Kontaktskjema.less';
 import { BEKREFTELSE_PATH } from '../../utils/paths';
-import { Fylkesinndeling } from '../FylkesinndelingProvider';
+import {
+    Fylkesinndeling,
+    medFylkesinndeling,
+} from '../FylkesinndelingProvider';
 import { Besvarelse, tomBesvarelse } from './besvarelse';
 import { validerBesvarelseOgSendInn } from './kontaktskjemaUtils';
+import KontaktskjemaSykefravær from './KontaktskjemaSykefravær/KontaktskjemaSykefravær';
+import KontaktskjemaStandard from './KontaktskjemaStandard';
+
+export interface KontaktskjemaProps {
+    oppdaterBesvarelse: (felt: SkjemaFelt, feltverdi: string | boolean) => void;
+    besvarelse: Besvarelse;
+    feilmelding?: string;
+    sendInnOnClick: (event: any) => Promise<void>;
+}
 
 interface State {
     besvarelse: Besvarelse;
@@ -20,7 +32,7 @@ interface OwnProps {
 
 type Props = RouteComponentProps & Fylkesinndeling & OwnProps;
 
-class KontaktskjemaStateContainer extends React.Component<Props, State> {
+class KontaktskjemaContainer extends React.Component<Props, State> {
     state: State = {
         besvarelse: tomBesvarelse,
         senderInn: false,
@@ -64,6 +76,21 @@ class KontaktskjemaStateContainer extends React.Component<Props, State> {
             });
         }
     };
+
+    render() {
+        const kontaktskjemaProps: KontaktskjemaProps = {
+            sendInnOnClick: this.sendInnOnClick,
+            besvarelse: this.state.besvarelse,
+            feilmelding: this.state.feilmelding,
+            oppdaterBesvarelse: this.oppdaterBesvarelse,
+        };
+
+        if (this.props.tema.type === TemaType.ForebyggeSykefravær) {
+            return <KontaktskjemaSykefravær {...kontaktskjemaProps} />;
+        } else {
+            return <KontaktskjemaStandard {...kontaktskjemaProps} />;
+        }
+    }
 }
 
-export default KontaktskjemaStateContainer;
+export default medFylkesinndeling(KontaktskjemaContainer);
