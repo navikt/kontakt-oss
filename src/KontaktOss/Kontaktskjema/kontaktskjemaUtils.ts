@@ -12,7 +12,7 @@ export interface SendInnBesvarelseResultat {
     feilmelding?: string;
 }
 
-export const sendInnBesvarelse = async (
+export const validerBesvarelseOgSendInn = async (
     besvarelse: Besvarelse,
     tema: Tema
 ): Promise<SendInnBesvarelseResultat> => {

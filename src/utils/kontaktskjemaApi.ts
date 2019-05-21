@@ -34,6 +34,10 @@ export const temaer: Tema[] = [
         tekst: 'Oppfølging av en arbeidstaker',
     },
     {
+        type: TemaType.ForebyggeSykefravær,
+        tekst: 'Forebygge sykefravær',
+    },
+    {
         type: TemaType.Annet,
         tekst: 'Annet',
     },
