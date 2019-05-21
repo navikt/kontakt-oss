@@ -1,13 +1,13 @@
 import { Besvarelse } from './besvarelse';
 import { sendKontaktskjema, Tema } from '../../utils/kontaktskjemaApi';
 import {
-    besvarelseErGyldig,
+    validerBesvarelse,
     felterErGyldige,
     paakrevdeFelterErUtfylte,
 } from './validering';
 import { logFail, logSendInnKlikk, logSuccess } from '../../utils/metricsUtils';
 
-export interface SendInnBesvarelseResultat {
+interface SendInnBesvarelseResultat {
     ok: boolean;
     feilmelding?: string;
 }
@@ -16,7 +16,9 @@ export const validerBesvarelseOgSendInn = async (
     besvarelse: Besvarelse,
     tema: Tema
 ): Promise<SendInnBesvarelseResultat> => {
-    if (besvarelseErGyldig(besvarelse)) {
+    const validering = validerBesvarelse(besvarelse, tema);
+
+    if (validering.ok) {
         logSendInnKlikk();
 
         try {
@@ -32,17 +34,9 @@ export const validerBesvarelseOgSendInn = async (
             };
         }
     } else {
-        let feilmelding;
-        if (!paakrevdeFelterErUtfylte(besvarelse)) {
-            feilmelding = 'Du må fylle ut alle feltene for å sende inn.';
-        } else if (!felterErGyldige(besvarelse)) {
-            feilmelding = 'Ett eller flere av feltene er ikke fylt ut riktig.';
-        } else {
-            feilmelding = 'Besvarelsen er ikke gyldig.';
-        }
         return {
             ok: false,
-            feilmelding,
+            feilmelding: validering.feilmelding,
         };
     }
 };
