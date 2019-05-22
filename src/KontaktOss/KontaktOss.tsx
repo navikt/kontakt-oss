@@ -28,23 +28,15 @@ class KontaktOss extends React.Component<RouteComponentProps, State> {
         if (!tema) {
             return null;
         }
-        switch (tema.type) {
-            case TemaType.RekrutteringMedTilrettelegging:
-            case TemaType.Arbeidstrening:
-            case TemaType.Rekruttering:
-            case TemaType.ForebyggeSykefravær:
-                return (
-                    <KontaktskjemaContainer
-                        tema={this.state.tema!}
-                        {...this.props}
-                    />
-                );
-            case TemaType.OppfølgingAvEnArbeidstaker:
-            case TemaType.Annet:
-                return <ArbeidsgiverTlfInfo />;
-            default:
-                return null;
+        if (
+            tema.type === TemaType.OppfølgingAvEnArbeidstaker ||
+            tema.type === TemaType.Annet
+        ) {
+            return <ArbeidsgiverTlfInfo />;
         }
+        return (
+            <KontaktskjemaContainer tema={this.state.tema!} {...this.props} />
+        );
     };
 
     render() {
