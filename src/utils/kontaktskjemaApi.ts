@@ -22,20 +22,20 @@ export const temaer: Tema[] = [
         tekst: 'Rekruttering',
     },
     {
-        type: TemaType.RekrutteringMedTilrettelegging,
-        tekst: 'Rekruttering med tilrettelegging',
+        type: TemaType.ForebyggeSykefravær,
+        tekst: 'Forebygge sykefravær',
     },
     {
-        type: TemaType.Arbeidstrening,
-        tekst: 'Arbeidstrening',
+        type: TemaType.RekrutteringMedTilrettelegging,
+        tekst: 'Rekruttering med tilrettelegging',
     },
     {
         type: TemaType.OppfølgingAvEnArbeidstaker,
         tekst: 'Oppfølging av en arbeidstaker',
     },
     {
-        type: TemaType.ForebyggeSykefravær,
-        tekst: 'Forebygge sykefravær',
+        type: TemaType.Arbeidstrening,
+        tekst: 'Arbeidstrening',
     },
     {
         type: TemaType.Annet,
