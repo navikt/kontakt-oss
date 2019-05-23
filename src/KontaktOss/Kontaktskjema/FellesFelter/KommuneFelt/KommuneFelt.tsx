@@ -37,7 +37,7 @@ const KommuneFelt: FunctionComponent<Props & Fylkesinndeling> = props => {
             className="felt"
             onChange={onChange}
             disabled={kommunerOptions.length === 0}
-            value={props.verdi.nummer}
+            value={JSON.stringify(props.verdi)}
         >
             <option value="" key="ingen valgt" />
             {kommunerOptions}
