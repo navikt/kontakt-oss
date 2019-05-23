@@ -1,13 +1,14 @@
 import React from 'react';
 import { Input } from 'nav-frontend-skjema';
 import { Element } from 'nav-frontend-typografi';
-import { SkjemaFelt } from '../../Felter';
+import { SkjemaFelt } from '../FellesFelter';
 import './Felt.less';
 
 interface Props {
     label: string;
     felt: SkjemaFelt;
     oppdaterBesvarelse: (id: SkjemaFelt, input: string) => void;
+    verdi: string;
 }
 
 const Felt = (props: Props) => {
@@ -20,6 +21,7 @@ const Felt = (props: Props) => {
             className="felt"
             label={<Element>{props.label}</Element>}
             onChange={onChange}
+            value={props.verdi}
         />
     );
 };

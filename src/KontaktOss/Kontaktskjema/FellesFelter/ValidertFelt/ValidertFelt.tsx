@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Input } from 'nav-frontend-skjema';
 import { Element } from 'nav-frontend-typografi';
-import { SkjemaFelt } from '../../Felter';
+import { SkjemaFelt } from '../FellesFelter';
 import '../Felt/Felt.less';
 
 interface Props {
@@ -32,6 +32,7 @@ const ValidertFelt = (props: Props) => {
             onBlur={() => {
                 settVisFeilmelding(!props.validering(props.verdi));
             }}
+            value={props.verdi}
             feil={feilmelding}
         />
     );

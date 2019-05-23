@@ -1,12 +1,12 @@
 import React, { FunctionComponent } from 'react';
 import { Element } from 'nav-frontend-typografi';
-import { getAlfabetiserteKommuner } from '../../../../../utils/fylker';
-import { SkjemaFelt } from '../../Felter';
+import { getAlfabetiserteKommuner, KommuneModell } from '../../../../utils/fylker';
+import { SkjemaFelt } from '../FellesFelter';
 import { Select } from 'nav-frontend-skjema';
 import {
     Fylkesinndeling,
     medFylkesinndeling,
-} from '../../../../FylkesinndelingProvider';
+} from '../../../FylkesinndelingProvider';
 import '../Felt/Felt.less';
 
 interface Props {
@@ -14,6 +14,7 @@ interface Props {
     felt: SkjemaFelt;
     oppdaterBesvarelse: (id: SkjemaFelt, input: string) => void;
     fylkeNokkel?: string;
+    verdi: KommuneModell;
 }
 
 const KommuneFelt: FunctionComponent<Props & Fylkesinndeling> = props => {
@@ -35,6 +36,8 @@ const KommuneFelt: FunctionComponent<Props & Fylkesinndeling> = props => {
             label={<Element>{props.label}</Element>}
             className="felt"
             onChange={onChange}
+            disabled={kommunerOptions.length === 0}
+            value={props.verdi.nummer}
         >
             <option value="" key="ingen valgt" />
             {kommunerOptions}

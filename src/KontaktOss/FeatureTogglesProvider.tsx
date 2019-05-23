@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { PILOTFYLKER_TOGGLE_PATH } from '../utils/paths';
+import { FOREBYGGE_SYKEFRAVÆR_TOGGLE_PATH } from '../utils/paths';
 
 export interface FeatureToggles {
-    pilotfylkerFeature: boolean;
+    forebyggeSykefraværFeature: boolean;
 }
 
 const defaultFeatureToggles: FeatureToggles = {
-    pilotfylkerFeature: false,
+    forebyggeSykefraværFeature: false,
 };
 
 const FeatureTogglesContext = React.createContext(defaultFeatureToggles);
@@ -23,12 +23,12 @@ export class FeatureTogglesProvider extends React.Component<
 
     componentDidMount() {
         // Bryr seg ikke om miljø, bare om feature er globalt av eller på
-        fetch(PILOTFYLKER_TOGGLE_PATH)
+        fetch(FOREBYGGE_SYKEFRAVÆR_TOGGLE_PATH)
             .then(response => response.json())
             .then(json => json['enabled'])
             .then(toggle =>
                 this.setState({
-                    pilotfylkerFeature: toggle,
+                    forebyggeSykefraværFeature: toggle,
                 })
             );
     }

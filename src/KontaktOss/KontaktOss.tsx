@@ -2,10 +2,10 @@ import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import Temaknapper from './Temaknapper/Temaknapper';
 import ArbeidsgiverTlfInfo from './ArbeidsgiverTlfIInfo/ArbeidsgiverTlfInfo';
-import Kontaktskjema from './Kontaktskjema/Kontaktskjema';
 import { scrollToBanner } from '../utils/scrollUtils';
 import { Tema, TemaType } from '../utils/kontaktskjemaApi';
 import './KontaktOss.less';
+import KontaktskjemaContainer from './Kontaktskjema/KontaktskjemaContainer';
 
 interface State {
     tema?: Tema;
@@ -24,32 +24,29 @@ class KontaktOss extends React.Component<RouteComponentProps, State> {
         this.setState({ tema });
     };
 
-    skalViseKontaktskjema = (tema?: Tema) => {
-        return (
-            !!tema &&
-            (tema.type === TemaType.Rekruttering ||
-                tema.type === TemaType.RekrutteringMedTilrettelegging ||
-                tema.type === TemaType.Arbeidstrening)
-        );
+    hentSide = (tema?: Tema) => {
+        if (!tema) {
+            return null;
+        } else if (
+            tema.type === TemaType.OppfølgingAvEnArbeidstaker ||
+            tema.type === TemaType.Annet
+        ) {
+            return <ArbeidsgiverTlfInfo />;
+        } else {
+            return (
+                <KontaktskjemaContainer tema={this.state.tema!} {...this.props} />
+            );
+        }
     };
 
     render() {
-        const skalViseKontaktskjema = this.skalViseKontaktskjema(
-            this.state.tema
-        );
-        const skalViseArbeidsgiverTlf =
-            this.state.tema && !skalViseKontaktskjema;
-
         return (
             <div className="kontakt-oss">
                 <Temaknapper
                     velgTema={this.velgTema}
                     valgtTema={this.state.tema}
                 />
-                {skalViseKontaktskjema && (
-                    <Kontaktskjema tema={this.state.tema!} {...this.props} />
-                )}
-                {skalViseArbeidsgiverTlf && <ArbeidsgiverTlfInfo />}
+                {this.hentSide(this.state.tema)}
             </div>
         );
     }

@@ -1,13 +1,34 @@
 import { validerOrgnr } from '../../utils/orgnrUtils';
 import { fjernWhitespace, inneholderKunSifre } from '../../utils/stringUtils';
 import { Besvarelse } from './besvarelse';
+import { Tema, TemaType } from '../../utils/kontaktskjemaApi';
 
 const isFalsyOrEmpty = (str: string | undefined): boolean => {
     return !str || str === '';
 };
 
-export const besvarelseErGyldig = (besvarelse: Besvarelse) => {
-    return felterErGyldige(besvarelse) && paakrevdeFelterErUtfylte(besvarelse);
+interface ValideringResultat {
+    ok: boolean;
+    feilmelding?: string;
+}
+
+export const validerBesvarelse = (
+    besvarelse: Besvarelse,
+    tema: Tema
+): ValideringResultat => {
+    let feilmelding;
+    if (!paakrevdeFelterErUtfylte(besvarelse, tema)) {
+        feilmelding = 'Du må fylle ut alle feltene for å sende inn.';
+    } else if (!felterErGyldige(besvarelse)) {
+        feilmelding = 'Ett eller flere av feltene er ikke fylt ut riktig.';
+    } else {
+        return { ok: true };
+    }
+
+    return {
+        ok: false,
+        feilmelding,
+    };
 };
 
 export const felterErGyldige = (besvarelse: Besvarelse) =>
@@ -15,7 +36,16 @@ export const felterErGyldige = (besvarelse: Besvarelse) =>
     telefonnummerOk(besvarelse.telefonnr) &&
     epostOk(besvarelse.epost);
 
-export const paakrevdeFelterErUtfylte = (besvarelse: Besvarelse): boolean => {
+export const paakrevdeFelterErUtfylte = (
+    besvarelse: Besvarelse,
+    tema: Tema
+): boolean => {
+    if (
+        tema.type === TemaType.ForebyggeSykefravær &&
+        besvarelse.harSnakketMedAnsattrepresentant === undefined
+    ) {
+        return false;
+    }
     const harTommeFelter: boolean =
         !besvarelse ||
         !besvarelse.kommune ||
