@@ -30,7 +30,7 @@ interface OwnProps {
     tema: Tema;
 }
 
-type Props = RouteComponentProps & Fylkesinndeling & OwnProps;
+type Props = RouteComponentProps & OwnProps;
 
 class KontaktskjemaContainer extends React.Component<Props, State> {
     state: State = {
@@ -93,4 +93,4 @@ class KontaktskjemaContainer extends React.Component<Props, State> {
     }
 }
 
-export default medFylkesinndeling(KontaktskjemaContainer);
+export default KontaktskjemaContainer;

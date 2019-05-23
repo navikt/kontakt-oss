@@ -33,7 +33,7 @@ const FellesFelter: React.FunctionComponent<Props> = props => {
         <div className="kontaktskjema-input">
             <div className="kontaktskjema-input__wrapper">
                 <FylkeFelt
-                    label={'Hvilket fylke ligger arbeidsplassen i?'}
+                    label="Hvilket fylke ligger arbeidsplassen i?"
                     felt={SkjemaFelt.fylke}
                     oppdaterBesvarelse={props.oppdaterBesvarelse}
                 />
@@ -42,6 +42,7 @@ const FellesFelter: React.FunctionComponent<Props> = props => {
                     felt={SkjemaFelt.kommune}
                     fylkeNokkel={fylke}
                     oppdaterBesvarelse={props.oppdaterBesvarelse}
+
                     data-testid="kommunerDropdown"
                 />
                 <Felt
@@ -60,7 +61,9 @@ const FellesFelter: React.FunctionComponent<Props> = props => {
                     data-testid="orgnr"
                 />
             </div>
-            <Undertittel className={"blokk-s"}>Dine kontaktopplysninger</Undertittel>
+            <Undertittel className={'blokk-s'}>
+                Dine kontaktopplysninger
+            </Undertittel>
             <div className="kontaktskjema-input__wrapper">
                 <Felt
                     label="Fornavn"
