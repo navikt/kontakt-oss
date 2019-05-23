@@ -32,6 +32,7 @@ const ValidertFelt = (props: Props) => {
             onBlur={() => {
                 settVisFeilmelding(!props.validering(props.verdi));
             }}
+            value={props.verdi}
             feil={feilmelding}
         />
     );

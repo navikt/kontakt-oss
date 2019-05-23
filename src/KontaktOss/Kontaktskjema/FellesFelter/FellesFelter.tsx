@@ -27,7 +27,16 @@ interface Props {
 }
 
 const FellesFelter: React.FunctionComponent<Props> = props => {
-    const { fylke, orgnr, epost, telefonnr } = props.besvarelse;
+    const {
+        fylke,
+        orgnr,
+        epost,
+        telefonnr,
+        kommune,
+        bedriftsnavn,
+        fornavn,
+        etternavn,
+    } = props.besvarelse;
 
     return (
         <div className="kontaktskjema-input">
@@ -36,19 +45,21 @@ const FellesFelter: React.FunctionComponent<Props> = props => {
                     label="Hvilket fylke ligger arbeidsplassen i?"
                     felt={SkjemaFelt.fylke}
                     oppdaterBesvarelse={props.oppdaterBesvarelse}
+                    verdi={fylke}
                 />
                 <KommuneFelt
                     label="Hvilken kommune ligger arbeidsplassen i?"
                     felt={SkjemaFelt.kommune}
                     fylkeNokkel={fylke}
                     oppdaterBesvarelse={props.oppdaterBesvarelse}
-
+                    verdi={kommune}
                     data-testid="kommunerDropdown"
                 />
                 <Felt
                     label="Bedriftens navn"
                     felt={SkjemaFelt.bedriftsnavn}
                     oppdaterBesvarelse={props.oppdaterBesvarelse}
+                    verdi={bedriftsnavn}
                     data-testid="bedriftsnavn"
                 />
                 <ValidertFelt
@@ -69,12 +80,14 @@ const FellesFelter: React.FunctionComponent<Props> = props => {
                     label="Fornavn"
                     felt={SkjemaFelt.fornavn}
                     oppdaterBesvarelse={props.oppdaterBesvarelse}
+                    verdi={fornavn}
                     data-testid="fornavn"
                 />
                 <Felt
                     label="Etternavn"
                     felt={SkjemaFelt.etternavn}
                     oppdaterBesvarelse={props.oppdaterBesvarelse}
+                    verdi={etternavn}
                     data-testid="etternavn"
                 />
                 <ValidertFelt

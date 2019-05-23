@@ -8,6 +8,7 @@ interface Props {
     label: string;
     felt: SkjemaFelt;
     oppdaterBesvarelse: (id: SkjemaFelt, input: string) => void;
+    verdi: string;
 }
 
 const FylkeFelt: FunctionComponent<Props> = props => {
@@ -20,6 +21,7 @@ const FylkeFelt: FunctionComponent<Props> = props => {
     return (
         <Select
             label={<Element>{props.label}</Element>}
+            value={props.verdi}
             className="kontaktskjema-input__felt"
             onChange={event =>
                 props.oppdaterBesvarelse(props.felt, event.target.value)
