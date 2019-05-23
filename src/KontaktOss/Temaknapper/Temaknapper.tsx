@@ -2,29 +2,37 @@ import * as React from 'react';
 import { Element } from 'nav-frontend-typografi';
 import Temaknapp from './Temaknapp';
 import { logEvent, mapTilTemaEvent } from '../../utils/metricsUtils';
-import { Tema, temaer } from '../../utils/kontaktskjemaApi';
+import { Tema, temaer, TemaType } from '../../utils/kontaktskjemaApi';
 import './Temaknapper.less';
+import { FeatureToggles, medFeatureToggles } from '../FeatureTogglesProvider';
 
 interface Props {
     velgTema: (tema: Tema) => void;
     valgtTema?: Tema;
 }
 
-const Temaknapper: React.FunctionComponent<Props> = props => {
+const Temaknapper: React.FunctionComponent<Props & FeatureToggles> = props => {
     const onVelgTema = (tema: Tema) => {
         props.velgTema(tema);
         logEvent(`kontakt-oss.tema.${mapTilTemaEvent(tema)}`);
     };
 
-    const temaKnapper = temaer.map(tema => (
-        <Temaknapp
-            key={tema.type}
-            tema={tema}
-            onClick={onVelgTema}
-            valgt={tema === props.valgtTema}
-            className="temaknapp"
-        />
-    ));
+    const temaKnapper = temaer
+        .filter(
+            // TODO Feature toggle for IA-valget; fjernes på sikt
+            tema =>
+                props.forebyggeSykefraværFeature ||
+                !(tema.type === TemaType.ForebyggeSykefravær)
+        )
+        .map(tema => (
+            <Temaknapp
+                key={tema.type}
+                tema={tema}
+                onClick={onVelgTema}
+                valgt={tema === props.valgtTema}
+                className="temaknapp"
+            />
+        ));
 
     return (
         <div className="temaknapper">
@@ -36,4 +44,4 @@ const Temaknapper: React.FunctionComponent<Props> = props => {
     );
 };
 
-export default Temaknapper;
+export default medFeatureToggles(Temaknapper);
