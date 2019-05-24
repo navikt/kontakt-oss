@@ -33,9 +33,9 @@ const KontaktskjemaStandard: React.FunctionComponent<
                     <Normaltekst>
                         NAV bruker disse opplysningene når vi kontakter deg. Vi
                         lagrer disse opplysningene om deg, slik at vi kan
-                        kontakte deg om rekruttering og inkludering i bedriften
-                        du representerer. Opplysningene blir ikke delt eller
-                        brukt til andre formål.
+                        kontakte deg om {props.tema.tekst.toLowerCase()} i
+                        bedriften du representerer. Opplysningene blir ikke delt
+                        eller brukt til andre formål.
                     </Normaltekst>
                 </Infoboks>
                 {props.feilmelding && (
