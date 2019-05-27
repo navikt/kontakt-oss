@@ -3,10 +3,10 @@ import * as React from 'react';
 import FellesFelter from './FellesFelter/FellesFelter';
 import LenkepanelKontaktliste from './LenkepanelKontaktliste/LenkepanelKontaktliste';
 import Infoboks from './Infoboks/Infoboks';
-import Feilmelding from './Feilmelding/Feilmelding';
 import './Kontaktskjema.less';
 import { Normaltekst } from 'nav-frontend-typografi';
 import { KontaktskjemaProps } from './KontaktskjemaContainer';
+import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 
 const KontaktskjemaStandard: React.FunctionComponent<
     KontaktskjemaProps
@@ -39,9 +39,11 @@ const KontaktskjemaStandard: React.FunctionComponent<
                     </Normaltekst>
                 </Infoboks>
                 {props.feilmelding && (
-                    <Feilmelding className="kontaktskjema__feilmelding">
+                    <AlertStripeAdvarsel
+                        className="kontaktskjema__feilmelding"
+                    >
                         {props.feilmelding}
-                    </Feilmelding>
+                    </AlertStripeAdvarsel>
                 )}
                 <Hovedknapp
                     onClick={props.sendInnOnClick}

@@ -1,9 +1,8 @@
 import { Hovedknapp } from 'nav-frontend-knapper';
 import * as React from 'react';
 import Infoboks from '../Infoboks/Infoboks';
-import Feilmelding from '../Feilmelding/Feilmelding';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
-import { AlertStripeInfo } from 'nav-frontend-alertstriper';
+import { AlertStripeAdvarsel, AlertStripeInfo } from 'nav-frontend-alertstriper';
 
 import './kontaktskjemaSykefravær.less';
 import FellesFelter from '../FellesFelter/FellesFelter';
@@ -42,9 +41,11 @@ const KontaktskjemaSykefravær: React.FunctionComponent<
                     </Normaltekst>
                 </Infoboks>
                 {props.feilmelding && (
-                    <Feilmelding className="kontaktskjema__feilmelding">
+                    <AlertStripeAdvarsel
+                        className="kontaktskjema__feilmelding"
+                    >
                         {props.feilmelding}
-                    </Feilmelding>
+                    </AlertStripeAdvarsel>
                 )}
                 <Hovedknapp
                     className="kontaktskjema__knapp"
