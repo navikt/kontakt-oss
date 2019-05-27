@@ -4,10 +4,6 @@ import { SkjemaFelt } from './FellesFelter/FellesFelter';
 import { Tema, TemaType } from '../../utils/kontaktskjemaApi';
 import './Kontaktskjema.less';
 import { BEKREFTELSE_PATH } from '../../utils/paths';
-import {
-    Fylkesinndeling,
-    medFylkesinndeling,
-} from '../FylkesinndelingProvider';
 import { Besvarelse, tomBesvarelse } from './besvarelse';
 import { validerBesvarelseOgSendInn } from './kontaktskjemaUtils';
 import KontaktskjemaSykefravær from './KontaktskjemaSykefravær/KontaktskjemaSykefravær';
@@ -18,6 +14,7 @@ export interface KontaktskjemaProps {
     besvarelse: Besvarelse;
     feilmelding?: string;
     sendInnOnClick: (event: any) => Promise<void>;
+    tema: Tema;
 }
 
 interface State {
@@ -83,6 +80,7 @@ class KontaktskjemaContainer extends React.Component<Props, State> {
             besvarelse: this.state.besvarelse,
             feilmelding: this.state.feilmelding,
             oppdaterBesvarelse: this.oppdaterBesvarelse,
+            tema: this.props.tema,
         };
 
         if (this.props.tema.type === TemaType.ForebyggeSykefravær) {

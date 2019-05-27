@@ -3,10 +3,10 @@ import * as React from 'react';
 import FellesFelter from './FellesFelter/FellesFelter';
 import LenkepanelKontaktliste from './LenkepanelKontaktliste/LenkepanelKontaktliste';
 import Infoboks from './Infoboks/Infoboks';
-import Feilmelding from './Feilmelding/Feilmelding';
 import './Kontaktskjema.less';
 import { Normaltekst } from 'nav-frontend-typografi';
 import { KontaktskjemaProps } from './KontaktskjemaContainer';
+import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 
 const KontaktskjemaStandard: React.FunctionComponent<
     KontaktskjemaProps
@@ -33,15 +33,17 @@ const KontaktskjemaStandard: React.FunctionComponent<
                     <Normaltekst>
                         NAV bruker disse opplysningene når vi kontakter deg. Vi
                         lagrer disse opplysningene om deg, slik at vi kan
-                        kontakte deg om rekruttering og inkludering i bedriften
-                        du representerer. Opplysningene blir ikke delt eller
-                        brukt til andre formål.
+                        kontakte deg om {props.tema.tekst.toLowerCase()} i
+                        bedriften du representerer. Opplysningene blir ikke delt
+                        eller brukt til andre formål.
                     </Normaltekst>
                 </Infoboks>
                 {props.feilmelding && (
-                    <Feilmelding className="kontaktskjema__feilmelding">
+                    <AlertStripeAdvarsel
+                        className="kontaktskjema__feilmelding"
+                    >
                         {props.feilmelding}
-                    </Feilmelding>
+                    </AlertStripeAdvarsel>
                 )}
                 <Hovedknapp
                     onClick={props.sendInnOnClick}
