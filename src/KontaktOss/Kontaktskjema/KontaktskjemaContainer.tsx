@@ -8,6 +8,11 @@ import { Besvarelse, tomBesvarelse } from './besvarelse';
 import { validerBesvarelseOgSendInn } from './kontaktskjemaUtils';
 import KontaktskjemaSykefravær from './KontaktskjemaSykefravær/KontaktskjemaSykefravær';
 import KontaktskjemaStandard from './KontaktskjemaStandard';
+import {
+    FeatureToggle,
+    FeatureToggles,
+    medFeatureToggles,
+} from '../FeatureTogglesProvider';
 
 export interface KontaktskjemaProps {
     oppdaterBesvarelse: (felt: SkjemaFelt, feltverdi: string | boolean) => void;
@@ -29,7 +34,10 @@ interface OwnProps {
 
 type Props = RouteComponentProps & OwnProps;
 
-class KontaktskjemaContainer extends React.Component<Props, State> {
+class KontaktskjemaContainer extends React.Component<
+    Props & FeatureToggles,
+    State
+> {
     state: State = {
         besvarelse: tomBesvarelse,
         senderInn: false,
@@ -61,7 +69,8 @@ class KontaktskjemaContainer extends React.Component<Props, State> {
 
         const sendInnResultat = await validerBesvarelseOgSendInn(
             this.state.besvarelse,
-            this.props.tema
+            this.props.tema,
+            this.props[FeatureToggle.FjernValgfrittFraOrgnr]
         );
 
         if (sendInnResultat.ok) {
@@ -91,4 +100,4 @@ class KontaktskjemaContainer extends React.Component<Props, State> {
     }
 }
 
-export default KontaktskjemaContainer;
+export default medFeatureToggles(KontaktskjemaContainer);
