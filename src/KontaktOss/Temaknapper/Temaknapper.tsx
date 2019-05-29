@@ -4,7 +4,7 @@ import Temaknapp from './Temaknapp';
 import { logEvent, mapTilTemaEvent } from '../../utils/metricsUtils';
 import { Tema, temaer, TemaType } from '../../utils/kontaktskjemaApi';
 import './Temaknapper.less';
-import { FeatureToggles, medFeatureToggles } from '../FeatureTogglesProvider';
+import { FeatureToggle, FeatureToggles, medFeatureToggles } from '../FeatureTogglesProvider';
 
 interface Props {
     velgTema: (tema: Tema) => void;
@@ -21,7 +21,7 @@ const Temaknapper: React.FunctionComponent<Props & FeatureToggles> = props => {
         .filter(
             // TODO Feature toggle for IA-valget; fjernes på sikt
             tema =>
-                props.forebyggeSykefraværFeature ||
+                props[FeatureToggle.ForebyggeSykefraværFeature] ||
                 !(tema.type === TemaType.ForebyggeSykefravær)
         )
         .map(tema => (
