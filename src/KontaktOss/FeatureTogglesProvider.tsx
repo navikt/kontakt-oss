@@ -29,7 +29,9 @@ export class FeatureTogglesProvider extends React.Component<
     }
 
     componentDidMount() {
-        const features = Object.keys(FeatureToggle).map(key => FeatureToggle[key as any]);
+        const features = Object.keys(FeatureToggle).map(
+            key => FeatureToggle[key as any]
+        );
         fetch(featureTogglePath(features))
             .then(response => response.json())
             .then(toggles => this.setState(toggles as FeatureToggles));
