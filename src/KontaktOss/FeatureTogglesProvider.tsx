@@ -2,8 +2,8 @@ import * as React from 'react';
 import { featureTogglePath } from '../utils/paths';
 
 export enum FeatureToggle {
-    ForebyggeSykefraværFeature = 'forebyggeSykefraværFeature',
-    FjernValgfrittFraOrgnr = 'fjernValgfrittFraOrgnr',
+    ForebyggeSykefraværFeature = 'kontakt-oss.forebygge-sykefravaer',
+    FjernValgfrittFraOrgnr = 'kontakt-oss.fjern-valgfritt-fra-orgnr',
 }
 
 export interface FeatureToggles {
