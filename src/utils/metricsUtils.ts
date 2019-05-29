@@ -13,8 +13,16 @@ export const logEvent = (eventNavn: string, felter?: {}, tags?: {}) => {
 };
 
 export const logSendInnKlikk = () => logEvent('kontakt-oss.send-inn-klikk');
-export const logSuccess = (tema: Tema) =>
-    logEvent('kontakt-oss.success', { tema: mapTilTemaEvent(tema) });
+export const logSuccess = (tema: Tema, fjernValgfrittFraOrgnrToggle: boolean) => {
+    console.log('kontakt-oss.success', {
+        tema: mapTilTemaEvent(tema),
+        fjernValgfrittFraOrgnrToggle,
+    });
+    logEvent('kontakt-oss.success', {
+        tema: mapTilTemaEvent(tema),
+        fjernValgfrittFraOrgnrToggle,
+    });
+};
 export const logFail = () => logEvent('kontakt-oss.fail');
 
 export const logError = (melding: string) => {

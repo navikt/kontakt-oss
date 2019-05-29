@@ -1,10 +1,6 @@
 import { Besvarelse } from './besvarelse';
 import { sendKontaktskjema, Tema } from '../../utils/kontaktskjemaApi';
-import {
-    validerBesvarelse,
-    felterErGyldige,
-    paakrevdeFelterErUtfylte,
-} from './validering';
+import { validerBesvarelse } from './validering';
 import { logFail, logSendInnKlikk, logSuccess } from '../../utils/metricsUtils';
 
 interface SendInnBesvarelseResultat {
@@ -14,7 +10,8 @@ interface SendInnBesvarelseResultat {
 
 export const validerBesvarelseOgSendInn = async (
     besvarelse: Besvarelse,
-    tema: Tema
+    tema: Tema,
+    fjernValgfrittOrgnrToggle: boolean
 ): Promise<SendInnBesvarelseResultat> => {
     const validering = validerBesvarelse(besvarelse, tema);
 
@@ -23,7 +20,7 @@ export const validerBesvarelseOgSendInn = async (
 
         try {
             await sendKontaktskjema(besvarelse, tema);
-            logSuccess(tema);
+            logSuccess(tema, fjernValgfrittOrgnrToggle);
             return { ok: true };
         } catch (error) {
             logFail();

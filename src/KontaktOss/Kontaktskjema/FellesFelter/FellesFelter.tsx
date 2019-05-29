@@ -8,6 +8,11 @@ import { epostOk, orgnrOk, telefonnummerOk } from '../validering';
 
 import './FellesFelter.less';
 import { Undertittel } from 'nav-frontend-typografi';
+import {
+    FeatureToggle,
+    FeatureToggles,
+    medFeatureToggles,
+} from '../../FeatureTogglesProvider';
 
 export enum SkjemaFelt {
     kommune = 'kommune',
@@ -26,7 +31,7 @@ interface Props {
     besvarelse: Besvarelse;
 }
 
-const FellesFelter: React.FunctionComponent<Props> = props => {
+const FellesFelter: React.FunctionComponent<Props & FeatureToggles> = props => {
     const {
         fylke,
         orgnr,
@@ -37,6 +42,10 @@ const FellesFelter: React.FunctionComponent<Props> = props => {
         fornavn,
         etternavn,
     } = props.besvarelse;
+
+    const orgnrLabel = props[FeatureToggle.FjernValgfrittFraOrgnr]
+        ? 'Organisasjonsnummer'
+        : 'Organisasjonsnummer (valgfritt)';
 
     return (
         <div className="kontaktskjema-input">
@@ -63,7 +72,7 @@ const FellesFelter: React.FunctionComponent<Props> = props => {
                     data-testid="bedriftsnavn"
                 />
                 <ValidertFelt
-                    label="Organisasjonsnummer (valgfritt)"
+                    label={orgnrLabel}
                     felt={SkjemaFelt.orgnr}
                     feilmelding="Vennligst oppgi et gyldig organisasjonsnummer"
                     validering={orgnrOk}
@@ -113,4 +122,4 @@ const FellesFelter: React.FunctionComponent<Props> = props => {
     );
 };
 
-export default FellesFelter;
+export default medFeatureToggles(FellesFelter);

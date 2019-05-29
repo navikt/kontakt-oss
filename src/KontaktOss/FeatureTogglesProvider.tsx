@@ -1,12 +1,19 @@
 import * as React from 'react';
-import { FOREBYGGE_SYKEFRAVÆR_TOGGLE_PATH } from '../utils/paths';
+import { featureTogglePath } from '../utils/paths';
+
+export enum FeatureToggle {
+    ForebyggeSykefraværFeature = 'forebyggeSykefraværFeature',
+    FjernValgfrittFraOrgnr = 'fjernValgfrittFraOrgnr',
+}
 
 export interface FeatureToggles {
-    forebyggeSykefraværFeature: boolean;
+    [FeatureToggle.ForebyggeSykefraværFeature]: boolean;
+    [FeatureToggle.FjernValgfrittFraOrgnr]: boolean;
 }
 
 const defaultFeatureToggles: FeatureToggles = {
-    forebyggeSykefraværFeature: false,
+    [FeatureToggle.ForebyggeSykefraværFeature]: false,
+    [FeatureToggle.FjernValgfrittFraOrgnr]: false,
 };
 
 const FeatureTogglesContext = React.createContext(defaultFeatureToggles);
@@ -22,15 +29,10 @@ export class FeatureTogglesProvider extends React.Component<
     }
 
     componentDidMount() {
-        // Bryr seg ikke om miljø, bare om feature er globalt av eller på
-        fetch(FOREBYGGE_SYKEFRAVÆR_TOGGLE_PATH)
+        const features = Object.keys(FeatureToggle).map(key => FeatureToggle[key as any]);
+        fetch(featureTogglePath(features))
             .then(response => response.json())
-            .then(json => json['enabled'])
-            .then(toggle =>
-                this.setState({
-                    forebyggeSykefraværFeature: toggle,
-                })
-            );
+            .then(toggles => this.setState(toggles as FeatureToggles));
     }
 
     render() {
