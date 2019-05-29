@@ -19,7 +19,6 @@ const defaultFeatureToggles: FeatureToggles = {
 export const FeatureTogglesContext = React.createContext<FeatureToggles>(
     defaultFeatureToggles
 );
-const FeatureTogglesConsumer = FeatureTogglesContext.Consumer;
 
 export class FeatureTogglesProvider extends React.Component<
     {},
@@ -52,10 +51,10 @@ export function medFeatureToggles<PROPS>(
     Component: React.ComponentType<FeatureToggles & PROPS>
 ): React.ComponentType<PROPS> {
     return (props: PROPS) => (
-        <FeatureTogglesConsumer>
+        <FeatureTogglesContext.Consumer>
             {(featureToggles: FeatureToggles) => {
                 return <Component {...props} {...featureToggles} />;
             }}
-        </FeatureTogglesConsumer>
+        </FeatureTogglesContext.Consumer>
     );
 }

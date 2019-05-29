@@ -29,7 +29,7 @@ interface Props {
 }
 
 const FellesFelter: React.FunctionComponent<Props> = props => {
-    const featureContext = useContext<FeatureToggles>(FeatureTogglesContext);
+    const featureToggles = useContext<FeatureToggles>(FeatureTogglesContext);
 
     const {
         fylke,
@@ -42,7 +42,7 @@ const FellesFelter: React.FunctionComponent<Props> = props => {
         etternavn,
     } = props.besvarelse;
 
-    const orgnrLabel = featureContext[FeatureToggle.FjernValgfrittFraOrgnr]
+    const orgnrLabel = featureToggles[FeatureToggle.FjernValgfrittFraOrgnr]
         ? 'Organisasjonsnummer'
         : 'Organisasjonsnummer (valgfritt)';
 
