@@ -1,7 +1,7 @@
 const basePath = require('./basePath');
 const apiBasePath = '/kontakt-oss-api';
 
-const whitelistUrler = ['/meldInteresse', '/fylkerOgKommuner'];
+const whitelistUrler = ['/meldInteresse', '/fylkerOgKommuner', "/feature"];
 
 const whitelist = {};
 whitelistUrler.forEach(url => {
