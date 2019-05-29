@@ -7,5 +7,5 @@ export const FEATURE_TOGGLE_BASEPATH = `${BASE_PATH}/features`;
 
 export const featureTogglePath = (features: string[]): string => {
     const query = features.map(feature => `feature=${feature}`).join('&');
-    return FEATURE_TOGGLE_BASEPATH + '/' + query;
+    return FEATURE_TOGGLE_BASEPATH + '?' + query;
 };
