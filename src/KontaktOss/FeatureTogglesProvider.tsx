@@ -16,7 +16,9 @@ const defaultFeatureToggles: FeatureToggles = {
     [FeatureToggle.FjernValgfrittFraOrgnr]: false,
 };
 
-const FeatureTogglesContext = React.createContext(defaultFeatureToggles);
+export const FeatureTogglesContext = React.createContext<FeatureToggles>(
+    defaultFeatureToggles
+);
 const FeatureTogglesConsumer = FeatureTogglesContext.Consumer;
 
 export class FeatureTogglesProvider extends React.Component<

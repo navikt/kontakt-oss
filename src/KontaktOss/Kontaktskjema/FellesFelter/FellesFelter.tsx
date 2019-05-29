@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useContext } from 'react';
 import { Besvarelse } from '../besvarelse';
 import FylkeFelt from './FylkeFelt/FylkeFelt';
 import KommuneFelt from './KommuneFelt/KommuneFelt';
@@ -8,11 +9,7 @@ import { epostOk, orgnrOk, telefonnummerOk } from '../validering';
 
 import './FellesFelter.less';
 import { Undertittel } from 'nav-frontend-typografi';
-import {
-    FeatureToggle,
-    FeatureToggles,
-    medFeatureToggles,
-} from '../../FeatureTogglesProvider';
+import { FeatureToggle, FeatureToggles, FeatureTogglesContext, } from '../../FeatureTogglesProvider';
 
 export enum SkjemaFelt {
     kommune = 'kommune',
@@ -31,7 +28,9 @@ interface Props {
     besvarelse: Besvarelse;
 }
 
-const FellesFelter: React.FunctionComponent<Props & FeatureToggles> = props => {
+const FellesFelter: React.FunctionComponent<Props> = props => {
+    const featureContext = useContext<FeatureToggles>(FeatureTogglesContext);
+
     const {
         fylke,
         orgnr,
@@ -43,7 +42,7 @@ const FellesFelter: React.FunctionComponent<Props & FeatureToggles> = props => {
         etternavn,
     } = props.besvarelse;
 
-    const orgnrLabel = props[FeatureToggle.FjernValgfrittFraOrgnr]
+    const orgnrLabel = featureContext[FeatureToggle.FjernValgfrittFraOrgnr]
         ? 'Organisasjonsnummer'
         : 'Organisasjonsnummer (valgfritt)';
 
@@ -122,4 +121,4 @@ const FellesFelter: React.FunctionComponent<Props & FeatureToggles> = props => {
     );
 };
 
-export default medFeatureToggles(FellesFelter);
+export default FellesFelter;
