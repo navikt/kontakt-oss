@@ -11,7 +11,7 @@ fetchMock.get(FYLKER_OG_KOMMUNER_PATH, fylkesinndeling);
 
 const featureToggleResponse: FeatureToggles = {
     [FeatureToggle.ForebyggeSykefraværFeature]: true,
-    [FeatureToggle.FjernValgfrittFraOrgnr]: true,
+    [FeatureToggle.OrgnrObligatorisk]: false,
 };
 
 fetchMock.get("begin:" + FEATURE_TOGGLE_BASEPATH, featureToggleResponse);

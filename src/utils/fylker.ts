@@ -17,11 +17,11 @@ const pilotfylkerForKontaktskjema: string[] = [
     '0800', // Vestfold og Telemark
     '1200', // Vestland
     '1900', // Troms og Finnmark
-    '1500',
-    '0300',
-    '1100',
-    '5700',
-    '0600',
+    '1500', // Møre og Romsdal
+    '0300', // Oslo
+    '1100', // Rogaland
+    '5700', // Trøndelag
+    '0600', // Vest-Viken (Buskerud, Bærum og Asker)
 ];
 
 export const erPilotfylke = (fylke: string): boolean => {

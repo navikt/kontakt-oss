@@ -70,7 +70,7 @@ class KontaktskjemaContainer extends React.Component<
         const sendInnResultat = await validerBesvarelseOgSendInn(
             this.state.besvarelse,
             this.props.tema,
-            this.props[FeatureToggle.FjernValgfrittFraOrgnr]
+            this.props[FeatureToggle.OrgnrObligatorisk]
         );
 
         if (sendInnResultat.ok) {

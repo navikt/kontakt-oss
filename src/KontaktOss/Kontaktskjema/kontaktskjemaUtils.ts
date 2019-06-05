@@ -11,16 +11,16 @@ interface SendInnBesvarelseResultat {
 export const validerBesvarelseOgSendInn = async (
     besvarelse: Besvarelse,
     tema: Tema,
-    fjernValgfrittOrgnrToggle: boolean
+    orgnrObligatoriskToggle: boolean
 ): Promise<SendInnBesvarelseResultat> => {
-    const validering = validerBesvarelse(besvarelse, tema);
+    const validering = validerBesvarelse(besvarelse, tema, orgnrObligatoriskToggle);
 
     if (validering.ok) {
         logSendInnKlikk();
 
         try {
             await sendKontaktskjema(besvarelse, tema);
-            logSuccess(tema, fjernValgfrittOrgnrToggle);
+            logSuccess(tema, orgnrObligatoriskToggle);
             return { ok: true };
         } catch (error) {
             logFail();
@@ -37,3 +37,4 @@ export const validerBesvarelseOgSendInn = async (
         };
     }
 };
+
