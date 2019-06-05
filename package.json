@@ -57,7 +57,7 @@
         "decorator": "yarn build && node src/server/server.js",
         "build": "craco build",
         "test": "craco test",
-        "test:e2e": "node endeTilEndeTest/runner.js --debug-mode",
+        "test:e2e": "node endeTilEndeTest/runner.js",
         "docker:build": "docker build -t kontakt-oss .",
         "docker:start": "docker run -p 3000:3000 kontakt-oss"
     },
