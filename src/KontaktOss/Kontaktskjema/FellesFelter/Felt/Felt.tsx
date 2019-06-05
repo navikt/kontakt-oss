@@ -9,6 +9,7 @@ interface Props {
     felt: SkjemaFelt;
     oppdaterBesvarelse: (id: SkjemaFelt, input: string) => void;
     verdi: string;
+    'data-testid': string;
 }
 
 const Felt = (props: Props) => {
@@ -22,6 +23,7 @@ const Felt = (props: Props) => {
             label={<Element>{props.label}</Element>}
             onChange={onChange}
             value={props.verdi}
+            data-testid={props['data-testid']}
         />
     );
 };

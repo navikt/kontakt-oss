@@ -1,6 +1,9 @@
 import React, { FunctionComponent } from 'react';
 import { Element } from 'nav-frontend-typografi';
-import { getAlfabetiserteKommuner, KommuneModell } from '../../../../utils/fylker';
+import {
+    getAlfabetiserteKommuner,
+    KommuneModell,
+} from '../../../../utils/fylker';
 import { SkjemaFelt } from '../FellesFelter';
 import { Select } from 'nav-frontend-skjema';
 import {
@@ -38,6 +41,7 @@ const KommuneFelt: FunctionComponent<Props & Fylkesinndeling> = props => {
             onChange={onChange}
             disabled={kommunerOptions.length === 0}
             value={JSON.stringify(props.verdi)}
+            data-testid="kommunerDropdown"
         >
             <option value="" key="ingen valgt" />
             {kommunerOptions}

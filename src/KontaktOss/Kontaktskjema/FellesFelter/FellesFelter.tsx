@@ -65,7 +65,6 @@ const FellesFelter: React.FunctionComponent<Props> = props => {
                     fylkeNokkel={fylke}
                     oppdaterBesvarelse={props.oppdaterBesvarelse}
                     verdi={kommune}
-                    data-testid="kommunerDropdown"
                 />
                 <Felt
                     label="Bedriftens navn"
