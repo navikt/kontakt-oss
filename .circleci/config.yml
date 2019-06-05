@@ -69,14 +69,14 @@ commands:
           command: |
             deployment-cli deploy create --cluster=<< parameters.cluster >> --repository=navikt/kontakt-oss --team=teamtag --resource=<< parameters.nais-yaml >> --version=$DOCKER_IMAGE_VERSION
 
-    sett-miljovariabler:
-      steps:
-        - run:
-            name: Sett miljøvariabler
-            command: |
-              echo 'export RELEASE_VERSION="$(git rev-list --count $CIRCLE_SHA1)"' >> $BASH_ENV
-              echo 'export BRANCH_PREFIX=`[ $CIRCLE_BRANCH == "master" ] && echo "" || echo $CIRCLE_BRANCH\_`' >> $BASH_ENV
-              echo 'export DOCKER_IMAGE_VERSION="$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME:$BRANCH_PREFIX$RELEASE_VERSION"' >> $BASH_ENV
+  sett-miljovariabler:
+    steps:
+      - run:
+          name: Sett miljøvariabler
+          command: |
+            echo 'export RELEASE_VERSION="$(git rev-list --count $CIRCLE_SHA1)"' >> $BASH_ENV
+            echo 'export BRANCH_PREFIX=`[ $CIRCLE_BRANCH == "master" ] && echo "" || echo $CIRCLE_BRANCH\_`' >> $BASH_ENV
+            echo 'export DOCKER_IMAGE_VERSION="$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME:$BRANCH_PREFIX$RELEASE_VERSION"' >> $BASH_ENV
 
 workflows:
   version: 2.1
