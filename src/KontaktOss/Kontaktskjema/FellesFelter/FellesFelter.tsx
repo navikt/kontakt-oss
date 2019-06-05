@@ -42,7 +42,7 @@ const FellesFelter: React.FunctionComponent<Props> = props => {
         etternavn,
     } = props.besvarelse;
 
-    const orgnrLabel = featureToggles[FeatureToggle.FjernValgfrittFraOrgnr]
+    const orgnrLabel = featureToggles[FeatureToggle.OrgnrObligatorisk]
         ? 'Organisasjonsnummer'
         : 'Organisasjonsnummer (valgfritt)';
 

@@ -15,10 +15,10 @@ interface ValideringResultat {
 export const validerBesvarelse = (
     besvarelse: Besvarelse,
     tema: Tema,
-    orgnrObligatorisk: boolean
+    orgnrObligatoriskToggle: boolean
 ): ValideringResultat => {
     let feilmelding;
-    if (!paakrevdeFelterErUtfylte(besvarelse, tema, orgnrObligatorisk)) {
+    if (!paakrevdeFelterErUtfylte(besvarelse, tema, orgnrObligatoriskToggle)) {
         feilmelding = 'Du må fylle ut alle feltene for å sende inn.';
     } else if (!felterErGyldige(besvarelse)) {
         feilmelding = 'Ett eller flere av feltene er ikke fylt ut riktig.';
@@ -40,7 +40,7 @@ export const felterErGyldige = (besvarelse: Besvarelse) =>
 export const paakrevdeFelterErUtfylte = (
     besvarelse: Besvarelse,
     tema: Tema,
-    orgnrObligatorisk: boolean
+    orgnrObligatoriskToggle: boolean
 ): boolean => {
     if (
         tema.type === TemaType.ForebyggeSykefravær &&
@@ -58,7 +58,7 @@ export const paakrevdeFelterErUtfylte = (
         isFalsyOrEmpty(besvarelse.etternavn) ||
         isFalsyOrEmpty(besvarelse.fornavn) ||
         isFalsyOrEmpty(besvarelse.telefonnr) ||
-        (orgnrObligatorisk && isFalsyOrEmpty(besvarelse.orgnr));
+        (orgnrObligatoriskToggle && isFalsyOrEmpty(besvarelse.orgnr));
     return !harTommeFelter;
 };
 

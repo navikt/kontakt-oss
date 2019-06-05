@@ -3,17 +3,17 @@ import { featureTogglePath } from '../utils/paths';
 
 export enum FeatureToggle {
     ForebyggeSykefraværFeature = 'kontakt-oss.forebygge-sykefravaer',
-    FjernValgfrittFraOrgnr = 'kontakt-oss.fjern-valgfritt-fra-orgnr',
+    OrgnrObligatorisk = 'kontakt-oss.fjern-valgfritt-fra-orgnr',
 }
 
 export interface FeatureToggles {
     [FeatureToggle.ForebyggeSykefraværFeature]: boolean;
-    [FeatureToggle.FjernValgfrittFraOrgnr]: boolean;
+    [FeatureToggle.OrgnrObligatorisk]: boolean;
 }
 
 const defaultFeatureToggles: FeatureToggles = {
     [FeatureToggle.ForebyggeSykefraværFeature]: false,
-    [FeatureToggle.FjernValgfrittFraOrgnr]: false,
+    [FeatureToggle.OrgnrObligatorisk]: false,
 };
 
 export const FeatureTogglesContext = React.createContext<FeatureToggles>(
