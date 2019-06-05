@@ -4,7 +4,11 @@ import Temaknapp from './Temaknapp';
 import { logEvent, mapTilTemaEvent } from '../../utils/metricsUtils';
 import { Tema, temaer, TemaType } from '../../utils/kontaktskjemaApi';
 import './Temaknapper.less';
-import { FeatureToggle, FeatureToggles, medFeatureToggles } from '../FeatureTogglesProvider';
+import {
+    FeatureToggle,
+    FeatureToggles,
+    medFeatureToggles,
+} from '../FeatureTogglesProvider';
 
 interface Props {
     velgTema: (tema: Tema) => void;

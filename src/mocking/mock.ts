@@ -5,7 +5,10 @@ import {
     SEND_KONTAKTSKJEMA_PATH,
 } from '../utils/paths';
 import fylkesinndeling from './fylkesinndeling.json';
-import { FeatureToggle, FeatureToggles } from '../KontaktOss/FeatureTogglesProvider';
+import {
+    FeatureToggle,
+    FeatureToggles,
+} from '../KontaktOss/FeatureTogglesProvider';
 
 fetchMock.get(FYLKER_OG_KOMMUNER_PATH, fylkesinndeling);
 
@@ -14,6 +17,6 @@ const featureToggleResponse: FeatureToggles = {
     [FeatureToggle.OrgnrObligatorisk]: false,
 };
 
-fetchMock.get("begin:" + FEATURE_TOGGLE_BASEPATH, featureToggleResponse);
+fetchMock.get('begin:' + FEATURE_TOGGLE_BASEPATH, featureToggleResponse);
 
 fetchMock.post(SEND_KONTAKTSKJEMA_PATH, { status: 200, body: {} });
