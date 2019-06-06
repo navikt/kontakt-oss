@@ -25,17 +25,16 @@ jobs:
       - run:
           name: Bygg produksjonsversjon av React app
           command: yarn build
-      - sett-miljovariabler
       - setup_remote_docker
       - run:
           name: Bygg Docker image
-          command: docker build -t "$DOCKER_IMAGE_VERSION" .
+          command: docker build -t "navikt/kontakt-oss:$CIRCLE_SHA1" .
       - run:
           name: Push Docker image
           command: |
-            docker login -u $DOCKER_USER -p $DOCKER_PASS
-            docker push "$DOCKER_IMAGE_VERSION"
-
+            echo $DOCKER_PASS | docker login --username $DOCKER_USER --password-stdin
+            docker push "navikt/kontakt-oss:$CIRCLE_SHA1"
+            echo "Docker image: $CIRCLE_SHA1"
 
   deploy-til-dev:
     docker:
@@ -55,7 +54,7 @@ jobs:
 
 commands:
   deploy:
-    description: 'Deploy til et gitt miljø'
+    description: Deploy til et gitt miljø
     parameters:
       cluster:
         type: string
@@ -63,20 +62,9 @@ commands:
         type: string
     steps:
       - checkout
-      - sett-miljovariabler
       - run:
           name: Deploy til << parameters.cluster >>
-          command: |
-            deployment-cli deploy create --cluster=<< parameters.cluster >> --repository=navikt/kontakt-oss --team=teamtag --resource=<< parameters.nais-yaml >> --version=$DOCKER_IMAGE_VERSION
-
-  sett-miljovariabler:
-    steps:
-      - run:
-          name: Sett miljøvariabler
-          command: |
-            echo 'export RELEASE_VERSION="$(git rev-list --count $CIRCLE_SHA1)"' >> $BASH_ENV
-            echo 'export BRANCH_PREFIX=`[ $CIRCLE_BRANCH == "master" ] && echo "" || echo $CIRCLE_BRANCH\_`' >> $BASH_ENV
-            echo 'export DOCKER_IMAGE_VERSION="$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME:$BRANCH_PREFIX$RELEASE_VERSION"' >> $BASH_ENV
+          command: deployment-cli deploy create --cluster=<< parameters.cluster >> --repository=navikt/kontakt-oss --team=teamtag --resource=<< parameters.nais-yaml >> --version=$CIRCLE_SHA1
 
 workflows:
   version: 2.1
@@ -86,10 +74,10 @@ workflows:
       - deploy-til-dev:
           requires:
             - bygg
-#          filters:
-#            branches:
-#              only:
-#                - master
+          filters:
+            branches:
+              only:
+                - master
       - godkjenn-til-prod:
           type: approval
           requires:
