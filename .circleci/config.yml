@@ -64,7 +64,7 @@ commands:
       - checkout
       - run:
           name: Deploy til << parameters.cluster >>
-          command: deployment-cli deploy create --cluster=<< parameters.cluster >> --repository=navikt/kontakt-oss --team=teamtag --resource=<< parameters.nais-yaml >> --version=$CIRCLE_SHA1
+          command: deployment-cli deploy create --cluster=<< parameters.cluster >> --repository=navikt/kontakt-oss --team=teamtag --resource=<< parameters.nais-yaml >> --version=$CIRCLE_SHA1 --ref=$CIRCLE_BRANCH
 
 workflows:
   version: 2.1
