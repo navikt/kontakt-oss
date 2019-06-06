@@ -27,12 +27,11 @@ test('Skal kunne sende inn en besvarelse', async t => {
         .click(rekrutteringKnapp)
         .expect(fylkerDropdown.exists)
         .ok()
-
-        .click(fylkerDropdown)
-        .click(agderOption)
         .expect(kommunerDropdown.exists)
         .ok()
 
+        .click(fylkerDropdown)
+        .click(agderOption)
         .click(kommunerDropdown)
         .click(arendalOption)
 

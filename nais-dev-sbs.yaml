@@ -6,7 +6,7 @@ metadata:
   labels:
     team: teamtag
 spec:
-  image: navikt/kontakt-oss:latest
+  image: navikt/kontakt-oss:{{version}}
   team: teamtag
   port: 3000
   vault:
@@ -15,10 +15,10 @@ spec:
     - https://arbeidsgiver-q.nav.no/kontakt-oss/
   liveness:
     path: /kontakt-oss/internal/isAlive
-    initialDelay: 20
+    initialDelay: 5
   readiness:
     path: /kontakt-oss/internal/isReady
-    initialDelay: 20
+    initialDelay: 5
   env:
     - name: API_GATEWAY
       value: https://api-gw-q0.oera.no

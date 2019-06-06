@@ -11,6 +11,7 @@ interface Props {
     validering: (input: string) => boolean;
     oppdaterBesvarelse: (id: SkjemaFelt, input: string) => void;
     verdi: string;
+    'data-testid': string;
 }
 
 const ValidertFelt = (props: Props) => {
@@ -34,6 +35,7 @@ const ValidertFelt = (props: Props) => {
             }}
             value={props.verdi}
             feil={feilmelding}
+            data-testid={props['data-testid']}
         />
     );
 };

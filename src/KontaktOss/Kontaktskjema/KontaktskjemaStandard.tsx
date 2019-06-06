@@ -39,9 +39,7 @@ const KontaktskjemaStandard: React.FunctionComponent<
                     </Normaltekst>
                 </Infoboks>
                 {props.feilmelding && (
-                    <AlertStripeAdvarsel
-                        className="kontaktskjema__feilmelding"
-                    >
+                    <AlertStripeAdvarsel className="kontaktskjema__feilmelding">
                         {props.feilmelding}
                     </AlertStripeAdvarsel>
                 )}

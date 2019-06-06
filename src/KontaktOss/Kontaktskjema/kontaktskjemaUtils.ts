@@ -13,7 +13,11 @@ export const validerBesvarelseOgSendInn = async (
     tema: Tema,
     orgnrObligatoriskToggle: boolean
 ): Promise<SendInnBesvarelseResultat> => {
-    const validering = validerBesvarelse(besvarelse, tema, orgnrObligatoriskToggle);
+    const validering = validerBesvarelse(
+        besvarelse,
+        tema,
+        orgnrObligatoriskToggle
+    );
 
     if (validering.ok) {
         logSendInnKlikk();
@@ -37,4 +41,3 @@ export const validerBesvarelseOgSendInn = async (
         };
     }
 };
-

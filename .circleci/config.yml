@@ -1,51 +1,95 @@
-version: 2
+version: 2.1
 jobs:
-  build:
+  bygg:
     docker:
-    # TODO Det er en issue i Jest kombinert med node:8.15.1 som hindrer testene i å kjøre på CircleCI. https://github.com/facebook/create-react-app/issues/6591
-    # TODO Det er fikset i Jest, CRA har ikke oppdatert versjonen. Midlertidig fix: Nedgrader Node i circleCI-bygget.
-    - image: circleci/node:8.15.0-browsers
+      - image: circleci/node:12.4.0-browsers
 
     steps:
-    - checkout
-
-    - restore_cache:
-        name: Hent Yarn cache
-        keys:
-        - yarn-packages-{{ checksum "yarn.lock" }}
-    - run:
-        name: Installer avhengigheter
-        command: |
-          yarn install --frozen-lockfile
-    - save_cache:
-        name: Lagre Yarn cache
-        key: yarn-packages-{{ checksum "yarn.lock" }}
-        paths:
+      - checkout
+      - restore_cache:
+          keys:
+            - yarn-packages-{{ checksum "yarn.lock" }}
+      - run:
+          name: Installer avhengigheter
+          command: yarn install --frozen-lockfile
+      - save_cache:
+          key: yarn-packages-{{ checksum "yarn.lock" }}
+          paths:
             - ~/.cache/yarn
-    - run:
-        name: Kjør enhetstester
-        command: yarn test
-    - run:
-        name: Kjør ende-til-ende-tester
-        command: yarn test:e2e
-    - run:
-        name: Bygg produksjonsversjon av React app
-        command: yarn build
+      - run:
+          name: Kjør enhetstester
+          command: yarn test
+      - run:
+          name: Kjør ende-til-ende-tester
+          command: yarn test:e2e
+      - run:
+          name: Bygg produksjonsversjon av React app
+          command: yarn build
+      - setup_remote_docker
+      - run:
+          name: Bygg Docker image
+          command: docker build -t "navikt/kontakt-oss:$CIRCLE_SHA1" .
+      - run:
+          name: Push Docker image
+          command: |
+            echo $DOCKER_PASS | docker login --username $DOCKER_USER --password-stdin
+            docker push "navikt/kontakt-oss:$CIRCLE_SHA1"
+            echo "Docker image: $CIRCLE_SHA1"
 
-    - setup_remote_docker
-    - run:
-        name: Sett miljøvariable
-        command: |
-          echo 'export RELEASE_VERSION="$(git rev-list --count $CIRCLE_SHA1)"' >> $BASH_ENV
-          echo 'export BRANCH_PREFIX=`[ $CIRCLE_BRANCH == "master" ] && echo "" || echo $CIRCLE_BRANCH\_`' >> $BASH_ENV
-          echo 'export DOCKER_IMAGE_VERSIONED="$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME:$BRANCH_PREFIX$RELEASE_VERSION"' >> $BASH_ENV
-          echo 'export DOCKER_IMAGE_UNVERSIONED="$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME"' >> $BASH_ENV
-    - run:
-        name: Bygg Docker image
-        command: docker build -t "$DOCKER_IMAGE_VERSIONED" -t "$DOCKER_IMAGE_UNVERSIONED" .
-    - run:
-        name: Push Docker image
-        command: |
-          docker login -u $DOCKER_USER -p $DOCKER_PASS
-          docker push "$DOCKER_IMAGE_VERSIONED"
-          docker push "$DOCKER_IMAGE_UNVERSIONED"
+  deploy-til-dev:
+    docker:
+      - image: 'navikt/deployment-cli:v0.1.6'
+    steps:
+      - deploy:
+          cluster: "dev-sbs"
+          nais-yaml: "nais-dev-sbs.yaml"
+
+  deploy-til-prod:
+    docker:
+      - image: 'navikt/deployment-cli:v0.1.6'
+    steps:
+      - deploy:
+          cluster: "prod-sbs"
+          nais-yaml: "nais-prod-sbs.yaml"
+
+commands:
+  deploy:
+    description: Deploy til et gitt miljø
+    parameters:
+      cluster:
+        type: string
+      nais-yaml:
+        type: string
+    steps:
+      - checkout
+      - run:
+          name: Deploy til << parameters.cluster >>
+          command: deployment-cli deploy create --cluster=<< parameters.cluster >> --repository=navikt/kontakt-oss --team=teamtag --resource=<< parameters.nais-yaml >> --version=$CIRCLE_SHA1 --ref=$CIRCLE_BRANCH
+
+workflows:
+  version: 2.1
+  bygg_og_deploy:
+    jobs:
+      - bygg
+      - deploy-til-dev:
+          requires:
+            - bygg
+          filters:
+            branches:
+              only:
+                - master
+      - godkjenn-til-prod:
+          type: approval
+          requires:
+            - bygg
+          filters:
+            branches:
+              only:
+                - master
+      - deploy-til-prod:
+          requires:
+            - godkjenn-til-prod
+          filters:
+            branches:
+              only:
+                - master

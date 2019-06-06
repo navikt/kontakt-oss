@@ -9,7 +9,11 @@ import { epostOk, orgnrOk, telefonnummerOk } from '../validering';
 
 import './FellesFelter.less';
 import { Undertittel } from 'nav-frontend-typografi';
-import { FeatureToggle, FeatureToggles, FeatureTogglesContext, } from '../../FeatureTogglesProvider';
+import {
+    FeatureToggle,
+    FeatureToggles,
+    FeatureTogglesContext,
+} from '../../FeatureTogglesProvider';
 
 export enum SkjemaFelt {
     kommune = 'kommune',
@@ -61,7 +65,6 @@ const FellesFelter: React.FunctionComponent<Props> = props => {
                     fylkeNokkel={fylke}
                     oppdaterBesvarelse={props.oppdaterBesvarelse}
                     verdi={kommune}
-                    data-testid="kommunerDropdown"
                 />
                 <Felt
                     label="Bedriftens navn"
