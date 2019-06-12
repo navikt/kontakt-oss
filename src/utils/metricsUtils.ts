@@ -41,6 +41,8 @@ export const mapTilTemaEvent = (tema?: Tema): string => {
             return 'arbeidstrening';
         case TemaType.OppfølgingAvEnArbeidstaker:
             return 'oppfolging-av-arbeidstaker';
+        case TemaType.ForebyggeSykefravær:
+            return 'forebygge-sykefravaer';
         case TemaType.Annet:
             return 'annet';
         default:
