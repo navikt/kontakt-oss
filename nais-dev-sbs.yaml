@@ -12,7 +12,7 @@ spec:
   vault:
     enabled: true
   ingresses:
-    - https://arbeidsgiver-q.nav.no/kontakt-oss/
+    - https://arbeidsgiver-q.nav.no/kontakt-oss
   liveness:
     path: /kontakt-oss/internal/isAlive
     initialDelay: 5
