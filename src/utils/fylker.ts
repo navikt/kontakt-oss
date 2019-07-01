@@ -72,7 +72,7 @@ export const fylker: FylkeModell[] = [
     {
         nokkel: 'vestfold-og-telemark',
         navn: 'Vestfold og Telemark',
-        hrefKontaktliste: 'https://www.nav.no/541871/rekrutteringskontakter',
+        hrefKontaktliste: 'https://www.nav.no/no/Lokalt/vestfold-og-telemark/relatert-informasjon/markedskontakter',
     },
     {
         nokkel: 'vestland',
