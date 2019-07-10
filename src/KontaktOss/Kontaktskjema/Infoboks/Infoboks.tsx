@@ -4,7 +4,7 @@ import './Infoboks.less';
 
 const Infoboks: React.FunctionComponent = props => (
     <div className="infoboks">
-        <img src={infoSirkel} className="infoboks__ikon" aria-label="info" />
+        <img src={infoSirkel} className="infoboks__ikon" aria-label="info" alt="" />
         {props.children}
     </div>
 );

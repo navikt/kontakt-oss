@@ -68,7 +68,7 @@ export const orgnrOk = (orgnr?: string): boolean => {
     }
 
     orgnr = fjernWhitespace(orgnr);
-    if (orgnr.length == 0) {
+    if (orgnr.length === 0) {
         return true;
     }
 

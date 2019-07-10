@@ -11,6 +11,7 @@ const LenkepanelBekreftelse = () => (
         <img
             src={veiledereIllustrasjon}
             className="bekreftelse-lenkepanel__ikon"
+            alt=""
         />
         <div className="bekreftelse-lenkepanel__innhold">
             <Undertittel className="bekreftelse-lenkepanel__tittel">
