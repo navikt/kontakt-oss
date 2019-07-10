@@ -15,6 +15,7 @@ const Banner: React.FunctionComponent<Props> = props => {
                 <img
                     className="banner__illustrasjon"
                     src={bannerIllustrasjon}
+                    alt=""
                 />
             </div>
         </div>

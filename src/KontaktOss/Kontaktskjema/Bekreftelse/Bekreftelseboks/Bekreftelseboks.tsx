@@ -8,7 +8,7 @@ import './Bekreftelseboks.less';
 const Bekreftelseboks = () => (
     <div className="bekreftelseboks">
         <Veilederpanel
-            svg={<img src={checkmarkIkon} />}
+            svg={<img src={checkmarkIkon} alt="" />}
             type="plakat"
             kompakt={true}
             fargetema="suksess"

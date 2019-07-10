@@ -9,7 +9,7 @@ const ArbeidsgiverTlfInfo = () => {
         <div className="arbeidsgiver-tlf-info">
             <Veilederpanel
                 type="plakat"
-                svg={<img src={veilederBilde} />}
+                svg={<img src={veilederBilde} alt="" />}
                 kompakt={true}
             >
                 <Normaltekst className="arbeidsgiver-tlf-info__beskrivelse">
