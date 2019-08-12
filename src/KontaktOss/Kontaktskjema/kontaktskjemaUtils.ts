@@ -22,11 +22,11 @@ export const validerBesvarelseOgSendInn = async (
     if (validering.ok) {
         logSendInnKlikk();
 
-        try {
-            await sendKontaktskjema(besvarelse, tema);
+        const res = await sendKontaktskjema(besvarelse, tema);
+        if (res.ok) {
             logSuccess(tema, orgnrObligatoriskToggle);
             return { ok: true };
-        } catch (error) {
+        } else {
             logFail();
             return {
                 ok: false,

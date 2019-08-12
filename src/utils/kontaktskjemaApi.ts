@@ -70,12 +70,11 @@ const oversettTilJson = (besvarelse: Besvarelse, tema: Tema) => {
 };
 
 export const sendKontaktskjema = async (besvarelse: Besvarelse, tema: Tema) => {
-    const response = await fetch(SEND_KONTAKTSKJEMA_PATH, {
+    return await fetch(SEND_KONTAKTSKJEMA_PATH, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: oversettTilJson(besvarelse, tema),
     });
-    return await response.json();
 };
