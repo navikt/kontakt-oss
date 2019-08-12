@@ -3,6 +3,21 @@ import { fjernWhitespace, inneholderKunSifre } from '../../utils/stringUtils';
 import { Besvarelse } from './besvarelse';
 import { Tema, TemaType } from '../../utils/kontaktskjemaApi';
 
+const LATIN = "a-zA-Z- –'.";
+const SAMISK = 'ÁáČčĐđŊŋŠšŦŧŽž';
+const NORSK = 'æøåÆØÅ';
+
+const VANLIGE_BOKSTAVER = LATIN + SAMISK + NORSK;
+const SIFRE = '0-9';
+const AKSENTER = 'ëÿüïöäéúíóáèùìòàêûîôâõãñËŸÜÏÖÄÉÚÍÓÁÈÙÌÒÀÊÛÎÔÂÕÃÑ';
+const EPOSTTEGN = VANLIGE_BOKSTAVER + SIFRE + AKSENTER + '.@+';
+
+export const RAUS_TEXT = '^[' + VANLIGE_BOKSTAVER + SIFRE + AKSENTER + ']*$';
+
+const validerFelt = (feltverdi: string, skalBareInneholde: string): boolean => {
+    return new RegExp(skalBareInneholde).test(feltverdi);
+};
+
 const isFalsyOrEmpty = (str: string | undefined): boolean => {
     return !str || str === '';
 };
@@ -33,9 +48,17 @@ export const validerBesvarelse = (
 };
 
 export const felterErGyldige = (besvarelse: Besvarelse) =>
-    orgnrOk(besvarelse.orgnr) &&
-    telefonnummerOk(besvarelse.telefonnr) &&
-    epostOk(besvarelse.epost);
+    orgnrOk(besvarelse.orgnr)
+    && telefonnummerOk(besvarelse.telefonnr)
+    && epostOk(besvarelse.epost)
+    && validerFelt(besvarelse.bedriftsnavn, RAUS_TEXT)
+    && validerFelt(besvarelse.fornavn, RAUS_TEXT)
+    && validerFelt(besvarelse.etternavn, RAUS_TEXT)
+    && validerFelt(besvarelse.fylke, RAUS_TEXT)
+    && validerFelt(besvarelse.kommune.navn, RAUS_TEXT)
+    && validerFelt(besvarelse.orgnr, SIFRE + " ")
+    && validerFelt(besvarelse.telefonnr, SIFRE + "+ ")
+    && validerFelt(besvarelse.bedriftsnavn, EPOSTTEGN);
 
 export const paakrevdeFelterErUtfylte = (
     besvarelse: Besvarelse,
