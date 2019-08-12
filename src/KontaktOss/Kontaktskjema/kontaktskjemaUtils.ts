@@ -22,18 +22,19 @@ export const validerBesvarelseOgSendInn = async (
     if (validering.ok) {
         logSendInnKlikk();
 
-        try {
-            await sendKontaktskjema(besvarelse, tema);
+        const res = await sendKontaktskjema(besvarelse, tema);
+        if (res.ok) {
             logSuccess(tema, orgnrObligatoriskToggle);
             return { ok: true };
-        } catch (error) {
-            logFail();
-            return {
-                ok: false,
-                feilmelding:
-                    'Noe gikk feil med innsendingen. Vennligst prøv igjen senere.',
-            };
         }
+
+        logFail();
+        return {
+            ok: false,
+            feilmelding:
+                'Noe gikk feil med innsendingen. Vennligst prøv igjen senere.',
+        };
+
     } else {
         return {
             ok: false,
