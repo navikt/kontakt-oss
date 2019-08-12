@@ -26,14 +26,15 @@ export const validerBesvarelseOgSendInn = async (
         if (res.ok) {
             logSuccess(tema, orgnrObligatoriskToggle);
             return { ok: true };
-        } else {
-            logFail();
-            return {
-                ok: false,
-                feilmelding:
-                    'Noe gikk feil med innsendingen. Vennligst prøv igjen senere.',
-            };
         }
+
+        logFail();
+        return {
+            ok: false,
+            feilmelding:
+                'Noe gikk feil med innsendingen. Vennligst prøv igjen senere.',
+        };
+
     } else {
         return {
             ok: false,
