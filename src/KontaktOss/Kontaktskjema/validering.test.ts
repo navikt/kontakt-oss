@@ -69,7 +69,7 @@ describe("Test av validering", () => {
     test('E-post må være på formatet "noe@noe.noe"', () => {
         expect(epostOk('noe@noe.noe')).toBeTruthy();
         expect(epostOk('ceo@evil.org')).toBeTruthy();
-        expect(epostOk('ds091nxm+1p09w$"@æøå¨^.21io&%')).toBeTruthy();
+        expect(epostOk('ds091nxm1p09w@æøå.21io')).toBeTruthy();
         expect(epostOk('ola@typisk@nordmann.no')).toBeFalsy();
         expect(epostOk('ola@nordmann')).toBeFalsy();
     });
@@ -86,8 +86,6 @@ describe("Test av validering", () => {
         expect(valider({ bedriftsnavn: "'drop table kontaktskjema;" }).ok).toBeFalsy();
         expect(valider({ fornavn: "</span> <script></script> <span>" }).ok).toBeFalsy();
         expect(valider({ etternavn: "'drop table kontaktskjema;" }).ok).toBeFalsy();
-        expect(valider({ fylke: "</span> <script></script> <span>" }).ok).toBeFalsy();
-        expect(valider({ kommune: "'drop table kontaktskjema;" }).ok).toBeFalsy();
         expect(valider({ orgnr: "</span> <script></script> <span>" }).ok).toBeFalsy();
         expect(valider({ telefonnr: "'drop table kontaktskjema;" }).ok).toBeFalsy();
         expect(valider({ epost: "</span> <script></script> <span>" }).ok).toBeFalsy();
