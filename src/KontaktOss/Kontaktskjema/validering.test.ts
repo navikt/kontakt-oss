@@ -2,7 +2,7 @@ import {
     epostOk,
     orgnrOk,
     telefonnummerOk,
-    validerBesvarelse
+    validerBesvarelse,
 } from './validering';
 import { Besvarelse } from './besvarelse';
 import { Tema, TemaType } from '../../utils/kontaktskjemaApi';
@@ -27,8 +27,7 @@ const gyldigTema: Tema = {
     tekst: 'Arbeidstrening é é ñ ũ',
 };
 
-describe("Test av validering", () => {
-
+describe('Test av validering', () => {
     test('Orgnr kan være undefined', () => {
         expect(orgnrOk(undefined)).toBeTruthy();
     });
@@ -81,13 +80,30 @@ describe("Test av validering", () => {
     });
 
     test('Skjema skal ikke inneholde spesialtegn', () => {
-        const valider = (felt: any) => validerBesvarelse({...gyldigBesvarelse, ...felt}, gyldigTema, false);
+        const valider = (felt: any) =>
+            validerBesvarelse(
+                { ...gyldigBesvarelse, ...felt },
+                gyldigTema,
+                false
+            );
 
-        expect(valider({ bedriftsnavn: "'drop table kontaktskjema;" }).ok).toBeFalsy();
-        expect(valider({ fornavn: "</span> <script></script> <span>" }).ok).toBeFalsy();
-        expect(valider({ etternavn: "'drop table kontaktskjema;" }).ok).toBeFalsy();
-        expect(valider({ orgnr: "</span> <script></script> <span>" }).ok).toBeFalsy();
-        expect(valider({ telefonnr: "'drop table kontaktskjema;" }).ok).toBeFalsy();
-        expect(valider({ epost: "</span> <script></script> <span>" }).ok).toBeFalsy();
+        expect(
+            valider({ bedriftsnavn: "'drop table kontaktskjema;" }).ok
+        ).toBeFalsy();
+        expect(
+            valider({ fornavn: '</span> <script></script> <span>' }).ok
+        ).toBeFalsy();
+        expect(
+            valider({ etternavn: "'drop table kontaktskjema;" }).ok
+        ).toBeFalsy();
+        expect(
+            valider({ orgnr: '</span> <script></script> <span>' }).ok
+        ).toBeFalsy();
+        expect(
+            valider({ telefonnr: "'drop table kontaktskjema;" }).ok
+        ).toBeFalsy();
+        expect(
+            valider({ epost: '</span> <script></script> <span>' }).ok
+        ).toBeFalsy();
     });
 });
