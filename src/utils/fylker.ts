@@ -9,25 +9,6 @@ export interface KommuneModell {
     nummer: string;
 }
 
-const pilotfylkerForKontaktskjema: string[] = [
-    '1000', // Agder
-    '0400', // Innlandet
-    '1800', // Nordland
-    '0200', // Øst-Viken
-    '0800', // Vestfold og Telemark
-    '1200', // Vestland
-    '1900', // Troms og Finnmark
-    '1500', // Møre og Romsdal
-    '0300', // Oslo
-    '1100', // Rogaland
-    '5700', // Trøndelag
-    '0600', // Vest-Viken (Buskerud, Bærum og Asker)
-];
-
-export const erPilotfylke = (fylke: string): boolean => {
-    return pilotfylkerForKontaktskjema.some(pilot => pilot === fylke);
-};
-
 // tslint:disable max-line-length
 export const fylker: FylkeModell[] = [
     {

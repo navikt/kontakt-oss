@@ -3,6 +3,17 @@ import { fjernWhitespace, inneholderKunSifre } from '../../utils/stringUtils';
 import { Besvarelse } from './besvarelse';
 import { Tema, TemaType } from '../../utils/kontaktskjemaApi';
 
+const LATIN = "a-zA-Z- –'.";
+const SAMISK = 'ÁáČčĐđŊŋŠšŦŧŽž';
+const NORSK = 'æøåÆØÅ';
+
+const VANLIGE_BOKSTAVER = LATIN + SAMISK + NORSK;
+const SIFRE = '0-9';
+const AKSENTER = 'ëÿüïöäéúíóáèùìòàêûîôâõãñËŸÜÏÖÄÉÚÍÓÁÈÙÌÒÀÊÛÎÔÂÕÃÑ';
+const EPOSTTEGN = VANLIGE_BOKSTAVER + SIFRE + AKSENTER + '.@+';
+
+export const RAUS_TEXT = VANLIGE_BOKSTAVER + SIFRE + AKSENTER;
+
 const isFalsyOrEmpty = (str: string | undefined): boolean => {
     return !str || str === '';
 };
@@ -32,10 +43,21 @@ export const validerBesvarelse = (
     };
 };
 
+const validerString = (str: string, skalBareInneholde: string): boolean => {
+    return new RegExp('^[' + skalBareInneholde + ']*$').test(str);
+};
+
+export const inneholderKunVanligeTegn = (str: string): boolean => {
+    return validerString(str, RAUS_TEXT);
+};
+
 export const felterErGyldige = (besvarelse: Besvarelse) =>
     orgnrOk(besvarelse.orgnr) &&
     telefonnummerOk(besvarelse.telefonnr) &&
-    epostOk(besvarelse.epost);
+    epostOk(besvarelse.epost) &&
+    inneholderKunVanligeTegn(besvarelse.bedriftsnavn) &&
+    inneholderKunVanligeTegn(besvarelse.fornavn) &&
+    inneholderKunVanligeTegn(besvarelse.etternavn);
 
 export const paakrevdeFelterErUtfylte = (
     besvarelse: Besvarelse,
@@ -90,4 +112,4 @@ export const telefonnummerOk = (telefonnummer: string = ''): boolean => {
 };
 
 export const epostOk = (epost: string = ''): boolean =>
-    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(epost);
+    validerString(epost, EPOSTTEGN) && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(epost);
