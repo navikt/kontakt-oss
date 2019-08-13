@@ -2,7 +2,7 @@ import {
     epostOk,
     orgnrOk,
     telefonnummerOk,
-    validerBesvarelse,
+    validerBesvarelse
 } from './validering';
 import { Besvarelse } from './besvarelse';
 import { Tema, TemaType } from '../../utils/kontaktskjemaApi';

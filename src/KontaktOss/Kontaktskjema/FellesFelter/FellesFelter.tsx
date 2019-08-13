@@ -3,9 +3,13 @@ import { useContext } from 'react';
 import { Besvarelse } from '../besvarelse';
 import FylkeFelt from './FylkeFelt/FylkeFelt';
 import KommuneFelt from './KommuneFelt/KommuneFelt';
-import Felt from './Felt/Felt';
 import ValidertFelt from './ValidertFelt/ValidertFelt';
-import { epostOk, orgnrOk, telefonnummerOk } from '../validering';
+import {
+    epostOk,
+    inneholderKunVanligeTegn,
+    orgnrOk,
+    telefonnummerOk,
+} from '../validering';
 
 import './FellesFelter.less';
 import { Undertittel } from 'nav-frontend-typografi';
@@ -66,11 +70,13 @@ const FellesFelter: React.FunctionComponent<Props> = props => {
                     oppdaterBesvarelse={props.oppdaterBesvarelse}
                     verdi={kommune}
                 />
-                <Felt
+                <ValidertFelt
                     label="Bedriftens navn"
                     felt={SkjemaFelt.bedriftsnavn}
                     oppdaterBesvarelse={props.oppdaterBesvarelse}
                     verdi={bedriftsnavn}
+                    validering={inneholderKunVanligeTegn}
+                    feilmelding={'Dette feltet kan ikke inneholde spesialtegn'}
                     data-testid="bedriftsnavn"
                 />
                 <ValidertFelt
@@ -87,18 +93,22 @@ const FellesFelter: React.FunctionComponent<Props> = props => {
                 Dine kontaktopplysninger
             </Undertittel>
             <div className="kontaktskjema-input__wrapper">
-                <Felt
+                <ValidertFelt
                     label="Fornavn"
                     felt={SkjemaFelt.fornavn}
                     oppdaterBesvarelse={props.oppdaterBesvarelse}
                     verdi={fornavn}
+                    validering={inneholderKunVanligeTegn}
+                    feilmelding={'Dette feltet kan ikke inneholde spesialtegn'}
                     data-testid="fornavn"
                 />
-                <Felt
+                <ValidertFelt
                     label="Etternavn"
                     felt={SkjemaFelt.etternavn}
                     oppdaterBesvarelse={props.oppdaterBesvarelse}
                     verdi={etternavn}
+                    validering={inneholderKunVanligeTegn}
+                    feilmelding={'Dette feltet kan ikke inneholde spesialtegn'}
                     data-testid="etternavn"
                 />
                 <ValidertFelt

@@ -12,11 +12,7 @@ const SIFRE = '0-9';
 const AKSENTER = 'ëÿüïöäéúíóáèùìòàêûîôâõãñËŸÜÏÖÄÉÚÍÓÁÈÙÌÒÀÊÛÎÔÂÕÃÑ';
 const EPOSTTEGN = VANLIGE_BOKSTAVER + SIFRE + AKSENTER + '.@+';
 
-export const RAUS_TEXT = '^[' + VANLIGE_BOKSTAVER + SIFRE + AKSENTER + ']*$';
-
-const validerFelt = (feltverdi: string, skalBareInneholde: string): boolean => {
-    return new RegExp(skalBareInneholde).test(feltverdi);
-};
+export const RAUS_TEXT = VANLIGE_BOKSTAVER + SIFRE + AKSENTER;
 
 const isFalsyOrEmpty = (str: string | undefined): boolean => {
     return !str || str === '';
@@ -47,18 +43,21 @@ export const validerBesvarelse = (
     };
 };
 
+const validerString = (str: string, skalBareInneholde: string): boolean => {
+    return new RegExp('^[' + skalBareInneholde + ']*$').test(str);
+};
+
+export const inneholderKunVanligeTegn = (str: string): boolean => {
+    return validerString(str, RAUS_TEXT);
+};
+
 export const felterErGyldige = (besvarelse: Besvarelse) =>
-    orgnrOk(besvarelse.orgnr)
-    && telefonnummerOk(besvarelse.telefonnr)
-    && epostOk(besvarelse.epost)
-    && validerFelt(besvarelse.bedriftsnavn, RAUS_TEXT)
-    && validerFelt(besvarelse.fornavn, RAUS_TEXT)
-    && validerFelt(besvarelse.etternavn, RAUS_TEXT)
-    && validerFelt(besvarelse.fylke, RAUS_TEXT)
-    && validerFelt(besvarelse.kommune.navn, RAUS_TEXT)
-    && validerFelt(besvarelse.orgnr, SIFRE + " ")
-    && validerFelt(besvarelse.telefonnr, SIFRE + "+ ")
-    && validerFelt(besvarelse.bedriftsnavn, EPOSTTEGN);
+    orgnrOk(besvarelse.orgnr) &&
+    telefonnummerOk(besvarelse.telefonnr) &&
+    epostOk(besvarelse.epost) &&
+    inneholderKunVanligeTegn(besvarelse.bedriftsnavn) &&
+    inneholderKunVanligeTegn(besvarelse.fornavn) &&
+    inneholderKunVanligeTegn(besvarelse.etternavn);
 
 export const paakrevdeFelterErUtfylte = (
     besvarelse: Besvarelse,
@@ -113,4 +112,4 @@ export const telefonnummerOk = (telefonnummer: string = ''): boolean => {
 };
 
 export const epostOk = (epost: string = ''): boolean =>
-    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(epost);
+    validerString(epost, EPOSTTEGN) && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(epost);
