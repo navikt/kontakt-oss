@@ -3,7 +3,7 @@ import { fjernWhitespace, inneholderKunSifre } from '../../utils/stringUtils';
 import { Besvarelse } from './besvarelse';
 import { Tema, TemaType } from '../../utils/kontaktskjemaApi';
 
-const LATIN = "a-zA-Z- –'.";
+const LATIN = "a-zA-Z- –'._";
 const SAMISK = 'ÁáČčĐđŊŋŠšŦŧŽž';
 const NORSK = 'æøåÆØÅ';
 

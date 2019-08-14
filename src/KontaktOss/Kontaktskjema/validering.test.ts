@@ -65,6 +65,10 @@ describe('Test av validering', () => {
         expect(telefonnummerOk('📞')).toBeFalsy();
     });
 
+    test('E-post skal kunne inneholde understrek', () => {
+        expect(epostOk("hei_hei@nav.no")).toBeTruthy();
+    });
+
     test('E-post må være på formatet "noe@noe.noe"', () => {
         expect(epostOk('noe@noe.noe')).toBeTruthy();
         expect(epostOk('ceo@evil.org')).toBeTruthy();
