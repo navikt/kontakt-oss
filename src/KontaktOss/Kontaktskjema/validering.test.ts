@@ -27,6 +27,13 @@ const gyldigTema: Tema = {
     tekst: 'Arbeidstrening é é ñ ũ',
 };
 
+const valider = (felt: any) =>
+    validerBesvarelse(
+        { ...gyldigBesvarelse, ...felt },
+        gyldigTema,
+        false
+    );
+
 describe('Test av validering', () => {
     test('Orgnr kan være undefined', () => {
         expect(orgnrOk(undefined)).toBeTruthy();
@@ -83,14 +90,13 @@ describe('Test av validering', () => {
         ).toBeTruthy();
     });
 
-    test('Skjema skal ikke inneholde spesialtegn', () => {
-        const valider = (felt: any) =>
-            validerBesvarelse(
-                { ...gyldigBesvarelse, ...felt },
-                gyldigTema,
-                false
-            );
+    test('Bedriftsnr skal tillate parenteser og skråstrek', () => {
+        expect(
+            valider({ bedriftsnavn: "Mark AS (egen bedrift) / Krok ENK (konas bedrift)" }).ok
+        ).toBeTruthy();
+    });
 
+    test('Skjema skal ikke inneholde spesialtegn', () => {
         expect(
             valider({ bedriftsnavn: "'drop table kontaktskjema;" }).ok
         ).toBeFalsy();
