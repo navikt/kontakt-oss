@@ -1,19 +1,15 @@
 import * as React from 'react';
 import { featureTogglePath } from '../utils/paths';
 
-export enum FeatureToggle {
-    ForebyggeSykefraværFeature = 'kontakt-oss.forebygge-sykefravaer',
-    OrgnrObligatorisk = 'kontakt-oss.fjern-valgfritt-fra-orgnr',
-}
+export enum FeatureToggle {}
+// f.eks. ForebyggeSykefraværFeature = 'kontakt-oss.forebygge-sykefravaer',
 
 export interface FeatureToggles {
-    [FeatureToggle.ForebyggeSykefraværFeature]: boolean;
-    [FeatureToggle.OrgnrObligatorisk]: boolean;
+    // f.eks. [FeatureToggle.ForebyggeSykefraværFeature]: boolean;
 }
 
 const defaultFeatureToggles: FeatureToggles = {
-    [FeatureToggle.ForebyggeSykefraværFeature]: false,
-    [FeatureToggle.OrgnrObligatorisk]: false,
+    // f.eks. [FeatureToggle.ForebyggeSykefraværFeature]: false,
 };
 
 export const FeatureTogglesContext = React.createContext<FeatureToggles>(
@@ -33,9 +29,11 @@ export class FeatureTogglesProvider extends React.Component<
         const features = Object.keys(FeatureToggle).map(
             key => FeatureToggle[key as any]
         );
-        fetch(featureTogglePath(features))
-            .then(response => response.json())
-            .then(toggles => this.setState(toggles as FeatureToggles));
+        if (features.length > 0) {
+            fetch(featureTogglePath(features))
+                .then(response => response.json())
+                .then(toggles => this.setState(toggles as FeatureToggles));
+        }
     }
 
     render() {
