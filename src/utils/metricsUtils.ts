@@ -13,10 +13,9 @@ export const logEvent = (eventNavn: string, felter?: {}, tags?: {}) => {
 };
 
 export const logSendInnKlikk = () => logEvent('kontakt-oss.send-inn-klikk');
-export const logSuccess = (tema: Tema, orgnrObligatoriskToggle: boolean) => {
+export const logSuccess = (tema: Tema) => {
     logEvent('kontakt-oss.success', {
         tema: mapTilTemaEvent(tema),
-        fjernValgfrittFraOrgnrToggle: orgnrObligatoriskToggle,
     });
 };
 export const logFail = () => logEvent('kontakt-oss.fail');

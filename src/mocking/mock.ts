@@ -5,17 +5,11 @@ import {
     SEND_KONTAKTSKJEMA_PATH,
 } from '../utils/paths';
 import fylkesinndeling from './fylkesinndeling.json';
-import {
-    FeatureToggle,
-    FeatureToggles,
-} from '../KontaktOss/FeatureTogglesProvider';
+import { FeatureToggles } from '../KontaktOss/FeatureTogglesProvider';
 
 fetchMock.get(FYLKER_OG_KOMMUNER_PATH, fylkesinndeling);
 
-const featureToggleResponse: FeatureToggles = {
-    [FeatureToggle.ForebyggeSykefraværFeature]: true,
-    [FeatureToggle.OrgnrObligatorisk]: false,
-};
+const featureToggleResponse: FeatureToggles = {};
 
 fetchMock.get('begin:' + FEATURE_TOGGLE_BASEPATH, featureToggleResponse);
 
