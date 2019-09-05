@@ -48,6 +48,8 @@
         "fetch-mock": "^7.3.6",
         "jsdom": "^15.1.1",
         "mustache-express": "^1.2.8",
+        "prometheus-api-metrics": "^2.2.3",
+        "prom-client": "^11.5.3",
         "request": "^2.88.0",
         "testcafe": "^1.4.0"
     },

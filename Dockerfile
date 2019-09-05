@@ -1,7 +1,7 @@
 FROM node:alpine as builder
 WORKDIR /usr/src/app
 
-RUN yarn add express mustache-express jsdom request promise http-proxy-middleware fs-extra
+RUN yarn add express mustache-express jsdom request promise http-proxy-middleware fs-extra prometheus-api-metrics prom-client
 
 
 FROM node:alpine

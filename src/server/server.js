@@ -7,7 +7,9 @@ const Promise = require('promise');
 const sonekrysning = require('./sonekrysning');
 const basePath = require('./basePath');
 const createEnvSettingsFile = require('./envSettings');
+const apiMetrics = require('prometheus-api-metrics');
 
+const BASE_PATH = '/kontakt-oss';
 const buildPath = path.join(__dirname, '../../build');
 
 app.use(basePath('/api'), sonekrysning);
@@ -31,6 +33,12 @@ const renderApp = decoratorFragments =>
 
 const startServer = html => {
     app.use(basePath('/'), express.static(buildPath, { index: false }));
+
+    app.use(
+        apiMetrics({
+            metricsPath: BASE_PATH + '/internal/metrics',
+        })
+    );
 
     app.get(basePath('/internal/isAlive'), (req, res) => res.sendStatus(200));
     app.get(basePath('/internal/isReady'), (req, res) => res.sendStatus(200));
