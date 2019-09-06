@@ -10,6 +10,7 @@ WORKDIR /usr/src/app
 COPY build ./build
 COPY src/server ./src/server
 COPY start.sh ./
+COPY package.json ./
 COPY --from=builder /usr/src/app/node_modules ./node_modules
 
 EXPOSE 3000
