@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { FunctionComponent } from 'react';
-import telefonSvg from './telefon.svg';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
+
+import telefonSvg from './telefon.svg';
 import './Arbeidsgivertelefonen.less';
 
 interface Props {

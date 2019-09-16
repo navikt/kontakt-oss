@@ -5,7 +5,7 @@ import './GenerelleHenvendelser.less';
 import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import { Arbeidsgivertelefonen } from './Arbeidsgivertelefonen/Arbeidsgivertelefonen';
 
-export const GenerelleHenvendelser: FunctionComponent = props => {
+export const GenerelleHenvendelser: FunctionComponent = () => {
     return (
         <PanelBase className="generelle-henvendelser">
             <div className="generelle-henvendelser__tekst">
