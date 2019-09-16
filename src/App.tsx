@@ -5,8 +5,9 @@ import KontaktOss from './KontaktOss/KontaktOss';
 import { FeatureTogglesProvider } from './KontaktOss/FeatureTogglesProvider';
 import Banner from './Banner/Banner';
 import Bekreftelse from './KontaktOss/Kontaktskjema/Bekreftelse/Bekreftelse';
-import { BASE_PATH, BEKREFTELSE_PATH } from './utils/paths';
+import { BASE_PATH, BEKREFTELSE_PATH, SAMLESIDE_PATH } from './utils/paths';
 import { FylkesinndelingProvider } from './KontaktOss/FylkesinndelingProvider';
+import { Samleside } from './Samleside/Samleside';
 
 class App extends React.Component {
     render() {
@@ -25,6 +26,11 @@ class App extends React.Component {
                                 exact={true}
                                 path={BEKREFTELSE_PATH}
                                 component={Bekreftelse}
+                            />
+                            <Route
+                                exact={true}
+                                path={SAMLESIDE_PATH}
+                                component={Samleside}
                             />
                         </Switch>
                     </BrowserRouter>
