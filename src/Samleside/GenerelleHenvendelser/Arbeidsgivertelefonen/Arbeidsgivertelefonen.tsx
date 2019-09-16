@@ -4,9 +4,13 @@ import telefonSvg from './telefon.svg';
 import { Element, Normaltekst } from 'nav-frontend-typografi';
 import './Arbeidsgivertelefonen.less';
 
-export const Arbeidsgivertelefonen: FunctionComponent = props => {
+interface Props {
+    className: string;
+}
+
+export const Arbeidsgivertelefonen: FunctionComponent<Props> = props => {
     return (
-        <div className="arbeidsgivertelefonen">
+        <div className={"arbeidsgivertelefonen " + props.className}>
             <img src={telefonSvg} alt="telefon"/>
             <div className="arbeidsgivertelefonen__tekst-wrapper">
                 <Element>

@@ -7,16 +7,21 @@ import { Arbeidsgivertelefonen } from './Arbeidsgivertelefonen/Arbeidsgivertelef
 
 export const GenerelleHenvendelser: FunctionComponent = props => {
     return (
-        <PanelBase border className="generelle-henvendelser">
+        <PanelBase className="generelle-henvendelser">
             <div className="generelle-henvendelser__tekst">
-                <Systemtittel tag="h2" className="generelle-henvendelser__tekst-tittel">Generelle henvendelser</Systemtittel>
+                <Systemtittel
+                    tag="h2"
+                    className="generelle-henvendelser__tekst-tittel"
+                >
+                    Generelle henvendelser
+                </Systemtittel>
                 <Normaltekst>
                     Hos arbeidsgivertelefonen kan du får svar på generelle
                     hendvendelser. De kan også hjelpe deg å komme i kontakt med
                     rett person i NAV.
                 </Normaltekst>
             </div>
-            <Arbeidsgivertelefonen />
+            <Arbeidsgivertelefonen className="generelle-henvendelser__arbeidsgivertelefonen" />
         </PanelBase>
     );
 };
