@@ -1,13 +1,14 @@
 import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import * as React from 'react';
 import illustrasjon from './person1.svg';
+import { Link } from 'react-router-dom';
 
 export const RekrutteringOgInkludering = () => (
     <div className="andre-kontaktpunkter__tema">
         <img
             src={illustrasjon}
             className="andre-kontaktpunkter__tema-illustrasjon"
-            alt="Anleggsarbeider"
+            alt=""
         />
         <Undertittel className="blokk-xs andre-kontaktpunkter__tema-tittel">
             Rekruttering og inkludering
@@ -19,13 +20,13 @@ export const RekrutteringOgInkludering = () => (
             telefonlistene.
         </Normaltekst>
         <Element className="blokk-xs">Her får du svar:</Element>
-        <a href="/lenke" className="lenke blokk-xs">
+        <Link to="/" className="lenke blokk-xs">
             Kontaktskjema
-        </a>
-        <a href="/lenke" className="lenke blokk-xs">
+        </Link>
+        <a href="/her-kommer-en-lenke" className="lenke blokk-xs">
             Telefonlister
         </a>
-        <a href="/lenke" className="lenke blokk-xs">
+        <a href={'tel:+4755553336'} className="lenke blokk-xs">
             Arbeidsgivertelefonen
         </a>
     </div>

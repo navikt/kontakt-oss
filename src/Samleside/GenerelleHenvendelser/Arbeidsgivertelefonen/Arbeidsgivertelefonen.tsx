@@ -12,13 +12,12 @@ interface Props {
 export const Arbeidsgivertelefonen: FunctionComponent<Props> = props => {
     return (
         <div className={'arbeidsgivertelefonen ' + props.className}>
-            <img src={telefonSvg} alt="telefon" />
+            <img src={telefonSvg} alt="" />
             <div className="arbeidsgivertelefonen__tekst-wrapper">
                 <Element>Arbeidsgivertelefonen</Element>
                 <a
                     href={'tel:+4755553336'}
                     className="lenke typo-innholdstittel arbeidsgivertelefonen__tlf"
-                    alt="telefon"
                 >
                     55 55 33 36
                 </a>

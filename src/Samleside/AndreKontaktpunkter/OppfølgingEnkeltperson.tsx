@@ -7,7 +7,7 @@ export const OppfølgingEnkeltperson = () => (
         <img
             src={illustrasjon}
             className="andre-kontaktpunkter__tema-illustrasjon"
-            alt="Bonde"
+            alt=""
         />
         <Undertittel className="blokk-xs andre-kontaktpunkter__tema-tittel">
             Oppfølging av en enkeltperson
@@ -18,7 +18,7 @@ export const OppfølgingEnkeltperson = () => (
             person i NAV.
         </Normaltekst>
         <Element className="blokk-xs">Her får du svar:</Element>
-        <a href="/lenke" className="lenke blokk-xs">
+        <a href={'tel:+4755553336'} className="lenke blokk-xs">
             Arbeidsgivertelefonen
         </a>
     </div>
