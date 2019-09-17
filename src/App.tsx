@@ -7,7 +7,7 @@ import Banner from './Banner/Banner';
 import Bekreftelse from './KontaktOss/Kontaktskjema/Bekreftelse/Bekreftelse';
 import { BASE_PATH, BEKREFTELSE_PATH, SAMLESIDE_PATH } from './utils/paths';
 import { FylkesinndelingProvider } from './KontaktOss/FylkesinndelingProvider';
-import { Samleside } from './Samleside/Samleside';
+import Samleside from './Samleside/Samleside';
 
 class App extends React.Component {
     render() {
