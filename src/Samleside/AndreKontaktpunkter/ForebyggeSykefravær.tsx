@@ -1,10 +1,10 @@
-import illustrasjon from './illustrasjon1.svg';
 import { Element, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import * as React from 'react';
+import illustrasjon from './person3.svg';
 
 export const ForebyggeSykefravær = () => (
     <div className="andre-kontaktpunkter__tema">
-        <img src={illustrasjon} />
+        <img src={illustrasjon} className="andre-kontaktpunkter__tema-illustrasjon"/>
         <Systemtittel className="blokk-xs">Forebygge sykefravær</Systemtittel>
         <Normaltekst className="blokk-xs">
             Ønsker du bistand med forebygging av sykefravær eller å hindre

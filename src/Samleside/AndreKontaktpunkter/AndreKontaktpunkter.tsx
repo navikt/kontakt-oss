@@ -7,7 +7,7 @@ import { ForebyggeSykefravær } from './ForebyggeSykefravær';
 
 export const AndreKontaktpunkter: FunctionComponent = () => {
     return (
-        <div>
+        <div className="andre-kontaktpunkter">
             <RekrutteringOgInkludering/>
             <OppfølgingEnkeltperson/>
             <ForebyggeSykefravær/>
