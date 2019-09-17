@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import { fylker } from '../utils/fylker';
 import Lenkepanel from 'nav-frontend-lenkepanel/lib';
+import { Sidetittel } from 'nav-frontend-typografi';
+import { FeatureToggle, FeatureToggles, medFeatureToggles } from '../KontaktOss/FeatureTogglesProvider';
 
 import './Fylkesvelger.less';
-import { Sidetittel } from 'nav-frontend-typografi';
 
-export const Fylkesvelger = () => {
+const Fylkesvelger: FunctionComponent<FeatureToggles> = (props) => {
+    if (!props[FeatureToggle.NyttUtseendeFeature]) {
+        return null;
+    }
+
     return (
         <div className="fylkesvelger">
             <Sidetittel className="fylkesvelger__tittel" tag="h2">
@@ -24,3 +29,5 @@ export const Fylkesvelger = () => {
         </div>
     );
 };
+
+export default medFeatureToggles(Fylkesvelger);

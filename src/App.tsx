@@ -8,7 +8,7 @@ import Bekreftelse from './KontaktOss/Kontaktskjema/Bekreftelse/Bekreftelse';
 import { BASE_PATH, BEKREFTELSE_PATH, SAMLESIDE_PATH, FYLKESVELGER_PATH } from './utils/paths';
 import { FylkesinndelingProvider } from './KontaktOss/FylkesinndelingProvider';
 import Samleside from './Samleside/Samleside';
-import { Fylkesvelger } from './Fylkesvelger/Fylkesvelger';
+import Fylkesvelger from './Fylkesvelger/Fylkesvelger';
 
 class App extends React.Component {
     render() {
