@@ -1,13 +1,17 @@
-import { Element, Normaltekst, Systemtittel } from 'nav-frontend-typografi';
+import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import * as React from 'react';
 import illustrasjon from './person1.svg';
 
 export const RekrutteringOgInkludering = () => (
     <div className="andre-kontaktpunkter__tema">
-        <img src={illustrasjon} className="andre-kontaktpunkter__tema-illustrasjon"/>
-        <Systemtittel className="blokk-xs">
+        <img
+            src={illustrasjon}
+            className="andre-kontaktpunkter__tema-illustrasjon"
+            alt="Anleggsarbeider"
+        />
+        <Undertittel className="blokk-xs andre-kontaktpunkter__tema-tittel">
             Rekruttering og inkludering
-        </Systemtittel>
+        </Undertittel>
         <Normaltekst className="blokk-xs">
             Rekruttere nye medarbeidere? Få svar på spørsmål om tilskudd,
             oppfølging og tilrettelegging? Du kan bruke kontaktskjema eller

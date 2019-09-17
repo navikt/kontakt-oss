@@ -17,11 +17,12 @@ export const Arbeidsgivertelefonen: FunctionComponent<Props> = props => {
                 <Element>Arbeidsgivertelefonen</Element>
                 <a
                     href={'tel:+4755553336'}
-                    className="lenke typo-innholdstittel"
+                    className="lenke typo-innholdstittel arbeidsgivertelefonen__tlf"
+                    alt="telefon"
                 >
                     55 55 33 36
                 </a>
-                <Normaltekst>Kl. 08:00 - 15:00 (hverdager)</Normaltekst>
+                <Normaltekst>Kl. 08:00–15:00 (hverdager)</Normaltekst>
             </div>
         </div>
     );
