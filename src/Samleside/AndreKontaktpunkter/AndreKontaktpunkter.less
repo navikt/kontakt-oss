@@ -1,0 +1,29 @@
+@import '~nav-frontend-core/less/_variabler';
+
+.andre-kontaktpunkter {
+    &__tema {
+        margin-top: 3rem;
+        display: flex;
+        flex-direction: column;
+
+        &-illustrasjon {
+            margin-bottom: 1rem;
+        }
+
+        &-tittel {
+            text-align: center;
+        }
+    }
+
+    @media (min-width: 700px) {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        &__tema {
+            max-width: 33%;
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+    }
+}

@@ -5,8 +5,9 @@ import KontaktOss from './KontaktOss/KontaktOss';
 import { FeatureTogglesProvider } from './KontaktOss/FeatureTogglesProvider';
 import Banner from './Banner/Banner';
 import Bekreftelse from './KontaktOss/Kontaktskjema/Bekreftelse/Bekreftelse';
-import { BASE_PATH, BEKREFTELSE_PATH, FYLKESVELGER_PATH } from './utils/paths';
+import { BASE_PATH, BEKREFTELSE_PATH, SAMLESIDE_PATH, FYLKESVELGER_PATH } from './utils/paths';
 import { FylkesinndelingProvider } from './KontaktOss/FylkesinndelingProvider';
+import Samleside from './Samleside/Samleside';
 import { Fylkesvelger } from './Fylkesvelger/Fylkesvelger';
 
 class App extends React.Component {
@@ -31,6 +32,11 @@ class App extends React.Component {
                                 exact={true}
                                 path={FYLKESVELGER_PATH}
                                 component={Fylkesvelger}
+                            />
+                            <Route
+                                exact={true}
+                                path={SAMLESIDE_PATH}
+                                component={Samleside}
                             />
                         </Switch>
                     </BrowserRouter>
