@@ -2,6 +2,7 @@ import { Element, Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import * as React from 'react';
 import illustrasjon from './person1.svg';
 import { Link } from 'react-router-dom';
+import { FYLKESVELGER_PATH } from '../../utils/paths';
 
 export const RekrutteringOgInkludering = () => (
     <div className="andre-kontaktpunkter__tema">
@@ -23,9 +24,9 @@ export const RekrutteringOgInkludering = () => (
         <Link to="/" className="lenke blokk-xs">
             Kontaktskjema
         </Link>
-        <a href="/her-kommer-en-lenke" className="lenke blokk-xs">
+        <Link to={FYLKESVELGER_PATH} className="lenke blokk-xs">
             Telefonlister
-        </a>
+        </Link>
         <a href={'tel:+4755553336'} className="lenke blokk-xs">
             Arbeidsgivertelefonen
         </a>

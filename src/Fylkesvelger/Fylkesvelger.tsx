@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { fylker } from '../utils/fylker';
 import Lenkepanel from 'nav-frontend-lenkepanel/lib';
-import { Sidetittel } from 'nav-frontend-typografi';
+import { Innholdstittel } from 'nav-frontend-typografi';
 import { FeatureToggle, FeatureToggles, medFeatureToggles } from '../KontaktOss/FeatureTogglesProvider';
 
 import './Fylkesvelger.less';
@@ -13,9 +13,9 @@ const Fylkesvelger: FunctionComponent<FeatureToggles> = (props) => {
 
     return (
         <div className="fylkesvelger">
-            <Sidetittel className="fylkesvelger__tittel" tag="h2">
+            <Innholdstittel className="fylkesvelger__tittel" tag="h2">
                 Velg fylke
-            </Sidetittel>
+            </Innholdstittel>
             {fylker.map(fylke => (
                 <Lenkepanel
                     tittelProps="undertittel"
