@@ -8,7 +8,7 @@ export const Samleside: FunctionComponent = () => {
     return (
         <div className="samleside">
             <GenerelleHenvendelser />
-            <AndreKontaktpunkter/>
+            <AndreKontaktpunkter />
         </div>
     );
 };
