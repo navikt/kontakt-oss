@@ -16,7 +16,7 @@ export const GenerelleHenvendelser: FunctionComponent = () => {
                     Generelle henvendelser
                 </Systemtittel>
                 <Normaltekst>
-                    Hos arbeidsgivertelefonen kan du får svar på generelle
+                    Hos arbeidsgivertelefonen kan du få svar på generelle
                     hendvendelser. De kan også hjelpe deg å komme i kontakt med
                     rett person i NAV.
                 </Normaltekst>
