@@ -100,7 +100,7 @@ export const getAlfabetiserteKommuner = (
     fylkesinndeling: any,
     fylkeNr?: string
 ): KommuneModell[] => {
-    if (!fylkeNr || !fylkesinndeling[fylkeNr]) {
+    if (!fylkeNr || !fylkesinndeling || !fylkesinndeling[fylkeNr]) {
         return [];
     } else {
         return (fylkesinndeling[fylkeNr] as KommuneModell[]).sort(
