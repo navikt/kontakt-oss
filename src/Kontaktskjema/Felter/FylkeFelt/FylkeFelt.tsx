@@ -1,7 +1,7 @@
 import { default as React, FunctionComponent } from 'react';
 import { Select } from 'nav-frontend-skjema';
 import { Element } from 'nav-frontend-typografi';
-import { fylker } from '../../utils/fylker';
+import { fylker } from '../../../utils/fylker';
 
 interface Props {
     label: string;
@@ -20,7 +20,7 @@ const FylkeFelt: FunctionComponent<Props> = props => {
         <Select
             label={<Element>{props.label}</Element>}
             value={props.valgtFylkenøkkel}
-            className="kontaktskjema-input__felt"
+            className="felt"
             onChange={event =>
                 props.oppdaterBesvarelse(event.target.value)
             }

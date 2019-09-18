@@ -1,5 +1,5 @@
-import FylkeFelt from '../FylkeFelt/FylkeFelt';
-import KommuneFelt from '../KommuneFelt/KommuneFelt';
+import FylkeFelt from './FylkeFelt/FylkeFelt';
+import KommuneFelt from './KommuneFelt/KommuneFelt';
 import * as React from 'react';
 import { FunctionComponent } from 'react';
 import { Besvarelse } from '../../KontaktOss/Kontaktskjema/besvarelse';
@@ -12,6 +12,8 @@ import {
 } from '../../KontaktOss/Kontaktskjema/validering';
 import { Undertittel } from 'nav-frontend-typografi';
 import { SkjemaFelt } from '../../KontaktOss/Kontaktskjema/FellesFelter/FellesFelter';
+
+import './Felter.less';
 
 interface Props {
     oppdaterFylkenøkkel: (fylkenøkkel: string) => void;
@@ -31,8 +33,8 @@ export const Felter: FunctionComponent<Props> = props => {
     } = props.besvarelse;
 
     return (
-        <div className="kontaktskjema-input">
-            <div className="kontaktskjema-input__wrapper">
+        <div className="kontaktskjema-felter">
+            <div className="kontaktskjema-felter__bolk">
                 <FylkeFelt
                     label="Hvilket fylke ligger arbeidsplassen i?"
                     oppdaterBesvarelse={props.oppdaterFylkenøkkel}
@@ -66,7 +68,7 @@ export const Felter: FunctionComponent<Props> = props => {
             <Undertittel className={'blokk-s'}>
                 Dine kontaktopplysninger
             </Undertittel>
-            <div className="kontaktskjema-input__wrapper">
+            <div className="kontaktskjema-felter__bolk">
                 <ValidertFelt
                     label="Fornavn"
                     felt={SkjemaFelt.fornavn}
