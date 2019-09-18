@@ -43,6 +43,19 @@ export const temaer: Tema[] = [
     },
 ];
 
+export const getTema = (temaType: TemaType): Tema => {
+    const temaMedRiktigType = temaer.filter(tema => tema.type === temaType);
+    if (temaMedRiktigType.length === 1) {
+        return temaMedRiktigType[0];
+    } else {
+        throw "fant ingen tema for type " + temaType;
+    }
+};
+
+export const erTemaType = (temaType: string) => {
+    return Object.values(TemaType).includes(temaType)
+};
+
 export type BesvarelseBackend = {
     fylke: string;
     kommune: string;
