@@ -1,11 +1,16 @@
 import * as React from 'react';
 import { FYLKER_OG_KOMMUNER_PATH } from '../utils/paths';
+import { KommuneModell } from '../utils/fylker';
+
+export type NyFylkesinndelingType = { [fylkenr: string]: KommuneModell[] };
 
 export type Fylkesinndeling = {
-    fylkesinndeling: any;
+    // TODO OBS!!! Test at dette ikke brekker eksisterende kontaktskjema!
+    fylkesinndeling: NyFylkesinndelingType;
 };
+
 const defaultKommuner: Fylkesinndeling = {
-    fylkesinndeling: undefined,
+    fylkesinndeling: {},
 };
 const FylkesinndelingContext = React.createContext(defaultKommuner);
 const FylkesinndelingConsumer = FylkesinndelingContext.Consumer;

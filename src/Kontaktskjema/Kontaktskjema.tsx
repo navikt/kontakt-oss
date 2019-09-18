@@ -1,16 +1,27 @@
 import * as React from 'react';
-import { FunctionComponent } from 'react';
+import { FunctionComponent, useState } from 'react';
 import { useQueryState } from 'react-router-use-location-state';
 import { Temavalg } from './Temavalg/Temavalg';
 import { Tema, TemaType } from '../utils/kontaktskjemaApi';
 
 import './kontaktskjema.less';
 import { ForebyggeSykefraværEkstradel } from './ForebyggeSykefraværEkstradel/ForebyggeSykefraværEkstradel';
-import FylkeFelt from './FylkeFelt/FylkeFelt';
-import KommuneFelt from './KommuneFelt/KommuneFelt';
+import { Felter } from './Felter/Felter';
+import {
+    Besvarelse,
+    tomBesvarelse,
+} from '../KontaktOss/Kontaktskjema/besvarelse';
+import { getKommune } from '../utils/fylker';
+import { SkjemaFelt } from '../KontaktOss/Kontaktskjema/FellesFelter/FellesFelter';
+import {
+    Fylkesinndeling,
+    medFylkesinndeling,
+} from '../KontaktOss/FylkesinndelingProvider';
+
+type BesvarelseUtenFylkeOgKommune = Omit<Besvarelse, SkjemaFelt.kommune|SkjemaFelt.fylke>;
 
 // TODO TAG-826 Fjern "nytt" i navnet
-const NyttKontaktskjema: FunctionComponent = () => {
+const NyttKontaktskjema: FunctionComponent<Fylkesinndeling> = props => {
     const [valgtTemaType, setTemaType] = useQueryState<TemaType | ''>(
         'tema',
         ''
@@ -20,6 +31,37 @@ const NyttKontaktskjema: FunctionComponent = () => {
         ''
     );
     const [valgtKommunenr, setKommunenr] = useQueryState<string>('kommune', '');
+
+    const [tekstbesvarelse, setTekstbesvarelse] = useState<BesvarelseUtenFylkeOgKommune>(
+        tomBesvarelse
+    );
+
+    const oppdaterFylkenøkkel = (fylkenøkkel: string) => {
+        setFylkenøkkel(fylkenøkkel);
+        setKommunenr('');
+    };
+
+    const fjernFeilmeldinger = () => {
+        // TODO implementer
+    };
+
+    const oppdaterBesvarelse = (
+        felt: SkjemaFelt,
+        feltverdi: string | boolean
+    ) => {
+        setTekstbesvarelse({ ...tekstbesvarelse, [felt]: feltverdi });
+        fjernFeilmeldinger(); // TODO Sjekk om dette funker. fjernFeilmeldinger pleide å være i callback til setState.
+    };
+
+    console.log('kontaktskjema render'); // TODO fjern
+
+    const besvarelse: Besvarelse = {
+        ...tekstbesvarelse,
+        ...{
+            kommune: getKommune(valgtKommunenr, props.fylkesinndeling),
+            fylke: valgtFylkenøkkel,
+        },
+    };
 
     return (
         <div className="kontaktskjema">
@@ -32,22 +74,14 @@ const NyttKontaktskjema: FunctionComponent = () => {
             {valgtTemaType === TemaType.ForebyggeSykefravær && (
                 <ForebyggeSykefraværEkstradel />
             )}
-            <FylkeFelt
-                label="Hvilket fylke ligger arbeidsplassen i?"
-                oppdaterBesvarelse={fylkenøkkel => {
-                    setFylkenøkkel(fylkenøkkel);
-                    setKommunenr('');
-                }}
-                valgtFylkenøkkel={valgtFylkenøkkel}
-            />
-            <KommuneFelt
-                label="Hvilken kommune ligger arbeidsplassen i?"
-                fylkeNokkel={valgtFylkenøkkel}
-                oppdaterBesvarelse={setKommunenr}
-                valgtKommunenr={valgtKommunenr}
+            <Felter
+                oppdaterFylkenøkkel={oppdaterFylkenøkkel}
+                oppdaterKommunenr={setKommunenr}
+                oppdaterBesvarelse={oppdaterBesvarelse}
+                besvarelse={besvarelse}
             />
         </div>
     );
 };
 
-export default NyttKontaktskjema;
+export default medFylkesinndeling(NyttKontaktskjema);
