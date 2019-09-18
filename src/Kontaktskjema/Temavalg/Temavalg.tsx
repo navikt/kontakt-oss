@@ -2,8 +2,10 @@ import * as React from 'react';
 import { FunctionComponent } from 'react';
 import { Tema, temaer } from '../../utils/kontaktskjemaApi';
 import { logEvent, mapTilTemaEvent } from '../../utils/metricsUtils';
-import { Element } from 'nav-frontend-typografi';
+import { Undertittel } from 'nav-frontend-typografi';
 import Temaknapp from './Temaknapp';
+
+import './Temavalg.less';
 
 interface Props {
     velgTema: (tema: Tema) => void;
@@ -22,15 +24,16 @@ export const Temavalg: FunctionComponent<Props> = props => {
             tema={tema}
             onClick={onVelgTema}
             valgt={tema === props.valgtTema}
+
             className="temaknapp"
         />
     ));
 
     return (
         <div className="temavalg">
-            <Element className="temavalg__label">
+            <Undertittel className="temavalg__label">
                 Hva gjelder det?
-            </Element>
+            </Undertittel>
             <div className="temavalg__wrapper">{temaknapper}</div>
         </div>
     );

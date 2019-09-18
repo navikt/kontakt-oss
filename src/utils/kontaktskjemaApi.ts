@@ -48,13 +48,14 @@ export const getTema = (temaType: TemaType): Tema => {
     if (temaMedRiktigType.length === 1) {
         return temaMedRiktigType[0];
     } else {
-        throw "fant ingen tema for type " + temaType;
+        throw new Error('fant ingen tema for type ' + temaType);
     }
 };
-
+/*
 export const erTemaType = (temaType: string) => {
-    return Object.values(TemaType).includes(temaType)
+    return (Object.values(TemaType) as string[]).includes(temaType);
 };
+ */
 
 export type BesvarelseBackend = {
     fylke: string;
