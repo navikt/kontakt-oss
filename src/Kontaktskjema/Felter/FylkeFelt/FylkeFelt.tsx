@@ -2,10 +2,12 @@ import { default as React, FunctionComponent } from 'react';
 import { Select } from 'nav-frontend-skjema';
 import { Element } from 'nav-frontend-typografi';
 import { fylker } from '../../../utils/fylker';
+import { SkjemaFelt } from '../../../KontaktOss/Kontaktskjema/FellesFelter/FellesFelter';
 
 interface Props {
     label: string;
-    oppdaterBesvarelse: (input: string) => void;
+    felt: SkjemaFelt;
+    oppdaterBesvarelse: (felt: SkjemaFelt, input: string) => void;
     valgtFylkenøkkel: string;
 }
 
@@ -22,7 +24,7 @@ const FylkeFelt: FunctionComponent<Props> = props => {
             value={props.valgtFylkenøkkel}
             className="felt"
             onChange={event =>
-                props.oppdaterBesvarelse(event.target.value)
+                props.oppdaterBesvarelse(props.felt, event.target.value)
             }
             data-testid="fylkerDropdown"
         >

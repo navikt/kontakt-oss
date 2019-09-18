@@ -63,19 +63,12 @@ export const temaerForNyttKontaktskjema: Tema[] = [
     },
 ];
 
-export const getTema = (temaType: TemaType): Tema => {
+export const getTema = (temaType: TemaType | ''): Tema | undefined => {
     const temaMedRiktigType = temaer.filter(tema => tema.type === temaType);
     if (temaMedRiktigType.length === 1) {
         return temaMedRiktigType[0];
-    } else {
-        throw new Error('fant ingen tema for type ' + temaType);
     }
 };
-/*
-export const erTemaType = (temaType: string) => {
-    return (Object.values(TemaType) as string[]).includes(temaType);
-};
- */
 
 export type BesvarelseBackend = {
     fylke: string;

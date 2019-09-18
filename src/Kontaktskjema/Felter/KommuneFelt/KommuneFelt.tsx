@@ -3,10 +3,12 @@ import { Element } from 'nav-frontend-typografi';
 import { Select } from 'nav-frontend-skjema';
 import { getAlfabetiserteKommuner } from '../../../utils/fylker';
 import { Fylkesinndeling, medFylkesinndeling } from '../../../KontaktOss/FylkesinndelingProvider';
+import { SkjemaFelt } from '../../../KontaktOss/Kontaktskjema/FellesFelter/FellesFelter';
 
 interface Props {
     label: string;
-    oppdaterBesvarelse: (input: string) => void;
+    felt: SkjemaFelt;
+    oppdaterBesvarelse: (felt: SkjemaFelt, input: string) => void;
     fylkeNokkel?: string;
     valgtKommunenr: string;
 }
@@ -22,7 +24,7 @@ const KommuneFelt: FunctionComponent<Props & Fylkesinndeling> = props => {
     ));
 
     const onChange = (event: any) => {
-        props.oppdaterBesvarelse(event.target.value);
+        props.oppdaterBesvarelse(props.felt, event.target.value);
     };
 
     return (

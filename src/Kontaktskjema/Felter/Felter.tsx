@@ -16,8 +16,6 @@ import { SkjemaFelt } from '../../KontaktOss/Kontaktskjema/FellesFelter/FellesFe
 import './Felter.less';
 
 interface Props {
-    oppdaterFylkenøkkel: (fylkenøkkel: string) => void;
-    oppdaterKommunenr: (kommunenr: string) => void;
     besvarelse: Besvarelse;
     oppdaterBesvarelse: (id: SkjemaFelt, input: string | boolean) => void;
 }
@@ -37,13 +35,15 @@ export const Felter: FunctionComponent<Props> = props => {
             <div className="kontaktskjema-felter__bolk">
                 <FylkeFelt
                     label="Hvilket fylke ligger arbeidsplassen i?"
-                    oppdaterBesvarelse={props.oppdaterFylkenøkkel}
+                    felt={SkjemaFelt.fylke}
+                    oppdaterBesvarelse={props.oppdaterBesvarelse}
                     valgtFylkenøkkel={props.besvarelse.fylke}
                 />
                 <KommuneFelt
                     label="Hvilken kommune ligger arbeidsplassen i?"
+                    felt={SkjemaFelt.kommune}
                     fylkeNokkel={props.besvarelse.fylke}
-                    oppdaterBesvarelse={props.oppdaterKommunenr}
+                    oppdaterBesvarelse={props.oppdaterBesvarelse}
                     valgtKommunenr={props.besvarelse.kommune.nummer}
                 />
                 <ValidertFelt
