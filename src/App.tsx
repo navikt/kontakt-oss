@@ -16,7 +16,7 @@ class App extends React.Component {
         return (
             <FeatureTogglesProvider>
                 <FylkesinndelingProvider>
-                    <Banner tekst="Kom i kontakt med NAV" />
+                    <Banner tekst="Kontakt NAV som arbeidsgiver" />
                     <BrowserRouter basename={BASE_PATH}>
                         <Switch>
                             <Route
