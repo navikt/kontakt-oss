@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { FunctionComponent } from 'react';
-import { Tema, temaer } from '../../utils/kontaktskjemaApi';
+import { Tema, temaerForNyttKontaktskjema, TemaType } from '../../utils/kontaktskjemaApi';
 import { logEvent, mapTilTemaEvent } from '../../utils/metricsUtils';
 import { Undertittel } from 'nav-frontend-typografi';
 import Temaknapp from './Temaknapp';
@@ -9,7 +9,7 @@ import './Temavalg.less';
 
 interface Props {
     velgTema: (tema: Tema) => void;
-    valgtTema?: Tema;
+    valgtTemaType: TemaType | '';
 }
 
 export const Temavalg: FunctionComponent<Props> = props => {
@@ -18,16 +18,16 @@ export const Temavalg: FunctionComponent<Props> = props => {
         logEvent(`kontakt-oss.tema.${mapTilTemaEvent(tema)}`);
     };
 
-    const temaknapper = temaer.map(tema => (
+    const temaknapper = temaerForNyttKontaktskjema.map(tema => {
+        return(
         <Temaknapp
             key={tema.type}
             tema={tema}
             onClick={onVelgTema}
-            valgt={tema === props.valgtTema}
-
+            valgt={tema.type === props.valgtTemaType}
             className="temaknapp"
         />
-    ));
+    )});
 
     return (
         <div className="temavalg">

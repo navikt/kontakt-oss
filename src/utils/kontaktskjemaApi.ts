@@ -43,6 +43,26 @@ export const temaer: Tema[] = [
     },
 ];
 
+// TODO TAG-826 Slett arrayen over
+export const temaerForNyttKontaktskjema: Tema[] = [
+    {
+        type: TemaType.Rekruttering,
+        tekst: 'Rekruttering',
+    },
+    {
+        type: TemaType.RekrutteringMedTilrettelegging,
+        tekst: 'Rekruttering med tilrettelegging',
+    },
+    {
+        type: TemaType.Arbeidstrening,
+        tekst: 'Arbeidstrening',
+    },
+    {
+        type: TemaType.ForebyggeSykefravær,
+        tekst: 'Forebygge sykefravær',
+    },
+];
+
 export const getTema = (temaType: TemaType): Tema => {
     const temaMedRiktigType = temaer.filter(tema => tema.type === temaType);
     if (temaMedRiktigType.length === 1) {

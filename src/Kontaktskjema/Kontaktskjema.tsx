@@ -6,18 +6,16 @@ import { getTema, Tema, TemaType } from '../utils/kontaktskjemaApi';
 
 import './kontaktskjema.less';
 
-// TODO TAG.826 Fjern "nytt" i navnet
+// TODO TAG-826 Fjern "nytt" i navnet
 const NyttKontaktskjema: FunctionComponent = () => {
     const [value, setValue] = useQueryState('fylke', '');
     const [kommune, setKommune] = useQueryState('kommune', '');
 
     const [valgtTemaType, setTemaType] = useQueryState<TemaType | ''>('tema', '');
 
-    const valgtTema = valgtTemaType === '' ? undefined : getTema(valgtTemaType);
-
     return (
         <div className="kontaktskjema">
-            <Temavalg velgTema={(tema: Tema) => {setTemaType(tema.type)}} valgtTema={valgtTema}/>
+            <Temavalg velgTema={(tema: Tema) => {setTemaType(tema.type)}} valgtTemaType={valgtTemaType}/>
         </div>
     );
 };
