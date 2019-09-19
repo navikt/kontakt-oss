@@ -5,13 +5,13 @@ import { Link } from 'react-router-dom';
 import { FYLKESVELGER_PATH } from '../../utils/paths';
 
 export const RekrutteringOgInkludering = () => (
-    <div className="andre-kontaktpunkter__tema">
+    <div className="kontaktpunkt-tema">
         <img
             src={illustrasjon}
-            className="andre-kontaktpunkter__tema-illustrasjon"
+            className="kontaktpunkt-tema__illustrasjon"
             alt=""
         />
-        <Undertittel className="blokk-xs andre-kontaktpunkter__tema-tittel">
+        <Undertittel className="blokk-xs kontaktpunkt-tema__tittel">
             Rekruttering og inkludering
         </Undertittel>
         <Normaltekst className="blokk-xs">

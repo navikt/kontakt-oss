@@ -11,12 +11,12 @@ export const GenerelleHenvendelser: FunctionComponent = () => {
             <div className="generelle-henvendelser__tekst">
                 <Systemtittel
                     tag="h2"
-                    className="generelle-henvendelser__tekst-tittel"
+                    className="generelle-henvendelser__tittel"
                 >
                     Generelle henvendelser
                 </Systemtittel>
                 <Normaltekst>
-                    Hos arbeidsgivertelefonen kan du får svar på generelle
+                    Hos arbeidsgivertelefonen kan du få svar på generelle
                     hendvendelser. De kan også hjelpe deg å komme i kontakt med
                     rett person i NAV.
                 </Normaltekst>
