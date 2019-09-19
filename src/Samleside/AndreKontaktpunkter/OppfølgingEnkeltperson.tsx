@@ -3,13 +3,13 @@ import * as React from 'react';
 import illustrasjon from './person2.svg';
 
 export const OppfølgingEnkeltperson = () => (
-    <div className="andre-kontaktpunkter__tema">
+    <div className="kontaktpunkt-tema">
         <img
             src={illustrasjon}
-            className="andre-kontaktpunkter__tema-illustrasjon"
+            className="kontaktpunkt-tema__illustrasjon"
             alt=""
         />
-        <Undertittel className="blokk-xs andre-kontaktpunkter__tema-tittel">
+        <Undertittel className="blokk-xs kontaktpunkt-tema__tittel">
             Oppfølging av en enkeltperson
         </Undertittel>
         <Normaltekst className="blokk-xs">

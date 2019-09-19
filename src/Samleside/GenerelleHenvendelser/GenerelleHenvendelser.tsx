@@ -11,7 +11,7 @@ export const GenerelleHenvendelser: FunctionComponent = () => {
             <div className="generelle-henvendelser__tekst">
                 <Systemtittel
                     tag="h2"
-                    className="generelle-henvendelser__tekst-tittel"
+                    className="generelle-henvendelser__tittel"
                 >
                     Generelle henvendelser
                 </Systemtittel>
