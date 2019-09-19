@@ -1,0 +1,39 @@
+@import '~nav-frontend-core/less/_variabler';
+
+.generelle-henvendelser {
+    border: 0.1rem solid @navBlaLighten60;
+    margin-top: 3rem;
+    padding: 3rem 1rem;
+
+    &__tekst {
+        width: 100%;
+    }
+
+    &-tittel {
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+
+    &__arbeidsgivertelefonen {
+        margin-top: 2rem;
+    }
+
+    @media (min-width: 700px) {
+        display: flex;
+        justify-content: space-around;
+        padding: 5rem 1rem;
+
+        &__arbeidsgivertelefonen {
+            max-width: 50%;
+            margin-top: 0;
+        }
+
+        &__tekst {
+            max-width: 50%;
+        }
+
+        &-tittel {
+            text-align: left;
+        }
+    }
+}

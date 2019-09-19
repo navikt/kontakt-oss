@@ -5,15 +5,17 @@ import KontaktOss from './KontaktOss/KontaktOss';
 import { FeatureTogglesProvider } from './KontaktOss/FeatureTogglesProvider';
 import Banner from './Banner/Banner';
 import Bekreftelse from './KontaktOss/Kontaktskjema/Bekreftelse/Bekreftelse';
-import { BASE_PATH, BEKREFTELSE_PATH } from './utils/paths';
+import { BASE_PATH, BEKREFTELSE_PATH, SAMLESIDE_PATH, FYLKESVELGER_PATH } from './utils/paths';
 import { FylkesinndelingProvider } from './KontaktOss/FylkesinndelingProvider';
+import Samleside from './Samleside/Samleside';
+import Fylkesvelger from './Fylkesvelger/Fylkesvelger';
 
 class App extends React.Component {
     render() {
         return (
             <FeatureTogglesProvider>
                 <FylkesinndelingProvider>
-                    <Banner tekst="Kom i kontakt med NAV" />
+                    <Banner tekst="Kontakt NAV som arbeidsgiver" />
                     <BrowserRouter basename={BASE_PATH}>
                         <Switch>
                             <Route
@@ -25,6 +27,16 @@ class App extends React.Component {
                                 exact={true}
                                 path={BEKREFTELSE_PATH}
                                 component={Bekreftelse}
+                            />
+                            <Route
+                                exact={true}
+                                path={FYLKESVELGER_PATH}
+                                component={Fylkesvelger}
+                            />
+                            <Route
+                                exact={true}
+                                path={SAMLESIDE_PATH}
+                                component={Samleside}
                             />
                         </Switch>
                     </BrowserRouter>
