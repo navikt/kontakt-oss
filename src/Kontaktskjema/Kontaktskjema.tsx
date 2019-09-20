@@ -29,7 +29,7 @@ type BesvarelseUtenFylkeOgKommune = Omit<
     SkjemaFelt.kommune | SkjemaFelt.fylke
 >;
 
-// TODO TAG-826 Fjern "nytt" i navnet
+// TODO TAG-826 Fjern "nytt" i navnet, inkl classnames
 const NyttKontaktskjema: FunctionComponent<
     Fylkesinndeling & RouteComponentProps
 > = props => {
@@ -73,10 +73,8 @@ const NyttKontaktskjema: FunctionComponent<
         setInnsendingStatus({
             senderInn: false,
             feilmelding: '',
-        }); // TODO Sjekk om dette funker. fjernFeilmeldinger pleide å være i callback til setState.
+        });
     };
-
-    console.log('kontaktskjema render'); // TODO fjern
 
     const besvarelse: Besvarelse = {
         ...tekstbesvarelse,
@@ -124,8 +122,8 @@ const NyttKontaktskjema: FunctionComponent<
     };
 
     return (
-        <div className="kontaktskjema">
-            <div className="kontaktskjema__innhold">
+        <div className="nytt-kontaktskjema">
+            <div className="nytt-kontaktskjema__innhold">
                 <Temavalg
                     velgTema={(tema: Tema) => {
                         setTemaType(tema.type);
@@ -133,7 +131,10 @@ const NyttKontaktskjema: FunctionComponent<
                     valgtTemaType={valgtTemaType}
                 />
                 {valgtTemaType === TemaType.ForebyggeSykefravær && (
-                    <ForebyggeSykefraværEkstradel />
+                    <ForebyggeSykefraværEkstradel
+                        oppdaterBesvarelse={oppdaterBesvarelse}
+                        besvarelse={besvarelse}
+                    />
                 )}
                 <Felter
                     oppdaterBesvarelse={oppdaterBesvarelse}
@@ -150,14 +151,14 @@ const NyttKontaktskjema: FunctionComponent<
                     </Normaltekst>
                 </Infoboks>
                 {innsendingStatus.feilmelding && (
-                    <AlertStripeAdvarsel className="kontaktskjema__feilmelding">
+                    <AlertStripeAdvarsel className="nytt-kontaktskjema__feilmelding">
                         {innsendingStatus.feilmelding}
                     </AlertStripeAdvarsel>
                 )}
                 <Hovedknapp
                     onClick={sendInnOnClick}
                     data-testid="sendinn"
-                    className={'kontaktskjema__knapp'}
+                    className="nytt-kontaktskjema__knapp"
                 >
                     Send inn
                 </Hovedknapp>
