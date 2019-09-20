@@ -165,7 +165,7 @@ const NyttKontaktskjema: FunctionComponent<
                 >
                     Send inn
                 </Hovedknapp>
-                <HvaSkjerVidere />
+                <HvaSkjerVidere tema={tema}/>
             </div>
         </div>
     );
