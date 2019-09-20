@@ -23,6 +23,7 @@ import { Hovedknapp } from 'nav-frontend-knapper';
 import { validerBesvarelseOgSendInn } from '../KontaktOss/Kontaktskjema/kontaktskjemaUtils';
 import { BEKREFTELSE_PATH } from '../utils/paths';
 import { RouteComponentProps } from 'react-router-dom';
+import { HvaSkjerVidere } from './HvaSkjerVidere/HvaSkjerVidere';
 
 type BesvarelseUtenFylkeOgKommune = Omit<
     Besvarelse,
@@ -121,6 +122,8 @@ const NyttKontaktskjema: FunctionComponent<
         }
     };
 
+    // TODO Det skal være en avbryt-knapp, hva skjer når man trykker på den? antakeligvis tilbake til samleside
+
     return (
         <div className="nytt-kontaktskjema">
             <div className="nytt-kontaktskjema__innhold">
@@ -162,6 +165,7 @@ const NyttKontaktskjema: FunctionComponent<
                 >
                     Send inn
                 </Hovedknapp>
+                <HvaSkjerVidere />
             </div>
         </div>
     );
