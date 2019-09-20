@@ -42,7 +42,11 @@ export const Temavalg: FunctionComponent<Props> = props => {
             </Undertittel>
             <div className="temavalg__wrapper">{temaknapper}</div>
             <div className="temavalg__infotekst">
-                <img className="temavalg__infotekst-ikon" src={infosirkel} alt="informasjonsikon"/>
+                <img
+                    className="temavalg__ikon"
+                    src={infosirkel}
+                    alt="informasjonsikon"
+                />
                 <Normaltekst>
                     For andre henvendelser ber vi deg kontakte
                     arbeidsgivertelefonen på{' '}
