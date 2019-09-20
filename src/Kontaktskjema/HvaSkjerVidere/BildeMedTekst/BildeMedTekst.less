@@ -1,9 +1,18 @@
-.bilde-med-tekst {
-  margin-top: 2rem;
-  max-width: 13rem;
+@import '~nav-frontend-core/less/_variabler';
 
-  &__bilde {
-      margin: 1rem 0;
+.bilde-med-tekst {
+    margin-top: 2rem;
+    max-width: 11rem;
+
+    &__bilde {
+        margin: 1rem 0;
     }
 
+    @media (min-width: @screen-sm-min) {
+        margin: 0;
+
+        &__bilde {
+            margin-top: 0;
+        }
+    }
 }
