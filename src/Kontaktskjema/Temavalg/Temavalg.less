@@ -1,41 +1,31 @@
 @import '~nav-frontend-core/less/_variabler';
 
 .temavalg {
-  margin-bottom: 2rem;
-  width: 100%;
+    margin-bottom: 2rem;
+    width: 100%;
 
-  &__label {
-    margin-bottom: 0.5rem;
-  }
-
-  &__infotekst {
-    display: flex;
-    margin-top: 1.5rem;
-
-  }
-
-  &__ikon {
-    margin-right: 1rem;
-  }
+    &__label {
+        margin-bottom: 1.25rem;
+    }
 }
 
 .temaknapp {
-  margin-bottom: 0.5rem;
+    margin-bottom: 0.5rem;
 }
 
 @media (min-width: @screen-sm-min) {
-  .temavalg {
-    margin: 0 auto 3rem;
+    .temavalg {
+        margin: 0 auto 3rem;
 
-    &__wrapper {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      max-width: @screen-sm-min;
+        &__wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            max-width: @screen-sm-min;
+        }
     }
-  }
 
-  .temaknapp {
-    width: calc(50% - 1rem);
-  }
+    .temaknapp {
+        width: calc(50% - 1rem);
+    }
 }

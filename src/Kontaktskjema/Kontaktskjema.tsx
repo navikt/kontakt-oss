@@ -16,14 +16,13 @@ import {
     Fylkesinndeling,
     medFylkesinndeling,
 } from '../KontaktOss/FylkesinndelingProvider';
-import Infoboks from '../KontaktOss/Kontaktskjema/Infoboks/Infoboks';
-import { Normaltekst } from 'nav-frontend-typografi';
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { validerBesvarelseOgSendInn } from '../KontaktOss/Kontaktskjema/kontaktskjemaUtils';
-import { BEKREFTELSE_PATH } from '../utils/paths';
-import { RouteComponentProps } from 'react-router-dom';
+import { BEKREFTELSE_PATH, SAMLESIDE_PATH } from '../utils/paths';
+import { Link, RouteComponentProps } from 'react-router-dom';
 import { HvaSkjerVidere } from './HvaSkjerVidere/HvaSkjerVidere';
+import { EnkelInfostripe } from './EnkelInfostripe/EnkelInfostripe';
 
 type BesvarelseUtenFylkeOgKommune = Omit<
     Besvarelse,
@@ -143,16 +142,14 @@ const NyttKontaktskjema: FunctionComponent<
                     oppdaterBesvarelse={oppdaterBesvarelse}
                     besvarelse={besvarelse}
                 />
-                <Infoboks>
-                    <Normaltekst>
-                        NAV bruker disse opplysningene når vi kontakter deg. Vi
-                        lagrer disse opplysningene om deg, slik at vi kan
-                        kontakte deg om{' '}
-                        {tema ? tema.tekst.toLowerCase() : 'ditt valgte tema'} i
-                        bedriften du representerer. Opplysningene blir ikke delt
-                        eller brukt til andre formål.
-                    </Normaltekst>
-                </Infoboks>
+                <EnkelInfostripe classname="nytt-kontaktskjema__infostripe">
+                    NAV bruker disse opplysningene når vi kontakter deg. Vi
+                    lagrer disse opplysningene om deg, slik at vi kan kontakte
+                    deg om{' '}
+                    {tema ? tema.tekst.toLowerCase() : 'ditt valgte tema'} i
+                    bedriften du representerer. Opplysningene blir ikke delt
+                    eller brukt til andre formål.
+                </EnkelInfostripe>
                 {innsendingStatus.feilmelding && (
                     <AlertStripeAdvarsel className="nytt-kontaktskjema__feilmelding">
                         {innsendingStatus.feilmelding}
@@ -163,9 +160,17 @@ const NyttKontaktskjema: FunctionComponent<
                     data-testid="sendinn"
                     className="nytt-kontaktskjema__knapp"
                 >
-                    Send inn
+                    {valgtTemaType === TemaType.ForebyggeSykefravær
+                        ? 'Send til NAV Arbeidslivssenter'
+                        : 'Send inn'}
                 </Hovedknapp>
-                <HvaSkjerVidere tema={tema}/>
+                <Link
+                    to={SAMLESIDE_PATH}
+                    className="nytt-kontaktskjema__avbryt-lenke lenke"
+                >
+                    Avbryt
+                </Link>
+                <HvaSkjerVidere tema={tema} />
             </div>
         </div>
     );

@@ -6,11 +6,11 @@ import {
     TemaType,
 } from '../../utils/kontaktskjemaApi';
 import { logEvent, mapTilTemaEvent } from '../../utils/metricsUtils';
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import { Undertittel } from 'nav-frontend-typografi';
 import Temaknapp from './Temaknapp';
 
 import './Temavalg.less';
-import infosirkel from './info-sirkel-fyll.svg';
+import { EnkelInfostripe } from '../EnkelInfostripe/EnkelInfostripe';
 
 interface Props {
     velgTema: (tema: Tema) => void;
@@ -37,24 +37,17 @@ export const Temavalg: FunctionComponent<Props> = props => {
 
     return (
         <div className="temavalg">
-            <Undertittel className="temavalg__label">
+            <Undertittel className="temavalg__label" tag="h2">
                 Hva gjelder det?
             </Undertittel>
             <div className="temavalg__wrapper">{temaknapper}</div>
-            <div className="temavalg__infotekst">
-                <img
-                    className="temavalg__ikon"
-                    src={infosirkel}
-                    alt="informasjonsikon"
-                />
-                <Normaltekst>
-                    For andre henvendelser ber vi deg kontakte
-                    arbeidsgivertelefonen på{' '}
-                    <a href={'tel:+4755553336'} className={'lenke'}>
-                        55&nbsp;55&nbsp;33&nbsp;36
-                    </a>
-                </Normaltekst>
-            </div>
+            <EnkelInfostripe>
+                For andre henvendelser ber vi deg kontakte arbeidsgivertelefonen
+                på{' '}
+                <a href={'tel:+4755553336'} className={'lenke'}>
+                    55&nbsp;55&nbsp;33&nbsp;36
+                </a>
+            </EnkelInfostripe>
         </div>
     );
 };
