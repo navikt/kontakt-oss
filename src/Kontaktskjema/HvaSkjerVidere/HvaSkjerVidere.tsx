@@ -13,8 +13,6 @@ interface Props {
     tema?: Tema;
 }
 
-// TODO Farge på pil-svg?
-// TODO egen tekst for NALS
 // TODO Hva skal skje når tema ikke er valgt? Her viser vi bare standardteksten.
 export const HvaSkjerVidere: FunctionComponent<Props> = props => {
     const skalViseTeksterForSykefravær =

@@ -6,7 +6,6 @@ interface Props {
     svg: any;
     tekst: string;
 }
-// TODO Skal det være tom alt-tekst?
 export const BildeMedTekst: FunctionComponent<Props> = props => {
     return (
         <div className="bilde-med-tekst">

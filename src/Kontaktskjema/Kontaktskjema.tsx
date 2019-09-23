@@ -6,23 +6,18 @@ import { getTema, Tema, TemaType } from '../utils/kontaktskjemaApi';
 import './kontaktskjema.less';
 import { ForebyggeSykefraværEkstradel } from './ForebyggeSykefraværEkstradel/ForebyggeSykefraværEkstradel';
 import { Felter } from './Felter/Felter';
-import {
-    Besvarelse,
-    tomBesvarelse,
-} from '../KontaktOss/Kontaktskjema/besvarelse';
+import { Besvarelse, tomBesvarelse, } from '../KontaktOss/Kontaktskjema/besvarelse';
 import { getKommune } from '../utils/fylker';
 import { SkjemaFelt } from '../KontaktOss/Kontaktskjema/FellesFelter/FellesFelter';
-import {
-    Fylkesinndeling,
-    medFylkesinndeling,
-} from '../KontaktOss/FylkesinndelingProvider';
+import { Fylkesinndeling, medFylkesinndeling, } from '../KontaktOss/FylkesinndelingProvider';
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { validerBesvarelseOgSendInn } from '../KontaktOss/Kontaktskjema/kontaktskjemaUtils';
-import { BEKREFTELSE_PATH, SAMLESIDE_PATH } from '../utils/paths';
-import { Link, RouteComponentProps } from 'react-router-dom';
+import { BEKREFTELSE_PATH } from '../utils/paths';
+import { RouteComponentProps } from 'react-router-dom';
 import { HvaSkjerVidere } from './HvaSkjerVidere/HvaSkjerVidere';
 import { EnkelInfostripe } from './EnkelInfostripe/EnkelInfostripe';
+import { FeatureToggle, FeatureToggles, medFeatureToggles } from '../KontaktOss/FeatureTogglesProvider';
 
 type BesvarelseUtenFylkeOgKommune = Omit<
     Besvarelse,
@@ -31,7 +26,7 @@ type BesvarelseUtenFylkeOgKommune = Omit<
 
 // TODO TAG-826 Fjern "nytt" i navnet, inkl classnames
 const NyttKontaktskjema: FunctionComponent<
-    Fylkesinndeling & RouteComponentProps
+    Fylkesinndeling & RouteComponentProps & FeatureToggles
 > = props => {
     const [valgtTemaType, setTemaType] = useQueryState<TemaType | ''>(
         'tema',
@@ -54,6 +49,10 @@ const NyttKontaktskjema: FunctionComponent<
     const [tekstbesvarelse, setTekstbesvarelse] = useState<
         BesvarelseUtenFylkeOgKommune
     >(tomBesvarelse);
+
+    if (!props[FeatureToggle.NyttUtseendeFeature]) {
+        return null;
+    }
 
     const oppdaterBesvarelse = (
         felt: SkjemaFelt,
@@ -121,8 +120,6 @@ const NyttKontaktskjema: FunctionComponent<
         }
     };
 
-    // TODO Det skal være en avbryt-knapp, hva skjer når man trykker på den? antakeligvis tilbake til samleside
-
     return (
         <div className="nytt-kontaktskjema">
             <div className="nytt-kontaktskjema__innhold">
@@ -164,16 +161,10 @@ const NyttKontaktskjema: FunctionComponent<
                         ? 'Send til NAV Arbeidslivssenter'
                         : 'Send inn'}
                 </Hovedknapp>
-                <Link
-                    to={SAMLESIDE_PATH}
-                    className="nytt-kontaktskjema__avbryt-lenke lenke"
-                >
-                    Avbryt
-                </Link>
                 <HvaSkjerVidere tema={tema} />
             </div>
         </div>
     );
 };
 
-export default medFylkesinndeling(NyttKontaktskjema);
+export default medFeatureToggles(medFylkesinndeling(NyttKontaktskjema));

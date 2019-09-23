@@ -6,7 +6,7 @@ metadata:
   labels:
     team: teamtag
 spec:
-  image: navikt/kontakt-oss:{{version}}
+  image: navikt/kontakt-oss:22e579390f71273399b9bf32922f43394b130bad
   team: teamtag
   port: 3000
   vault:
