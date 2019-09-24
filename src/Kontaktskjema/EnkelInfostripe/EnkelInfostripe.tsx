@@ -1,4 +1,4 @@
-import infosirkel from '../Temavalg/info-sirkel-fyll.svg';
+import infosirkel from './info-sirkel-fyll.svg';
 import { Normaltekst } from 'nav-frontend-typografi';
 import * as React from 'react';
 import { FunctionComponent } from 'react';
