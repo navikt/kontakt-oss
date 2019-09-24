@@ -1,23 +1,16 @@
 import React, { FunctionComponent } from 'react';
 import { Element } from 'nav-frontend-typografi';
-import {
-    getAlfabetiserteKommuner,
-    Kommune,
-} from '../../../../utils/fylker';
-import { SkjemaFelt } from '../FellesFelter';
 import { Select } from 'nav-frontend-skjema';
-import {
-    Fylkesinndeling,
-    medFylkesinndeling,
-} from '../../../FylkesinndelingProvider';
-import '../Felt/Felt.less';
+import { getAlfabetiserteKommuner } from '../../../utils/fylker';
+import { Fylkesinndeling, medFylkesinndeling } from '../../../KontaktOss/FylkesinndelingProvider';
+import { SkjemaFelt } from '../../../KontaktOss/Kontaktskjema/FellesFelter/FellesFelter';
 
 interface Props {
     label: string;
     felt: SkjemaFelt;
-    oppdaterBesvarelse: (id: SkjemaFelt, input: string) => void;
+    oppdaterBesvarelse: (felt: SkjemaFelt, input: string) => void;
     fylkeNokkel?: string;
-    verdi: Kommune;
+    valgtKommunenr: string;
 }
 
 const KommuneFelt: FunctionComponent<Props & Fylkesinndeling> = props => {
@@ -25,13 +18,13 @@ const KommuneFelt: FunctionComponent<Props & Fylkesinndeling> = props => {
         props.fylkesinndeling,
         props.fylkeNokkel
     ).map(kommune => (
-        <option value={JSON.stringify(kommune)} key={kommune.nummer}>
+        <option value={kommune.nummer} key={kommune.nummer}>
             {kommune.navn}
         </option>
     ));
 
     const onChange = (event: any) => {
-        props.oppdaterBesvarelse(props.felt, JSON.parse(event.target.value));
+        props.oppdaterBesvarelse(props.felt, event.target.value);
     };
 
     return (
@@ -40,7 +33,7 @@ const KommuneFelt: FunctionComponent<Props & Fylkesinndeling> = props => {
             className="felt"
             onChange={onChange}
             disabled={kommunerOptions.length === 0}
-            value={JSON.stringify(props.verdi)}
+            value={props.valgtKommunenr}
             data-testid="kommunerDropdown"
         >
             <option value="" key="ingen valgt" />

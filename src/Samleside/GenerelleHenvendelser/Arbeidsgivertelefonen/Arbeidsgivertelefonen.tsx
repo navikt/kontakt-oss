@@ -12,7 +12,7 @@ interface Props {
 export const Arbeidsgivertelefonen: FunctionComponent<Props> = props => {
     return (
         <div className={'arbeidsgivertelefonen ' + props.className}>
-            <img src={telefonSvg} alt="" />
+            <img src={telefonSvg} alt="" className="arbeidsgivertelefonen__ikon"/>
             <div className="arbeidsgivertelefonen__tekst-wrapper">
                 <Element>Arbeidsgivertelefonen</Element>
                 <a

@@ -1,16 +1,37 @@
-export interface FylkeModell {
+import { NyFylkesinndelingType } from '../KontaktOss/FylkesinndelingProvider';
+
+export interface Fylke {
     nokkel: string;
     navn: string;
     hrefKontaktliste: string;
 }
 
-export interface KommuneModell {
+export interface Kommune {
     navn: string;
     nummer: string;
 }
 
+export const tomKommune = {
+    navn: '',
+    nummer: '',
+};
+
+export const getKommune = (
+    kommunenr: string,
+    fylkesinndeling: NyFylkesinndelingType
+): Kommune => {
+    const kommunerMedRiktigNummer = Object.values(fylkesinndeling)
+        .flat()
+        .filter((kommune: Kommune) => kommune.nummer === kommunenr);
+    if (kommunerMedRiktigNummer.length === 1) {
+        return kommunerMedRiktigNummer[0];
+    } else {
+        return tomKommune;
+    }
+};
+
 // tslint:disable max-line-length
-export const fylker: FylkeModell[] = [
+export const fylker: Fylke[] = [
     {
         nokkel: '1000',
         navn: 'Agder (Aust- Agder og Vest-Agder)',
@@ -62,7 +83,8 @@ export const fylker: FylkeModell[] = [
     {
         nokkel: '0800',
         navn: 'Vestfold og Telemark',
-        hrefKontaktliste: 'https://www.nav.no/no/Lokalt/vestfold-og-telemark/relatert-informasjon/markedskontakter',
+        hrefKontaktliste:
+            'https://www.nav.no/no/Lokalt/vestfold-og-telemark/relatert-informasjon/markedskontakter',
     },
     {
         nokkel: '1200',
@@ -99,11 +121,11 @@ export const getHrefTilKontaktliste = (fylkeNokkel?: string): string => {
 export const getAlfabetiserteKommuner = (
     fylkesinndeling: any,
     fylkeNr?: string
-): KommuneModell[] => {
-    if (!fylkeNr || !fylkesinndeling[fylkeNr]) {
+): Kommune[] => {
+    if (!fylkeNr || !fylkesinndeling || !fylkesinndeling[fylkeNr]) {
         return [];
     } else {
-        return (fylkesinndeling[fylkeNr] as KommuneModell[]).sort(
+        return (fylkesinndeling[fylkeNr] as Kommune[]).sort(
             (kommuneA, kommuneB) =>
                 kommuneA.navn.localeCompare(kommuneB.navn, 'nb-NO')
         );

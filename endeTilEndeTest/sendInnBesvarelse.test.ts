@@ -1,6 +1,6 @@
 import { Selector } from 'testcafe';
 
-fixture('Sende inn besvarelse').page('localhost:3000/kontakt-oss/');
+fixture('Sende inn besvarelse').page('localhost:3000/kontakt-oss/kontaktskjema');
 
 test('Skal kunne sende inn en besvarelse', async t => {
     const rekrutteringKnapp = Selector('[data-testid="temaknapp"]').withText(
