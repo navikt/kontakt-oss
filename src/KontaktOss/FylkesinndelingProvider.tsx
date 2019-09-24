@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { FYLKER_OG_KOMMUNER_PATH } from '../utils/paths';
-import { KommuneModell } from '../utils/fylker';
+import { Kommune } from '../utils/fylker';
 
 // TODO TAG-862 Erstatt typen under med denne
-export type NyFylkesinndelingType = { [fylkenr: string]: KommuneModell[] };
+export type NyFylkesinndelingType = { [fylkenr: string]: Kommune[] };
 
 export type Fylkesinndeling = {
     fylkesinndeling: NyFylkesinndelingType;

@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { Element } from 'nav-frontend-typografi';
 import {
     getAlfabetiserteKommuner,
-    KommuneModell,
+    Kommune,
 } from '../../../../utils/fylker';
 import { SkjemaFelt } from '../FellesFelter';
 import { Select } from 'nav-frontend-skjema';
@@ -17,7 +17,7 @@ interface Props {
     felt: SkjemaFelt;
     oppdaterBesvarelse: (id: SkjemaFelt, input: string) => void;
     fylkeNokkel?: string;
-    verdi: KommuneModell;
+    verdi: Kommune;
 }
 
 const KommuneFelt: FunctionComponent<Props & Fylkesinndeling> = props => {

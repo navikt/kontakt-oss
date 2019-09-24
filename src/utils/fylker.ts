@@ -1,14 +1,12 @@
 import { NyFylkesinndelingType } from '../KontaktOss/FylkesinndelingProvider';
 
-export interface FylkeModell {
-    // TODO Rename til Fylke?
+export interface Fylke {
     nokkel: string;
     navn: string;
     hrefKontaktliste: string;
 }
 
-export interface KommuneModell {
-    // TODO Rename til Kommune?
+export interface Kommune {
     navn: string;
     nummer: string;
 }
@@ -21,10 +19,10 @@ export const tomKommune = {
 export const getKommune = (
     kommunenr: string,
     fylkesinndeling: NyFylkesinndelingType
-): KommuneModell => {
+): Kommune => {
     const kommunerMedRiktigNummer = Object.values(fylkesinndeling)
         .flat()
-        .filter((kommune: KommuneModell) => kommune.nummer === kommunenr);
+        .filter((kommune: Kommune) => kommune.nummer === kommunenr);
     if (kommunerMedRiktigNummer.length === 1) {
         return kommunerMedRiktigNummer[0];
     } else {
@@ -33,7 +31,7 @@ export const getKommune = (
 };
 
 // tslint:disable max-line-length
-export const fylker: FylkeModell[] = [
+export const fylker: Fylke[] = [
     {
         nokkel: '1000',
         navn: 'Agder (Aust- Agder og Vest-Agder)',
@@ -123,11 +121,11 @@ export const getHrefTilKontaktliste = (fylkeNokkel?: string): string => {
 export const getAlfabetiserteKommuner = (
     fylkesinndeling: any,
     fylkeNr?: string
-): KommuneModell[] => {
+): Kommune[] => {
     if (!fylkeNr || !fylkesinndeling || !fylkesinndeling[fylkeNr]) {
         return [];
     } else {
-        return (fylkesinndeling[fylkeNr] as KommuneModell[]).sort(
+        return (fylkesinndeling[fylkeNr] as Kommune[]).sort(
             (kommuneA, kommuneB) =>
                 kommuneA.navn.localeCompare(kommuneB.navn, 'nb-NO')
         );

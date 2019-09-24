@@ -1,7 +1,7 @@
-import { KommuneModell, tomKommune } from '../../utils/fylker';
+import { Kommune, tomKommune } from '../../utils/fylker';
 
 export interface Besvarelse {
-    kommune: KommuneModell;
+    kommune: Kommune;
     bedriftsnavn: string;
     orgnr: string;
     fornavn: string;

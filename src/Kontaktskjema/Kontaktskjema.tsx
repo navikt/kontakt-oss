@@ -6,10 +6,16 @@ import { getTema, Tema, TemaType } from '../utils/kontaktskjemaApi';
 import './kontaktskjema.less';
 import { ForebyggeSykefraværEkstradel } from './ForebyggeSykefraværEkstradel/ForebyggeSykefraværEkstradel';
 import { Felter } from './Felter/Felter';
-import { Besvarelse, tomBesvarelse, } from '../KontaktOss/Kontaktskjema/besvarelse';
+import {
+    Besvarelse,
+    tomBesvarelse,
+} from '../KontaktOss/Kontaktskjema/besvarelse';
 import { getKommune } from '../utils/fylker';
 import { SkjemaFelt } from '../KontaktOss/Kontaktskjema/FellesFelter/FellesFelter';
-import { Fylkesinndeling, medFylkesinndeling, } from '../KontaktOss/FylkesinndelingProvider';
+import {
+    Fylkesinndeling,
+    medFylkesinndeling,
+} from '../KontaktOss/FylkesinndelingProvider';
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import { validerBesvarelseOgSendInn } from '../KontaktOss/Kontaktskjema/kontaktskjemaUtils';
@@ -17,7 +23,11 @@ import { BEKREFTELSE_PATH } from '../utils/paths';
 import { RouteComponentProps } from 'react-router-dom';
 import { HvaSkjerVidere } from './HvaSkjerVidere/HvaSkjerVidere';
 import { EnkelInfostripe } from './EnkelInfostripe/EnkelInfostripe';
-import { FeatureToggle, FeatureToggles, medFeatureToggles } from '../KontaktOss/FeatureTogglesProvider';
+import {
+    FeatureToggle,
+    FeatureToggles,
+    medFeatureToggles,
+} from '../KontaktOss/FeatureTogglesProvider';
 
 type BesvarelseUtenFylkeOgKommune = Omit<
     Besvarelse,
@@ -54,6 +64,12 @@ const NyttKontaktskjema: FunctionComponent<
         return null;
     }
 
+    const fjernFeilmeldinger = () =>
+        setInnsendingStatus({
+            senderInn: false,
+            feilmelding: '',
+        });
+
     const oppdaterBesvarelse = (
         felt: SkjemaFelt,
         feltverdi: string | boolean
@@ -69,10 +85,7 @@ const NyttKontaktskjema: FunctionComponent<
             default:
                 setTekstbesvarelse({ ...tekstbesvarelse, [felt]: feltverdi });
         }
-        setInnsendingStatus({
-            senderInn: false,
-            feilmelding: '',
-        });
+        fjernFeilmeldinger();
     };
 
     const besvarelse: Besvarelse = {
@@ -126,6 +139,7 @@ const NyttKontaktskjema: FunctionComponent<
                 <Temavalg
                     velgTema={(tema: Tema) => {
                         setTemaType(tema.type);
+                        fjernFeilmeldinger();
                     }}
                     valgtTemaType={valgtTemaType}
                 />
