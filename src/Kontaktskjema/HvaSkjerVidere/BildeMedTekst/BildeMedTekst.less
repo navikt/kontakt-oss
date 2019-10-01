@@ -1,0 +1,18 @@
+@import '~nav-frontend-core/less/_variabler';
+
+.bilde-med-tekst {
+    margin-top: 2rem;
+    max-width: 10rem;
+
+    &__bilde {
+        margin: 1rem 0;
+    }
+
+    @media (min-width: @screen-sm-min) {
+        margin: 0;
+
+        &__bilde {
+            margin-top: 0;
+        }
+    }
+}

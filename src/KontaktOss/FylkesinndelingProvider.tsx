@@ -1,11 +1,16 @@
 import * as React from 'react';
 import { FYLKER_OG_KOMMUNER_PATH } from '../utils/paths';
+import { Kommune } from '../utils/fylker';
+
+// TODO TAG-862 Erstatt typen under med denne
+export type NyFylkesinndelingType = { [fylkenr: string]: Kommune[] };
 
 export type Fylkesinndeling = {
-    fylkesinndeling: any;
+    fylkesinndeling: NyFylkesinndelingType;
 };
+
 const defaultKommuner: Fylkesinndeling = {
-    fylkesinndeling: undefined,
+    fylkesinndeling: {},
 };
 const FylkesinndelingContext = React.createContext(defaultKommuner);
 const FylkesinndelingConsumer = FylkesinndelingContext.Consumer;

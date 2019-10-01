@@ -1,7 +1,7 @@
-import { KommuneModell } from '../../utils/fylker';
+import { Kommune, tomKommune } from '../../utils/fylker';
 
 export interface Besvarelse {
-    kommune: KommuneModell;
+    kommune: Kommune;
     bedriftsnavn: string;
     orgnr: string;
     fornavn: string;
@@ -14,7 +14,7 @@ export interface Besvarelse {
 
 export const tomBesvarelse = {
     fylke: '',
-    kommune: { navn: '', nummer: '' },
+    kommune: tomKommune,
     bedriftsnavn: '',
     orgnr: '',
     fornavn: '',

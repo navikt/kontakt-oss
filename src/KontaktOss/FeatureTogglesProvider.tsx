@@ -1,14 +1,18 @@
 import * as React from 'react';
 import { featureTogglePath } from '../utils/paths';
 
-export enum FeatureToggle {}
+export enum FeatureToggle {
+    NyttUtseendeFeature = 'kontakt-oss.nytt-utseende',
+}
 // f.eks. ForebyggeSykefraværFeature = 'kontakt-oss.forebygge-sykefravaer',
 
 export interface FeatureToggles {
+    [FeatureToggle.NyttUtseendeFeature]: boolean;
     // f.eks. [FeatureToggle.ForebyggeSykefraværFeature]: boolean;
 }
 
 const defaultFeatureToggles: FeatureToggles = {
+    [FeatureToggle.NyttUtseendeFeature]: false,
     // f.eks. [FeatureToggle.ForebyggeSykefraværFeature]: false,
 };
 
@@ -26,9 +30,7 @@ export class FeatureTogglesProvider extends React.Component<
     }
 
     componentDidMount() {
-        const features = Object.keys(FeatureToggle).map(
-            key => FeatureToggle[key as any]
-        );
+        const features = Object.values(FeatureToggle);
         if (features.length > 0) {
             fetch(featureTogglePath(features))
                 .then(response => response.json())

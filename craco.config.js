@@ -1,4 +1,7 @@
 const CracoLessPlugin = require('craco-less');
+const proxy = require('http-proxy-middleware');
+
+const apiProxyPath = '/kontakt-oss/api';
 
 module.exports = {
     devServer: {
@@ -7,12 +10,17 @@ module.exports = {
                 res.json({});
             });
 
+            app.use(
+                proxy(apiProxyPath, {
+                    target: 'http://localhost:8080/kontakt-oss-api',
+                    changeOrigin: true,
+                    pathRewrite: (path, req) => path.replace(apiProxyPath, ''),
+                })
+            );
+
             app.get('/kontakt-oss/static/js/settings.js', (req, res) => {
                 res.send("window.appSettings = {MILJO: 'lokalt'};");
             });
-            // TODO: Konfigurer slik at {{{NAV_STYLES}}} ++ fjernes
-            // https://webpack.js.org/configuration/dev-server/
-            // https://github.com/navikt/foreldrepengeplanlegger/blob/master/src/build/webpack/devserver.config.js
         },
     },
     plugins: [{ plugin: CracoLessPlugin }],
