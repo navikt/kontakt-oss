@@ -8,6 +8,7 @@ const sonekrysning = require('./sonekrysning');
 const basePath = require('./basePath');
 const createEnvSettingsFile = require('./envSettings');
 const apiMetrics = require('prometheus-api-metrics');
+const { setUpMetrikker } = require('./metrikker');
 
 const BASE_PATH = '/kontakt-oss';
 const buildPath = path.join(__dirname, '../../build');
@@ -19,6 +20,12 @@ app.set('view engine', 'mustache');
 app.set('views', buildPath);
 
 createEnvSettingsFile(path.resolve(`${buildPath}/static/js/settings.js`));
+
+const metrikk = {
+    navn: 'kontakt_oss_api_gw',
+    endepunkt: '/kontakt-oss-api/internal/healthcheck',
+    beskrivelse: 'Status til kontak-oss-api via GW. 1 betyr oppe, 0 betyr nede.'};
+setUpMetrikker(metrikk, 60 * 1000);
 
 const renderApp = decoratorFragments =>
     new Promise((resolve, reject) => {
