@@ -12,23 +12,22 @@ export const RekrutteringOgInkludering = () => (
             alt=""
         />
         <Undertittel className="blokk-xs kontaktpunkt-tema__tittel">
-            Rekruttering og inkludering
+            Rekruttere og inkludere
         </Undertittel>
         <Normaltekst className="blokk-xs">
-            Rekruttere nye medarbeidere? Få svar på spørsmål om tilskudd,
-            oppfølging og tilrettelegging? Du kan bruke kontaktskjema eller
-            kontakte en av NAVs markedskontakter i ditt fylke direkte gjennom
-            telefonlistene.
+            Vurderer du å rekruttere og inkludere nye medarbeidere? Har du
+            spørsmål om tiltak og tilrettelegging? Ta kontakt med oss for en
+            uforpliktende prat.{' '}
         </Normaltekst>
-        <Element className="blokk-xs">Her får du svar:</Element>
+        <Element className="blokk-xs">Her kan du få svar:</Element>
         <Link to={KONTAKTSKJEMA_PATH} className="lenke blokk-xs">
-            Kontaktskjema
+            Send kontaktskjema til ditt NAV-kontor
         </Link>
         <Link to={FYLKESVELGER_PATH} className="lenke blokk-xs">
-            Telefonlister
+            Ring en markedskontakt
         </Link>
         <a href={'tel:+4755553336'} className="lenke blokk-xs">
-            Arbeidsgivertelefonen
+            Ring arbeidsgivertelefonen
         </a>
     </div>
 );

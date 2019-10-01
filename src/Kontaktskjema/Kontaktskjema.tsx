@@ -28,6 +28,8 @@ import {
     FeatureToggles,
     medFeatureToggles,
 } from '../KontaktOss/FeatureTogglesProvider';
+import Banner from '../Banner/Banner';
+import bannerIllustrasjon from './illustrasjon.svg';
 
 type BesvarelseUtenFylkeOgKommune = Omit<
     Besvarelse,
@@ -134,50 +136,57 @@ const NyttKontaktskjema: FunctionComponent<
     };
 
     return (
-        <div className="nytt-kontaktskjema">
-            <div className="nytt-kontaktskjema__innhold">
-                <Temavalg
-                    velgTema={(tema: Tema) => {
-                        setTemaType(tema.type);
-                        fjernFeilmeldinger();
-                    }}
-                    valgtTemaType={valgtTemaType}
-                />
-                {valgtTemaType === TemaType.ForebyggeSykefravær && (
-                    <ForebyggeSykefraværEkstradel
+        <>
+            <Banner
+                tekst="Kontaktskjema - arbeidsgiver"
+                illustrasjon={bannerIllustrasjon}
+                illustrasjonAltTekst=""
+            />
+            <div className="nytt-kontaktskjema">
+                <div className="nytt-kontaktskjema__innhold">
+                    <Temavalg
+                        velgTema={(tema: Tema) => {
+                            setTemaType(tema.type);
+                            fjernFeilmeldinger();
+                        }}
+                        valgtTemaType={valgtTemaType}
+                    />
+                    {valgtTemaType === TemaType.ForebyggeSykefravær && (
+                        <ForebyggeSykefraværEkstradel
+                            oppdaterBesvarelse={oppdaterBesvarelse}
+                            besvarelse={besvarelse}
+                        />
+                    )}
+                    <Felter
                         oppdaterBesvarelse={oppdaterBesvarelse}
                         besvarelse={besvarelse}
                     />
-                )}
-                <Felter
-                    oppdaterBesvarelse={oppdaterBesvarelse}
-                    besvarelse={besvarelse}
-                />
-                <EnkelInfostripe classname="nytt-kontaktskjema__infostripe">
-                    NAV bruker disse opplysningene når vi kontakter deg. Vi
-                    lagrer disse opplysningene om deg, slik at vi kan kontakte
-                    deg om{' '}
-                    {tema ? tema.tekst.toLowerCase() : 'ditt valgte tema'} i
-                    bedriften du representerer. Opplysningene blir ikke delt
-                    eller brukt til andre formål.
-                </EnkelInfostripe>
-                {innsendingStatus.feilmelding && (
-                    <AlertStripeAdvarsel className="nytt-kontaktskjema__feilmelding">
-                        {innsendingStatus.feilmelding}
-                    </AlertStripeAdvarsel>
-                )}
-                <Hovedknapp
-                    onClick={sendInnOnClick}
-                    data-testid="sendinn"
-                    className="nytt-kontaktskjema__knapp"
-                >
-                    {valgtTemaType === TemaType.ForebyggeSykefravær
-                        ? 'Send til NAV Arbeidslivssenter'
-                        : 'Send inn'}
-                </Hovedknapp>
-                <HvaSkjerVidere tema={tema} />
+                    <EnkelInfostripe classname="nytt-kontaktskjema__infostripe">
+                        NAV bruker disse opplysningene når vi kontakter deg. Vi
+                        lagrer disse opplysningene om deg, slik at vi kan
+                        kontakte deg om{' '}
+                        {tema ? tema.tekst.toLowerCase() : 'ditt valgte tema'} i
+                        bedriften du representerer. Opplysningene blir ikke delt
+                        eller brukt til andre formål.
+                    </EnkelInfostripe>
+                    {innsendingStatus.feilmelding && (
+                        <AlertStripeAdvarsel className="nytt-kontaktskjema__feilmelding">
+                            {innsendingStatus.feilmelding}
+                        </AlertStripeAdvarsel>
+                    )}
+                    <Hovedknapp
+                        onClick={sendInnOnClick}
+                        data-testid="sendinn"
+                        className="nytt-kontaktskjema__knapp"
+                    >
+                        {valgtTemaType === TemaType.ForebyggeSykefravær
+                            ? 'Send til NAV Arbeidslivssenter'
+                            : 'Send inn'}
+                    </Hovedknapp>
+                    <HvaSkjerVidere tema={tema} />
+                </div>
             </div>
-        </div>
+        </>
     );
 };
 
