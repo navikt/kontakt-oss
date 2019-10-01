@@ -1,10 +1,12 @@
 import React from 'react';
 import './Banner.less';
 import { Sidetittel } from 'nav-frontend-typografi';
-import bannerIllustrasjon from './bannerIllustrasjon.svg';
+import defaultIllustrasjon from './bannerIllustrasjon.svg';
 
 interface Props {
     tekst: string;
+    illustrasjon?: any;
+    illustrasjonAltTekst?: string;
 }
 
 const Banner: React.FunctionComponent<Props> = props => {
@@ -14,8 +16,8 @@ const Banner: React.FunctionComponent<Props> = props => {
                 <Sidetittel className="banner__tekst">{props.tekst}</Sidetittel>
                 <img
                     className="banner__illustrasjon"
-                    src={bannerIllustrasjon}
-                    alt=""
+                    src={props.illustrasjon || defaultIllustrasjon}
+                    alt={props.illustrasjonAltTekst || ''}
                 />
             </div>
         </div>

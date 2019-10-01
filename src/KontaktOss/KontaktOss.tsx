@@ -6,6 +6,7 @@ import { scrollToBanner } from '../utils/scrollUtils';
 import { Tema, TemaType } from '../utils/kontaktskjemaApi';
 import './KontaktOss.less';
 import KontaktskjemaContainer from './Kontaktskjema/KontaktskjemaContainer';
+import Banner from '../Banner/Banner';
 
 interface State {
     tema?: Tema;
@@ -34,20 +35,26 @@ class KontaktOss extends React.Component<RouteComponentProps, State> {
             return <ArbeidsgiverTlfInfo />;
         } else {
             return (
-                <KontaktskjemaContainer tema={this.state.tema!} {...this.props} />
+                <KontaktskjemaContainer
+                    tema={this.state.tema!}
+                    {...this.props}
+                />
             );
         }
     };
 
     render() {
         return (
-            <div className="kontakt-oss">
-                <Temaknapper
-                    velgTema={this.velgTema}
-                    valgtTema={this.state.tema}
-                />
-                {this.hentSide(this.state.tema)}
-            </div>
+            <>
+                <Banner tekst="Kontaktskjema - arbeidsgiver" />
+                <div className="kontakt-oss">
+                    <Temaknapper
+                        velgTema={this.velgTema}
+                        valgtTema={this.state.tema}
+                    />
+                    {this.hentSide(this.state.tema)}
+                </div>
+            </>
         );
     }
 }

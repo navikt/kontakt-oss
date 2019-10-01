@@ -10,7 +10,7 @@ import { FeatureToggle, FeatureToggles } from '../KontaktOss/FeatureTogglesProvi
 fetchMock.get(FYLKER_OG_KOMMUNER_PATH, fylkesinndeling);
 
 const featureToggleResponse: FeatureToggles = {
-    [FeatureToggle.NyttUtseendeFeature]: true
+    [FeatureToggle.NyttUtseendeFeature]: false
 };
 
 fetchMock.get('begin:' + FEATURE_TOGGLE_BASEPATH, featureToggleResponse);
