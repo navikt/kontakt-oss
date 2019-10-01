@@ -21,7 +21,7 @@ export const Arbeidsgivertelefonen: FunctionComponent<Props> = props => {
                 >
                     55 55 33 36
                 </a>
-                <Normaltekst>Kl. 08:00–15:00 (hverdager)</Normaltekst>
+                <Normaltekst>Kl. 08:00–15:30 (hverdager)</Normaltekst>
             </div>
         </div>
     );
