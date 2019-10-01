@@ -10,16 +10,15 @@ export const OppfølgingEnkeltperson = () => (
             alt=""
         />
         <Undertittel className="blokk-xs kontaktpunkt-tema__tittel">
-            Oppfølging av en enkeltperson
+            Oppfølging av enkeltperson
         </Undertittel>
         <Normaltekst className="blokk-xs">
-            Ønsker du å komme i kontakt med NAV angående en enkeltperson? Da kan
-            du ringe arbeidsgivertelefonen som setter deg i kontakt med rett
-            person i NAV.
+            Dersom henvendelsen din gjelder en enkeltperson kan du ringe
+            arbeidsgivertelefonen som hjelper deg videre.
         </Normaltekst>
-        <Element className="blokk-xs">Her får du svar:</Element>
+        <Element className="blokk-xs">Her få du svar:</Element>
         <a href={'tel:+4755553336'} className="lenke blokk-xs">
-            Arbeidsgivertelefonen
+            Ring arbeidsgivertelefonen
         </a>
     </div>
 );

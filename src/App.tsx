@@ -10,7 +10,7 @@ class App extends React.Component {
         return (
             <FeatureTogglesProvider>
                 <FylkesinndelingProvider>
-                    <Banner tekst="Kontakt NAV som arbeidsgiver" />
+                    <Banner tekst="Kontakt NAV - arbeidsgiver" />
                     <Router/>
                 </FylkesinndelingProvider>
             </FeatureTogglesProvider>
