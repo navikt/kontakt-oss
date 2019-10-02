@@ -17,16 +17,16 @@ export const RekrutteringOgInkludering = () => (
         <Normaltekst className="blokk-xs">
             Vurderer du å rekruttere og inkludere nye medarbeidere? Har du
             spørsmål om tiltak og tilrettelegging? Ta kontakt med oss for en
-            uforpliktende prat.{' '}
+            uforpliktende prat.
         </Normaltekst>
-        <Element className="blokk-xs">Her kan du få svar:</Element>
-        <Link to={KONTAKTSKJEMA_PATH} className="lenke blokk-xs">
-            Send kontaktskjema til ditt NAV-kontor
+        <Element className="blokk-xs">Kontakt oss:</Element>
+        <Link to={KONTAKTSKJEMA_PATH} className="kontaktpunkt-tema__lenke">
+            Send kontaktskjema til NAV-kontoret ditt
         </Link>
-        <Link to={FYLKESVELGER_PATH} className="lenke blokk-xs">
+        <Link to={FYLKESVELGER_PATH} className="kontaktpunkt-tema__lenke">
             Ring en markedskontakt
         </Link>
-        <a href={'tel:+4755553336'} className="lenke blokk-xs">
+        <a href={'tel:+4755553336'} className="kontaktpunkt-tema__lenke">
             Ring arbeidsgivertelefonen
         </a>
     </div>
