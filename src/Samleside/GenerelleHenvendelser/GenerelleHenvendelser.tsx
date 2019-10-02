@@ -13,7 +13,11 @@ export const GenerelleHenvendelser: FunctionComponent = () => {
                     tag="h2"
                     className="generelle-henvendelser__tittel"
                 >
+<<<<<<< Updated upstream
                     Generelle henvendelser
+=======
+                    Arbeidsgivertelefonen
+>>>>>>> Stashed changes
                 </Systemtittel>
                 <Normaltekst>
                     Hos arbeidsgivertelefonen får du generell informasjon,

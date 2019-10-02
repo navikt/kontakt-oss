@@ -15,9 +15,15 @@ export const ForebyggeSykefravær = () => (
             Forebygge sykefravær
         </Undertittel>
         <Normaltekst className="blokk-xs">
+<<<<<<< Updated upstream
             Ønsker du hjelp til forebygging av sykevær eller å hindre frafall
             fra arbeidslivet? NAV Arbeidslivssenter samarbeider med virksomheter
             om et mer inkluderende arbeidsliv.
+=======
+            Trenger du hjelp til å forebygge sykefravær eller frafall i
+            virksomheten din? Arbeidslivssentrene gir råd og samarbeider om
+            inkludering på arbeidsplassen.
+>>>>>>> Stashed changes
         </Normaltekst>
         <Element className="blokk-xs">Her kan du få svar:</Element>
         <Link to={KONTAKTSKJEMA_PATH + '?tema=FOREBYGGE_SYKEFRAVÆR'} className="lenke blokk-xs">
