@@ -1,4 +1,8 @@
 @import '~nav-frontend-core/less/_variabler';
+@import '~nav-frontend-lenker-style/src/lenker-style';
+@import '~nav-frontend-typografi-style/src/mixins';
+@import '~nav-frontend-typografi-style/src/fontimports';
+
 
 .andre-kontaktpunkter {
     @media (min-width: 700px) {
@@ -19,6 +23,12 @@
 
     &__tittel {
         text-align: center;
+    }
+
+    &__lenke {
+        .lenke-mixin();
+        .typo-normal-mixin();
+        margin-bottom: 1rem;
     }
 
     @media (min-width: 700px) {

@@ -13,13 +13,13 @@ export const GenerelleHenvendelser: FunctionComponent = () => {
                     tag="h2"
                     className="generelle-henvendelser__tittel"
                 >
-                    Generelle henvendelser
+                    Generell informasjon
                 </Systemtittel>
                 <Normaltekst>
-                    Hos arbeidsgivertelefonen får du generell informasjon,
-                    opplysning om status i sak og veiledning i bruk av
-                    selvbetjente løsninger. Vi hjelper deg også med å komme i
-                    kontakt med andre veiledere i NAV.
+                    Arbeidsgivertelefonen gir generell informasjon, opplysning
+                    om status i en sak og veiledning i selvbetjente løsninger.
+                    Vi hjelper deg også med å komme i kontakt med andre
+                    veiledere i NAV.
                 </Normaltekst>
             </div>
             <Arbeidsgivertelefonen className="generelle-henvendelser__arbeidsgivertelefonen" />
