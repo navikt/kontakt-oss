@@ -22,11 +22,11 @@ export const ForebyggeSykefravær = () => (
         <Element className="blokk-xs">Her kan du få svar:</Element>
         <Link
             to={KONTAKTSKJEMA_PATH + '?tema=FOREBYGGE_SYKEFRAVÆR'}
-            className="lenke blokk-xs"
+            className="kontaktpunkt-tema__lenke"
         >
             Send kontaktskjema til NAV Arbeidslivssenter
         </Link>
-        <a href={'tel:+4755553336'} className="lenke blokk-xs">
+        <a href={'tel:+4755553336'} className="kontaktpunkt-tema__lenke">
             Ring arbeidsgivertelefonen
         </a>
     </div>
