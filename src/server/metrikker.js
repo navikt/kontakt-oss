@@ -1,29 +1,33 @@
 const Prometheus = require('prom-client');
-const { httpClient } = require('./httpClient');
+const axios = require('axios');
 
 const envProperties = {
     API_GATEWAY: process.env.API_GATEWAY || 'http://localhost:8080',
     APIGW_HEADER: process.env.APIGW_HEADER,
 };
 
-const setUpMetrikker = (metrikk, intervalInMillis) => {
-    const URL = `${envProperties.API_GATEWAY}${metrikk.endepunkt}`;
-    console.log(
-        `Det blir hentet status metrikker på applikasjon bak url '${URL}' med interval '${intervalInMillis} ms'`
-    );
 
+const setUpMetrikker = (intervalInMillis) => {
+    const URL = `${envProperties.API_GATEWAY}/kontakt-oss-api/internal/healthcheck`;
     const erOppeGauge = new Prometheus.Gauge({
-        name: metrikk.navn, help: metrikk.beskrivelse
+        name: 'kontakt_oss_api_gw',
+        help: 'Status til kontak-oss-api via GW. 1 betyr oppe, 0 betyr nede.'
     });
 
     setInterval( async () => {
-        return await hentEndepunktStatusResultat(URL).then( resultat => {
-            erOppeGauge.set(resultat.status === 200 ? 1 : 0);
+        return await hentEndepunktStatus(URL).then( status => {
+            erOppeGauge.set(status === 200 ? 1 : 0);
         });
     }, intervalInMillis);
+
+    console.log(
+        `Det blir hentet status metrikker på endepunktet '${URL}' med interval '${intervalInMillis} ms'`
+    );
 };
 
-const hentEndepunktStatusResultat = async (url) => {
+const hentEndepunktStatus = async (url) => {
+    const httpClient = axios.create();
+
     if (envProperties.APIGW_HEADER) {
         httpClient.defaults.headers.common['x-nav-apiKey'] = envProperties.APIGW_HEADER;
     }
@@ -32,18 +36,10 @@ const hentEndepunktStatusResultat = async (url) => {
         const response = await httpClient.get(url, {
             withCredentials: true,
         });
-        return endepunktStatusResultat(response.status, response.data, url);
+        return response.status;
     } catch (error) {
-        return endepunktStatusResultat('kall til API feilet', error.message, url);
+        return error.status;
     }
-};
-
-const endepunktStatusResultat = (status, data, url) => {
-    return {
-        status,
-        data,
-        url,
-    };
 };
 
 module.exports = { setUpMetrikker };

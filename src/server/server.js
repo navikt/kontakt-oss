@@ -20,12 +20,7 @@ app.set('view engine', 'mustache');
 app.set('views', buildPath);
 
 createEnvSettingsFile(path.resolve(`${buildPath}/static/js/settings.js`));
-
-const metrikk = {
-    navn: 'kontakt_oss_api_gw',
-    endepunkt: '/kontakt-oss-api/internal/healthcheck',
-    beskrivelse: 'Status til kontak-oss-api via GW. 1 betyr oppe, 0 betyr nede.'};
-setUpMetrikker(metrikk, 60 * 1000);
+setUpMetrikker(60 * 1000);
 
 const renderApp = decoratorFragments =>
     new Promise((resolve, reject) => {
