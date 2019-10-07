@@ -17,7 +17,7 @@ export const Samleside: FunctionComponent<FeatureToggles> = props => {
 
     return (
         <>
-            <Banner tekst="Kontakt NAV - arbeidsgiver" />
+            <Banner tekst="Kontakt NAV – arbeidsgiver" />
             <div className="samleside">
                 <GenerelleHenvendelser />
                 <AndreKontaktpunkter />

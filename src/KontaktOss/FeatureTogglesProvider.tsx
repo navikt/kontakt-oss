@@ -12,7 +12,7 @@ export interface FeatureToggles {
 }
 
 const defaultFeatureToggles: FeatureToggles = {
-    [FeatureToggle.NyttUtseendeFeature]: false,
+    [FeatureToggle.NyttUtseendeFeature]: true,
     // f.eks. [FeatureToggle.ForebyggeSykefraværFeature]: false,
 };
 

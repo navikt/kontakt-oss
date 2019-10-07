@@ -138,7 +138,7 @@ const NyttKontaktskjema: FunctionComponent<
     return (
         <>
             <Banner
-                tekst="Kontaktskjema - arbeidsgiver"
+                tekst="Kontaktskjema – arbeidsgiver"
                 illustrasjon={bannerIllustrasjon}
                 illustrasjonAltTekst=""
             />
