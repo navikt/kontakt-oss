@@ -18,7 +18,7 @@ const Fylkesvelger: FunctionComponent<FeatureToggles> = props => {
 
     return (
         <>
-            <Banner tekst="Kontakt NAV - arbeidsgiver" />
+            <Banner tekst="Kontakt NAV – arbeidsgiver" />
             <div className="fylkesvelger">
                 <Innholdstittel className="fylkesvelger__tittel" tag="h2">
                     Velg fylke

@@ -13,7 +13,7 @@ class Bekreftelse extends React.Component {
     render() {
         return (
             <>
-                <Banner tekst="Kontaktskjema - arbeidsgiver" />
+                <Banner tekst="Kontaktskjema – arbeidsgiver" />
                 <div
                     className="kontaktskjema-bekreftelse"
                     data-testid="bekreftelse"

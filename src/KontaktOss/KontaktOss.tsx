@@ -46,7 +46,7 @@ class KontaktOss extends React.Component<RouteComponentProps, State> {
     render() {
         return (
             <>
-                <Banner tekst="Kontaktskjema - arbeidsgiver" />
+                <Banner tekst="Kontaktskjema – arbeidsgiver" />
                 <div className="kontakt-oss">
                     <Temaknapper
                         velgTema={this.velgTema}
