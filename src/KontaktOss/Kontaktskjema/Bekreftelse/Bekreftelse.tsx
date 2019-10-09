@@ -1,9 +1,9 @@
 import * as React from 'react';
 import Bekreftelseboks from './Bekreftelseboks/Bekreftelseboks';
-import BekreftelseLenkepanel from './LenkepanelBekreftelse/LenkepanelBekreftelse';
 import { scrollToBanner } from '../../../utils/scrollUtils';
 import './Bekreftelse.less';
 import Banner from '../../../Banner/Banner';
+import { HvaSkjerVidere } from '../../../Kontaktskjema/HvaSkjerVidere/HvaSkjerVidere'
 
 class Bekreftelse extends React.Component {
     componentDidMount() {
@@ -20,7 +20,7 @@ class Bekreftelse extends React.Component {
                 >
                     <div className="kontaktskjema-bekreftelse__innhold">
                         <Bekreftelseboks />
-                        <BekreftelseLenkepanel />
+                        <HvaSkjerVidere />
                     </div>
                 </div>
             </>
