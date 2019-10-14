@@ -1,11 +1,9 @@
 import * as React from 'react';
 import Normaltekst from 'nav-frontend-typografi/lib/normaltekst';
-import Systemtittel from 'nav-frontend-typografi/lib/systemtittel';
 import Veilederpanel from 'nav-frontend-veilederpanel';
 import konvolutt from './konvolutt.svg';
 import './Bekreftelseboks.less';
 import { Innholdstittel } from 'nav-frontend-typografi';
-import { NavLink } from 'react-router-dom';
 
 const Bekreftelseboks = () => (
     <div className="bekreftelseboks">
