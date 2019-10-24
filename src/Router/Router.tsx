@@ -1,4 +1,4 @@
-import { BASE_PATH, BEKREFTELSE_PATH, FYLKESVELGER_PATH, KONTAKTSKJEMA_PATH, } from '../utils/paths';
+import { BASE_PATH, BEKREFTELSE_PATH, FYLKESVELGER_PATH, KONTAKTSKJEMA_PATH } from '../utils/paths';
 import { Route, Switch } from 'react-router';
 import KontaktOss from '../KontaktOss/KontaktOss';
 import Bekreftelse from '../KontaktOss/Kontaktskjema/Bekreftelse/Bekreftelse';
@@ -8,15 +8,15 @@ import Samleside from '../Samleside/Samleside';
 import { BrowserRouter } from 'react-router-dom';
 import * as React from 'react';
 import { FunctionComponent } from 'react';
-import { FeatureToggle, FeatureToggles, medFeatureToggles, } from '../KontaktOss/FeatureTogglesProvider';
+import { medFeatureToggles } from '../KontaktOss/FeatureTogglesProvider';
 
-const Router: FunctionComponent<FeatureToggles> = props => {
-    const forside = props[FeatureToggle.NyttUtseendeFeature] ? Samleside : KontaktOss;
+const Router: FunctionComponent = () => {
+    const test = KontaktOss;
 
     return (
         <BrowserRouter basename={BASE_PATH}>
             <Switch>
-                <Route exact={true} path="/" component={forside} />
+                <Route exact={true} path="/" component={Samleside} />
                 <Route
                     exact={true}
                     path={BEKREFTELSE_PATH}
