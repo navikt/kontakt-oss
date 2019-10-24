@@ -11,9 +11,9 @@ import {
     telefonnummerOk,
 } from '../../KontaktOss/Kontaktskjema/validering';
 import { Undertittel } from 'nav-frontend-typografi';
-import { SkjemaFelt } from '../../KontaktOss/Kontaktskjema/FellesFelter/FellesFelter';
 
 import './Felter.less';
+import { SkjemaFelt } from '../../KontaktOss/Kontaktskjema/FellesFelter/felter';
 
 interface Props {
     besvarelse: Besvarelse;

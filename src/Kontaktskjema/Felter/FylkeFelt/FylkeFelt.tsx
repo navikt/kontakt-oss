@@ -2,7 +2,7 @@ import { default as React, FunctionComponent } from 'react';
 import { Select } from 'nav-frontend-skjema';
 import { Element } from 'nav-frontend-typografi';
 import { fylker } from '../../../utils/fylker';
-import { SkjemaFelt } from '../../../KontaktOss/Kontaktskjema/FellesFelter/FellesFelter';
+import { SkjemaFelt } from '../../../KontaktOss/Kontaktskjema/FellesFelter/felter';
 
 interface Props {
     label: string;

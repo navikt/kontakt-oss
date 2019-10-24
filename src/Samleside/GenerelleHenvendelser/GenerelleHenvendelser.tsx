@@ -2,8 +2,9 @@ import * as React from 'react';
 import { FunctionComponent } from 'react';
 import PanelBase from 'nav-frontend-paneler';
 import './GenerelleHenvendelser.less';
-import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 import { Arbeidsgivertelefonen } from './Arbeidsgivertelefonen/Arbeidsgivertelefonen';
+import { Systemtittel } from 'nav-frontend-typografi';
+import Normaltekst from 'nav-frontend-typografi/lib/normaltekst';
 
 export const GenerelleHenvendelser: FunctionComponent = () => {
     return (

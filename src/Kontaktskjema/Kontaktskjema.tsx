@@ -11,7 +11,6 @@ import {
     tomBesvarelse,
 } from '../KontaktOss/Kontaktskjema/besvarelse';
 import { getKommune } from '../utils/fylker';
-import { SkjemaFelt } from '../KontaktOss/Kontaktskjema/FellesFelter/FellesFelter';
 import {
     Fylkesinndeling,
     medFylkesinndeling,
@@ -30,6 +29,7 @@ import {
 } from '../KontaktOss/FeatureTogglesProvider';
 import Banner from '../Banner/Banner';
 import bannerIllustrasjon from './illustrasjon.svg';
+import { SkjemaFelt } from '../KontaktOss/Kontaktskjema/FellesFelter/felter';
 
 type BesvarelseUtenFylkeOgKommune = Omit<
     Besvarelse,

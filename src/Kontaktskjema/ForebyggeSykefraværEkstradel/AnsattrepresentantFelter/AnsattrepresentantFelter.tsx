@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { RadioPanel } from 'nav-frontend-skjema';
-import { SkjemaFelt } from '../../FellesFelter/FellesFelter';
-import { Besvarelse } from '../../besvarelse';
+import { Besvarelse } from '../../../KontaktOss/Kontaktskjema/besvarelse';
 
 import "./ansattrepresentantFelter.less";
+import { SkjemaFelt } from '../../../KontaktOss/Kontaktskjema/FellesFelter/felter';
 
 interface Props {
     besvarelse: Besvarelse;
