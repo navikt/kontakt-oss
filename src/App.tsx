@@ -1,5 +1,4 @@
 import * as React from 'react';
-import './App.less';
 import { FeatureTogglesProvider } from './providers/FeatureTogglesProvider';
 import { FylkesinndelingProvider } from './providers/FylkesinndelingProvider';
 import Router from './Router/Router';
