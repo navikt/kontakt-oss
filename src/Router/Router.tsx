@@ -1,7 +1,7 @@
 import { BASE_PATH, BEKREFTELSE_PATH, FYLKESVELGER_PATH, KONTAKTSKJEMA_PATH } from '../utils/paths';
 import { Route, Switch } from 'react-router';
 import Bekreftelse from '../Bekreftelse/Bekreftelse';
-import NyttKontaktskjema from '../Kontaktskjema/Kontaktskjema';
+import Kontaktskjema from '../Kontaktskjema/Kontaktskjema';
 import Fylkesvelger from '../Fylkesvelger/Fylkesvelger';
 import Samleside from '../Samleside/Samleside';
 import { BrowserRouter } from 'react-router-dom';
@@ -22,7 +22,7 @@ const Router: FunctionComponent = () => {
                 <Route
                     exact={true}
                     path={KONTAKTSKJEMA_PATH}
-                    component={NyttKontaktskjema}
+                    component={Kontaktskjema}
                 />
                 <Route
                     exact={true}

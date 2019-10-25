@@ -31,8 +31,7 @@ type BesvarelseUtenFylkeOgKommune = Omit<
     SkjemaFelt.kommune | SkjemaFelt.fylke
 >;
 
-// TODO TAG-826 Fjern "nytt" i navnet, inkl classnames
-const NyttKontaktskjema: FunctionComponent<
+const Kontaktskjema: FunctionComponent<
     Fylkesinndeling & RouteComponentProps & FeatureToggles
 > = props => {
     const [valgtTemaType, setTemaType] = useQueryState<TemaType | ''>(
@@ -137,8 +136,8 @@ const NyttKontaktskjema: FunctionComponent<
                 illustrasjon={bannerIllustrasjon}
                 illustrasjonAltTekst=""
             />
-            <div className="nytt-kontaktskjema">
-                <div className="nytt-kontaktskjema__innhold">
+            <div className="kontaktskjema">
+                <div className="kontaktskjema__innhold">
                     <Temavalg
                         velgTema={(tema: Tema) => {
                             setTemaType(tema.type);
@@ -156,7 +155,7 @@ const NyttKontaktskjema: FunctionComponent<
                         oppdaterBesvarelse={oppdaterBesvarelse}
                         besvarelse={besvarelse}
                     />
-                    <EnkelInfostripe classname="nytt-kontaktskjema__infostripe">
+                    <EnkelInfostripe classname="kontaktskjema__infostripe">
                         NAV bruker disse opplysningene når vi kontakter deg. Vi
                         lagrer disse opplysningene om deg, slik at vi kan
                         kontakte deg om{' '}
@@ -165,14 +164,14 @@ const NyttKontaktskjema: FunctionComponent<
                         eller brukt til andre formål.
                     </EnkelInfostripe>
                     {innsendingStatus.feilmelding && (
-                        <AlertStripeAdvarsel className="nytt-kontaktskjema__feilmelding">
+                        <AlertStripeAdvarsel className="kontaktskjema__feilmelding">
                             {innsendingStatus.feilmelding}
                         </AlertStripeAdvarsel>
                     )}
                     <Hovedknapp
                         onClick={sendInnOnClick}
                         data-testid="sendinn"
-                        className="nytt-kontaktskjema__knapp"
+                        className="kontaktskjema__knapp"
                     >
                         {valgtTemaType === TemaType.ForebyggeSykefravær
                             ? 'Send til NAV Arbeidslivssenter'
@@ -185,4 +184,4 @@ const NyttKontaktskjema: FunctionComponent<
     );
 };
 
-export default medFeatureToggles(medFylkesinndeling(NyttKontaktskjema));
+export default medFeatureToggles(medFylkesinndeling(Kontaktskjema));

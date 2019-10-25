@@ -2,7 +2,7 @@ import * as React from 'react';
 import { FunctionComponent } from 'react';
 import {
     Tema,
-    temaerForNyttKontaktskjema,
+    temaer,
     TemaType,
 } from '../../utils/kontaktskjemaApi';
 import { logEvent, mapTilTemaEvent } from '../../utils/metricsUtils';
@@ -23,7 +23,7 @@ export const Temavalg: FunctionComponent<Props> = props => {
         logEvent(`kontakt-oss.tema.${mapTilTemaEvent(tema)}`);
     };
 
-    const temaknapper = temaerForNyttKontaktskjema.map(tema => {
+    const temaknapper = temaer.map(tema => {
         return (
             <Temaknapp
                 key={tema.type}

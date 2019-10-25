@@ -22,34 +22,6 @@ export const temaer: Tema[] = [
         tekst: 'Rekruttering',
     },
     {
-        type: TemaType.ForebyggeSykefravær,
-        tekst: 'Forebygge sykefravær',
-    },
-    {
-        type: TemaType.RekrutteringMedTilrettelegging,
-        tekst: 'Rekruttering med tilrettelegging',
-    },
-    {
-        type: TemaType.OppfølgingAvEnArbeidstaker,
-        tekst: 'Oppfølging av en arbeidstaker',
-    },
-    {
-        type: TemaType.Arbeidstrening,
-        tekst: 'Arbeidstrening',
-    },
-    {
-        type: TemaType.Annet,
-        tekst: 'Annet',
-    },
-];
-
-// TODO TAG-826 Slett arrayen over
-export const temaerForNyttKontaktskjema: Tema[] = [
-    {
-        type: TemaType.Rekruttering,
-        tekst: 'Rekruttering',
-    },
-    {
         type: TemaType.RekrutteringMedTilrettelegging,
         tekst: 'Rekruttering med tilrettelegging',
     },
