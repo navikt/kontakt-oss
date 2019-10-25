@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { Element } from 'nav-frontend-typografi';
 import { Select } from 'nav-frontend-skjema';
 import { getAlfabetiserteKommuner } from '../../../utils/fylker';
-import { Fylkesinndeling, medFylkesinndeling } from '../../../providers/FylkesinndelingProvider';
+import { FylkesinndelingProps, medFylkesinndeling } from '../../../providers/FylkesinndelingProvider';
 import { SkjemaFelt } from '../../utils/kontaktskjemaUtils';
 
 interface Props {
@@ -13,7 +13,7 @@ interface Props {
     valgtKommunenr: string;
 }
 
-const KommuneFelt: FunctionComponent<Props & Fylkesinndeling> = props => {
+const KommuneFelt: FunctionComponent<Props & FylkesinndelingProps> = props => {
     const kommunerOptions = getAlfabetiserteKommuner(
         props.fylkesinndeling,
         props.fylkeNokkel

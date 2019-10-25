@@ -9,8 +9,6 @@ interface Props {
     className: string;
 }
 
-
-//TODO Større margin på moblk, mindre på desktop
 export const Arbeidsgivertelefonen: FunctionComponent<Props> = props => {
     return (
         <div className={'arbeidsgivertelefonen ' + props.className}>

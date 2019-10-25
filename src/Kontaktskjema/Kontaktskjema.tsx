@@ -8,7 +8,7 @@ import { ForebyggeSykefraværEkstradel } from './ForebyggeSykefraværEkstradel/F
 import { Felter } from './Felter/Felter';
 import { getKommune } from '../utils/fylker';
 import {
-    Fylkesinndeling,
+    FylkesinndelingProps,
     medFylkesinndeling,
 } from '../providers/FylkesinndelingProvider';
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
@@ -32,7 +32,7 @@ type BesvarelseUtenFylkeOgKommune = Omit<
 >;
 
 const Kontaktskjema: FunctionComponent<
-    Fylkesinndeling & RouteComponentProps
+    FylkesinndelingProps & RouteComponentProps
 > = props => {
     const [valgtTemaType, setTemaType] = useQueryState<TemaType | ''>(
         'tema',

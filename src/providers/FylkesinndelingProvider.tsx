@@ -2,26 +2,27 @@ import * as React from 'react';
 import { FYLKER_OG_KOMMUNER_PATH } from '../utils/paths';
 import { Kommune } from '../utils/fylker';
 
-// TODO TAG-862 Erstatt typen under med denne
-export type NyFylkesinndelingType = { [fylkenr: string]: Kommune[] };
+export type Fylkesinndeling = { [fylkenr: string]: Kommune[] };
 
-export type Fylkesinndeling = {
-    fylkesinndeling: NyFylkesinndelingType;
+export type FylkesinndelingProps = {
+    fylkesinndeling: Fylkesinndeling;
 };
 
-const defaultKommuner: Fylkesinndeling = {
+const defaultFylkesinndeling: FylkesinndelingProps = {
     fylkesinndeling: {},
 };
-const FylkesinndelingContext = React.createContext(defaultKommuner);
+const FylkesinndelingContext = React.createContext<FylkesinndelingProps>(
+    defaultFylkesinndeling
+);
 const FylkesinndelingConsumer = FylkesinndelingContext.Consumer;
 
 export class FylkesinndelingProvider extends React.Component<
     {},
-    Fylkesinndeling
+    FylkesinndelingProps
 > {
     constructor(props: {}) {
         super(props);
-        this.state = defaultKommuner;
+        this.state = defaultFylkesinndeling;
     }
 
     componentDidMount(): void {
@@ -47,11 +48,11 @@ export class FylkesinndelingProvider extends React.Component<
 }
 
 export function medFylkesinndeling<PROPS>(
-    Component: React.ComponentType<Fylkesinndeling & PROPS>
+    Component: React.ComponentType<FylkesinndelingProps & PROPS>
 ): React.ComponentType<PROPS> {
     return (props: PROPS) => (
         <FylkesinndelingConsumer>
-            {(fylkesinndeling: Fylkesinndeling) => (
+            {(fylkesinndeling: FylkesinndelingProps) => (
                 <Component {...props} {...fylkesinndeling} />
             )}
         </FylkesinndelingConsumer>
