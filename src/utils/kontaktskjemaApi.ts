@@ -6,8 +6,6 @@ export enum TemaType {
     Rekruttering = 'REKRUTTERING',
     RekrutteringMedTilrettelegging = 'REKRUTTERING_MED_TILRETTELEGGING',
     Arbeidstrening = 'ARBEIDSTRENING',
-    OppfølgingAvEnArbeidstaker = 'OPPFØLGING_AV_EN_ARBEIDSTAKER',
-    Annet = 'ANNET',
     ForebyggeSykefravær = 'FOREBYGGE_SYKEFRAVÆR',
 }
 
