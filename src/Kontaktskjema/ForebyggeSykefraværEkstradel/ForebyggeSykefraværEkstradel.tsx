@@ -3,7 +3,7 @@ import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import './ForebyggeSykefraværEkstradel.less';
 import { AnsattrepresentantFelter } from './AnsattrepresentantFelter/AnsattrepresentantFelter';
 import { FunctionComponent } from 'react';
-import { Besvarelse, SkjemaFelt } from '../kontaktskjemaUtils';
+import { Besvarelse, SkjemaFelt } from '../utils/kontaktskjemaUtils';
 
 interface Props {
     besvarelse: Besvarelse;

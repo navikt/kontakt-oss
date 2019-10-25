@@ -7,7 +7,7 @@ import {
     FeatureToggle,
     FeatureToggles,
     medFeatureToggles,
-} from '../KontaktOss/FeatureTogglesProvider';
+} from '../providers/FeatureTogglesProvider';
 import Banner from '../Banner/Banner';
 
 export const Samleside: FunctionComponent<FeatureToggles> = props => {

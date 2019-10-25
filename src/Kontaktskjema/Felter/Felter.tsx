@@ -8,11 +8,11 @@ import {
     inneholderKunVanligeTegn,
     orgnrOk,
     telefonnummerOk,
-} from '../validering';
+} from '../utils/validering';
 import { Undertittel } from 'nav-frontend-typografi';
 
 import './Felter.less';
-import { Besvarelse, SkjemaFelt } from '../kontaktskjemaUtils';
+import { Besvarelse, SkjemaFelt } from '../utils/kontaktskjemaUtils';
 
 interface Props {
     besvarelse: Besvarelse;

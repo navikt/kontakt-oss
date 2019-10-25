@@ -10,10 +10,10 @@ import { getKommune } from '../utils/fylker';
 import {
     Fylkesinndeling,
     medFylkesinndeling,
-} from '../KontaktOss/FylkesinndelingProvider';
+} from '../providers/FylkesinndelingProvider';
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import { Hovedknapp } from 'nav-frontend-knapper';
-import { Besvarelse, SkjemaFelt, tomBesvarelse, validerBesvarelseOgSendInn } from './kontaktskjemaUtils';
+import { Besvarelse, SkjemaFelt, tomBesvarelse, validerBesvarelseOgSendInn } from './utils/kontaktskjemaUtils';
 import { BEKREFTELSE_PATH } from '../utils/paths';
 import { RouteComponentProps } from 'react-router-dom';
 import { HvaSkjerVidere } from './HvaSkjerVidere/HvaSkjerVidere';
@@ -22,7 +22,7 @@ import {
     FeatureToggle,
     FeatureToggles,
     medFeatureToggles,
-} from '../KontaktOss/FeatureTogglesProvider';
+} from '../providers/FeatureTogglesProvider';
 import Banner from '../Banner/Banner';
 import bannerIllustrasjon from './illustrasjon.svg';
 

@@ -1,7 +1,7 @@
-import { sendKontaktskjema, Tema } from '../utils/kontaktskjemaApi';
+import { sendKontaktskjema, Tema } from '../../utils/kontaktskjemaApi';
 import { validerBesvarelse } from './validering';
-import { logFail, logSendInnKlikk, logSuccess } from '../utils/metricsUtils';
-import { Kommune, tomKommune } from '../utils/fylker';
+import { logFail, logSendInnKlikk, logSuccess } from '../../utils/metricsUtils';
+import { Kommune, tomKommune } from '../../utils/fylker';
 
 interface SendInnBesvarelseResultat {
     ok: boolean;

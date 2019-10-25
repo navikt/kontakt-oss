@@ -5,7 +5,7 @@ import {
     SEND_KONTAKTSKJEMA_PATH,
 } from '../utils/paths';
 import fylkesinndeling from './fylkesinndeling.json';
-import { FeatureToggle, FeatureToggles } from '../KontaktOss/FeatureTogglesProvider';
+import { FeatureToggle, FeatureToggles } from '../providers/FeatureTogglesProvider';
 
 fetchMock.get(FYLKER_OG_KOMMUNER_PATH, fylkesinndeling);
 

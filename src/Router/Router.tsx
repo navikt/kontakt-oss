@@ -7,7 +7,7 @@ import Samleside from '../Samleside/Samleside';
 import { BrowserRouter } from 'react-router-dom';
 import * as React from 'react';
 import { FunctionComponent } from 'react';
-import { medFeatureToggles } from '../KontaktOss/FeatureTogglesProvider';
+import { medFeatureToggles } from '../providers/FeatureTogglesProvider';
 
 const Router: FunctionComponent = () => {
     return (

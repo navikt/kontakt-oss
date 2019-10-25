@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Input } from 'nav-frontend-skjema';
 import { Element } from 'nav-frontend-typografi';
 import './ValidertFelt.less';
-import { SkjemaFelt } from '../../kontaktskjemaUtils';
+import { SkjemaFelt } from '../../utils/kontaktskjemaUtils';
 
 interface Props {
     label: string;

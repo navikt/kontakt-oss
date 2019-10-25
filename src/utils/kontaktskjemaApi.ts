@@ -1,6 +1,6 @@
 import { SEND_KONTAKTSKJEMA_PATH } from './paths';
 import { fjernWhitespace } from './stringUtils';
-import { Besvarelse } from '../Kontaktskjema/kontaktskjemaUtils';
+import { Besvarelse } from '../Kontaktskjema/utils/kontaktskjemaUtils';
 
 export enum TemaType {
     Rekruttering = 'REKRUTTERING',

@@ -1,4 +1,4 @@
-import { NyFylkesinndelingType } from '../KontaktOss/FylkesinndelingProvider';
+import { NyFylkesinndelingType } from '../providers/FylkesinndelingProvider';
 
 export interface Fylke {
     nokkel: string;

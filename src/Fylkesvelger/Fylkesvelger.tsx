@@ -5,7 +5,7 @@ import {
     FeatureToggle,
     FeatureToggles,
     medFeatureToggles,
-} from '../KontaktOss/FeatureTogglesProvider';
+} from '../providers/FeatureTogglesProvider';
 
 import './Fylkesvelger.less';
 import Banner from '../Banner/Banner';
