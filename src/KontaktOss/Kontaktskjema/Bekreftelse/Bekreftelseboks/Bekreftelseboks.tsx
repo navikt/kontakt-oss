@@ -1,9 +1,8 @@
 import * as React from 'react';
-import Normaltekst from 'nav-frontend-typografi/lib/normaltekst';
-import Systemtittel from 'nav-frontend-typografi/lib/systemtittel';
 import Veilederpanel from 'nav-frontend-veilederpanel';
 import checkmarkIkon from './checkmark.svg';
 import './Bekreftelseboks.less';
+import { Normaltekst, Systemtittel } from 'nav-frontend-typografi';
 
 const Bekreftelseboks = () => (
     <div className="bekreftelseboks">

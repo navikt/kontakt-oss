@@ -1,8 +1,8 @@
 import * as React from 'react';
 import Veilederpanel from 'nav-frontend-veilederpanel';
-import Normaltekst from 'nav-frontend-typografi/lib/normaltekst';
 import veilederBilde from './kvinne.svg';
 import './ArbeidsgiverTlfInfo.less';
+import { Normaltekst } from 'nav-frontend-typografi';
 
 const ArbeidsgiverTlfInfo = () => {
     return (

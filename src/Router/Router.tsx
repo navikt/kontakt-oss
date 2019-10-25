@@ -1,6 +1,5 @@
 import { BASE_PATH, BEKREFTELSE_PATH, FYLKESVELGER_PATH, KONTAKTSKJEMA_PATH } from '../utils/paths';
 import { Route, Switch } from 'react-router';
-import deleteme from './delete-me';
 import Bekreftelse from '../KontaktOss/Kontaktskjema/Bekreftelse/Bekreftelse';
 import NyttKontaktskjema from '../Kontaktskjema/Kontaktskjema';
 import Fylkesvelger from '../Fylkesvelger/Fylkesvelger';
@@ -9,9 +8,6 @@ import { BrowserRouter } from 'react-router-dom';
 import * as React from 'react';
 import { FunctionComponent } from 'react';
 import { medFeatureToggles } from '../KontaktOss/FeatureTogglesProvider';
-
-// Aner ikke hvorfor, men hvis dette slettes kommer det feilmeldinger om importering.
-const d = deleteme; // eslint-disable-line @typescript-eslint/no-unused-vars
 
 const Router: FunctionComponent = () => {
     return (

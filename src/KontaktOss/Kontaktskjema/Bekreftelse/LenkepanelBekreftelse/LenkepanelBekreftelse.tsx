@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { Undertittel } from 'nav-frontend-typografi';
-import Normaltekst from 'nav-frontend-typografi/lib/normaltekst';
-import { LenkepanelBase } from 'nav-frontend-lenkepanel/lib';
+import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
+import { LenkepanelBase } from 'nav-frontend-lenkepanel';
 import { VEIVISER_URL } from '../../../../utils/konstanter';
 import veiledereIllustrasjon from './veiledere.svg';
 import './LenkepanelBekreftelse.less';

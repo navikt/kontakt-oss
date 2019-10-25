@@ -1,6 +1,5 @@
 import React, { FunctionComponent } from 'react';
 import { fylker } from '../utils/fylker';
-import Lenkepanel from 'nav-frontend-lenkepanel/lib';
 import { Innholdstittel } from 'nav-frontend-typografi';
 import {
     FeatureToggle,
@@ -10,6 +9,7 @@ import {
 
 import './Fylkesvelger.less';
 import Banner from '../Banner/Banner';
+import Lenkepanel from 'nav-frontend-lenkepanel';
 
 const Fylkesvelger: FunctionComponent<FeatureToggles> = props => {
     if (!props[FeatureToggle.NyttUtseendeFeature]) {
