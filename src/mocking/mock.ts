@@ -10,7 +10,6 @@ import { FeatureToggle, FeatureToggles } from '../providers/FeatureTogglesProvid
 fetchMock.get(FYLKER_OG_KOMMUNER_PATH, fylkesinndeling);
 
 const featureToggleResponse: FeatureToggles = {
-    [FeatureToggle.NyttUtseendeFeature]: true
 };
 
 fetchMock.get('begin:' + FEATURE_TOGGLE_BASEPATH, featureToggleResponse);

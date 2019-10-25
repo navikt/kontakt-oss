@@ -2,17 +2,14 @@ import * as React from 'react';
 import { featureTogglePath } from '../utils/paths';
 
 export enum FeatureToggle {
-    NyttUtseendeFeature = 'kontakt-oss.nytt-utseende',
 }
 // f.eks. ForebyggeSykefraværFeature = 'kontakt-oss.forebygge-sykefravaer',
 
 export interface FeatureToggles {
-    [FeatureToggle.NyttUtseendeFeature]: boolean;
     // f.eks. [FeatureToggle.ForebyggeSykefraværFeature]: boolean;
 }
 
 const defaultFeatureToggles: FeatureToggles = {
-    [FeatureToggle.NyttUtseendeFeature]: true,
     // f.eks. [FeatureToggle.ForebyggeSykefraværFeature]: false,
 };
 

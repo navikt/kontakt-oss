@@ -13,16 +13,16 @@ import {
 } from '../providers/FylkesinndelingProvider';
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import { Hovedknapp } from 'nav-frontend-knapper';
-import { Besvarelse, SkjemaFelt, tomBesvarelse, validerBesvarelseOgSendInn } from './utils/kontaktskjemaUtils';
+import {
+    Besvarelse,
+    SkjemaFelt,
+    tomBesvarelse,
+    validerBesvarelseOgSendInn,
+} from './utils/kontaktskjemaUtils';
 import { BEKREFTELSE_PATH } from '../utils/paths';
 import { RouteComponentProps } from 'react-router-dom';
 import { HvaSkjerVidere } from './HvaSkjerVidere/HvaSkjerVidere';
 import { EnkelInfostripe } from './EnkelInfostripe/EnkelInfostripe';
-import {
-    FeatureToggle,
-    FeatureToggles,
-    medFeatureToggles,
-} from '../providers/FeatureTogglesProvider';
 import Banner from '../Banner/Banner';
 import bannerIllustrasjon from './illustrasjon.svg';
 
@@ -32,7 +32,7 @@ type BesvarelseUtenFylkeOgKommune = Omit<
 >;
 
 const Kontaktskjema: FunctionComponent<
-    Fylkesinndeling & RouteComponentProps & FeatureToggles
+    Fylkesinndeling & RouteComponentProps
 > = props => {
     const [valgtTemaType, setTemaType] = useQueryState<TemaType | ''>(
         'tema',
@@ -55,10 +55,6 @@ const Kontaktskjema: FunctionComponent<
     const [tekstbesvarelse, setTekstbesvarelse] = useState<
         BesvarelseUtenFylkeOgKommune
     >(tomBesvarelse);
-
-    if (!props[FeatureToggle.NyttUtseendeFeature]) {
-        return null;
-    }
 
     const fjernFeilmeldinger = () =>
         setInnsendingStatus({
@@ -184,4 +180,4 @@ const Kontaktskjema: FunctionComponent<
     );
 };
 
-export default medFeatureToggles(medFylkesinndeling(Kontaktskjema));
+export default medFylkesinndeling(Kontaktskjema);
