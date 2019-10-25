@@ -3,7 +3,7 @@ import { Element } from 'nav-frontend-typografi';
 import { Select } from 'nav-frontend-skjema';
 import { getAlfabetiserteKommuner } from '../../../utils/fylker';
 import { Fylkesinndeling, medFylkesinndeling } from '../../../KontaktOss/FylkesinndelingProvider';
-import { SkjemaFelt } from '../../../KontaktOss/Kontaktskjema/FellesFelter/felter';
+import { SkjemaFelt } from '../../kontaktskjemaUtils';
 
 interface Props {
     label: string;

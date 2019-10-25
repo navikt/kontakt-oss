@@ -1,9 +1,9 @@
 import * as React from 'react';
 import Bekreftelseboks from './Bekreftelseboks/Bekreftelseboks';
 import BekreftelseLenkepanel from './LenkepanelBekreftelse/LenkepanelBekreftelse';
-import { scrollToBanner } from '../../../utils/scrollUtils';
+import { scrollToBanner } from '../utils/scrollUtils';
 import './Bekreftelse.less';
-import Banner from '../../../Banner/Banner';
+import Banner from '../Banner/Banner';
 
 class Bekreftelse extends React.Component {
     componentDidMount() {

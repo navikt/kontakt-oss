@@ -1,18 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Input } from 'nav-frontend-skjema';
 import { Element } from 'nav-frontend-typografi';
-import './Felt.less';
-import { SkjemaFelt } from '../felter';
+import './ValidertFelt.less';
+import { SkjemaFelt } from '../../kontaktskjemaUtils';
 
 interface Props {
     label: string;
     felt: SkjemaFelt;
+    feilmelding: string;
+    validering: (input: string) => boolean;
     oppdaterBesvarelse: (id: SkjemaFelt, input: string) => void;
     verdi: string;
     'data-testid': string;
 }
 
-const Felt = (props: Props) => {
+const ValidertFelt = (props: Props) => {
+    const [visFeilmelding, settVisFeilmelding] = useState<boolean>(false);
+
+    const feilmelding = visFeilmelding
+        ? { feilmelding: props.feilmelding }
+        : undefined;
+
     const onChange = (event: any) => {
         props.oppdaterBesvarelse(props.felt, event.target.value);
     };
@@ -22,10 +30,14 @@ const Felt = (props: Props) => {
             className="felt"
             label={<Element>{props.label}</Element>}
             onChange={onChange}
+            onBlur={() => {
+                settVisFeilmelding(!props.validering(props.verdi));
+            }}
             value={props.verdi}
+            feil={feilmelding}
             data-testid={props['data-testid']}
         />
     );
 };
 
-export default Felt;
+export default ValidertFelt;

@@ -1,7 +1,7 @@
-import { validerOrgnr } from '../../utils/orgnrUtils';
-import { fjernWhitespace, inneholderKunSifre } from '../../utils/stringUtils';
-import { Besvarelse } from './besvarelse';
-import { Tema, TemaType } from '../../utils/kontaktskjemaApi';
+import { validerOrgnr } from '../utils/orgnrUtils';
+import { fjernWhitespace, inneholderKunSifre } from '../utils/stringUtils';
+import { Tema, TemaType } from '../utils/kontaktskjemaApi';
+import { Besvarelse } from './kontaktskjemaUtils';
 
 const LATIN = "a-zA-Z- –'._)(/";
 const SAMISK = 'ÁáČčĐđŊŋŠšŦŧŽž';

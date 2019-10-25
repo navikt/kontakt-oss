@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi';
 import { LenkepanelBase } from 'nav-frontend-lenkepanel';
-import { VEIVISER_URL } from '../../../../utils/konstanter';
+import { VEIVISER_URL } from '../../utils/konstanter';
 import veiledereIllustrasjon from './veiledere.svg';
 import './LenkepanelBekreftelse.less';
 

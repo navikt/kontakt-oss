@@ -6,10 +6,6 @@ import { getTema, Tema, TemaType } from '../utils/kontaktskjemaApi';
 import './kontaktskjema.less';
 import { ForebyggeSykefraværEkstradel } from './ForebyggeSykefraværEkstradel/ForebyggeSykefraværEkstradel';
 import { Felter } from './Felter/Felter';
-import {
-    Besvarelse,
-    tomBesvarelse,
-} from '../KontaktOss/Kontaktskjema/besvarelse';
 import { getKommune } from '../utils/fylker';
 import {
     Fylkesinndeling,
@@ -17,7 +13,7 @@ import {
 } from '../KontaktOss/FylkesinndelingProvider';
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import { Hovedknapp } from 'nav-frontend-knapper';
-import { validerBesvarelseOgSendInn } from '../KontaktOss/Kontaktskjema/kontaktskjemaUtils';
+import { Besvarelse, SkjemaFelt, tomBesvarelse, validerBesvarelseOgSendInn } from './kontaktskjemaUtils';
 import { BEKREFTELSE_PATH } from '../utils/paths';
 import { RouteComponentProps } from 'react-router-dom';
 import { HvaSkjerVidere } from './HvaSkjerVidere/HvaSkjerVidere';
@@ -29,7 +25,6 @@ import {
 } from '../KontaktOss/FeatureTogglesProvider';
 import Banner from '../Banner/Banner';
 import bannerIllustrasjon from './illustrasjon.svg';
-import { SkjemaFelt } from '../KontaktOss/Kontaktskjema/FellesFelter/felter';
 
 type BesvarelseUtenFylkeOgKommune = Omit<
     Besvarelse,

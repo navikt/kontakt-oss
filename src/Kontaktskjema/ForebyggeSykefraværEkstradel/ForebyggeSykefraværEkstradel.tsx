@@ -2,9 +2,8 @@ import * as React from 'react';
 import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import './ForebyggeSykefraværEkstradel.less';
 import { AnsattrepresentantFelter } from './AnsattrepresentantFelter/AnsattrepresentantFelter';
-import { Besvarelse } from '../../KontaktOss/Kontaktskjema/besvarelse';
 import { FunctionComponent } from 'react';
-import { SkjemaFelt } from '../../KontaktOss/Kontaktskjema/FellesFelter/felter';
+import { Besvarelse, SkjemaFelt } from '../kontaktskjemaUtils';
 
 interface Props {
     besvarelse: Besvarelse;

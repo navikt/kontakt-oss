@@ -4,8 +4,8 @@ import {
     telefonnummerOk,
     validerBesvarelse,
 } from './validering';
-import { Besvarelse } from './besvarelse';
-import { Tema, TemaType } from '../../utils/kontaktskjemaApi';
+import { Tema, TemaType } from '../utils/kontaktskjemaApi';
+import { Besvarelse } from './kontaktskjemaUtils';
 
 const gyldigBesvarelse: Besvarelse = {
     kommune: {
