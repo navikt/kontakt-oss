@@ -6,28 +6,23 @@ import { getTema, Tema, TemaType } from '../utils/kontaktskjemaApi';
 import './kontaktskjema.less';
 import { ForebyggeSykefraværEkstradel } from './ForebyggeSykefraværEkstradel/ForebyggeSykefraværEkstradel';
 import { Felter } from './Felter/Felter';
-import {
-    Besvarelse,
-    tomBesvarelse,
-} from '../KontaktOss/Kontaktskjema/besvarelse';
 import { getKommune } from '../utils/fylker';
-import { SkjemaFelt } from '../KontaktOss/Kontaktskjema/FellesFelter/FellesFelter';
 import {
-    Fylkesinndeling,
+    FylkesinndelingProps,
     medFylkesinndeling,
-} from '../KontaktOss/FylkesinndelingProvider';
+} from '../providers/FylkesinndelingProvider';
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import { Hovedknapp } from 'nav-frontend-knapper';
-import { validerBesvarelseOgSendInn } from '../KontaktOss/Kontaktskjema/kontaktskjemaUtils';
+import {
+    Besvarelse,
+    SkjemaFelt,
+    tomBesvarelse,
+    validerBesvarelseOgSendInn,
+} from './utils/kontaktskjemaUtils';
 import { BEKREFTELSE_PATH } from '../utils/paths';
 import { RouteComponentProps } from 'react-router-dom';
 import { HvaSkjerVidere } from './HvaSkjerVidere/HvaSkjerVidere';
 import { EnkelInfostripe } from './EnkelInfostripe/EnkelInfostripe';
-import {
-    FeatureToggle,
-    FeatureToggles,
-    medFeatureToggles,
-} from '../KontaktOss/FeatureTogglesProvider';
 import Banner from '../Banner/Banner';
 import bannerIllustrasjon from './illustrasjon.svg';
 
@@ -36,9 +31,8 @@ type BesvarelseUtenFylkeOgKommune = Omit<
     SkjemaFelt.kommune | SkjemaFelt.fylke
 >;
 
-// TODO TAG-826 Fjern "nytt" i navnet, inkl classnames
-const NyttKontaktskjema: FunctionComponent<
-    Fylkesinndeling & RouteComponentProps & FeatureToggles
+const Kontaktskjema: FunctionComponent<
+    FylkesinndelingProps & RouteComponentProps
 > = props => {
     const [valgtTemaType, setTemaType] = useQueryState<TemaType | ''>(
         'tema',
@@ -61,10 +55,6 @@ const NyttKontaktskjema: FunctionComponent<
     const [tekstbesvarelse, setTekstbesvarelse] = useState<
         BesvarelseUtenFylkeOgKommune
     >(tomBesvarelse);
-
-    if (!props[FeatureToggle.NyttUtseendeFeature]) {
-        return null;
-    }
 
     const fjernFeilmeldinger = () =>
         setInnsendingStatus({
@@ -142,8 +132,8 @@ const NyttKontaktskjema: FunctionComponent<
                 illustrasjon={bannerIllustrasjon}
                 illustrasjonAltTekst=""
             />
-            <div className="nytt-kontaktskjema">
-                <div className="nytt-kontaktskjema__innhold">
+            <div className="kontaktskjema">
+                <div className="kontaktskjema__innhold">
                     <Temavalg
                         velgTema={(tema: Tema) => {
                             setTemaType(tema.type);
@@ -161,7 +151,7 @@ const NyttKontaktskjema: FunctionComponent<
                         oppdaterBesvarelse={oppdaterBesvarelse}
                         besvarelse={besvarelse}
                     />
-                    <EnkelInfostripe classname="nytt-kontaktskjema__infostripe">
+                    <EnkelInfostripe classname="kontaktskjema__infostripe">
                         NAV bruker disse opplysningene når vi kontakter deg. Vi
                         lagrer disse opplysningene om deg, slik at vi kan
                         kontakte deg om{' '}
@@ -170,14 +160,14 @@ const NyttKontaktskjema: FunctionComponent<
                         eller brukt til andre formål.
                     </EnkelInfostripe>
                     {innsendingStatus.feilmelding && (
-                        <AlertStripeAdvarsel className="nytt-kontaktskjema__feilmelding">
+                        <AlertStripeAdvarsel className="kontaktskjema__feilmelding">
                             {innsendingStatus.feilmelding}
                         </AlertStripeAdvarsel>
                     )}
                     <Hovedknapp
                         onClick={sendInnOnClick}
                         data-testid="sendinn"
-                        className="nytt-kontaktskjema__knapp"
+                        className="kontaktskjema__knapp"
                     >
                         {valgtTemaType === TemaType.ForebyggeSykefravær
                             ? 'Send til NAV Arbeidslivssenter'
@@ -190,4 +180,4 @@ const NyttKontaktskjema: FunctionComponent<
     );
 };
 
-export default medFeatureToggles(medFylkesinndeling(NyttKontaktskjema));
+export default medFylkesinndeling(Kontaktskjema);

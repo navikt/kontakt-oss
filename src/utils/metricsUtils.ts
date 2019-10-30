@@ -38,12 +38,8 @@ export const mapTilTemaEvent = (tema?: Tema): string => {
             return 'rekruttering-med-tilrettelegging';
         case TemaType.Arbeidstrening:
             return 'arbeidstrening';
-        case TemaType.OppfølgingAvEnArbeidstaker:
-            return 'oppfolging-av-arbeidstaker';
         case TemaType.ForebyggeSykefravær:
             return 'forebygge-sykefravaer';
-        case TemaType.Annet:
-            return 'annet';
         default:
             return 'default';
     }

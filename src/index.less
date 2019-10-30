@@ -3,8 +3,30 @@
 @import "~nav-frontend-lenker-style";
 @import "~nav-frontend-alertstriper-style";
 
-@import "./styles/decorator-override";
-
 #root {
   background-color: white;
+}
+
+// Overriding av dekoratør-styling
+.siteheader {
+  @media (min-width: 48.0625em) {
+    .topnavsection .topnav {
+      padding-top: 0px;
+    }
+    .topnavsection-wrapper {
+      a {
+        color: black;
+      }
+    }
+  }
+
+  @media (max-width: 48.0625em) {
+    .hodefot a {
+      color: white;
+    }
+
+    .hodefot .typo-etikett-stor {
+      color: white;
+    }
+  }
 }

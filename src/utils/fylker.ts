@@ -1,4 +1,4 @@
-import { NyFylkesinndelingType } from '../KontaktOss/FylkesinndelingProvider';
+import { Fylkesinndeling } from '../providers/FylkesinndelingProvider';
 
 export interface Fylke {
     nokkel: string;
@@ -18,7 +18,7 @@ export const tomKommune = {
 
 export const getKommune = (
     kommunenr: string,
-    fylkesinndeling: NyFylkesinndelingType
+    fylkesinndeling: Fylkesinndeling
 ): Kommune => {
     const kommunerMedRiktigNummer = Object.values(fylkesinndeling)
         .flat()
