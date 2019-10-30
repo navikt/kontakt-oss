@@ -1,13 +1,12 @@
 import React, { FunctionComponent } from 'react';
 import { fylker } from '../utils/fylker';
 import { Innholdstittel } from 'nav-frontend-typografi';
-import { FeatureToggles } from '../providers/FeatureTogglesProvider';
 
 import './Fylkesvelger.less';
 import Banner from '../Banner/Banner';
 import Lenkepanel from 'nav-frontend-lenkepanel';
 
-const Fylkesvelger: FunctionComponent<FeatureToggles> = () => (
+const Fylkesvelger: FunctionComponent = () => (
     <>
         <Banner tekst="Kontakt NAV – arbeidsgiver" />
         <div className="fylkesvelger">
