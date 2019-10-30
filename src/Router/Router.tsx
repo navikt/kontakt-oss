@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router';
 import Bekreftelse from '../Bekreftelse/Bekreftelse';
 import Kontaktskjema from '../Kontaktskjema/Kontaktskjema';
 import Fylkesvelger from '../Fylkesvelger/Fylkesvelger';
-import Samleside from '../Samleside/Samleside';
+import Forside from '../Forside/Forside';
 import { BrowserRouter } from 'react-router-dom';
 import * as React from 'react';
 import { FunctionComponent } from 'react';
@@ -13,7 +13,7 @@ const Router: FunctionComponent = () => {
     return (
         <BrowserRouter basename={BASE_PATH}>
             <Switch>
-                <Route exact={true} path="/" component={Samleside} />
+                <Route exact={true} path="/" component={Forside} />
                 <Route
                     exact={true}
                     path={BEKREFTELSE_PATH}

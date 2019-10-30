@@ -1,19 +1,19 @@
 import * as React from 'react';
 import { FunctionComponent } from 'react';
 import { GenerelleHenvendelser } from './GenerelleHenvendelser/GenerelleHenvendelser';
-import './Samleside.less';
+import './Forside.less';
 import { AndreKontaktpunkter } from './AndreKontaktpunkter/AndreKontaktpunkter';
 import { FeatureToggles } from '../providers/FeatureTogglesProvider';
 import Banner from '../Banner/Banner';
 
-export const Samleside: FunctionComponent<FeatureToggles> = () => (
+export const Forside: FunctionComponent<FeatureToggles> = () => (
     <>
         <Banner tekst="Kontakt NAV – arbeidsgiver" />
-        <div className="samleside">
+        <div className="forside">
             <GenerelleHenvendelser />
             <AndreKontaktpunkter />
         </div>
     </>
 );
 
-export default Samleside;
+export default Forside;
