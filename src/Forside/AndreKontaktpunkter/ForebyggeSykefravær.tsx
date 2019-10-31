@@ -19,7 +19,7 @@ export const ForebyggeSykefravær = () => (
             virksomheten din? Arbeidslivssentrene gir råd og samarbeider om
             inkludering på arbeidsplassen.
         </Normaltekst>
-        <Element className="blokk-xs">Her kan du få svar:</Element>
+        <Element className="blokk-xs">Kontakt oss:</Element>
         <Link
             to={KONTAKTSKJEMA_PATH + '?tema=FOREBYGGE_SYKEFRAVÆR'}
             className="kontaktpunkt-tema__lenke"
