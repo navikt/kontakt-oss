@@ -115,7 +115,7 @@ const Kontaktskjema: FunctionComponent<
         );
 
         if (sendInnResultat.ok) {
-            props.history.push(BEKREFTELSE_PATH);
+            props.history.push(BEKREFTELSE_PATH + '?tema=' + tema.type);
         } else {
             setInnsendingStatus({
                 feilmelding: sendInnResultat.feilmelding,

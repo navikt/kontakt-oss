@@ -2,27 +2,37 @@
 
 .bekreftelseboks {
     .nav-veilederpanel {
-      background-color: @navGronnLighten80;
-      text-align: center;
-      margin-bottom: 1.5rem;
-      padding: 5rem 1rem 3rem;
+        background-color: white;
+        text-align: center;
+        margin: 5rem 0 1rem;
+        padding: 5rem 1rem 3rem;
+        border: none;
 
-      .nav-veileder__frame img, .nav-veileder__frame svg {
-        height: 100%;
-      }
+        .nav-veileder__frame img,
+        .nav-veileder__frame svg {
+            height: 100%;
+        }
     }
 
-  &__tittel {
-    margin-bottom: 1rem;
-  }
+    .bekreftelseboks {
+      // overrider default styling fra nav-frontend-typografi
+
+      &__tittel {
+        margin-bottom: 1.5rem;
+      }
+
+      &__normaltekst {
+        margin-bottom: 1rem;
+      }
+    }
 }
 
 @media (min-width: @screen-sm-min) {
-  .bekreftelseboks {
-    .nav-veilederpanel {
-      display: flex;
-      justify-content: center;
-      flex-direction: column;
+    .bekreftelseboks {
+        .nav-veilederpanel {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+        }
     }
-  }
 }
