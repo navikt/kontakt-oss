@@ -1,13 +1,11 @@
 import { SEND_KONTAKTSKJEMA_PATH } from './paths';
 import { fjernWhitespace } from './stringUtils';
-import { Besvarelse } from '../KontaktOss/Kontaktskjema/besvarelse';
+import { Besvarelse } from '../Kontaktskjema/utils/kontaktskjemaUtils';
 
 export enum TemaType {
     Rekruttering = 'REKRUTTERING',
     RekrutteringMedTilrettelegging = 'REKRUTTERING_MED_TILRETTELEGGING',
     Arbeidstrening = 'ARBEIDSTRENING',
-    OppfølgingAvEnArbeidstaker = 'OPPFØLGING_AV_EN_ARBEIDSTAKER',
-    Annet = 'ANNET',
     ForebyggeSykefravær = 'FOREBYGGE_SYKEFRAVÆR',
 }
 
@@ -17,34 +15,6 @@ export interface Tema {
 }
 
 export const temaer: Tema[] = [
-    {
-        type: TemaType.Rekruttering,
-        tekst: 'Rekruttering',
-    },
-    {
-        type: TemaType.ForebyggeSykefravær,
-        tekst: 'Forebygge sykefravær',
-    },
-    {
-        type: TemaType.RekrutteringMedTilrettelegging,
-        tekst: 'Rekruttering med tilrettelegging',
-    },
-    {
-        type: TemaType.OppfølgingAvEnArbeidstaker,
-        tekst: 'Oppfølging av en arbeidstaker',
-    },
-    {
-        type: TemaType.Arbeidstrening,
-        tekst: 'Arbeidstrening',
-    },
-    {
-        type: TemaType.Annet,
-        tekst: 'Annet',
-    },
-];
-
-// TODO TAG-826 Slett arrayen over
-export const temaerForNyttKontaktskjema: Tema[] = [
     {
         type: TemaType.Rekruttering,
         tekst: 'Rekruttering',

@@ -5,13 +5,11 @@ import {
     SEND_KONTAKTSKJEMA_PATH,
 } from '../utils/paths';
 import fylkesinndeling from './fylkesinndeling.json';
-import { FeatureToggle, FeatureToggles } from '../KontaktOss/FeatureTogglesProvider';
+import { FeatureToggles } from '../providers/FeatureTogglesProvider';
 
 fetchMock.get(FYLKER_OG_KOMMUNER_PATH, fylkesinndeling);
 
-const featureToggleResponse: FeatureToggles = {
-    [FeatureToggle.NyttUtseendeFeature]: true
-};
+const featureToggleResponse: FeatureToggles = {};
 
 fetchMock.get('begin:' + FEATURE_TOGGLE_BASEPATH, featureToggleResponse);
 

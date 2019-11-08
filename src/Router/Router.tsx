@@ -1,22 +1,19 @@
-import { BASE_PATH, BEKREFTELSE_PATH, FYLKESVELGER_PATH, KONTAKTSKJEMA_PATH, } from '../utils/paths';
+import { BASE_PATH, BEKREFTELSE_PATH, FYLKESVELGER_PATH, KONTAKTSKJEMA_PATH } from '../utils/paths';
 import { Route, Switch } from 'react-router';
-import KontaktOss from '../KontaktOss/KontaktOss';
-import Bekreftelse from '../KontaktOss/Kontaktskjema/Bekreftelse/Bekreftelse';
-import NyttKontaktskjema from '../Kontaktskjema/Kontaktskjema';
+import Bekreftelse from '../Bekreftelse/Bekreftelse';
+import Kontaktskjema from '../Kontaktskjema/Kontaktskjema';
 import Fylkesvelger from '../Fylkesvelger/Fylkesvelger';
-import Samleside from '../Samleside/Samleside';
+import Forside from '../Forside/Forside';
 import { BrowserRouter } from 'react-router-dom';
 import * as React from 'react';
 import { FunctionComponent } from 'react';
-import { FeatureToggle, FeatureToggles, medFeatureToggles, } from '../KontaktOss/FeatureTogglesProvider';
+import { medFeatureToggles } from '../providers/FeatureTogglesProvider';
 
-const Router: FunctionComponent<FeatureToggles> = props => {
-    const forside = props[FeatureToggle.NyttUtseendeFeature] ? Samleside : KontaktOss;
-
+const Router: FunctionComponent = () => {
     return (
         <BrowserRouter basename={BASE_PATH}>
             <Switch>
-                <Route exact={true} path="/" component={forside} />
+                <Route exact={true} path="/" component={Forside} />
                 <Route
                     exact={true}
                     path={BEKREFTELSE_PATH}
@@ -25,7 +22,7 @@ const Router: FunctionComponent<FeatureToggles> = props => {
                 <Route
                     exact={true}
                     path={KONTAKTSKJEMA_PATH}
-                    component={NyttKontaktskjema}
+                    component={Kontaktskjema}
                 />
                 <Route
                     exact={true}

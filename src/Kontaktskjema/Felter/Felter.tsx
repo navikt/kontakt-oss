@@ -2,18 +2,17 @@ import FylkeFelt from './FylkeFelt/FylkeFelt';
 import KommuneFelt from './KommuneFelt/KommuneFelt';
 import * as React from 'react';
 import { FunctionComponent } from 'react';
-import { Besvarelse } from '../../KontaktOss/Kontaktskjema/besvarelse';
-import ValidertFelt from '../../KontaktOss/Kontaktskjema/FellesFelter/ValidertFelt/ValidertFelt';
+import ValidertFelt from './ValidertFelt/ValidertFelt';
 import {
     epostOk,
     inneholderKunVanligeTegn,
     orgnrOk,
     telefonnummerOk,
-} from '../../KontaktOss/Kontaktskjema/validering';
+} from '../utils/validering';
 import { Undertittel } from 'nav-frontend-typografi';
-import { SkjemaFelt } from '../../KontaktOss/Kontaktskjema/FellesFelter/FellesFelter';
 
 import './Felter.less';
+import { Besvarelse, SkjemaFelt } from '../utils/kontaktskjemaUtils';
 
 interface Props {
     besvarelse: Besvarelse;
