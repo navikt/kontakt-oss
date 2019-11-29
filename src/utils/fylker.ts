@@ -96,7 +96,7 @@ export const fylker: Fylke[] = [
         nokkel: '0600',
         navn: 'Vest-Viken (Buskerud, Bærum og Asker)',
         hrefKontaktliste:
-            'https://www.nav.no/no/Lokalt/Buskerud/Relatert+informasjon/rekruteringskontakter-i-nav-vest-viken',
+            'https://www.nav.no/no/Lokalt/vest-viken/relatert-informasjon/rekruteringskontakter-i-nav-vest-viken',
     },
     {
         nokkel: '0200',
