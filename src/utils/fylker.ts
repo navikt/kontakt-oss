@@ -36,73 +36,73 @@ export const fylker: Fylke[] = [
         nokkel: '1000',
         navn: 'Agder (Aust- Agder og Vest-Agder)',
         hrefKontaktliste:
-            'https://www.nav.no/no/Lokalt/agder/relatert-informasjon/Rekruttering+og+inkludering+i+Agder',
+            'https://www.nav.no/no/lokalt/agder/relatert-informasjon/rekruttering-og-inkludering-i-agder',
     },
     {
         nokkel: '0400',
         navn: 'Innlandet (Oppland og Hedmark)',
         hrefKontaktliste:
-            'https://www.nav.no/no/Lokalt/innlandet/relatert-informasjon/Rekruttering+og+inkludering+i+Innlandet',
+            'https://www.nav.no/no/lokalt/innlandet/nav-arbeidslivssenter-innlandet/relatert-informasjon/rekruttering-og-inkludering-i-innlandet',
     },
     {
         nokkel: '1500',
         navn: 'Møre og Romsdal',
         hrefKontaktliste:
-            'https://www.nav.no/no/Lokalt/More+og+Romsdal/Relatert+informasjon/marknadskontaktar-i-m%C3%B8re-og-romsdal',
+            'https://www.nav.no/no/lokalt/more-og-romsdal/relatert-informasjon/marknadskontaktar-i-more-og-romsdal',
     },
     {
         nokkel: '1800',
         navn: 'Nordland',
         hrefKontaktliste:
-            'https://www.nav.no/no/Lokalt/Nordland/Relatert+innhold/Markedskontakter',
+            'https://www.nav.no/no/lokalt/nordland/relatert-innhold/markedskontakter',
     },
     {
         nokkel: '0300',
         navn: 'Oslo',
         hrefKontaktliste:
-            'https://www.nav.no/no/Lokalt/Oslo/Relatert+informasjon/markedskontakter-i-nav-oslo',
+            'https://www.nav.no/no/lokalt/oslo/relatert-informasjon/markedskontakter-i-nav-oslo',
     },
     {
         nokkel: '1100',
         navn: 'Rogaland',
         hrefKontaktliste:
-            'https://www.nav.no/no/Lokalt/Rogaland/Relatert+informasjon/rekrutteringskontaktar-i-rogaland',
+            'https://www.nav.no/no/lokalt/rogaland/relatert-informasjon/rekrutteringskontaktar-i-rogaland',
     },
     {
         nokkel: '1900',
         navn: 'Troms og Finnmark',
         hrefKontaktliste:
-            'https://www.nav.no/no/Lokalt/troms-og-finnmark/nyttig-%C3%A5-vite/Rekruttering+og+inkludering+i+Troms+og+Finnmark',
+            'https://www.nav.no/no/lokalt/troms-og-finnmark/nyttig-a%CC%8A-vite/rekruttering-og-inkludering-i-troms-og-finnmark',
     },
     {
         nokkel: '5700',
         navn: 'Trøndelag',
         hrefKontaktliste:
-            'https://www.nav.no/531486/Markedsr%C3%A5dgivere+i+S%C3%B8r-Tr%C3%B8ndelag%281%29',
+            'https://www.nav.no/no/lokalt/trondelag/relatert-informasjon/markedsradgivere-i-sor-trondelag1',
     },
     {
         nokkel: '0800',
         navn: 'Vestfold og Telemark',
         hrefKontaktliste:
-            'https://www.nav.no/no/Lokalt/vestfold-og-telemark/relatert-informasjon/markedskontakter',
+            'https://www.nav.no/no/lokalt/vestfold-og-telemark/relatert-informasjon/markedskontakter',
     },
     {
         nokkel: '1200',
         navn: 'Vestland (Sogn og Fjordane og Hordaland)',
         hrefKontaktliste:
-            'https://www.nav.no/544947/rekruttering-i-nav-vestland',
+            'https://www.nav.no/no/lokalt/vestland/relatert-informasjon/rekruttering-i-nav-vestland',
     },
     {
         nokkel: '0600',
         navn: 'Vest-Viken (Buskerud, Bærum og Asker)',
         hrefKontaktliste:
-            'https://www.nav.no/no/Lokalt/vest-viken/relatert-informasjon/rekruteringskontakter-i-nav-vest-viken',
+            'https://www.nav.no/no/lokalt/vest-viken/relatert-informasjon/rekruteringskontakter-i-nav-vest-viken',
     },
     {
         nokkel: '0200',
         navn: 'Øst-Viken (Østfold, Follo og Romerike)',
         hrefKontaktliste:
-            'https://www.nav.no/no/Lokalt/ost-viken/relatert-informasjon/Rekruttering+og+inkludering+i+%C3%98st-Viken',
+            'https://www.nav.no/no/lokalt/ost-viken/relatert-informasjon/rekruttering-og-inkludering-i-ost-viken',
     },
 ]
     .map(fylke => ({
