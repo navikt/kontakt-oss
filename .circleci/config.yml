@@ -42,7 +42,7 @@ jobs:
           repo: navikt/kontakt-oss
           image: navikt/kontakt-oss
           github-app-id: 43789
-          nais-template: nais-dev-fss.yaml
+          nais-template: nais-dev-sbs.yaml
           environment: dev-sbs
           team: teamtag
 
