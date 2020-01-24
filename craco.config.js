@@ -6,7 +6,7 @@ const apiProxyPath = '/kontakt-oss/api';
 module.exports = {
     devServer: {
         before: app => {
-            app.get('/frontendlogger/logger.js', (req, res) => {
+            app.get('/kontakt-oss/frontendlogger/logger.js', (req, res) => {
                 res.json({});
             });
 

@@ -1,13 +1,13 @@
 const basePath = require('./basePath');
 const apiBasePath = '/kontakt-oss-api';
 
-const whitelistUrler = ['/meldInteresse', '/fylkerOgKommuner'];
+const whitelistApiUrler = ['/meldInteresse', '/fylkerOgKommuner'];
 
 const whitelist = {
     ['^' + basePath('/api/feature')]: apiBasePath + '/feature', // går ikke med regexp-en under pga query params
 };
 
-whitelistUrler.forEach(url => {
+whitelistApiUrler.forEach(url => {
     const fraUrl = '^' + basePath('/api' + url) + '(|/)$';
     const tilUrl = apiBasePath + url;
     whitelist[fraUrl] = tilUrl;
