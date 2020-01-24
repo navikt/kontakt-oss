@@ -5,6 +5,7 @@ const mustacheExpress = require('mustache-express');
 const getDecorator = require('./decorator');
 const Promise = require('promise');
 const sonekrysning = require('./sonekrysning');
+const frontendloggerProxy = require('./frontendloggerProxy');
 const basePath = require('./basePath');
 const createEnvSettingsFile = require('./envSettings');
 const apiMetrics = require('prometheus-api-metrics');
@@ -14,6 +15,7 @@ const BASE_PATH = '/kontakt-oss';
 const buildPath = path.join(__dirname, '../../build');
 
 app.use(basePath('/api'), sonekrysning);
+app.use(basePath('/frontendlogger'), frontendloggerProxy);
 
 app.engine('html', mustacheExpress());
 app.set('view engine', 'mustache');
