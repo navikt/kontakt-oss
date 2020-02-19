@@ -42,7 +42,7 @@ export const fylker: Fylke[] = [
         nokkel: '0400',
         navn: 'Innlandet (Oppland og Hedmark)',
         hrefKontaktliste:
-            'https://www.nav.no/no/lokalt/innlandet/nav-arbeidslivssenter-innlandet/relatert-informasjon/rekruttering-og-inkludering-i-innlandet',
+            'https://www.nav.no/no/lokalt/innlandet/nyheter/rekruttering-og-inkludering-i-innlandet',
     },
     {
         nokkel: '1500',
