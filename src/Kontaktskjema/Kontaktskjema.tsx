@@ -28,7 +28,7 @@ import bannerIllustrasjon from './illustrasjon.svg';
 
 type BesvarelseUtenFylkeOgKommune = Omit<
     Besvarelse,
-    SkjemaFelt.kommune | SkjemaFelt.fylke
+    SkjemaFelt.kommune | SkjemaFelt.fylkesenhetsnr
 >;
 
 const Kontaktskjema: FunctionComponent<
@@ -47,7 +47,7 @@ const Kontaktskjema: FunctionComponent<
     });
 
     const [valgtFylkenøkkel, setFylkenøkkel] = useQueryState<string>(
-        'fylke',
+        'fylkesenhetsnr',
         ''
     );
     const [valgtKommunenr, setKommunenr] = useQueryState<string>('kommune', '');
@@ -67,7 +67,7 @@ const Kontaktskjema: FunctionComponent<
         feltverdi: string | boolean
     ) => {
         switch (felt) {
-            case SkjemaFelt.fylke:
+            case SkjemaFelt.fylkesenhetsnr:
                 setFylkenøkkel(feltverdi as string);
                 setKommunenr('');
                 break;
@@ -84,7 +84,7 @@ const Kontaktskjema: FunctionComponent<
         ...tekstbesvarelse,
         ...{
             kommune: getKommune(valgtKommunenr, props.fylkesinndeling),
-            fylke: valgtFylkenøkkel,
+            fylkesenhetsnr: valgtFylkenøkkel,
         },
     };
     const tema = getTema(valgtTemaType);

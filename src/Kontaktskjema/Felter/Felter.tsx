@@ -37,14 +37,14 @@ export const Felter: FunctionComponent<Props> = props => {
             <div className="kontaktskjema-felter__bolk">
                 <FylkeFelt
                     label="Hvilket fylke ligger arbeidsplassen i?"
-                    felt={SkjemaFelt.fylke}
+                    felt={SkjemaFelt.fylkesenhetsnr}
                     oppdaterBesvarelse={props.oppdaterBesvarelse}
-                    valgtFylkenøkkel={props.besvarelse.fylke}
+                    valgtFylkenøkkel={props.besvarelse.fylkesenhetsnr}
                 />
                 <KommuneFelt
                     label="Hvilken kommune ligger arbeidsplassen i?"
                     felt={SkjemaFelt.kommune}
-                    fylkeNokkel={props.besvarelse.fylke}
+                    fylkeNokkel={props.besvarelse.fylkesenhetsnr}
                     oppdaterBesvarelse={props.oppdaterBesvarelse}
                     valgtKommunenr={props.besvarelse.kommune.nummer}
                 />
