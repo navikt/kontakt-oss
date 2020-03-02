@@ -16,12 +16,12 @@ export interface Besvarelse {
     etternavn: string;
     epost: string;
     telefonnr: string;
-    fylke: string;
+    fylkesenhetsnr: string;
     harSnakketMedAnsattrepresentant?: boolean;
 }
 
 export const tomBesvarelse = {
-    fylke: '',
+    fylkesenhetsnr: '',
     kommune: tomKommune,
     bedriftsnavn: '',
     orgnr: '',
@@ -67,6 +67,6 @@ export enum SkjemaFelt {
     etternavn = 'etternavn',
     epost = 'epost',
     telefonnr = 'telefonnr',
-    fylke = 'fylke',
+    fylkesenhetsnr = 'fylkesenhetsnr',
     harSnakketMedAnsattrepresentant = 'harSnakketMedAnsattrepresentant',
 }

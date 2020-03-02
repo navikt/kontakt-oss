@@ -41,7 +41,7 @@ export const getTema = (temaType: TemaType | ''): Tema | undefined => {
 };
 
 export type BesvarelseBackend = {
-    fylke: string;
+    fylkesenhetsnr: string;
     kommune: string;
     kommunenr: string;
     bedriftsnavn: string;
