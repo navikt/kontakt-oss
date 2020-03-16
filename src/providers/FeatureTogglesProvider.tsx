@@ -2,14 +2,17 @@ import * as React from 'react';
 import { featureTogglePath } from '../utils/paths';
 
 export enum FeatureToggle {
+    ChatlenkeFeature = 'kontakt-oss.chatlenke'
 }
 // f.eks. ForebyggeSykefraværFeature = 'kontakt-oss.forebygge-sykefravaer',
 
 export interface FeatureToggles {
+    [FeatureToggle.ChatlenkeFeature]: boolean;
     // f.eks. [FeatureToggle.ForebyggeSykefraværFeature]: boolean;
 }
 
 const defaultFeatureToggles: FeatureToggles = {
+    [FeatureToggle.ChatlenkeFeature]: false,
     // f.eks. [FeatureToggle.ForebyggeSykefraværFeature]: false,
 };
 

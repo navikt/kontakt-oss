@@ -5,11 +5,13 @@ import {
     SEND_KONTAKTSKJEMA_PATH,
 } from '../utils/paths';
 import fylkesinndeling from './fylkesinndeling.json';
-import { FeatureToggles } from '../providers/FeatureTogglesProvider';
+import { FeatureToggle, FeatureToggles } from '../providers/FeatureTogglesProvider';
 
 fetchMock.get(FYLKER_OG_KOMMUNER_PATH, fylkesinndeling);
 
-const featureToggleResponse: FeatureToggles = {};
+const featureToggleResponse: FeatureToggles = {
+    [FeatureToggle.ChatlenkeFeature]: true,
+};
 
 fetchMock.get('begin:' + FEATURE_TOGGLE_BASEPATH, featureToggleResponse);
 
