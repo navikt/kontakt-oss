@@ -1,0 +1,35 @@
+@import '~nav-frontend-core/less/_variabler';
+
+.chatlenke {
+  margin-top: 1rem;
+
+  &__innhold {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__tittel {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  @media (min-width: @screen-sm-min) {
+
+    margin-top: 1.5rem;
+
+    &__innhold {
+      flex-direction: row;
+      padding: 1rem 1rem;
+    }
+
+    &__tittel {
+      padding-top: 0;
+      padding-bottom: 0.5rem;
+    }
+
+    &__tekst {
+      margin-left: 1.5rem;
+    }
+  }
+}

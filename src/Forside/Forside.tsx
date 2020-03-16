@@ -4,11 +4,13 @@ import { GenerelleHenvendelser } from './GenerelleHenvendelser/GenerelleHenvende
 import './Forside.less';
 import { AndreKontaktpunkter } from './AndreKontaktpunkter/AndreKontaktpunkter';
 import Banner from '../Banner/Banner';
+import Chatlenke from './Chatlenke/Chatlenke';
 
 export const Forside: FunctionComponent = () => (
     <>
         <Banner tekst="Kontakt NAV – arbeidsgiver" />
         <div className="forside">
+            <Chatlenke />
             <GenerelleHenvendelser />
             <AndreKontaktpunkter />
         </div>
