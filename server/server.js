@@ -12,7 +12,7 @@ const apiMetrics = require('prometheus-api-metrics');
 const { setUpMetrikker } = require('./metrikker');
 
 const BASE_PATH = '/kontakt-oss';
-const buildPath = path.join(__dirname, '../../build');
+const buildPath = path.join(__dirname, '../build');
 
 app.use(basePath('/api'), sonekrysning);
 app.use(basePath('/frontendlogger'), frontendloggerProxy);

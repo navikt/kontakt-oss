@@ -15,7 +15,7 @@ const setUpMetrikker = (intervalInMillis) => {
     });
 
     setInterval( async () => {
-        return await hentEndepunktStatus(URL).then( status => {
+        return hentEndepunktStatus(URL).then( status => {
             erOppeGauge.set(status === 200 ? 1 : 0);
         });
     }, intervalInMillis);
