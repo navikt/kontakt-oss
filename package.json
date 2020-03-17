@@ -66,7 +66,8 @@
     "scripts": {
         "start": "craco start",
         "mock": "REACT_APP_MOCK=true yarn start",
-        "serve": "node src/server/server.js",
+        "install-server": "yarn install --modules-folder ./server",
+        "serve": "node server/server.js",
         "build": "craco build",
         "test": "craco test",
         "test:e2e": "node endeTilEndeTest/runner.js",
