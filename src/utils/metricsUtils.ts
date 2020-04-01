@@ -2,7 +2,6 @@ import { Tema, TemaType } from './kontaktskjemaApi';
 
 export const logEvent = (eventNavn: string, felter?: {}, tags?: {}) => {
     // TODO Implementer Amplitude
-    console.log(eventNavn);
 };
 
 export const logSendInnKlikk = () => logEvent('kontakt-oss.send-inn-klikk');
