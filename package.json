@@ -61,7 +61,7 @@
         "prom-client": "^12.0.0",
         "prometheus-api-metrics": "^2.2.3",
         "request": "^2.88.0",
-        "testcafe": "1.8.2"
+        "testcafe": "^1.8.3"
     },
     "scripts": {
         "start": "craco start",
