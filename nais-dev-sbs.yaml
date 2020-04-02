@@ -4,10 +4,10 @@ metadata:
   name: kontakt-oss
   namespace: default
   labels:
-    team: arbeidsgiver
+    team: {{team}}
 spec:
-  image: navikt/kontakt-oss:5ee53584ceb5028bb2bcb3c1ccfe0d62a21dcab3
-  team: arbeidsgiver
+  image: {{version}}
+  team: {{team}}
   port: 3000
   vault:
     enabled: true
