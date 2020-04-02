@@ -14,7 +14,6 @@ const Temaknapp: React.FunctionComponent<Props> = props => {
         <div className={props.className || ''} data-testid="temaknapp">
             <RadioPanel
                 onChange={() => props.onClick(props.tema)}
-                inputProps={{ className: 'blokk-xs' }}
                 name={'alternativ'}
                 label={props.tema.tekst}
                 value={props.tema.tekst}
