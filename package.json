@@ -38,7 +38,6 @@
         "promise": "^8.0.3",
         "prop-types": "^15.7.2",
         "react": "^16.13.1",
-        "react-app-polyfill": "^1.0.6",
         "react-dom": "^16.13.0",
         "react-router": "^5.0.0",
         "react-router-dom": "^5.1.2",
