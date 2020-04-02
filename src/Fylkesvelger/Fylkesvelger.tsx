@@ -19,6 +19,7 @@ const Fylkesvelger: FunctionComponent = () => (
                     href={fylke.hrefKontaktliste}
                     className="fylkesvelger__fylke"
                     border
+                    key={fylke.nokkel}
                 >
                     {fylke.navn}
                 </Lenkepanel>

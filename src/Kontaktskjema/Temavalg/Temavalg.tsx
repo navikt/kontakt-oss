@@ -30,7 +30,7 @@ export const Temavalg: FunctionComponent<Props> = props => {
                 tema={tema}
                 onClick={onVelgTema}
                 valgt={tema.type === props.valgtTemaType}
-                className="temaknapp"
+                className="temavalg__knapp"
             />
         );
     });

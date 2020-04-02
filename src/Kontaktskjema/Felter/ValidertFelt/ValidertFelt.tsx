@@ -18,7 +18,7 @@ const ValidertFelt = (props: Props) => {
     const [visFeilmelding, settVisFeilmelding] = useState<boolean>(false);
 
     const feilmelding = visFeilmelding
-        ? { feilmelding: props.feilmelding }
+        ? props.feilmelding
         : undefined;
 
     const onChange = (event: any) => {
