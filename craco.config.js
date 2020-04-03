@@ -1,5 +1,5 @@
 const CracoLessPlugin = require('craco-less');
-const proxy = require('http-proxy-middleware');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const apiProxyPath = '/kontakt-oss/api';
 
@@ -7,7 +7,7 @@ module.exports = {
     devServer: {
         before: app => {
             app.use(
-                proxy(apiProxyPath, {
+                createProxyMiddleware(apiProxyPath, {
                     target: 'http://localhost:8080/kontakt-oss-api',
                     changeOrigin: true,
                     pathRewrite: (path, req) => path.replace(apiProxyPath, ''),

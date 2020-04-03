@@ -1,4 +1,4 @@
-const proxy = require('http-proxy-middleware');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 const whitelist = require('./whitelist');
 
 const envProperties = {
@@ -20,4 +20,4 @@ if (envProperties.APIGW_HEADER) {
     };
 }
 
-module.exports = proxy(proxyConfig);
+module.exports = createProxyMiddleware(proxyConfig);
