@@ -8607,10 +8607,10 @@ nav-frontend-skjema-style@^2.0.4:
   resolved "https://registry.yarnpkg.com/nav-frontend-skjema-style/-/nav-frontend-skjema-style-2.0.7.tgz#fd23149769c5395c45fad53eac7fa689c639ea5e"
   integrity sha512-GiaxfWIyWA8kqREsCgyGBRH9JBruiIRxHNl4ZHAcltAyZOPgqEdJ5YB6jBlq1bi3cjKuQPRaWDOqrKFGEIBuLg==
 
-nav-frontend-skjema@^2.0.13:
-  version "2.0.19"
-  resolved "https://registry.yarnpkg.com/nav-frontend-skjema/-/nav-frontend-skjema-2.0.19.tgz#0365e0c6b42eae04493a61f9b7dd8314d77a60c6"
-  integrity sha512-KisPjaMz6K1bmGF50zq5Qe2c5U6WcrcdnNa4jDgzqtPlZYXGcIVoMbhDhG/Ul4IHJly35/6qtkgDNS4wDEtm4w==
+nav-frontend-skjema@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/nav-frontend-skjema/-/nav-frontend-skjema-3.0.2.tgz#830f4e2efc73ad243c3d6650670bba0c69fd10fa"
+  integrity sha512-dbWduuORoiNNOKEoRz3MA3wnmCQBvzJs8gQJyyXpXGavOkReo72L9C4VCiidb1evfAG2dzRTfTcHQJRmw+KVJg==
 
 nav-frontend-typografi-style@^1.0.19:
   version "1.0.20"
@@ -8633,11 +8633,6 @@ nav-frontend-veileder@^2.0.16:
   version "2.0.16"
   resolved "https://registry.yarnpkg.com/nav-frontend-veileder/-/nav-frontend-veileder-2.0.16.tgz#c1b80b3a616b8c347f959886537d809d8747f983"
   integrity sha512-9xv7LUQHMktpLc0nDJORBb3CAjKOehx2uUC+kgOYcN7svmwi+5iB6iNOzKwfkrCORMCNNK6t+HjcDn0nQDH2Rw==
-
-nav-frontend-veilederpanel-style@^0.0.25:
-  version "0.0.25"
-  resolved "https://registry.yarnpkg.com/nav-frontend-veilederpanel-style/-/nav-frontend-veilederpanel-style-0.0.25.tgz#50f6872f0c325182b3ab33617470d1d0c1932f33"
-  integrity sha512-W+zU1aAHxhPRPspLQfB1YLGPZ+oT47/qGKYApvgaslKQx4LROhOo9SxJEDWKTbU/BdsNLJqAVvWLiRzD44Hjpg==
 
 nav-frontend-veilederpanel@^0.1.22:
   version "0.1.24"
