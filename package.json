@@ -32,6 +32,7 @@
         "nav-frontend-veileder": "^2.0.16",
         "nav-frontend-veileder-style": "^2.0.13",
         "nav-frontend-veilederpanel": "^0.1.22",
+        "nav-frontend-veilederpanel-style": "^0.0.27",
         "promise": "^8.1.0",
         "prop-types": "^15.7.2",
         "react": "^16.13.1",
