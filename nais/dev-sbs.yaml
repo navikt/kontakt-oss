@@ -4,10 +4,10 @@ metadata:
   name: kontakt-oss
   namespace: default
   labels:
-    team: {{team}}
+    team: arbeidsgiver
 spec:
   image: {{version}}
-  team: {{team}}
+  team: arbeidsgiver
   port: 3000
   vault:
     enabled: true
