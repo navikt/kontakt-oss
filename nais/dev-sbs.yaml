@@ -4,15 +4,15 @@ metadata:
   name: kontakt-oss
   namespace: default
   labels:
-    team: {{team}}
+    team: arbeidsgiver
 spec:
   image: {{version}}
-  team: {{team}}
+  team: arbeidsgiver
   port: 3000
   vault:
     enabled: true
   ingresses:
-    - https://arbeidsgiver.nav.no/kontakt-oss
+    - https://arbeidsgiver-q.nav.no/kontakt-oss
   liveness:
     path: /kontakt-oss/internal/isAlive
     initialDelay: 5
@@ -21,7 +21,7 @@ spec:
     initialDelay: 5
   env:
     - name: API_GATEWAY
-      value: https://api-gw.oera.no
+      value: https://api-gw-q0.oera.no
     - name: NODE_EXTRA_CA_CERTS
       value: /etc/ssl/ca-bundle.pem
   prometheus:
