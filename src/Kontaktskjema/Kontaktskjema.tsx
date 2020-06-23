@@ -25,6 +25,8 @@ import { HvaSkjerVidere } from './HvaSkjerVidere/HvaSkjerVidere';
 import { EnkelInfostripe } from './EnkelInfostripe/EnkelInfostripe';
 import Banner from '../Banner/Banner';
 import bannerIllustrasjon from './illustrasjon.svg';
+import { useEffect } from 'react';
+import { scrollToBanner } from '../utils/scrollUtils';
 
 type BesvarelseUtenFylkeOgKommune = Omit<
     Besvarelse,
@@ -34,6 +36,10 @@ type BesvarelseUtenFylkeOgKommune = Omit<
 const Kontaktskjema: FunctionComponent<
     FylkesinndelingProps & RouteComponentProps
 > = props => {
+    useEffect(() => {
+        scrollToBanner();
+    }, []);
+
     const [valgtTemaType, setTemaType] = useQueryState<TemaType | ''>(
         'tema',
         ''
