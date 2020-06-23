@@ -44,7 +44,7 @@ jobs:
 
     deploy-to-dev:
         name: Deploy to dev-sbs
-        if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/github-actions'
+        if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/oppdater-pakker'
         needs: compile-test-and-build
         runs-on: ubuntu-latest
         steps:
