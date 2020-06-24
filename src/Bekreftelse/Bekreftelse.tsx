@@ -11,7 +11,7 @@ import { useQueryState } from 'react-router-use-location-state';
 const Bekreftelse: FunctionComponent = () => {
     useEffect(() => {
         scrollToBanner();
-    });
+    }, []);
 
     const [valgtTemaType] = useQueryState<TemaType | ''>('tema', '');
 
