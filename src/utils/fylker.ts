@@ -16,10 +16,7 @@ export const tomKommune = {
     nummer: '',
 };
 
-export const getKommune = (
-    kommunenr: string,
-    fylkesinndeling: Fylkesinndeling
-): Kommune => {
+export const getKommune = (kommunenr: string, fylkesinndeling: Fylkesinndeling): Kommune => {
     const kommunerMedRiktigNummer = Object.values(fylkesinndeling)
         .flat()
         .filter((kommune: Kommune) => kommune.nummer === kommunenr);
@@ -53,8 +50,7 @@ export const fylker: Fylke[] = [
     {
         nokkel: '1800',
         navn: 'Nordland',
-        hrefKontaktliste:
-            'https://www.nav.no/no/lokalt/nordland/relatert-innhold/markedskontakter',
+        hrefKontaktliste: 'https://www.nav.no/no/lokalt/nordland/relatert-innhold/markedskontakter',
     },
     {
         nokkel: '0300',
@@ -105,29 +101,23 @@ export const fylker: Fylke[] = [
             'https://www.nav.no/no/lokalt/ost-viken/relatert-informasjon/rekruttering-og-inkludering-i-ost-viken',
     },
 ]
-    .map(fylke => ({
+    .map((fylke) => ({
         ...fylke,
         hrefKontaktliste: fylke.hrefKontaktliste,
     }))
     .sort((a, b) => a.navn.localeCompare(b.navn, 'nb-NO'));
 
 export const getHrefTilKontaktliste = (fylkeNokkel?: string): string => {
-    const gjeldendeFylke = fylker.filter(
-        fylke => fylke.nokkel === fylkeNokkel
-    )[0];
+    const gjeldendeFylke = fylker.filter((fylke) => fylke.nokkel === fylkeNokkel)[0];
     return gjeldendeFylke ? gjeldendeFylke.hrefKontaktliste : '#';
 };
 
-export const getAlfabetiserteKommuner = (
-    fylkesinndeling: any,
-    fylkeNr?: string
-): Kommune[] => {
+export const getAlfabetiserteKommuner = (fylkesinndeling: any, fylkeNr?: string): Kommune[] => {
     if (!fylkeNr || !fylkesinndeling || !fylkesinndeling[fylkeNr]) {
         return [];
     } else {
-        return (fylkesinndeling[fylkeNr] as Kommune[]).sort(
-            (kommuneA, kommuneB) =>
-                kommuneA.navn.localeCompare(kommuneB.navn, 'nb-NO')
+        return (fylkesinndeling[fylkeNr] as Kommune[]).sort((kommuneA, kommuneB) =>
+            kommuneA.navn.localeCompare(kommuneB.navn, 'nb-NO')
         );
     }
 };

@@ -17,9 +17,7 @@ interface Props {
 const ValidertFelt = (props: Props) => {
     const [visFeilmelding, settVisFeilmelding] = useState<boolean>(false);
 
-    const feilmelding = visFeilmelding
-        ? props.feilmelding
-        : undefined;
+    const feilmelding = visFeilmelding ? props.feilmelding : undefined;
 
     const onChange = (event: any) => {
         props.oppdaterBesvarelse(props.felt, event.target.value);

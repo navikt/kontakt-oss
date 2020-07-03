@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { FunctionComponent, useState } from 'react';
+import { FunctionComponent, useEffect, useState } from 'react';
 import { useQueryState } from 'react-router-use-location-state';
 import { Temavalg } from './Temavalg/Temavalg';
 import { getTema, Tema, TemaType } from '../utils/kontaktskjemaApi';
@@ -7,10 +7,7 @@ import './kontaktskjema.less';
 import { ForebyggeSykefraværEkstradel } from './ForebyggeSykefraværEkstradel/ForebyggeSykefraværEkstradel';
 import { Felter } from './Felter/Felter';
 import { getKommune } from '../utils/fylker';
-import {
-    FylkesinndelingProps,
-    medFylkesinndeling,
-} from '../providers/FylkesinndelingProvider';
+import { FylkesinndelingProps, medFylkesinndeling } from '../providers/FylkesinndelingProvider';
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import {
@@ -25,7 +22,6 @@ import { HvaSkjerVidere } from './HvaSkjerVidere/HvaSkjerVidere';
 import { EnkelInfostripe } from './EnkelInfostripe/EnkelInfostripe';
 import Banner from '../Banner/Banner';
 import bannerIllustrasjon from './illustrasjon.svg';
-import { useEffect } from 'react';
 import { scrollToBanner } from '../utils/scrollUtils';
 
 type BesvarelseUtenFylkeOgKommune = Omit<
@@ -33,17 +29,12 @@ type BesvarelseUtenFylkeOgKommune = Omit<
     SkjemaFelt.kommune | SkjemaFelt.fylkesenhetsnr
 >;
 
-const Kontaktskjema: FunctionComponent<
-    FylkesinndelingProps & RouteComponentProps
-> = props => {
+const Kontaktskjema: FunctionComponent<FylkesinndelingProps & RouteComponentProps> = (props) => {
     useEffect(() => {
         scrollToBanner();
     }, []);
 
-    const [valgtTemaType, setTemaType] = useQueryState<TemaType | ''>(
-        'tema',
-        ''
-    );
+    const [valgtTemaType, setTemaType] = useQueryState<TemaType | ''>('tema', '');
 
     const [innsendingStatus, setInnsendingStatus] = useState<{
         feilmelding?: string;
@@ -52,15 +43,12 @@ const Kontaktskjema: FunctionComponent<
         senderInn: false,
     });
 
-    const [valgtFylkenøkkel, setFylkenøkkel] = useQueryState<string>(
-        'fylkesenhetsnr',
-        ''
-    );
+    const [valgtFylkenøkkel, setFylkenøkkel] = useQueryState<string>('fylkesenhetsnr', '');
     const [valgtKommunenr, setKommunenr] = useQueryState<string>('kommune', '');
 
-    const [tekstbesvarelse, setTekstbesvarelse] = useState<
-        BesvarelseUtenFylkeOgKommune
-    >(tomBesvarelse);
+    const [tekstbesvarelse, setTekstbesvarelse] = useState<BesvarelseUtenFylkeOgKommune>(
+        tomBesvarelse
+    );
 
     const fjernFeilmeldinger = () =>
         setInnsendingStatus({
@@ -68,10 +56,7 @@ const Kontaktskjema: FunctionComponent<
             feilmelding: '',
         });
 
-    const oppdaterBesvarelse = (
-        felt: SkjemaFelt,
-        feltverdi: string | boolean
-    ) => {
+    const oppdaterBesvarelse = (felt: SkjemaFelt, feltverdi: string | boolean) => {
         switch (felt) {
             case SkjemaFelt.fylkesenhetsnr:
                 setFylkenøkkel(feltverdi as string);
@@ -115,10 +100,7 @@ const Kontaktskjema: FunctionComponent<
             return;
         }
 
-        const sendInnResultat = await validerBesvarelseOgSendInn(
-            besvarelse,
-            tema
-        );
+        const sendInnResultat = await validerBesvarelseOgSendInn(besvarelse, tema);
 
         if (sendInnResultat.ok) {
             props.history.push(BEKREFTELSE_PATH + '?tema=' + tema.type);
@@ -153,17 +135,12 @@ const Kontaktskjema: FunctionComponent<
                             besvarelse={besvarelse}
                         />
                     )}
-                    <Felter
-                        oppdaterBesvarelse={oppdaterBesvarelse}
-                        besvarelse={besvarelse}
-                    />
+                    <Felter oppdaterBesvarelse={oppdaterBesvarelse} besvarelse={besvarelse} />
                     <EnkelInfostripe classname="kontaktskjema__infostripe">
-                        NAV bruker disse opplysningene når vi kontakter deg. Vi
-                        lagrer disse opplysningene om deg, slik at vi kan
-                        kontakte deg om{' '}
-                        {tema ? tema.tekst.toLowerCase() : 'ditt valgte tema'} i
-                        bedriften du representerer. Opplysningene blir ikke delt
-                        eller brukt til andre formål.
+                        NAV bruker disse opplysningene når vi kontakter deg. Vi lagrer disse
+                        opplysningene om deg, slik at vi kan kontakte deg om{' '}
+                        {tema ? tema.tekst.toLowerCase() : 'ditt valgte tema'} i bedriften du
+                        representerer. Opplysningene blir ikke delt eller brukt til andre formål.
                     </EnkelInfostripe>
                     {innsendingStatus.feilmelding && (
                         <AlertStripeAdvarsel className="kontaktskjema__feilmelding">

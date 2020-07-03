@@ -6,18 +6,13 @@ import { KONTAKTSKJEMA_PATH } from '../../utils/paths';
 
 export const ForebyggeSykefravær = () => (
     <div className="kontaktpunkt-tema">
-        <img
-            src={illustrasjon}
-            className="kontaktpunkt-tema__illustrasjon"
-            alt=""
-        />
+        <img src={illustrasjon} className="kontaktpunkt-tema__illustrasjon" alt="" />
         <Undertittel className="blokk-xs kontaktpunkt-tema__tittel">
             Forebygge sykefravær
         </Undertittel>
         <Normaltekst className="blokk-xs">
-            Trenger du hjelp til å forebygge sykefravær eller frafall i
-            virksomheten din? Arbeidslivssentrene gir råd og samarbeider om
-            inkludering på arbeidsplassen.
+            Trenger du hjelp til å forebygge sykefravær eller frafall i virksomheten din?
+            Arbeidslivssentrene gir råd og samarbeider om inkludering på arbeidsplassen.
         </Normaltekst>
         <Element className="blokk-xs">Kontakt oss:</Element>
         <Link

@@ -13,7 +13,7 @@ const Fylkesvelger: FunctionComponent = () => (
             <Innholdstittel className="fylkesvelger__tittel" tag="h2">
                 Velg fylke
             </Innholdstittel>
-            {fylker.map(fylke => (
+            {fylker.map((fylke) => (
                 <Lenkepanel
                     tittelProps="undertittel"
                     href={fylke.hrefKontaktliste}

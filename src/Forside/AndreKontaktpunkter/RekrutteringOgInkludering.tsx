@@ -6,18 +6,13 @@ import { FYLKESVELGER_PATH, KONTAKTSKJEMA_PATH } from '../../utils/paths';
 
 export const RekrutteringOgInkludering = () => (
     <div className="kontaktpunkt-tema">
-        <img
-            src={illustrasjon}
-            className="kontaktpunkt-tema__illustrasjon"
-            alt=""
-        />
+        <img src={illustrasjon} className="kontaktpunkt-tema__illustrasjon" alt="" />
         <Undertittel className="blokk-xs kontaktpunkt-tema__tittel">
             Rekruttere og inkludere
         </Undertittel>
         <Normaltekst className="blokk-xs">
-            Vurderer du å rekruttere og inkludere nye medarbeidere? Har du
-            spørsmål om tiltak og tilrettelegging? Ta kontakt med oss for en
-            uforpliktende prat.
+            Vurderer du å rekruttere og inkludere nye medarbeidere? Har du spørsmål om tiltak og
+            tilrettelegging? Ta kontakt med oss for en uforpliktende prat.
         </Normaltekst>
         <Element className="blokk-xs">Kontakt oss:</Element>
         <Link to={KONTAKTSKJEMA_PATH} className="kontaktpunkt-tema__lenke">

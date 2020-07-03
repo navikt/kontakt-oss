@@ -9,7 +9,7 @@ interface Props {
     className?: string;
 }
 
-const Temaknapp: React.FunctionComponent<Props> = props => {
+const Temaknapp: React.FunctionComponent<Props> = (props) => {
     return (
         <div className={props.className || ''} data-testid="temaknapp">
             <RadioPanel

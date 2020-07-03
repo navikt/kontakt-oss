@@ -6,16 +6,16 @@ const envProperties = {
     APIGW_HEADER: process.env.APIGW_HEADER,
 };
 
-
 const setUpMetrikker = (intervalInMillis) => {
     const URL = `${envProperties.API_GATEWAY}/kontakt-oss-api/internal/healthcheck`;
     const erOppeGauge = new Prometheus.Gauge({
         name: 'kontakt_oss_api_gw',
-        help: 'Status til kontak-oss-api via API-Gateway (sonekrysning). 1 betyr oppe, 0 betyr nede.'
+        help:
+            'Status til kontak-oss-api via API-Gateway (sonekrysning). 1 betyr oppe, 0 betyr nede.',
     });
 
-    setInterval( async () => {
-        return hentEndepunktStatus(URL).then( status => {
+    setInterval(async () => {
+        return hentEndepunktStatus(URL).then((status) => {
             erOppeGauge.set(status === 200 ? 1 : 0);
         });
     }, intervalInMillis);

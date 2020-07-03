@@ -22,7 +22,7 @@ app.set('views', buildPath);
 createEnvSettingsFile(path.resolve(`${buildPath}/static/js/settings.js`));
 setUpMetrikker(60 * 1000);
 
-const renderApp = decoratorFragments =>
+const renderApp = (decoratorFragments) =>
     new Promise((resolve, reject) => {
         app.render('index.html', decoratorFragments, (err, html) => {
             if (err) {
@@ -33,7 +33,7 @@ const renderApp = decoratorFragments =>
         });
     });
 
-const startServer = html => {
+const startServer = (html) => {
     app.use(basePath('/'), express.static(buildPath, { index: false }));
 
     app.use(
@@ -55,11 +55,11 @@ const startServer = html => {
 };
 
 getDecorator()
-    .then(renderApp, error => {
+    .then(renderApp, (error) => {
         console.error('Kunne ikke hente dekoratør ', error);
         process.exit(1);
     })
-    .then(startServer, error => {
+    .then(startServer, (error) => {
         console.error('Kunne ikke rendre app ', error);
         process.exit(1);
     });

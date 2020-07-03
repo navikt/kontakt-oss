@@ -6,7 +6,7 @@ import './Chatlenke.less';
 
 const Chatlenke: FunctionComponent = () => (
     <Lenkepanel
-        tittelProps='normaltekst'
+        tittelProps="normaltekst"
         className="chatlenke"
         href="https://www.nav.no/person/kontakt-oss/chat/arbeidsgiver"
         border

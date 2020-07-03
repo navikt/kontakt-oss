@@ -1,10 +1,6 @@
 import * as React from 'react';
 import { FunctionComponent } from 'react';
-import {
-    Tema,
-    temaer,
-    TemaType,
-} from '../../utils/kontaktskjemaApi';
+import { Tema, temaer, TemaType } from '../../utils/kontaktskjemaApi';
 import { logEvent, mapTilTemaEvent } from '../../utils/metricsUtils';
 import { Undertittel } from 'nav-frontend-typografi';
 import Temaknapp from './Temaknapp';
@@ -17,13 +13,13 @@ interface Props {
     valgtTemaType: TemaType | '';
 }
 
-export const Temavalg: FunctionComponent<Props> = props => {
+export const Temavalg: FunctionComponent<Props> = (props) => {
     const onVelgTema = (tema: Tema) => {
         props.velgTema(tema);
         logEvent(`kontakt-oss.tema.${mapTilTemaEvent(tema)}`);
     };
 
-    const temaknapper = temaer.map(tema => {
+    const temaknapper = temaer.map((tema) => {
         return (
             <Temaknapp
                 key={tema.type}
@@ -42,8 +38,7 @@ export const Temavalg: FunctionComponent<Props> = props => {
             </Undertittel>
             <div className="temavalg__wrapper">{temaknapper}</div>
             <EnkelInfostripe>
-                For andre henvendelser ber vi deg kontakte arbeidsgivertelefonen
-                på{' '}
+                For andre henvendelser ber vi deg kontakte arbeidsgivertelefonen på{' '}
                 <a href={'tel:+4755553336'} className={'lenke'}>
                     55&nbsp;55&nbsp;33&nbsp;36
                 </a>

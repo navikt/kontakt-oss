@@ -9,10 +9,10 @@ interface Props {
     className: string;
 }
 
-export const Arbeidsgivertelefonen: FunctionComponent<Props> = props => {
+export const Arbeidsgivertelefonen: FunctionComponent<Props> = (props) => {
     return (
         <div className={'arbeidsgivertelefonen ' + props.className}>
-            <img src={telefonSvg} alt="" className="arbeidsgivertelefonen__ikon"/>
+            <img src={telefonSvg} alt="" className="arbeidsgivertelefonen__ikon" />
             <div className="arbeidsgivertelefonen__tekst-wrapper">
                 <a
                     href={'tel:+4755553336'}

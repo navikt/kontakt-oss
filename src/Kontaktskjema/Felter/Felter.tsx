@@ -3,12 +3,7 @@ import KommuneFelt from './KommuneFelt/KommuneFelt';
 import * as React from 'react';
 import { FunctionComponent } from 'react';
 import ValidertFelt from './ValidertFelt/ValidertFelt';
-import {
-    epostOk,
-    inneholderKunVanligeTegn,
-    orgnrOk,
-    telefonnummerOk,
-} from '../utils/validering';
+import { epostOk, inneholderKunVanligeTegn, orgnrOk, telefonnummerOk } from '../utils/validering';
 import { Undertittel } from 'nav-frontend-typografi';
 
 import './Felter.less';
@@ -19,15 +14,8 @@ interface Props {
     oppdaterBesvarelse: (id: SkjemaFelt, input: string | boolean) => void;
 }
 
-export const Felter: FunctionComponent<Props> = props => {
-    const {
-        orgnr,
-        epost,
-        telefonnr,
-        bedriftsnavn,
-        fornavn,
-        etternavn,
-    } = props.besvarelse;
+export const Felter: FunctionComponent<Props> = (props) => {
+    const { orgnr, epost, telefonnr, bedriftsnavn, fornavn, etternavn } = props.besvarelse;
 
     return (
         <div className="kontaktskjema-felter">

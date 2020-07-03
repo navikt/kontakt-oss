@@ -11,15 +11,10 @@ export type FylkesinndelingProps = {
 const defaultFylkesinndeling: FylkesinndelingProps = {
     fylkesinndeling: {},
 };
-const FylkesinndelingContext = React.createContext<FylkesinndelingProps>(
-    defaultFylkesinndeling
-);
+const FylkesinndelingContext = React.createContext<FylkesinndelingProps>(defaultFylkesinndeling);
 const FylkesinndelingConsumer = FylkesinndelingContext.Consumer;
 
-export class FylkesinndelingProvider extends React.Component<
-    {},
-    FylkesinndelingProps
-> {
+export class FylkesinndelingProvider extends React.Component<{}, FylkesinndelingProps> {
     constructor(props: {}) {
         super(props);
         this.state = defaultFylkesinndeling;
@@ -27,15 +22,15 @@ export class FylkesinndelingProvider extends React.Component<
 
     componentDidMount(): void {
         fetch(FYLKER_OG_KOMMUNER_PATH)
-            .then(response => {
+            .then((response) => {
                 if (response.ok) {
                     return response;
                 } else {
                     throw new Error(response.statusText);
                 }
             })
-            .then(response => response.json())
-            .then(json => this.setState({ fylkesinndeling: json }));
+            .then((response) => response.json())
+            .then((json) => this.setState({ fylkesinndeling: json }));
     }
 
     render() {

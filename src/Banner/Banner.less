@@ -1,35 +1,35 @@
 @import '~nav-frontend-core/less/_variabler';
 
 .banner {
-  height: 7.5rem;
-  background-color: @navBlaLighten80;
-  border-bottom: 0.2rem solid @navBlaLighten60;
-  padding-left: 1.25rem;
-  padding-right: 1.25rem;
+    height: 7.5rem;
+    background-color: @navBlaLighten80;
+    border-bottom: 0.2rem solid @navBlaLighten60;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
 
-  &__innhold {
-    margin: 0 auto;
-    max-width: @screen-md-min;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
+    &__innhold {
+        margin: 0 auto;
+        max-width: @screen-md-min;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
 
-  &__illustrasjon {
-    display: none;
-  }
+    &__illustrasjon {
+        display: none;
+    }
 }
 
 @media (min-width: @screen-sm-min) {
-  .banner {
-    height: 11rem;
+    .banner {
+        height: 11rem;
 
-    &__illustrasjon {
-      margin-bottom: -1px;
-      display: block;
-      align-self: flex-end;
-      height: 9rem;
+        &__illustrasjon {
+            margin-bottom: -1px;
+            display: block;
+            align-self: flex-end;
+            height: 9rem;
+        }
     }
-  }
 }

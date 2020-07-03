@@ -1,9 +1,4 @@
-import {
-    epostOk,
-    orgnrOk,
-    telefonnummerOk,
-    validerBesvarelse,
-} from './validering';
+import { epostOk, orgnrOk, telefonnummerOk, validerBesvarelse } from './validering';
 import { Tema, TemaType } from '../../utils/kontaktskjemaApi';
 import { Besvarelse } from './kontaktskjemaUtils';
 
@@ -28,11 +23,7 @@ const gyldigTema: Tema = {
 };
 
 const valider = (felt: any) =>
-    validerBesvarelse(
-        { ...gyldigBesvarelse, ...felt },
-        gyldigTema,
-        false
-    );
+    validerBesvarelse({ ...gyldigBesvarelse, ...felt }, gyldigTema, false);
 
 describe('Test av validering', () => {
     test('Orgnr kan være undefined', () => {
@@ -73,7 +64,7 @@ describe('Test av validering', () => {
     });
 
     test('E-post skal kunne inneholde understrek', () => {
-        expect(epostOk("hei_hei@nav.no")).toBeTruthy();
+        expect(epostOk('hei_hei@nav.no')).toBeTruthy();
     });
 
     test('E-post må være på formatet "noe@noe.noe"', () => {
@@ -85,35 +76,21 @@ describe('Test av validering', () => {
     });
 
     test('Gyldig skjema skal valideres OK', () => {
-        expect(
-            validerBesvarelse(gyldigBesvarelse, gyldigTema, false).ok
-        ).toBeTruthy();
+        expect(validerBesvarelse(gyldigBesvarelse, gyldigTema, false).ok).toBeTruthy();
     });
 
     test('Bedriftsnr skal tillate parenteser og skråstrek', () => {
         expect(
-            valider({ bedriftsnavn: "Mark AS (egen bedrift) / Krok ENK (konas bedrift)" }).ok
+            valider({ bedriftsnavn: 'Mark AS (egen bedrift) / Krok ENK (konas bedrift)' }).ok
         ).toBeTruthy();
     });
 
     test('Skjema skal ikke inneholde spesialtegn', () => {
-        expect(
-            valider({ bedriftsnavn: "'drop table kontaktskjema;" }).ok
-        ).toBeFalsy();
-        expect(
-            valider({ fornavn: '</span> <script></script> <span>' }).ok
-        ).toBeFalsy();
-        expect(
-            valider({ etternavn: "'drop table kontaktskjema;" }).ok
-        ).toBeFalsy();
-        expect(
-            valider({ orgnr: '</span> <script></script> <span>' }).ok
-        ).toBeFalsy();
-        expect(
-            valider({ telefonnr: "'drop table kontaktskjema;" }).ok
-        ).toBeFalsy();
-        expect(
-            valider({ epost: '</span> <script></script> <span>' }).ok
-        ).toBeFalsy();
+        expect(valider({ bedriftsnavn: "'drop table kontaktskjema;" }).ok).toBeFalsy();
+        expect(valider({ fornavn: '</span> <script></script> <span>' }).ok).toBeFalsy();
+        expect(valider({ etternavn: "'drop table kontaktskjema;" }).ok).toBeFalsy();
+        expect(valider({ orgnr: '</span> <script></script> <span>' }).ok).toBeFalsy();
+        expect(valider({ telefonnr: "'drop table kontaktskjema;" }).ok).toBeFalsy();
+        expect(valider({ epost: '</span> <script></script> <span>' }).ok).toBeFalsy();
     });
 });

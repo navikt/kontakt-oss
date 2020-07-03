@@ -2,8 +2,7 @@ import * as React from 'react';
 import Veilederpanel from 'nav-frontend-veilederpanel';
 import konvolutt from './konvolutt.svg';
 import './Bekreftelseboks.less';
-import { Innholdstittel } from 'nav-frontend-typografi';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 
 const Bekreftelseboks = () => (
     <div className="bekreftelseboks">
@@ -19,10 +18,7 @@ const Bekreftelseboks = () => (
             <Normaltekst className="bekreftelseboks__normaltekst">
                 Vi vil kontakte deg så snart som mulig
             </Normaltekst>
-            <a
-                href="https://www.nav.no/no/Bedrift"
-                className="lenke bekreftelseboks__lenke"
-            >
+            <a href="https://www.nav.no/no/Bedrift" className="lenke bekreftelseboks__lenke">
                 Gå til forside bedrift
             </a>
         </Veilederpanel>

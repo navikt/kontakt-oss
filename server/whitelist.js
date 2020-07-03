@@ -7,7 +7,7 @@ const whitelist = {
     ['^' + basePath('/api/feature')]: apiBasePath + '/feature', // går ikke med regexp-en under pga query params
 };
 
-whitelistApiUrler.forEach(url => {
+whitelistApiUrler.forEach((url) => {
     const fraUrl = '^' + basePath('/api' + url) + '(|/)$';
     const tilUrl = apiBasePath + url;
     whitelist[fraUrl] = tilUrl;
