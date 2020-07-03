@@ -1,10 +1,6 @@
 import * as React from 'react';
 import { FunctionComponent } from 'react';
-import {
-    Tema,
-    temaer,
-    TemaType,
-} from '../../utils/kontaktskjemaApi';
+import { Tema, temaer, TemaType } from '../../utils/kontaktskjemaApi';
 import { logEvent, mapTilTemaEvent } from '../../utils/metricsUtils';
 import { Undertittel } from 'nav-frontend-typografi';
 import Temaknapp from './Temaknapp';

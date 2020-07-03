@@ -1,9 +1,4 @@
-import {
-    epostOk,
-    orgnrOk,
-    telefonnummerOk,
-    validerBesvarelse,
-} from './validering';
+import { epostOk, orgnrOk, telefonnummerOk, validerBesvarelse } from './validering';
 import { Tema, TemaType } from '../../utils/kontaktskjemaApi';
 import { Besvarelse } from './kontaktskjemaUtils';
 

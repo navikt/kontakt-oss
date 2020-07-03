@@ -2,8 +2,7 @@ import * as React from 'react';
 import Veilederpanel from 'nav-frontend-veilederpanel';
 import konvolutt from './konvolutt.svg';
 import './Bekreftelseboks.less';
-import { Innholdstittel } from 'nav-frontend-typografi';
-import { Normaltekst } from 'nav-frontend-typografi';
+import { Innholdstittel, Normaltekst } from 'nav-frontend-typografi';
 
 const Bekreftelseboks = () => (
     <div className="bekreftelseboks">

@@ -3,12 +3,7 @@ import KommuneFelt from './KommuneFelt/KommuneFelt';
 import * as React from 'react';
 import { FunctionComponent } from 'react';
 import ValidertFelt from './ValidertFelt/ValidertFelt';
-import {
-    epostOk,
-    inneholderKunVanligeTegn,
-    orgnrOk,
-    telefonnummerOk,
-} from '../utils/validering';
+import { epostOk, inneholderKunVanligeTegn, orgnrOk, telefonnummerOk } from '../utils/validering';
 import { Undertittel } from 'nav-frontend-typografi';
 
 import './Felter.less';

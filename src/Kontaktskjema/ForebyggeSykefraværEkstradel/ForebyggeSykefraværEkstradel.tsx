@@ -1,8 +1,8 @@
 import * as React from 'react';
+import { FunctionComponent } from 'react';
 import { AlertStripeInfo } from 'nav-frontend-alertstriper';
 import './ForebyggeSykefraværEkstradel.less';
 import { AnsattrepresentantFelter } from './AnsattrepresentantFelter/AnsattrepresentantFelter';
-import { FunctionComponent } from 'react';
 import { Besvarelse, SkjemaFelt } from '../utils/kontaktskjemaUtils';
 
 interface Props {
