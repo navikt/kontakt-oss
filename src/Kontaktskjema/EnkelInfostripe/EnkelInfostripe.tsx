@@ -9,13 +9,10 @@ interface Props {
     classname?: string;
 }
 
-export const EnkelInfostripe: FunctionComponent<Props> = props => (
+export const EnkelInfostripe: FunctionComponent<Props> = (props) => (
     <div className={classNames('enkel-infostripe', props.classname)}>
         <div className="enkel-infostripe__ikon-wrapper">
-            <img
-                src={infosirkel}
-                alt="informasjonsikon"
-            />
+            <img src={infosirkel} alt="informasjonsikon" />
         </div>
         <Normaltekst>{props.children}</Normaltekst>
     </div>

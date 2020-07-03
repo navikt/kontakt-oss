@@ -1,37 +1,37 @@
-@import "~nav-frontend-core/less/core";
-@import "~nav-frontend-typografi-style";
-@import "~nav-frontend-lenker-style";
-@import "~nav-frontend-alertstriper-style";
+@import '~nav-frontend-core/less/core';
+@import '~nav-frontend-typografi-style';
+@import '~nav-frontend-lenker-style';
+@import '~nav-frontend-alertstriper-style';
 
 #root {
-  background-color: white;
+    background-color: white;
 }
 
 // Overriding av dekoratør-styling
 .siteheader {
-  @media (min-width: 48.0625em) {
-    .topnavsection .topnav {
-      padding-top: 0px;
-    }
-    .topnavsection-wrapper {
-      a {
-        color: black;
-      }
-    }
-  }
-
-  @media (max-width: 48.0625em) {
-    .hodefot a {
-      color: white;
+    @media (min-width: 48.0625em) {
+        .topnavsection .topnav {
+            padding-top: 0px;
+        }
+        .topnavsection-wrapper {
+            a {
+                color: black;
+            }
+        }
     }
 
-    .hodefot .typo-etikett-stor {
-      color: white;
+    @media (max-width: 48.0625em) {
+        .hodefot a {
+            color: white;
+        }
+
+        .hodefot .typo-etikett-stor {
+            color: white;
+        }
     }
-  }
 }
 
 // TODO: Fjen etter ny dekoratør er lansert
 .btn-auth {
-  min-height: 25px !important;
+    min-height: 25px !important;
 }

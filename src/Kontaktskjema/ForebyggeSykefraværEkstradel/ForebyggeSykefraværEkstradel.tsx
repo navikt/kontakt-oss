@@ -10,14 +10,13 @@ interface Props {
     oppdaterBesvarelse: (id: SkjemaFelt, input: string | boolean) => void;
 }
 
-export const ForebyggeSykefraværEkstradel: FunctionComponent<Props> = props => {
+export const ForebyggeSykefraværEkstradel: FunctionComponent<Props> = (props) => {
     return (
         <>
             <AlertStripeInfo className="kontaktskjema-ekstradel typo-normal">
-                Arbeidet med å forebygge sykefravær og sikre godt arbeidsmiljø,
-                er et ansvar som deles mellom arbeidsgiver og tillitsvalgte
-                (eller ansattrepresentanter). NAV Arbeidslivssenter kan bistå i
-                dette arbeidet.
+                Arbeidet med å forebygge sykefravær og sikre godt arbeidsmiljø, er et ansvar som
+                deles mellom arbeidsgiver og tillitsvalgte (eller ansattrepresentanter). NAV
+                Arbeidslivssenter kan bistå i dette arbeidet.
             </AlertStripeInfo>
             <AnsattrepresentantFelter
                 oppdaterBesvarelse={props.oppdaterBesvarelse}

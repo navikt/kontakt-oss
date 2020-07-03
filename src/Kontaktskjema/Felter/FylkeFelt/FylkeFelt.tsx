@@ -11,7 +11,7 @@ interface Props {
     valgtFylkenøkkel: string;
 }
 
-const FylkeFelt: FunctionComponent<Props> = props => {
+const FylkeFelt: FunctionComponent<Props> = (props) => {
     const fylkerOptions = fylker.map((fylke, index) => (
         <option value={fylke.nokkel} key={index}>
             {fylke.navn}
@@ -23,9 +23,7 @@ const FylkeFelt: FunctionComponent<Props> = props => {
             label={<Element>{props.label}</Element>}
             value={props.valgtFylkenøkkel}
             className="felt"
-            onChange={event =>
-                props.oppdaterBesvarelse(props.felt, event.target.value)
-            }
+            onChange={(event) => props.oppdaterBesvarelse(props.felt, event.target.value)}
             data-testid="fylkerDropdown"
         >
             <option value="" key="ingen valgt" />

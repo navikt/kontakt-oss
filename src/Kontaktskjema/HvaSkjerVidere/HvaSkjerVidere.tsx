@@ -13,25 +13,20 @@ interface Props {
     tema?: Tema;
 }
 
-export const HvaSkjerVidere: FunctionComponent<Props> = props => {
+export const HvaSkjerVidere: FunctionComponent<Props> = (props) => {
     const skalViseTeksterForSykefravær =
         !!props.tema && props.tema.type === TemaType.ForebyggeSykefravær;
 
     const tekster = skalViseTeksterForSykefravær
         ? {
-              tekst1:
-                  'Henvendelsen blir sendt til NAV Arbeidslivssenter i ditt fylke',
-              tekst2:
-                  'NAV Arbeidslivssenter ruter den til den på kontoret som best kan svare',
-              tekst3:
-                  'En NAV-ansatt tar kontakt med deg på telefon eller epost',
+              tekst1: 'Henvendelsen blir sendt til NAV Arbeidslivssenter i ditt fylke',
+              tekst2: 'NAV Arbeidslivssenter ruter den til den på kontoret som best kan svare',
+              tekst3: 'En NAV-ansatt tar kontakt med deg på telefon eller epost',
           }
         : {
               tekst1: 'Henvendelsen blir sendt til ditt lokale NAV kontor',
-              tekst2:
-                  'Det lokale kontoret ruter den til den på kontoret som best kan svare',
-              tekst3:
-                  'En NAV-ansatt tar kontakt med deg på telefon eller e-post',
+              tekst2: 'Det lokale kontoret ruter den til den på kontoret som best kan svare',
+              tekst3: 'En NAV-ansatt tar kontakt med deg på telefon eller e-post',
           };
 
     return (

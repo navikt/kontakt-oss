@@ -6,10 +6,10 @@ interface Props {
     svg: any;
     tekst: string;
 }
-export const BildeMedTekst: FunctionComponent<Props> = props => {
+export const BildeMedTekst: FunctionComponent<Props> = (props) => {
     return (
         <div className="bilde-med-tekst">
-            <img src={props.svg} className="bilde-med-tekst__bilde" alt=""/>
+            <img src={props.svg} className="bilde-med-tekst__bilde" alt="" />
             <Normaltekst>{props.tekst}</Normaltekst>
         </div>
     );

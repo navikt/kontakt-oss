@@ -9,7 +9,7 @@ interface Props {
     illustrasjonAltTekst?: string;
 }
 
-const Banner: React.FunctionComponent<Props> = props => {
+const Banner: React.FunctionComponent<Props> = (props) => {
     return (
         <div className="banner">
             <div className="banner__innhold">

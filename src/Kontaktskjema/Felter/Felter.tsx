@@ -14,15 +14,8 @@ interface Props {
     oppdaterBesvarelse: (id: SkjemaFelt, input: string | boolean) => void;
 }
 
-export const Felter: FunctionComponent<Props> = props => {
-    const {
-        orgnr,
-        epost,
-        telefonnr,
-        bedriftsnavn,
-        fornavn,
-        etternavn,
-    } = props.besvarelse;
+export const Felter: FunctionComponent<Props> = (props) => {
+    const { orgnr, epost, telefonnr, bedriftsnavn, fornavn, etternavn } = props.besvarelse;
 
     return (
         <div className="kontaktskjema-felter">

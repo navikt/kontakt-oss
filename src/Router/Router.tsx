@@ -14,21 +14,9 @@ const Router: FunctionComponent = () => {
         <BrowserRouter basename={BASE_PATH}>
             <Switch>
                 <Route exact={true} path="/" component={Forside} />
-                <Route
-                    exact={true}
-                    path={BEKREFTELSE_PATH}
-                    component={Bekreftelse}
-                />
-                <Route
-                    exact={true}
-                    path={KONTAKTSKJEMA_PATH}
-                    component={Kontaktskjema}
-                />
-                <Route
-                    exact={true}
-                    path={FYLKESVELGER_PATH}
-                    component={Fylkesvelger}
-                />
+                <Route exact={true} path={BEKREFTELSE_PATH} component={Bekreftelse} />
+                <Route exact={true} path={KONTAKTSKJEMA_PATH} component={Kontaktskjema} />
+                <Route exact={true} path={FYLKESVELGER_PATH} component={Fylkesvelger} />
             </Switch>
         </BrowserRouter>
     );

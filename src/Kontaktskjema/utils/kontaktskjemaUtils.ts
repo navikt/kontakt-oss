@@ -48,8 +48,7 @@ export const validerBesvarelseOgSendInn = async (
         logFail();
         return {
             ok: false,
-            feilmelding:
-                'Noe gikk feil med innsendingen. Vennligst prøv igjen senere.',
+            feilmelding: 'Noe gikk feil med innsendingen. Vennligst prøv igjen senere.',
         };
     } else {
         return {

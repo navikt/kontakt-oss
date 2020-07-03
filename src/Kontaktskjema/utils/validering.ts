@@ -23,10 +23,7 @@ interface ValideringResultat {
     feilmelding?: string;
 }
 
-export const validerBesvarelse = (
-    besvarelse: Besvarelse,
-    tema: Tema
-): ValideringResultat => {
+export const validerBesvarelse = (besvarelse: Besvarelse, tema: Tema): ValideringResultat => {
     let feilmelding;
     if (!paakrevdeFelterErUtfylte(besvarelse, tema)) {
         feilmelding = 'Du må fylle ut alle feltene for å sende inn.';
@@ -58,10 +55,7 @@ export const felterErGyldige = (besvarelse: Besvarelse) =>
     inneholderKunVanligeTegn(besvarelse.fornavn) &&
     inneholderKunVanligeTegn(besvarelse.etternavn);
 
-export const paakrevdeFelterErUtfylte = (
-    besvarelse: Besvarelse,
-    tema: Tema
-): boolean => {
+export const paakrevdeFelterErUtfylte = (besvarelse: Besvarelse, tema: Tema): boolean => {
     if (
         tema.type === TemaType.ForebyggeSykefravær &&
         besvarelse.harSnakketMedAnsattrepresentant === undefined
