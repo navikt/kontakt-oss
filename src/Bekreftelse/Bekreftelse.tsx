@@ -18,10 +18,7 @@ const Bekreftelse: FunctionComponent = () => {
     return (
         <>
             <Banner tekst="Kontaktskjema – arbeidsgiver" />
-            <div
-                className="kontaktskjema-bekreftelse"
-                data-testid="bekreftelse"
-            >
+            <div className="kontaktskjema-bekreftelse" data-testid="bekreftelse">
                 <div className="kontaktskjema-bekreftelse__innhold">
                     <Bekreftelseboks />
                     <HvaSkjerVidere tema={getTema(valgtTemaType)} />
