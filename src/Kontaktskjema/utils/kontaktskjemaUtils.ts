@@ -1,7 +1,7 @@
 import { sendKontaktskjema, Tema } from '../../utils/kontaktskjemaApi';
 import { validerBesvarelse } from './validering';
-import { logFail, logSendInnKlikk, logSuccess } from '../../utils/metricsUtils';
 import { Kommune, tomKommune } from '../../utils/fylker';
+import { sendEvent } from '../../amplitude/amplitude';
 
 interface SendInnBesvarelseResultat {
     ok: boolean;
@@ -37,15 +37,17 @@ export const validerBesvarelseOgSendInn = async (
     const validering = validerBesvarelse(besvarelse, tema);
 
     if (validering.ok) {
-        logSendInnKlikk();
-
         const res = await sendKontaktskjema(besvarelse, tema);
         if (res.ok) {
-            logSuccess(tema);
+            sendEvent('kontaktskjema', 'sendt inn', {
+                tema: tema.type
+            });
             return { ok: true };
         }
 
-        logFail();
+        sendEvent('kontaktskjema', 'innsendingsfeil', {
+            tema: tema.type
+        });
         return {
             ok: false,
             feilmelding: 'Noe gikk feil med innsendingen. Vennligst prøv igjen senere.',

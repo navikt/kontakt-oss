@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { FunctionComponent } from 'react';
 import { Tema, temaer, TemaType } from '../../utils/kontaktskjemaApi';
-import { logEvent, mapTilTemaEvent } from '../../utils/metricsUtils';
 import { Undertittel } from 'nav-frontend-typografi';
 import Temaknapp from './Temaknapp';
 
 import './Temavalg.less';
 import { EnkelInfostripe } from '../EnkelInfostripe/EnkelInfostripe';
+import { sendEvent } from '../../amplitude/amplitude';
 
 interface Props {
     velgTema: (tema: Tema) => void;
@@ -16,7 +16,9 @@ interface Props {
 export const Temavalg: FunctionComponent<Props> = (props) => {
     const onVelgTema = (tema: Tema) => {
         props.velgTema(tema);
-        logEvent(`kontakt-oss.tema.${mapTilTemaEvent(tema)}`);
+        sendEvent('kontaktskjema tema', 'valgt', {
+            tema: tema.type,
+        });
     };
 
     const temaknapper = temaer.map((tema) => {
