@@ -23,6 +23,7 @@ import { EnkelInfostripe } from './EnkelInfostripe/EnkelInfostripe';
 import Banner from '../Banner/Banner';
 import bannerIllustrasjon from './illustrasjon.svg';
 import { scrollToBanner } from '../utils/scrollUtils';
+import { sendEvent } from '../amplitude/amplitude';
 
 type BesvarelseUtenFylkeOgKommune = Omit<
     Besvarelse,
@@ -32,6 +33,7 @@ type BesvarelseUtenFylkeOgKommune = Omit<
 const Kontaktskjema: FunctionComponent<FylkesinndelingProps & RouteComponentProps> = (props) => {
     useEffect(() => {
         scrollToBanner();
+        sendEvent('kontaktskjema', 'vist');
     }, []);
 
     const [valgtTemaType, setTemaType] = useQueryState<TemaType | ''>('tema', '');
