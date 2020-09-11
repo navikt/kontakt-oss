@@ -31,7 +31,7 @@ export const HvaSkjerVidere: FunctionComponent<Props> = (props) => {
 
     return (
         <PanelBase className="hva-skjer-videre">
-            <Undertittel>Hva skjer med henvendelsen min?</Undertittel>
+            <Undertittel tag="h2">Hva skjer med henvendelsen min?</Undertittel>
             <div className="hva-skjer-videre__steg-wrapper">
                 <BildeMedTekst svg={brevSvg} tekst={tekster.tekst1} />
                 <img src={pilSvg} alt="" className="hva-skjer-videre__pil" />

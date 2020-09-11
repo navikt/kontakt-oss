@@ -12,10 +12,10 @@ const Bekreftelseboks = () => (
             kompakt={true}
             fargetema="suksess"
         >
-            <Innholdstittel className="bekreftelseboks__tittel">
+            <Innholdstittel tag="h1" className="bekreftelseboks__tittel">
                 Takk for henvendelsen
             </Innholdstittel>
-            <Normaltekst className="bekreftelseboks__normaltekst">
+            <Normaltekst tag="p" className="bekreftelseboks__normaltekst">
                 Vi vil kontakte deg så snart som mulig
             </Normaltekst>
             <a href="https://www.nav.no/no/Bedrift" className="lenke bekreftelseboks__lenke">
