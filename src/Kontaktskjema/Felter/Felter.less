@@ -3,8 +3,26 @@
 .kontaktskjema-felter {
     margin: 1rem 0;
     width: 100%;
+    margin-block-end: 1rem;
+
+    &__undertittel-kontaktopplysninger {
+        padding-top: 3rem;
+    }
+
+    .felt + .felt {
+        padding-top: 1rem;
+    }
+
 
     @media (min-width: @screen-sm-min) {
+        &__undertittel-kontaktopplysninger {
+            padding-top: 0;
+        }
+
+        .felt + .felt {
+            padding-top: 0;
+        }
+
         &__bolk {
             display: flex;
             flex-wrap: wrap;
