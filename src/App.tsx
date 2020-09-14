@@ -8,7 +8,9 @@ class App extends React.Component {
         return (
             <FeatureTogglesProvider>
                 <FylkesinndelingProvider>
-                    <Router />
+                    <main id="maincontent">
+                        <Router />
+                    </main>
                 </FylkesinndelingProvider>
             </FeatureTogglesProvider>
         );

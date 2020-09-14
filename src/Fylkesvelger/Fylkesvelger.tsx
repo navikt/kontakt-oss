@@ -21,17 +21,20 @@ const Fylkesvelger: FunctionComponent = () => {
                 <Innholdstittel className="fylkesvelger__tittel" tag="h2">
                     Velg fylke
                 </Innholdstittel>
-                {fylker.map((fylke) => (
-                    <Lenkepanel
-                        tittelProps="undertittel"
-                        href={fylke.hrefKontaktliste}
-                        className="fylkesvelger__fylke"
-                        border
-                        key={fylke.nokkel}
-                    >
-                        {fylke.navn}
-                    </Lenkepanel>
-                ))}
+                <ul className="fylkesvelger__lenkeliste">
+                    {fylker.map((fylke) => (
+                        <li key={fylke.nokkel}>
+                            <Lenkepanel
+                                tittelProps="undertittel"
+                                href={fylke.hrefKontaktliste}
+                                className="fylkesvelger__fylke"
+                                border
+                            >
+                                {fylke.navn}
+                            </Lenkepanel>
+                        </li>
+                    ))}
+                </ul>
             </div>
         </>
     );

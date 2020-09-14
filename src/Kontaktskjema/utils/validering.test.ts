@@ -13,7 +13,7 @@ const gyldigBesvarelse: Besvarelse = {
     etternavn: 'Wùxlér',
     epost: 'eígil.eilberñt.wùxlér@brillefestivalen.com',
     telefonnr: ' +  01 99 99   222      ',
-    fylke: 'oslo',
+    fylkesenhetsnr: '1800',
     harSnakketMedAnsattrepresentant: false,
 };
 
@@ -23,7 +23,7 @@ const gyldigTema: Tema = {
 };
 
 const valider = (felt: any) =>
-    validerBesvarelse({ ...gyldigBesvarelse, ...felt }, gyldigTema, false);
+    validerBesvarelse({ ...gyldigBesvarelse, ...felt }, gyldigTema);
 
 describe('Test av validering', () => {
     test('Orgnr kan være undefined', () => {
@@ -76,7 +76,7 @@ describe('Test av validering', () => {
     });
 
     test('Gyldig skjema skal valideres OK', () => {
-        expect(validerBesvarelse(gyldigBesvarelse, gyldigTema, false).ok).toBeTruthy();
+        expect(validerBesvarelse(gyldigBesvarelse, gyldigTema).ok).toBeTruthy();
     });
 
     test('Bedriftsnr skal tillate parenteser og skråstrek', () => {

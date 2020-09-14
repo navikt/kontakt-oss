@@ -12,7 +12,7 @@ const Bekreftelseboks = () => (
             kompakt={true}
             fargetema="suksess"
         >
-            <Innholdstittel className="bekreftelseboks__tittel">
+            <Innholdstittel tag="h1" className="bekreftelseboks__tittel">
                 Takk for henvendelsen
             </Innholdstittel>
             <Normaltekst className="bekreftelseboks__normaltekst">

@@ -7,14 +7,14 @@ import { KONTAKTSKJEMA_PATH } from '../../utils/paths';
 export const ForebyggeSykefravær = () => (
     <div className="kontaktpunkt-tema">
         <img src={illustrasjon} className="kontaktpunkt-tema__illustrasjon" alt="" />
-        <Undertittel className="blokk-xs kontaktpunkt-tema__tittel">
+        <Undertittel tag="h2" className="blokk-xs kontaktpunkt-tema__tittel">
             Forebygge sykefravær
         </Undertittel>
         <Normaltekst className="blokk-xs">
             Trenger du hjelp til å forebygge sykefravær eller frafall i virksomheten din?
             Arbeidslivssentrene gir råd og samarbeider om inkludering på arbeidsplassen.
         </Normaltekst>
-        <Element className="blokk-xs">Kontakt oss:</Element>
+        <Element tag="p" className="blokk-xs">Kontakt oss:</Element>
         <Link
             to={KONTAKTSKJEMA_PATH + '?tema=FOREBYGGE_SYKEFRAVÆR'}
             className="kontaktpunkt-tema__lenke"

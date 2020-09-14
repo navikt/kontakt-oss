@@ -13,7 +13,7 @@ const Banner: React.FunctionComponent<Props> = (props) => {
     return (
         <div className="banner">
             <div className="banner__innhold">
-                <Sidetittel className="banner__tekst">{props.tekst}</Sidetittel>
+                <Sidetittel tag="h1" className="banner__tekst">{props.tekst}</Sidetittel>
                 <img
                     className="banner__illustrasjon"
                     src={props.illustrasjon || defaultIllustrasjon}
