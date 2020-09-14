@@ -15,7 +15,7 @@ const Bekreftelseboks = () => (
             <Innholdstittel tag="h1" className="bekreftelseboks__tittel">
                 Takk for henvendelsen
             </Innholdstittel>
-            <Normaltekst tag="p" className="bekreftelseboks__normaltekst">
+            <Normaltekst className="bekreftelseboks__normaltekst">
                 Vi vil kontakte deg så snart som mulig
             </Normaltekst>
             <a href="https://www.nav.no/no/Bedrift" className="lenke bekreftelseboks__lenke">

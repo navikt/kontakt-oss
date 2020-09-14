@@ -8,7 +8,7 @@ export const OppfølgingEnkeltperson = () => (
         <Undertittel tag="h2" className="blokk-xs kontaktpunkt-tema__tittel">
             Følge opp en medarbeider
         </Undertittel>
-        <Normaltekst tag="p" className="blokk-xs">
+        <Normaltekst className="blokk-xs">
             Gjelder henvendelsen din en medarbeider? Arbeidsgivertelefonen kan hjelpe deg videre.
         </Normaltekst>
         <Element tag="p" className="blokk-xs">Kontakt oss:</Element>

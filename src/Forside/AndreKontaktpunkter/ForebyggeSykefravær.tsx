@@ -10,7 +10,7 @@ export const ForebyggeSykefravær = () => (
         <Undertittel tag="h2" className="blokk-xs kontaktpunkt-tema__tittel">
             Forebygge sykefravær
         </Undertittel>
-        <Normaltekst tag="p" className="blokk-xs">
+        <Normaltekst className="blokk-xs">
             Trenger du hjelp til å forebygge sykefravær eller frafall i virksomheten din?
             Arbeidslivssentrene gir råd og samarbeider om inkludering på arbeidsplassen.
         </Normaltekst>

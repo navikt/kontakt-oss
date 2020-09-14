@@ -10,7 +10,7 @@ export const RekrutteringOgInkludering = () => (
         <Undertittel tag="h2" className="blokk-xs kontaktpunkt-tema__tittel">
             Rekruttere og inkludere
         </Undertittel>
-        <Normaltekst tag="p" className="blokk-xs">
+        <Normaltekst className="blokk-xs">
             Vurderer du å rekruttere og inkludere nye medarbeidere? Har du spørsmål om tiltak og
             tilrettelegging? Ta kontakt med oss for en uforpliktende prat.
         </Normaltekst>
