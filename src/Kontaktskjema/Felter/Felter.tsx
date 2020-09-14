@@ -19,7 +19,7 @@ export const Felter: FunctionComponent<Props> = (props) => {
 
     return (
         <div className="kontaktskjema-felter">
-            <Undertittel className="blokk-s" tag="h2">
+            <Undertittel className="blokk-s " tag="h2">
                 Om bedriften
             </Undertittel>
             <div className="kontaktskjema-felter__bolk">
@@ -55,7 +55,7 @@ export const Felter: FunctionComponent<Props> = (props) => {
                     data-testid="orgnr"
                 />
             </div>
-            <Undertittel className="blokk-s" tag="h2">
+            <Undertittel className="blokk-s kontaktskjema-felter__undertittel" tag="h2">
                 Dine kontaktopplysninger
             </Undertittel>
             <div className="kontaktskjema-felter__bolk">
