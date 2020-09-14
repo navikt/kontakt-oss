@@ -5,16 +5,24 @@
     width: 100%;
     margin-block-end: 1rem;
 
-    &__undertittel {
-        margin-top: 1.5rem;
+    &__undertittel-kontaktopplysninger {
+        padding-top: 3rem;
     }
 
-    .felt {
-        margin-top: 1rem;
+    .felt + .felt {
+        padding-top: 1rem;
     }
 
 
     @media (min-width: @screen-sm-min) {
+        &__undertittel-kontaktopplysninger {
+            padding-top: 0;
+        }
+
+        .felt + .felt {
+            padding-top: 0;
+        }
+
         &__bolk {
             display: flex;
             flex-wrap: wrap;
