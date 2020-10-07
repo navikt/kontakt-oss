@@ -30,6 +30,11 @@ module.exports = {
             },
             plugins: ['@typescript-eslint'],
             extends: ['plugin:jsx-a11y/recommended'],
+            rules: {
+                'no-use-before-define': 'off',
+                // Kan slås på når react-scripts oppgraderer sin avheigighet til eslint https://github.com/typescript-eslint/typescript-eslint/issues/2540
+                '@typescript-eslint/no-use-before-define': ['off'],
+            },
         },
     },
 };
