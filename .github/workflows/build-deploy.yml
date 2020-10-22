@@ -8,7 +8,7 @@ env:
 jobs:
     compile-test-and-build:
         name: Build and run tests
-        if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/oppdater-pakker'
+        if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/brodsmulesti'
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v1
@@ -44,7 +44,7 @@ jobs:
 
     deploy-to-dev:
         name: Deploy to dev-sbs
-        if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/oppdater-pakker'
+        if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/brodsmulesti'
         needs: compile-test-and-build
         runs-on: ubuntu-latest
         steps:
