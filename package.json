@@ -6,6 +6,7 @@
     "proxy": "http://localhost:8080",
     "dependencies": {
         "@navikt/fnrvalidator": "^1.1.0",
+        "@navikt/nav-dekoratoren-moduler": "^1.0.21",
         "amplitude-js": "^7.1.0",
         "classnames": "^2.2.6",
         "core-js": "^3.6.4",
@@ -27,6 +28,8 @@
         "nav-frontend-paneler-style": "^0.3.18",
         "nav-frontend-skjema": "^3.0.2",
         "nav-frontend-skjema-style": "^2.0.4",
+        "nav-frontend-spinner": "^2.0.9",
+        "nav-frontend-spinner-style": "^0.2.8",
         "nav-frontend-typografi": "^2.0.18",
         "nav-frontend-typografi-style": "^1.0.19",
         "nav-frontend-veileder": "^2.0.16",

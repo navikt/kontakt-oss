@@ -1,15 +1,14 @@
-import * as React from 'react';
-import { FunctionComponent, useEffect, useState } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
+import { RouteComponentProps } from 'react-router-dom';
 import { useQueryState } from 'react-router-use-location-state';
+import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
+import { Hovedknapp } from 'nav-frontend-knapper';
 import { Temavalg } from './Temavalg/Temavalg';
 import { getTema, Tema, TemaType } from '../utils/kontaktskjemaApi';
-import './kontaktskjema.less';
 import { ForebyggeSykefraværEkstradel } from './ForebyggeSykefraværEkstradel/ForebyggeSykefraværEkstradel';
 import { Felter } from './Felter/Felter';
 import { getKommune } from '../utils/fylker';
 import { FylkesinndelingProps, medFylkesinndeling } from '../providers/FylkesinndelingProvider';
-import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
-import { Hovedknapp } from 'nav-frontend-knapper';
 import {
     Besvarelse,
     SkjemaFelt,
@@ -17,13 +16,14 @@ import {
     validerBesvarelseOgSendInn,
 } from './utils/kontaktskjemaUtils';
 import { BEKREFTELSE_PATH } from '../utils/paths';
-import { RouteComponentProps } from 'react-router-dom';
 import { HvaSkjerVidere } from './HvaSkjerVidere/HvaSkjerVidere';
 import { EnkelInfostripe } from './EnkelInfostripe/EnkelInfostripe';
 import Banner from '../Banner/Banner';
 import bannerIllustrasjon from './illustrasjon.svg';
 import { scrollToBanner } from '../utils/scrollUtils';
 import { sendEvent } from '../amplitude/amplitude';
+import Brodsmulesti from '../Brodsmulesti/Brodsmulesti';
+import './kontaktskjema.less';
 
 type BesvarelseUtenFylkeOgKommune = Omit<
     Besvarelse,
@@ -117,6 +117,7 @@ const Kontaktskjema: FunctionComponent<FylkesinndelingProps & RouteComponentProp
 
     return (
         <>
+            <Brodsmulesti brodsmuler={[{url: '/kontaktskjema', title: 'Kontaktskjema', handleInApp: true}]} />
             <Banner
                 tekst="Kontaktskjema – arbeidsgiver"
                 illustrasjon={bannerIllustrasjon}

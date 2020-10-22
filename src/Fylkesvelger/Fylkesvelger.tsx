@@ -1,14 +1,15 @@
-import React, { FunctionComponent, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { fylker } from '../utils/fylker';
 import { Innholdstittel } from 'nav-frontend-typografi';
-
-import './Fylkesvelger.less';
-import Banner from '../Banner/Banner';
 import Lenkepanel from 'nav-frontend-lenkepanel';
 import { scrollToBanner } from '../utils/scrollUtils';
 import { sendEvent } from '../amplitude/amplitude';
+import Brodsmulesti from '../Brodsmulesti/Brodsmulesti';
+import Banner from '../Banner/Banner';
+import './Fylkesvelger.less';
 
-const Fylkesvelger: FunctionComponent = () => {
+const Fylkesvelger = () => {
+
     useEffect(() => {
         scrollToBanner();
         sendEvent('fylkesvelger', 'vist');
@@ -16,6 +17,7 @@ const Fylkesvelger: FunctionComponent = () => {
 
     return (
         <>
+            <Brodsmulesti brodsmuler={[{url: '/fylkesvelger', title: 'Velg fylke', handleInApp: true}]} />
             <Banner tekst="Kontakt NAV – arbeidsgiver" />
             <div className="fylkesvelger">
                 <Innholdstittel className="fylkesvelger__tittel" tag="h2">

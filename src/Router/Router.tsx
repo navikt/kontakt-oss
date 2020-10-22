@@ -1,13 +1,13 @@
-import { BASE_PATH, BEKREFTELSE_PATH, FYLKESVELGER_PATH, KONTAKTSKJEMA_PATH } from '../utils/paths';
+import * as React from 'react';
+import { FunctionComponent } from 'react';
 import { Route, Switch } from 'react-router';
+import { BrowserRouter } from 'react-router-dom';
+import { BASE_PATH, BEKREFTELSE_PATH, FYLKESVELGER_PATH, KONTAKTSKJEMA_PATH } from '../utils/paths';
+import { medFeatureToggles } from '../providers/FeatureTogglesProvider';
 import Bekreftelse from '../Bekreftelse/Bekreftelse';
 import Kontaktskjema from '../Kontaktskjema/Kontaktskjema';
 import Fylkesvelger from '../Fylkesvelger/Fylkesvelger';
 import Forside from '../Forside/Forside';
-import { BrowserRouter } from 'react-router-dom';
-import * as React from 'react';
-import { FunctionComponent } from 'react';
-import { medFeatureToggles } from '../providers/FeatureTogglesProvider';
 
 const Router: FunctionComponent = () => {
     return (
