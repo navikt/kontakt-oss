@@ -9,7 +9,6 @@ import Banner from '../Banner/Banner';
 import './Fylkesvelger.less';
 
 const Fylkesvelger = () => {
-
     useEffect(() => {
         scrollToBanner();
         sendEvent('fylkesvelger', 'vist');
@@ -17,8 +16,10 @@ const Fylkesvelger = () => {
 
     return (
         <>
-            <Brodsmulesti brodsmuler={[{url: '/fylkesvelger', title: 'Velg fylke', handleInApp: true}]} />
-            <Banner tekst="Kontakt NAV – arbeidsgiver" />
+            <Brodsmulesti
+                brodsmuler={[{ url: '/fylkesvelger', title: 'Velg fylke', handleInApp: true }]}
+            />
+            <Banner tekst="Kontakt NAV – ring en markedskontakt" />
             <div className="fylkesvelger">
                 <Innholdstittel className="fylkesvelger__tittel" tag="h2">
                     Velg fylke
