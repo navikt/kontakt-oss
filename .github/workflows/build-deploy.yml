@@ -42,6 +42,18 @@ jobs:
                   echo ${IMAGE}
                   docker push ${IMAGE}
 
+    deploy-alert:
+        name: Deploy alert to prod
+        if: github.ref == 'refs/heads/master'
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v1
+            - uses: nais/deploy/actions/deploy@v1
+              env:
+                  APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+                  CLUSTER: prod-sbs
+                  RESOURCE: nais/alerterator.yaml
+
     deploy-to-dev:
         name: Deploy to dev-sbs
         if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/brodsmulesti'
@@ -60,7 +72,7 @@ jobs:
     deploy-to-prod:
         name: Deploy to prod-sbs
         if: github.ref == 'refs/heads/master'
-        needs: deploy-to-dev
+        needs: compile-test-and-build
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v1
