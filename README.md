@@ -23,6 +23,11 @@ Her kan arbeidsgivere si at de vil at NAV skal kontakte dem om et gitt tema.
 
 ---
 
+### Lenker til applikasjon 
+
+- https://arbeidsgiver.nav.no/kontakt-oss 
+- fra `utviklerImage` https://arbeidsgiver-q.nav.no/kontakt-oss  
+
 # Henvendelser
 
 Spørsmål knyttet til koden eller prosjektet kan rettes mot:
