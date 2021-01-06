@@ -8,7 +8,7 @@ env:
 jobs:
     compile-test-and-build:
         name: Build and run tests
-        if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/brodsmulesti'
+        if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/oppgrader-avhengigheter-jan-2021'
         runs-on: ubuntu-20.04
         steps:
             - uses: actions/checkout@v1
