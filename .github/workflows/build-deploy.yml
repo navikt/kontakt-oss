@@ -8,8 +8,8 @@ env:
 jobs:
     compile-test-and-build:
         name: Build and run tests
-        if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/brodsmulesti'
-        runs-on: ubuntu-latest
+        if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/oppgrader-avhengigheter-jan-2021'
+        runs-on: ubuntu-20.04
         steps:
             - uses: actions/checkout@v1
             - uses: actions/setup-node@v1
@@ -46,7 +46,7 @@ jobs:
         name: Deploy to dev-sbs
         if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/brodsmulesti'
         needs: compile-test-and-build
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-20.04
         steps:
             - uses: actions/checkout@v1
             - uses: nais/deploy/actions/deploy@v1
@@ -61,7 +61,7 @@ jobs:
         name: Deploy to prod-sbs
         if: github.ref == 'refs/heads/master'
         needs: compile-test-and-build
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-20.04
         steps:
             - uses: actions/checkout@v1
             - uses: nais/deploy/actions/deploy@v1

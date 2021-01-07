@@ -1,4 +1,4 @@
-FROM node:alpine
+FROM node:10.23.1-alpine3.9
 WORKDIR /usr/src/app
 
 COPY build/ build/
