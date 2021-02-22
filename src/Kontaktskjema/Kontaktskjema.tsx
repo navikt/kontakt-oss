@@ -7,8 +7,7 @@ import { Temavalg } from './Temavalg/Temavalg';
 import { getTema, Tema, TemaType } from '../utils/kontaktskjemaApi';
 import { ForebyggeSykefraværEkstradel } from './ForebyggeSykefraværEkstradel/ForebyggeSykefraværEkstradel';
 import { Felter } from './Felter/Felter';
-import { getKommune } from '../utils/fylker';
-import { FylkesinndelingProps, medFylkesinndeling } from '../providers/FylkesinndelingProvider';
+import { KommunerProps, medFylkesinndeling } from '../providers/KommunerProvider';
 import {
     Besvarelse,
     SkjemaFelt,
@@ -24,13 +23,14 @@ import { scrollToBanner } from '../utils/scrollUtils';
 import { sendEvent } from '../amplitude/amplitude';
 import Brodsmulesti from '../Brodsmulesti/Brodsmulesti';
 import './kontaktskjema.less';
+import { Normaltekst } from 'nav-frontend-typografi';
 
 type BesvarelseUtenFylkeOgKommune = Omit<
     Besvarelse,
     SkjemaFelt.kommune | SkjemaFelt.fylkesenhetsnr
 >;
 
-const Kontaktskjema: FunctionComponent<FylkesinndelingProps & RouteComponentProps> = (props) => {
+const Kontaktskjema: FunctionComponent<KommunerProps & RouteComponentProps> = (props) => {
     useEffect(() => {
         scrollToBanner();
         sendEvent('kontaktskjema', 'vist');
@@ -75,10 +75,7 @@ const Kontaktskjema: FunctionComponent<FylkesinndelingProps & RouteComponentProp
 
     const besvarelse: Besvarelse = {
         ...tekstbesvarelse,
-        ...{
-            kommune: getKommune(valgtKommunenr, props.fylkesinndeling),
-            fylkesenhetsnr: valgtFylkenøkkel,
-        },
+        fylkesenhetsnr: valgtFylkenøkkel,
     };
     const tema = getTema(valgtTemaType);
 
@@ -125,6 +122,9 @@ const Kontaktskjema: FunctionComponent<FylkesinndelingProps & RouteComponentProp
             />
             <div className="kontaktskjema">
                 <div className="kontaktskjema__innhold">
+                    <div className="kontaktskjema__vanlig-tekst">
+                        <Normaltekst>Alle felter må fylles ut.</Normaltekst>
+                    </div>
                     <Temavalg
                         velgTema={(tema: Tema) => {
                             setTemaType(tema.type);

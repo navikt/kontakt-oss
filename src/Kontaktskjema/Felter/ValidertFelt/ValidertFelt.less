@@ -4,9 +4,16 @@
     width: 100%;
 }
 
+.felt + .felt {
+  margin-top: 1rem;
+}
+
 @media (min-width: @screen-sm-min) {
     .felt {
-        max-width: calc(50% - 1rem);
-        margin-bottom: 2rem;
+        width: calc(50% - 1rem);
+    }
+
+    .felt + .felt {
+        margin-top: 0;
     }
 }

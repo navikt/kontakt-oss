@@ -10,9 +10,16 @@ const NORSK = 'æøåÆØÅ';
 const VANLIGE_BOKSTAVER = LATIN + SAMISK + NORSK;
 const SIFRE = '0-9';
 const AKSENTER = 'ëÿüïöäéúíóáèùìòàêûîôâõãñËŸÜÏÖÄÉÚÍÓÁÈÙÌÒÀÊÛÎÔÂÕÃÑ';
-const EPOSTTEGN = VANLIGE_BOKSTAVER + SIFRE + AKSENTER + '.@+';
+
+const EPOSTTEGN = "[" + VANLIGE_BOKSTAVER + SIFRE + AKSENTER + '.+' + "]+";
+const EPOST_REGEX = new RegExp(`^${EPOSTTEGN}@${EPOSTTEGN}\.${EPOSTTEGN}$`)
+
+export const epostOk = (epost: string = ''): boolean =>
+    EPOST_REGEX.test(epost);
 
 export const RAUS_TEXT = VANLIGE_BOKSTAVER + SIFRE + AKSENTER;
+
+const RAUS_TEXT_REGEX = new RegExp('^[' + RAUS_TEXT+ ']+$')
 
 const isFalsyOrEmpty = (str: string | undefined): boolean => {
     return !str || str === '';
@@ -39,12 +46,8 @@ export const validerBesvarelse = (besvarelse: Besvarelse, tema: Tema): Validerin
     };
 };
 
-const validerString = (str: string, skalBareInneholde: string): boolean => {
-    return new RegExp('^[' + skalBareInneholde + ']*$').test(str);
-};
-
 export const inneholderKunVanligeTegn = (str: string): boolean => {
-    return validerString(str, RAUS_TEXT);
+    return RAUS_TEXT_REGEX.test(str);
 };
 
 export const felterErGyldige = (besvarelse: Besvarelse) =>
@@ -52,8 +55,7 @@ export const felterErGyldige = (besvarelse: Besvarelse) =>
     telefonnummerOk(besvarelse.telefonnr) &&
     epostOk(besvarelse.epost) &&
     inneholderKunVanligeTegn(besvarelse.bedriftsnavn) &&
-    inneholderKunVanligeTegn(besvarelse.fornavn) &&
-    inneholderKunVanligeTegn(besvarelse.etternavn);
+    inneholderKunVanligeTegn(besvarelse.navn);
 
 export const paakrevdeFelterErUtfylte = (besvarelse: Besvarelse, tema: Tema): boolean => {
     if (
@@ -69,8 +71,7 @@ export const paakrevdeFelterErUtfylte = (besvarelse: Besvarelse, tema: Tema): bo
         isFalsyOrEmpty(besvarelse.kommune.nummer) ||
         isFalsyOrEmpty(besvarelse.bedriftsnavn) ||
         isFalsyOrEmpty(besvarelse.epost) ||
-        isFalsyOrEmpty(besvarelse.etternavn) ||
-        isFalsyOrEmpty(besvarelse.fornavn) ||
+        isFalsyOrEmpty(besvarelse.navn) ||
         isFalsyOrEmpty(besvarelse.telefonnr);
     return !harTommeFelter;
 };
@@ -102,5 +103,3 @@ export const telefonnummerOk = (telefonnummer: string = ''): boolean => {
     return inneholderKunSifre(telefonnummer);
 };
 
-export const epostOk = (epost: string = ''): boolean =>
-    validerString(epost, EPOSTTEGN) && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(epost);

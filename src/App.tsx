@@ -1,17 +1,17 @@
 import * as React from 'react';
 import { FeatureTogglesProvider } from './providers/FeatureTogglesProvider';
-import { FylkesinndelingProvider } from './providers/FylkesinndelingProvider';
+import { KommunerProvider } from './providers/KommunerProvider';
 import Router from './Router/Router';
 
 class App extends React.Component {
     render() {
         return (
             <FeatureTogglesProvider>
-                <FylkesinndelingProvider>
+                <KommunerProvider>
                     <main id="maincontent">
                         <Router />
                     </main>
-                </FylkesinndelingProvider>
+                </KommunerProvider>
             </FeatureTogglesProvider>
         );
     }

@@ -1,46 +1,82 @@
-import React, { FunctionComponent } from 'react';
-import { Element } from 'nav-frontend-typografi';
-import { Select } from 'nav-frontend-skjema';
-import { getAlfabetiserteKommuner } from '../../../utils/fylker';
+import React, { FunctionComponent, useContext, useState } from 'react';
 import {
-    FylkesinndelingProps,
+    KommunerContext,
+    KommunerProps,
     medFylkesinndeling,
-} from '../../../providers/FylkesinndelingProvider';
+} from '../../../providers/KommunerProvider';
 import { SkjemaFelt } from '../../utils/kontaktskjemaUtils';
+import Typeahead, { Suggestion } from '../typeahead/Typeahead';
 
 interface Props {
     label: string;
     felt: SkjemaFelt;
     oppdaterBesvarelse: (felt: SkjemaFelt, input: string) => void;
-    fylkeNokkel?: string;
     valgtKommunenr: string;
 }
 
-const KommuneFelt: FunctionComponent<Props & FylkesinndelingProps> = (props) => {
-    const kommunerOptions = getAlfabetiserteKommuner(props.fylkesinndeling, props.fylkeNokkel).map(
-        (kommune) => (
-            <option value={kommune.nummer} key={kommune.nummer}>
-                {kommune.navn}
-            </option>
-        )
-    );
+const KommuneFelt: FunctionComponent<Props & KommunerProps> = (props) => {
+    const kommuner = useContext(KommunerContext)
+        .kommuner
+        .map(
+            ({navn, nummer}) => (
+                {key: nummer, value: navn}
+            )
+        );
+    const [visFeilmelding, setVisFeilmelding] = useState<boolean>(false);
+    const [value, setValue] = useState<string>("")
+    const [key, setKey] = useState<string | null>(null);
 
-    const onChange = (event: any) => {
-        props.oppdaterBesvarelse(props.felt, event.target.value);
+    const onSelect = (suggestion: Suggestion) => {
+        props.oppdaterBesvarelse(props.felt, suggestion.key);
+        setKey(suggestion.key);
+        setValue(suggestion.value);
+        setVisFeilmelding(false)
     };
 
+    const onChange = (value: string) => {
+        setValue(value);
+        setKey(null);
+        props.oppdaterBesvarelse(props.felt, "");
+    };
+
+    const onBlur = () => {
+        if (key === null) {
+            setValue("");
+            props.oppdaterBesvarelse(props.felt, "");
+            setVisFeilmelding(true);
+        } else {
+            const kommune = kommuner.find(kommune => kommune.key === key);
+            if (kommune === undefined) {
+                setKey(null);
+                setValue("");
+                props.oppdaterBesvarelse(props.felt, "");
+                setVisFeilmelding(true);
+            } else if (kommune.value !== value) {
+                setValue(kommune.value);
+                props.oppdaterBesvarelse(props.felt, key);
+                setVisFeilmelding(false);
+            }
+        }
+    };
+
+    const feil = visFeilmelding ? 'Du må velge kommune.' : undefined;
+
     return (
-        <Select
-            label={<Element>{props.label}</Element>}
-            className="felt"
-            onChange={onChange}
-            disabled={kommunerOptions.length === 0}
-            value={props.valgtKommunenr}
-            data-testid="kommunerDropdown"
-        >
-            <option value="" key="ingen valgt" />
-            {kommunerOptions}
-        </Select>
+            <Typeahead
+                label={props.label}
+                value={value}
+                suggestions={
+                    kommuner
+                        .filter(kommune => kommune.value.toLowerCase().match(value.toLowerCase()))
+                }
+                onChange={onChange}
+                onSelect={onSelect}
+                onBlur={onBlur}
+                placeholder={"Søk etter kommune"}
+                id="searchbox"
+                ariaLabel="Søk"
+                feil={feil}
+            />
     );
 };
 

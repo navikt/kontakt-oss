@@ -9,8 +9,7 @@ const gyldigBesvarelse: Besvarelse = {
     },
     bedriftsnavn: 'Brillefestival AS',
     orgnr: '000000000',
-    fornavn: 'Eígil-Eilberñt',
-    etternavn: 'Wùxlér',
+    navn: 'Eígil-Eilberñt Wùxlér',
     epost: 'eígil.eilberñt.wùxlér@brillefestivalen.com',
     telefonnr: ' +  01 99 99   222      ',
     fylkesenhetsnr: '1800',
@@ -18,7 +17,7 @@ const gyldigBesvarelse: Besvarelse = {
 };
 
 const gyldigTema: Tema = {
-    type: TemaType.Arbeidstrening,
+    type: TemaType.Rekruttering,
     tekst: 'Arbeidstrening é é ñ ũ',
 };
 

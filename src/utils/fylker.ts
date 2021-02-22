@@ -1,4 +1,3 @@
-import { Fylkesinndeling } from '../providers/FylkesinndelingProvider';
 
 export interface Fylke {
     nokkel: string;
@@ -14,17 +13,6 @@ export interface Kommune {
 export const tomKommune = {
     navn: '',
     nummer: '',
-};
-
-export const getKommune = (kommunenr: string, fylkesinndeling: Fylkesinndeling): Kommune => {
-    const kommunerMedRiktigNummer = Object.values(fylkesinndeling)
-        .flat()
-        .filter((kommune: Kommune) => kommune.nummer === kommunenr);
-    if (kommunerMedRiktigNummer.length === 1) {
-        return kommunerMedRiktigNummer[0];
-    } else {
-        return tomKommune;
-    }
 };
 
 // tslint:disable max-line-length
@@ -107,17 +95,3 @@ export const fylker: Fylke[] = [
     }))
     .sort((a, b) => a.navn.localeCompare(b.navn, 'nb-NO'));
 
-export const getHrefTilKontaktliste = (fylkeNokkel?: string): string => {
-    const gjeldendeFylke = fylker.filter((fylke) => fylke.nokkel === fylkeNokkel)[0];
-    return gjeldendeFylke ? gjeldendeFylke.hrefKontaktliste : '#';
-};
-
-export const getAlfabetiserteKommuner = (fylkesinndeling: any, fylkeNr?: string): Kommune[] => {
-    if (!fylkeNr || !fylkesinndeling || !fylkesinndeling[fylkeNr]) {
-        return [];
-    } else {
-        return (fylkesinndeling[fylkeNr] as Kommune[]).sort((kommuneA, kommuneB) =>
-            kommuneA.navn.localeCompare(kommuneB.navn, 'nb-NO')
-        );
-    }
-};
