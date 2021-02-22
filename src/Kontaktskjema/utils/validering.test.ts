@@ -1,5 +1,4 @@
 import { epostOk, orgnrOk, telefonnummerOk, validerBesvarelse } from './validering';
-import { Tema, TemaType } from '../../utils/kontaktskjemaApi';
 import { Besvarelse } from './kontaktskjemaUtils';
 
 const gyldigBesvarelse: Besvarelse = {
@@ -16,13 +15,8 @@ const gyldigBesvarelse: Besvarelse = {
     harSnakketMedAnsattrepresentant: false,
 };
 
-const gyldigTema: Tema = {
-    type: TemaType.Rekruttering,
-    tekst: 'Arbeidstrening é é ñ ũ',
-};
-
 const valider = (felt: any) =>
-    validerBesvarelse({ ...gyldigBesvarelse, ...felt }, gyldigTema);
+    validerBesvarelse({ ...gyldigBesvarelse, ...felt });
 
 describe('Test av validering', () => {
     test('Orgnr kan være undefined', () => {
@@ -75,7 +69,7 @@ describe('Test av validering', () => {
     });
 
     test('Gyldig skjema skal valideres OK', () => {
-        expect(validerBesvarelse(gyldigBesvarelse, gyldigTema).ok).toBeTruthy();
+        expect(validerBesvarelse(gyldigBesvarelse).ok).toBeTruthy();
     });
 
     test('Bedriftsnr skal tillate parenteser og skråstrek', () => {

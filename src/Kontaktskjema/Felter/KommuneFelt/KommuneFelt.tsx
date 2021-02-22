@@ -10,6 +10,7 @@ import Typeahead, { Suggestion } from '../typeahead/Typeahead';
 interface Props {
     label: string;
     felt: SkjemaFelt;
+    feil?: React.ReactNode | boolean;
     oppdaterBesvarelse: (felt: SkjemaFelt, input: string) => void;
     valgtKommunenr: string;
 }
@@ -59,8 +60,6 @@ const KommuneFelt: FunctionComponent<Props & KommunerProps> = (props) => {
         }
     };
 
-    const feil = visFeilmelding ? 'Du må velge kommune.' : undefined;
-
     return (
             <Typeahead
                 label={props.label}
@@ -73,9 +72,9 @@ const KommuneFelt: FunctionComponent<Props & KommunerProps> = (props) => {
                 onSelect={onSelect}
                 onBlur={onBlur}
                 placeholder={"Søk etter kommune"}
-                id="searchbox"
+                id={props.felt}
                 ariaLabel="Søk"
-                feil={feil}
+                feil={visFeilmelding && props.feil}
                 data-testid="kommune"
             />
     );

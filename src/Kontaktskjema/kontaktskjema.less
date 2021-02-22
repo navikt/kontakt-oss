@@ -36,8 +36,60 @@
       margin: 0 auto 1rem 0;
     }
 
+    .kontaktskjema-felter {
+        &__bolk {
+            width: 100%;
+            margin: 0;
+        }
+
+        &__bolk + &__bolk {
+            margin-top: 2.5rem;
+        }
+
+        &__row + &__row {
+            margin-top: 1rem;
+        }
+
+        &__row {
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+
+            &__enkel {
+                justify-content: left;
+            }
+
+            &__dobbel {
+                justify-content: space-between;
+            }
+        }
+    }
+
+    .felt {
+        width: 100%;
+    }
+
+    .felt + .felt {
+        margin-top: 1rem;
+    }
+
+    @media (min-width: @screen-sm-min) {
+        .felt {
+            width: calc(50% - 1rem);
+        }
+
+        .felt + .felt {
+            margin-top: 0;
+        }
+    }
+
     .kontaktskjema__knapp {
         // overrider default styling fra nav-frontend
         white-space: normal;
+    }
+
+    .feiloppsummering {
+        margin-bottom: 3rem;
     }
 }

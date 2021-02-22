@@ -1,7 +1,8 @@
 import { validerOrgnr } from '../../utils/orgnrUtils';
 import { fjernWhitespace, inneholderKunSifre } from '../../utils/stringUtils';
 import { Tema, TemaType } from '../../utils/kontaktskjemaApi';
-import { Besvarelse } from './kontaktskjemaUtils';
+import {Besvarelse, SkjemaFelt} from './kontaktskjemaUtils';
+import {FeiloppsummeringFeil} from "nav-frontend-skjema/src/feiloppsummering";
 
 const LATIN = "a-zA-Z\\- –'._)(/";
 const SAMISK = 'ÁáČčĐđŊŋŠšŦŧŽž';
@@ -26,21 +27,57 @@ const isPresent = (str: string | undefined): boolean =>
 
 interface ValideringResultat {
     ok: boolean;
-    feilmelding?: string;
+    feilmelding: Partial<Record<SkjemaFelt, FeiloppsummeringFeil>>;
 }
 
-export const validerBesvarelse = (besvarelse: Besvarelse, tema: Tema): ValideringResultat => {
-    let feilmelding;
-    if (!paakrevdeFelterErUtfylte(besvarelse, tema)) {
-        feilmelding = 'Du må fylle ut alle feltene for å sende inn.';
-    } else if (!felterErGyldige(besvarelse)) {
-        feilmelding = 'Ett eller flere av feltene er ikke fylt ut riktig.';
-    } else {
-        return { ok: true };
-    }
+type Validator = (input: string) => string | undefined;
+const valideringsregler: Partial<Record<SkjemaFelt, Validator[]>> = {
+    [SkjemaFelt.kommune]: [
+        (verdi: string) => verdi.trim().length > 0 ? undefined : 'Du må oppgi kommune',
+    ],
+    [SkjemaFelt.bedriftsnavn]: [
+        (verdi: string) => verdi.trim().length > 0 ? undefined : 'Du må oppgi bedriftsnavn',
+        (verdi: string) => inneholderKunVanligeTegn(verdi) ? undefined : 'Dette feltet kan ikke inneholde spesialtegn',
+    ],
+    [SkjemaFelt.orgnr]: [
+        (verdi: string) => orgnrOk(verdi) ? undefined : 'Du må oppgi et gyldig organisasjonsnummer',
+    ],
+    [SkjemaFelt.navn]: [
+        (verdi: string) => verdi.trim().length > 0 ? undefined : 'Du må fylle inn navnet ditt',
+        (verdi: string) => inneholderKunVanligeTegn(verdi) ? undefined : 'Dette feltet kan ikke inneholde spesialtegn',
+    ],
+    [SkjemaFelt.epost]: [
+        (verdi: string) => verdi.trim().length > 0 ? undefined : 'Du må fylle inn epost',
+        (verdi: string) => epostOk(verdi) ? undefined : 'Vennligst oppgi en gyldig e-post-adresse',
+    ],
+    [SkjemaFelt.telefonnr]: [
+        (verdi: string) => verdi.trim().length > 0 ? undefined : 'Du må fylle inn telefonnummer',
+        (verdi: string) => telefonnummerOk(verdi) ? undefined : 'Vennligst oppgi et gyldig telefonnummer',
+    ],
+}
+
+// TODO: ta hensyn til tema
+export const validerBesvarelse = (besvarelse: Besvarelse): ValideringResultat => {
+    const feilmelding: Partial<Record<SkjemaFelt, FeiloppsummeringFeil>> = Object.fromEntries([
+        {felt: SkjemaFelt.kommune, verdi: besvarelse.kommune.nummer},
+        {felt: SkjemaFelt.bedriftsnavn, verdi: besvarelse.bedriftsnavn},
+        {felt: SkjemaFelt.orgnr, verdi: besvarelse.orgnr},
+        {felt: SkjemaFelt.navn, verdi: besvarelse.navn},
+        {felt: SkjemaFelt.epost, verdi: besvarelse.epost},
+        {felt: SkjemaFelt.telefonnr, verdi: besvarelse.telefonnr},
+    ].map(({felt, verdi}) : FeiloppsummeringFeil | undefined =>
+        valideringsregler[felt]?.map(valideringsregel => {
+            const feilmelding = valideringsregel(verdi);
+            return feilmelding ? { skjemaelementId: felt, feilmelding } : undefined;
+        }).find(r => r)
+    ).filter(
+        (e): e is FeiloppsummeringFeil => e !== undefined
+    ).map((feil) => {
+        return [feil.skjemaelementId, feil]
+    }));
 
     return {
-        ok: false,
+        ok: Object.keys(feilmelding).length === 0,
         feilmelding,
     };
 };

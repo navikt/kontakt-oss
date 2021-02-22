@@ -1,10 +1,10 @@
-import React, { FunctionComponent, useEffect } from 'react';
-import { useQueryState } from 'react-router-use-location-state';
+import React, {FunctionComponent, useEffect} from 'react';
+import {useQueryState} from 'react-router-use-location-state';
 import Bekreftelseboks from './Bekreftelseboks/Bekreftelseboks';
-import { scrollToBanner } from '../utils/scrollUtils';
+import {scrollToBanner} from '../utils/scrollUtils';
 import Banner from '../Banner/Banner';
-import { HvaSkjerVidere } from '../Kontaktskjema/HvaSkjerVidere/HvaSkjerVidere';
-import { getTema, TemaType } from '../utils/kontaktskjemaApi';
+import {HvaSkjerVidere} from '../Kontaktskjema/HvaSkjerVidere/HvaSkjerVidere';
+import {getTema, TemaType} from '../utils/kontaktskjemaApi';
 import Brodsmulesti from '../Brodsmulesti/Brodsmulesti';
 import './Bekreftelse.less';
 
@@ -13,7 +13,7 @@ const Bekreftelse: FunctionComponent = () => {
         scrollToBanner();
     }, []);
 
-    const [valgtTemaType] = useQueryState<TemaType | ''>('tema', '');
+    const [valgtTemaType] = useQueryState<TemaType>('tema', TemaType.Rekruttering);
 
     return (
         <>

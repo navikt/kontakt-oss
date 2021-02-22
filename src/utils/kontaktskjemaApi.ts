@@ -23,12 +23,8 @@ export const temaer: Tema[] = [
     },
 ];
 
-export const getTema = (temaType: TemaType | ''): Tema | undefined => {
-    const temaMedRiktigType = temaer.filter((tema) => tema.type === temaType);
-    if (temaMedRiktigType.length === 1) {
-        return temaMedRiktigType[0];
-    }
-};
+export const getTema = (temaType: TemaType): Tema =>
+    temaer.find((tema) => tema.type === temaType)!!;
 
 export type BesvarelseBackend = {
     fylkesenhetsnr: string;
