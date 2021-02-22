@@ -3,7 +3,7 @@ import { fjernWhitespace, inneholderKunSifre } from '../../utils/stringUtils';
 import { Tema, TemaType } from '../../utils/kontaktskjemaApi';
 import { Besvarelse } from './kontaktskjemaUtils';
 
-const LATIN = "a-zA-Z- –'._)(/";
+const LATIN = "a-zA-Z\\- –'._)(/";
 const SAMISK = 'ÁáČčĐđŊŋŠšŦŧŽž';
 const NORSK = 'æøåÆØÅ';
 
@@ -12,14 +12,14 @@ const SIFRE = '0-9';
 const AKSENTER = 'ëÿüïöäéúíóáèùìòàêûîôâõãñËŸÜÏÖÄÉÚÍÓÁÈÙÌÒÀÊÛÎÔÂÕÃÑ';
 
 const EPOSTTEGN = "[" + VANLIGE_BOKSTAVER + SIFRE + AKSENTER + '.+' + "]+";
-const EPOST_REGEX = new RegExp(`^${EPOSTTEGN}@${EPOSTTEGN}\.${EPOSTTEGN}$`)
+const EPOST_REGEX = new RegExp(`^${EPOSTTEGN}@${EPOSTTEGN}\\.${EPOSTTEGN}$`)
 
 export const epostOk = (epost: string = ''): boolean =>
     EPOST_REGEX.test(epost);
 
 export const RAUS_TEXT = VANLIGE_BOKSTAVER + SIFRE + AKSENTER;
 
-const RAUS_TEXT_REGEX = new RegExp('^[' + RAUS_TEXT+ ']+$')
+const RAUS_TEXT_REGEX = new RegExp('^[' + RAUS_TEXT + ']+$')
 
 const isFalsyOrEmpty = (str: string | undefined): boolean => {
     return !str || str === '';

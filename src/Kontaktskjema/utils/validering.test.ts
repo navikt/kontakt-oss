@@ -86,8 +86,8 @@ describe('Test av validering', () => {
 
     test('Skjema skal ikke inneholde spesialtegn', () => {
         expect(valider({ bedriftsnavn: "'drop table kontaktskjema;" }).ok).toBeFalsy();
-        expect(valider({ fornavn: '</span> <script></script> <span>' }).ok).toBeFalsy();
-        expect(valider({ etternavn: "'drop table kontaktskjema;" }).ok).toBeFalsy();
+        expect(valider({ navn: '</span> <script></script> <span>' }).ok).toBeFalsy();
+        expect(valider({ navn: "'drop table kontaktskjema;" }).ok).toBeFalsy();
         expect(valider({ orgnr: '</span> <script></script> <span>' }).ok).toBeFalsy();
         expect(valider({ telefonnr: "'drop table kontaktskjema;" }).ok).toBeFalsy();
         expect(valider({ epost: '</span> <script></script> <span>' }).ok).toBeFalsy();
