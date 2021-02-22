@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { FYLKER_OG_KOMMUNER_PATH } from '../utils/paths';
+import { KOMMUNER_PATH } from '../utils/paths';
 import { Kommune } from '../utils/fylker';
 
 export type Kommuner = Kommune[];
@@ -22,7 +22,7 @@ export class KommunerProvider extends React.Component<{}, KommunerProps> {
     }
 
     componentDidMount(): void {
-        fetch(FYLKER_OG_KOMMUNER_PATH)
+        fetch(KOMMUNER_PATH)
             .then((response) => {
                 if (response.ok) {
                     return response;

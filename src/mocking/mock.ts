@@ -1,13 +1,13 @@
 import fetchMock from 'fetch-mock';
 import {
     FEATURE_TOGGLE_BASEPATH,
-    FYLKER_OG_KOMMUNER_PATH,
+    KOMMUNER_PATH,
     SEND_KONTAKTSKJEMA_PATH,
 } from '../utils/paths';
 import fylkesinndeling from './fylkesinndeling.json';
 import { FeatureToggles } from '../providers/FeatureTogglesProvider';
 
-fetchMock.get(FYLKER_OG_KOMMUNER_PATH, fylkesinndeling);
+fetchMock.get(KOMMUNER_PATH, fylkesinndeling);
 
 const featureToggleResponse: FeatureToggles = {};
 
