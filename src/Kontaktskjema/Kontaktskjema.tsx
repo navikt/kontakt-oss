@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { useQueryState } from 'react-router-use-location-state';
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
@@ -7,14 +7,8 @@ import { Temavalg } from './Temavalg/Temavalg';
 import { getTema, Tema, TemaType } from '../utils/kontaktskjemaApi';
 import { ForebyggeSykefraværEkstradel } from './ForebyggeSykefraværEkstradel/ForebyggeSykefraværEkstradel';
 import { Felter } from './Felter/Felter';
-import { getKommune } from '../utils/fylker';
-import { FylkesinndelingProps, medFylkesinndeling } from '../providers/FylkesinndelingProvider';
-import {
-    Besvarelse,
-    SkjemaFelt,
-    tomBesvarelse,
-    validerBesvarelseOgSendInn,
-} from './utils/kontaktskjemaUtils';
+import { KommunerContext, KommunerProps, medFylkesinndeling } from '../providers/KommunerProvider';
+import { Besvarelse, SkjemaFelt, tomBesvarelse, validerBesvarelseOgSendInn, } from './utils/kontaktskjemaUtils';
 import { BEKREFTELSE_PATH } from '../utils/paths';
 import { HvaSkjerVidere } from './HvaSkjerVidere/HvaSkjerVidere';
 import { EnkelInfostripe } from './EnkelInfostripe/EnkelInfostripe';
@@ -24,20 +18,22 @@ import { scrollToBanner } from '../utils/scrollUtils';
 import { sendEvent } from '../amplitude/amplitude';
 import Brodsmulesti from '../Brodsmulesti/Brodsmulesti';
 import './kontaktskjema.less';
+import { Normaltekst } from 'nav-frontend-typografi';
 
 type BesvarelseUtenFylkeOgKommune = Omit<
     Besvarelse,
     SkjemaFelt.kommune | SkjemaFelt.fylkesenhetsnr
 >;
 
-const Kontaktskjema: FunctionComponent<FylkesinndelingProps & RouteComponentProps> = (props) => {
+const Kontaktskjema: FunctionComponent<KommunerProps & RouteComponentProps> = (props) => {
     useEffect(() => {
         scrollToBanner();
         sendEvent('kontaktskjema', 'vist');
     }, []);
 
-    const [valgtTemaType, setTemaType] = useQueryState<TemaType | ''>('tema', '');
+    const [valgtTemaType, setTemaType] = useQueryState<TemaType>('tema', TemaType.Rekruttering);
 
+    const {kommuner} = useContext(KommunerContext);
     const [innsendingStatus, setInnsendingStatus] = useState<{
         feilmelding?: string;
         senderInn: boolean;
@@ -75,10 +71,11 @@ const Kontaktskjema: FunctionComponent<FylkesinndelingProps & RouteComponentProp
 
     const besvarelse: Besvarelse = {
         ...tekstbesvarelse,
-        ...{
-            kommune: getKommune(valgtKommunenr, props.fylkesinndeling),
-            fylkesenhetsnr: valgtFylkenøkkel,
-        },
+        fylkesenhetsnr: valgtFylkenøkkel,
+        kommune: {
+            navn: "",
+            nummer: valgtKommunenr
+        }
     };
     const tema = getTema(valgtTemaType);
 
@@ -102,7 +99,16 @@ const Kontaktskjema: FunctionComponent<FylkesinndelingProps & RouteComponentProp
             return;
         }
 
-        const sendInnResultat = await validerBesvarelseOgSendInn(besvarelse, tema);
+        const kommunenr = besvarelse.kommune.nummer;
+        const besvarelseMedKommunenavn = {
+            ...besvarelse,
+            kommune: {
+                nummer: kommunenr,
+                navn: kommuner.find(k => k.nummer === kommunenr)?.navn ?? ''
+            }
+        }
+
+        const sendInnResultat = await validerBesvarelseOgSendInn(besvarelseMedKommunenavn, tema);
 
         if (sendInnResultat.ok) {
             props.history.push(BEKREFTELSE_PATH + '?tema=' + tema.type);
@@ -125,6 +131,9 @@ const Kontaktskjema: FunctionComponent<FylkesinndelingProps & RouteComponentProp
             />
             <div className="kontaktskjema">
                 <div className="kontaktskjema__innhold">
+                    <div className="kontaktskjema__vanlig-tekst">
+                        <Normaltekst>Alle felter må fylles ut.</Normaltekst>
+                    </div>
                     <Temavalg
                         velgTema={(tema: Tema) => {
                             setTemaType(tema.type);
@@ -138,7 +147,7 @@ const Kontaktskjema: FunctionComponent<FylkesinndelingProps & RouteComponentProp
                             besvarelse={besvarelse}
                         />
                     )}
-                    <Felter oppdaterBesvarelse={oppdaterBesvarelse} besvarelse={besvarelse} />
+                    <Felter oppdaterBesvarelse={oppdaterBesvarelse} besvarelse={besvarelse} tema={valgtTemaType}/>
                     <EnkelInfostripe classname="kontaktskjema__infostripe">
                         NAV bruker disse opplysningene når vi kontakter deg. Vi lagrer disse
                         opplysningene om deg, slik at vi kan kontakte deg om{' '}

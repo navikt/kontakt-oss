@@ -1,0 +1,30 @@
+@import "node_modules/nav-frontend-core/less/core.less";
+
+.TypeaheadSuggestion__substring {
+  font-weight: bold;
+}
+
+.TypeaheadSuggestion__inner {
+  display: block;
+  width: 100%;
+  // padding: 0px 1rem;
+  padding: 2px 6px 0 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.TypeaheadSuggestion--active {
+  color: white;
+  background-color: @navBlaDarken20; // #3385d1;
+  // color: @navBlaDarken20;
+  // background-color: @navGronnLighten20;
+}
+
+@media (max-width: @screen-sm-max) {
+  .TypeaheadSuggestion__inner {
+    padding: 2px 6px 0 12px;
+    // padding: 0.5rem 1rem;
+    // border-bottom: 1px solid @navLysGra;
+  }
+}

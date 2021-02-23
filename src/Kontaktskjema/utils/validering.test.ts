@@ -9,8 +9,7 @@ const gyldigBesvarelse: Besvarelse = {
     },
     bedriftsnavn: 'Brillefestival AS',
     orgnr: '000000000',
-    fornavn: 'Eígil-Eilberñt',
-    etternavn: 'Wùxlér',
+    navn: 'Eígil-Eilberñt Wùxlér',
     epost: 'eígil.eilberñt.wùxlér@brillefestivalen.com',
     telefonnr: ' +  01 99 99   222      ',
     fylkesenhetsnr: '1800',
@@ -18,7 +17,7 @@ const gyldigBesvarelse: Besvarelse = {
 };
 
 const gyldigTema: Tema = {
-    type: TemaType.Arbeidstrening,
+    type: TemaType.Rekruttering,
     tekst: 'Arbeidstrening é é ñ ũ',
 };
 
@@ -87,8 +86,8 @@ describe('Test av validering', () => {
 
     test('Skjema skal ikke inneholde spesialtegn', () => {
         expect(valider({ bedriftsnavn: "'drop table kontaktskjema;" }).ok).toBeFalsy();
-        expect(valider({ fornavn: '</span> <script></script> <span>' }).ok).toBeFalsy();
-        expect(valider({ etternavn: "'drop table kontaktskjema;" }).ok).toBeFalsy();
+        expect(valider({ navn: '</span> <script></script> <span>' }).ok).toBeFalsy();
+        expect(valider({ navn: "'drop table kontaktskjema;" }).ok).toBeFalsy();
         expect(valider({ orgnr: '</span> <script></script> <span>' }).ok).toBeFalsy();
         expect(valider({ telefonnr: "'drop table kontaktskjema;" }).ok).toBeFalsy();
         expect(valider({ epost: '</span> <script></script> <span>' }).ok).toBeFalsy();

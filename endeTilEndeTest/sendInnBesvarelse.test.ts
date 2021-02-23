@@ -4,19 +4,14 @@ fixture('Sende inn besvarelse').page('localhost:3000/kontakt-oss/kontaktskjema')
 
 test('Skal kunne sende inn en besvarelse', async t => {
     const rekrutteringKnapp = Selector('[data-testid="temaknapp"]').withText(
-        'Rekruttering'
+        'rekruttering'
     );
 
-    const fylkerDropdown = Selector('[data-testid="fylkerDropdown"]');
-    const agderOption = fylkerDropdown.find('option').withText('Agder');
-
-    const kommunerDropdown = Selector('[data-testid="kommunerDropdown"]');
-    const arendalOption = kommunerDropdown.find('option').withText('Arendal');
+    const kommune = Selector('[data-testid="kommune"]');
 
     const bedriftsnavn = Selector('[data-testid="bedriftsnavn"]');
     const orgnr = Selector('[data-testid="orgnr"]');
-    const fornavn = Selector('[data-testid="fornavn"]');
-    const etternavn = Selector('[data-testid="etternavn"]');
+    const navn = Selector('[data-testid="navn"]');
     const epost = Selector('[data-testid="epost"]');
     const tlfnr = Selector('[data-testid="tlfnr"]');
 
@@ -25,20 +20,12 @@ test('Skal kunne sende inn en besvarelse', async t => {
 
     await t
         .click(rekrutteringKnapp)
-        .expect(fylkerDropdown.exists)
+        .expect(kommune.exists)
         .ok()
-        .expect(kommunerDropdown.exists)
-        .ok()
-
-        .click(fylkerDropdown)
-        .click(agderOption)
-        .click(kommunerDropdown)
-        .click(arendalOption)
-
+        .typeText(kommune, 'Arendal')
         .typeText(bedriftsnavn, 'Bedriftsnavn')
         .typeText(orgnr, '999999999')
-        .typeText(fornavn, 'Fornavn')
-        .typeText(etternavn, 'Etternavn')
+        .typeText(navn, 'Ivar Aasen')
         .typeText(epost, 'test@test.no')
         .typeText(tlfnr, '12345678')
 

@@ -12,8 +12,7 @@ export interface Besvarelse {
     kommune: Kommune;
     bedriftsnavn: string;
     orgnr: string;
-    fornavn: string;
-    etternavn: string;
+    navn: string;
     epost: string;
     telefonnr: string;
     fylkesenhetsnr: string;
@@ -25,8 +24,7 @@ export const tomBesvarelse = {
     kommune: tomKommune,
     bedriftsnavn: '',
     orgnr: '',
-    fornavn: '',
-    etternavn: '',
+    navn: '',
     epost: '',
     telefonnr: '',
 };
@@ -64,8 +62,7 @@ export enum SkjemaFelt {
     kommune = 'kommune',
     bedriftsnavn = 'bedriftsnavn',
     orgnr = 'orgnr',
-    fornavn = 'fornavn',
-    etternavn = 'etternavn',
+    navn = 'navn',
     epost = 'epost',
     telefonnr = 'telefonnr',
     fylkesenhetsnr = 'fylkesenhetsnr',

@@ -1,7 +1,7 @@
 const basePath = require('./basePath');
 const apiBasePath = '/kontakt-oss-api';
 
-const whitelistApiUrler = ['/meldInteresse', '/fylkerOgKommuner'];
+const whitelistApiUrler = ['/meldInteresse', '/fylkerOgKommuner', '/kommuner'];
 
 const whitelist = {
     ['^' + basePath('/api/feature')]: apiBasePath + '/feature', // går ikke med regexp-en under pga query params

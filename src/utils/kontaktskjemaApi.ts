@@ -4,8 +4,6 @@ import { Besvarelse } from '../Kontaktskjema/utils/kontaktskjemaUtils';
 
 export enum TemaType {
     Rekruttering = 'REKRUTTERING',
-    RekrutteringMedTilrettelegging = 'REKRUTTERING_MED_TILRETTELEGGING',
-    Arbeidstrening = 'ARBEIDSTRENING',
     ForebyggeSykefravær = 'FOREBYGGE_SYKEFRAVÆR',
 }
 
@@ -17,15 +15,7 @@ export interface Tema {
 export const temaer: Tema[] = [
     {
         type: TemaType.Rekruttering,
-        tekst: 'Rekruttering',
-    },
-    {
-        type: TemaType.RekrutteringMedTilrettelegging,
-        tekst: 'Rekruttering med tilrettelegging',
-    },
-    {
-        type: TemaType.Arbeidstrening,
-        tekst: 'Arbeidstrening',
+        tekst: 'Jeg vil ha hjelp til å finne ny medarbeider (rekruttering og inkludering)',
     },
     {
         type: TemaType.ForebyggeSykefravær,
@@ -46,8 +36,7 @@ export type BesvarelseBackend = {
     kommunenr: string;
     bedriftsnavn: string;
     orgnr: string;
-    fornavn: string;
-    etternavn: string;
+    navn: string;
     epost: string;
     telefonnr: string;
     tema: string;

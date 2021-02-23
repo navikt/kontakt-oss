@@ -3,20 +3,26 @@ import { fjernWhitespace, inneholderKunSifre } from '../../utils/stringUtils';
 import { Tema, TemaType } from '../../utils/kontaktskjemaApi';
 import { Besvarelse } from './kontaktskjemaUtils';
 
-const LATIN = "a-zA-Z- –'._)(/";
+const LATIN = "a-zA-Z\\- –'._)(/";
 const SAMISK = 'ÁáČčĐđŊŋŠšŦŧŽž';
 const NORSK = 'æøåÆØÅ';
 
 const VANLIGE_BOKSTAVER = LATIN + SAMISK + NORSK;
 const SIFRE = '0-9';
 const AKSENTER = 'ëÿüïöäéúíóáèùìòàêûîôâõãñËŸÜÏÖÄÉÚÍÓÁÈÙÌÒÀÊÛÎÔÂÕÃÑ';
-const EPOSTTEGN = VANLIGE_BOKSTAVER + SIFRE + AKSENTER + '.@+';
+
+const EPOSTTEGN = "[" + VANLIGE_BOKSTAVER + SIFRE + AKSENTER + ".+]+";
+const EPOST_REGEX = new RegExp(`^${EPOSTTEGN}@${EPOSTTEGN}\\.${EPOSTTEGN}$`)
+
+export const epostOk = (epost: string = ''): boolean =>
+    EPOST_REGEX.test(epost);
 
 export const RAUS_TEXT = VANLIGE_BOKSTAVER + SIFRE + AKSENTER;
 
-const isFalsyOrEmpty = (str: string | undefined): boolean => {
-    return !str || str === '';
-};
+const RAUS_TEXT_REGEX = new RegExp('^[' + RAUS_TEXT + ']+$')
+
+const isPresent = (str: string | undefined): boolean =>
+    str !== undefined && str.trim() !== '';
 
 interface ValideringResultat {
     ok: boolean;
@@ -39,12 +45,8 @@ export const validerBesvarelse = (besvarelse: Besvarelse, tema: Tema): Validerin
     };
 };
 
-const validerString = (str: string, skalBareInneholde: string): boolean => {
-    return new RegExp('^[' + skalBareInneholde + ']*$').test(str);
-};
-
 export const inneholderKunVanligeTegn = (str: string): boolean => {
-    return validerString(str, RAUS_TEXT);
+    return RAUS_TEXT_REGEX.test(str);
 };
 
 export const felterErGyldige = (besvarelse: Besvarelse) =>
@@ -52,27 +54,24 @@ export const felterErGyldige = (besvarelse: Besvarelse) =>
     telefonnummerOk(besvarelse.telefonnr) &&
     epostOk(besvarelse.epost) &&
     inneholderKunVanligeTegn(besvarelse.bedriftsnavn) &&
-    inneholderKunVanligeTegn(besvarelse.fornavn) &&
-    inneholderKunVanligeTegn(besvarelse.etternavn);
+    inneholderKunVanligeTegn(besvarelse.navn);
 
 export const paakrevdeFelterErUtfylte = (besvarelse: Besvarelse, tema: Tema): boolean => {
-    if (
-        tema.type === TemaType.ForebyggeSykefravær &&
-        besvarelse.harSnakketMedAnsattrepresentant === undefined
-    ) {
-        return false;
-    }
-    const harTommeFelter: boolean =
-        !besvarelse ||
-        !besvarelse.kommune ||
-        isFalsyOrEmpty(besvarelse.kommune.navn) ||
-        isFalsyOrEmpty(besvarelse.kommune.nummer) ||
-        isFalsyOrEmpty(besvarelse.bedriftsnavn) ||
-        isFalsyOrEmpty(besvarelse.epost) ||
-        isFalsyOrEmpty(besvarelse.etternavn) ||
-        isFalsyOrEmpty(besvarelse.fornavn) ||
-        isFalsyOrEmpty(besvarelse.telefonnr);
-    return !harTommeFelter;
+
+    const rekrutteringsfeltUtfylt = tema.type === TemaType.Rekruttering &&
+        isPresent(besvarelse.kommune.navn) &&
+        isPresent(besvarelse.kommune.nummer);
+
+    const forebyggeSykefraværsfeltUtfylt = tema.type === TemaType.ForebyggeSykefravær &&
+        besvarelse.harSnakketMedAnsattrepresentant !== undefined &&
+        isPresent(besvarelse.fylkesenhetsnr);
+
+    const fellesFeltUtfylt = isPresent(besvarelse.bedriftsnavn) &&
+        isPresent(besvarelse.epost) &&
+        isPresent(besvarelse.navn) &&
+        isPresent(besvarelse.telefonnr);
+
+    return (rekrutteringsfeltUtfylt || forebyggeSykefraværsfeltUtfylt) && fellesFeltUtfylt;
 };
 
 export const orgnrOk = (orgnr?: string): boolean => {
@@ -102,5 +101,3 @@ export const telefonnummerOk = (telefonnummer: string = ''): boolean => {
     return inneholderKunSifre(telefonnummer);
 };
 
-export const epostOk = (epost: string = ''): boolean =>
-    validerString(epost, EPOSTTEGN) && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(epost);

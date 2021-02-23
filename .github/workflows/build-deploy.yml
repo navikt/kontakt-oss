@@ -8,7 +8,7 @@ env:
 jobs:
     compile-test-and-build:
         name: Build and run tests
-        if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/metatagger'
+        if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/forenkle-kontakt-oss-skjema'
         runs-on: ubuntu-20.04
         steps:
             - uses: actions/checkout@v1
@@ -44,7 +44,7 @@ jobs:
 
     deploy-to-dev:
         name: Deploy to dev-sbs
-        if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/metatagger'
+        if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/forenkle-kontakt-oss-skjema'
         needs: compile-test-and-build
         runs-on: ubuntu-20.04
         steps:

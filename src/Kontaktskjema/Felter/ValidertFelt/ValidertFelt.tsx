@@ -12,12 +12,18 @@ interface Props {
     oppdaterBesvarelse: (id: SkjemaFelt, input: string) => void;
     verdi: string;
     'data-testid': string;
+    påkrevd?: boolean; // default: false
 }
 
 const ValidertFelt = (props: Props) => {
-    const [visFeilmelding, settVisFeilmelding] = useState<boolean>(false);
+    const [visFeilmelding, settVisFeilmelding] = useState<'nei' | 'validering' | 'blank'>('nei');
 
-    const feilmelding = visFeilmelding ? props.feilmelding : undefined;
+    const feilmelding =
+        visFeilmelding === 'validering' ?
+            props.feilmelding :
+            visFeilmelding === 'blank' ?
+                'Du må fylle inn feltet.' :
+                undefined;
 
     const onChange = (event: any) => {
         props.oppdaterBesvarelse(props.felt, event.target.value);
@@ -29,7 +35,11 @@ const ValidertFelt = (props: Props) => {
             label={<Element>{props.label}</Element>}
             onChange={onChange}
             onBlur={() => {
-                settVisFeilmelding(!props.validering(props.verdi));
+                if (props.påkrevd && props.verdi.trim().length === 0) {
+                    settVisFeilmelding('blank');
+                } else {
+                    settVisFeilmelding(!props.validering(props.verdi) ? 'validering' : 'nei');
+                }
             }}
             value={props.verdi}
             feil={feilmelding}
