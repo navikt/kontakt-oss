@@ -1,4 +1,4 @@
-import React, {FunctionComponent, useContext, useEffect, useState} from 'react';
+import React, {FunctionComponent, useContext, useEffect, useRef, useState} from 'react';
 import {RouteComponentProps} from 'react-router-dom';
 import {useQueryState} from 'react-router-use-location-state';
 import {AlertStripeAdvarsel} from 'nav-frontend-alertstriper';
@@ -49,23 +49,27 @@ const Kontaktskjema: FunctionComponent<KommunerProps & RouteComponentProps> = (p
     const [tekstbesvarelse, setTekstbesvarelse] = useState<BesvarelseUtenFylkeOgKommune>(
         tomBesvarelse
     );
-    const [visValideringsfeil, setVisValideringsfeil] = useState(false);
     const [valideringsfeil, setValideringsfeil] = useState<Partial<Record<SkjemaFelt, FeiloppsummeringFeil>>>({});
     const feilFor = (felt: SkjemaFelt) => {
-        return visValideringsfeil && valideringsfeil[felt]?.feilmelding;
+        return valideringsfeil[felt]?.feilmelding;
     }
-    const feiloppsummeringRef = React.createRef<HTMLDivElement>();
-    useEffect(() => {
-        if (visValideringsfeil && feiloppsummeringRef.current) {
-            feiloppsummeringRef.current.scrollIntoView({behavior: "smooth"});
+    const feiloppsummeringRef = useRef<HTMLDivElement>() as React.RefObject<HTMLDivElement>;
+    const focusRef = () => {
+        feiloppsummeringRef.current && feiloppsummeringRef.current.scrollIntoView({behavior: "smooth"});
+        setTimeout(() => {
+            feiloppsummeringRef.current && feiloppsummeringRef.current.focus();
+        }, 500);
+    };
+    const fjernFeilmeldinger = (felt?: SkjemaFelt) => {
+        if (felt) {
+            const { [felt] : fjernet, ...resterende } = valideringsfeil;
+            setValideringsfeil(resterende);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [visValideringsfeil]); // kun fokuser dersom visValideringsfeil endrer seg
-    const fjernFeilmeldinger = () =>
         setInnsendingStatus({
             senderInn: false,
             feilmelding: '',
         });
+    }
     const oppdaterBesvarelse = (felt: SkjemaFelt, feltverdi: string | boolean) => {
         switch (felt) {
             case SkjemaFelt.fylkesenhetsnr:
@@ -78,7 +82,7 @@ const Kontaktskjema: FunctionComponent<KommunerProps & RouteComponentProps> = (p
             default:
                 setTekstbesvarelse({...tekstbesvarelse, [felt]: feltverdi});
         }
-        fjernFeilmeldinger();
+        fjernFeilmeldinger(felt);
     };
 
     const besvarelse: Besvarelse = {
@@ -112,11 +116,10 @@ const Kontaktskjema: FunctionComponent<KommunerProps & RouteComponentProps> = (p
             }
         }
 
-        const validering = validerBesvarelse(besvarelseMedKommunenavn);
-        setValideringsfeil(validering.feilmelding);
+        const validering = validerBesvarelse(besvarelseMedKommunenavn, tema);
         if (!validering.ok) {
-            setVisValideringsfeil(true);
-            feiloppsummeringRef.current && feiloppsummeringRef.current.focus();
+            setValideringsfeil(validering.feilmelding);
+            focusRef();
             return;
         }
 
@@ -246,12 +249,13 @@ const Kontaktskjema: FunctionComponent<KommunerProps & RouteComponentProps> = (p
                             {innsendingStatus.feilmelding}
                         </AlertStripeAdvarsel>
                     )}
-                    <Feiloppsummering
-                        style={visValideringsfeil && Object.keys(valideringsfeil).length > 0 ? {} : {display: "none"}}
-                        innerRef={feiloppsummeringRef}
-                        tittel="For å gå videre må du rette opp følgende:"
-                        feil={Object.values(valideringsfeil).sort().filter(e => e) as FeiloppsummeringFeil[]}
-                    />
+                    {Object.keys(valideringsfeil).length > 0 && (
+                        <Feiloppsummering
+                            innerRef={feiloppsummeringRef}
+                            tittel="For å gå videre må du rette opp følgende:"
+                            feil={Object.values(valideringsfeil).sort().filter(e => e) as FeiloppsummeringFeil[]}
+                        />
+                    )}
                     <Hovedknapp
                         htmlType="submit"
                         data-testid="sendinn"

@@ -57,7 +57,10 @@ const valideringsregler: Partial<Record<SkjemaFelt, Validator[]>> = {
 }
 
 // TODO: ta hensyn til tema
-export const validerBesvarelse = (besvarelse: Besvarelse): ValideringResultat => {
+export const validerBesvarelse = (
+    besvarelse: Besvarelse,
+    tema: Tema
+): ValideringResultat => {
     const feilmelding: Partial<Record<SkjemaFelt, FeiloppsummeringFeil>> = Object.fromEntries([
         {felt: SkjemaFelt.kommune, verdi: besvarelse.kommune.nummer},
         {felt: SkjemaFelt.bedriftsnavn, verdi: besvarelse.bedriftsnavn},
