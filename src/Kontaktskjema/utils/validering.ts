@@ -21,9 +21,8 @@ export const RAUS_TEXT = VANLIGE_BOKSTAVER + SIFRE + AKSENTER;
 
 const RAUS_TEXT_REGEX = new RegExp('^[' + RAUS_TEXT + ']+$')
 
-const isFalsyOrEmpty = (str: string | undefined): boolean => {
-    return !str || str === '';
-};
+const isPresent = (str: string | undefined): boolean =>
+    str !== undefined && str.trim() !== '';
 
 interface ValideringResultat {
     ok: boolean;
@@ -58,22 +57,21 @@ export const felterErGyldige = (besvarelse: Besvarelse) =>
     inneholderKunVanligeTegn(besvarelse.navn);
 
 export const paakrevdeFelterErUtfylte = (besvarelse: Besvarelse, tema: Tema): boolean => {
-    if (
-        tema.type === TemaType.ForebyggeSykefravær &&
-        besvarelse.harSnakketMedAnsattrepresentant === undefined
-    ) {
-        return false;
-    }
-    const harTommeFelter: boolean =
-        !besvarelse ||
-        !besvarelse.kommune ||
-        isFalsyOrEmpty(besvarelse.kommune.navn) ||
-        isFalsyOrEmpty(besvarelse.kommune.nummer) ||
-        isFalsyOrEmpty(besvarelse.bedriftsnavn) ||
-        isFalsyOrEmpty(besvarelse.epost) ||
-        isFalsyOrEmpty(besvarelse.navn) ||
-        isFalsyOrEmpty(besvarelse.telefonnr);
-    return !harTommeFelter;
+
+    const rekrutteringsfeltUtfylt = tema.type === TemaType.Rekruttering &&
+        isPresent(besvarelse.kommune.navn) &&
+        isPresent(besvarelse.kommune.nummer);
+
+    const forebyggeSykefraværsfeltUtfylt = tema.type === TemaType.ForebyggeSykefravær &&
+        besvarelse.harSnakketMedAnsattrepresentant !== undefined &&
+        isPresent(besvarelse.fylkesenhetsnr);
+
+    const fellesFeltUtfylt = isPresent(besvarelse.bedriftsnavn) &&
+        isPresent(besvarelse.epost) &&
+        isPresent(besvarelse.navn) &&
+        isPresent(besvarelse.telefonnr);
+
+    return (rekrutteringsfeltUtfylt || forebyggeSykefraværsfeltUtfylt) && fellesFeltUtfylt;
 };
 
 export const orgnrOk = (orgnr?: string): boolean => {
