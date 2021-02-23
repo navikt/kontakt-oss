@@ -31,7 +31,7 @@ const Kontaktskjema: FunctionComponent<KommunerProps & RouteComponentProps> = (p
         sendEvent('kontaktskjema', 'vist');
     }, []);
 
-    const [valgtTemaType, setTemaType] = useQueryState<TemaType | ''>('tema', '');
+    const [valgtTemaType, setTemaType] = useQueryState<TemaType>('tema', TemaType.Rekruttering);
 
     const {kommuner} = useContext(KommunerContext);
     const [innsendingStatus, setInnsendingStatus] = useState<{
@@ -147,7 +147,7 @@ const Kontaktskjema: FunctionComponent<KommunerProps & RouteComponentProps> = (p
                             besvarelse={besvarelse}
                         />
                     )}
-                    <Felter oppdaterBesvarelse={oppdaterBesvarelse} besvarelse={besvarelse} />
+                    <Felter oppdaterBesvarelse={oppdaterBesvarelse} besvarelse={besvarelse} tema={valgtTemaType}/>
                     <EnkelInfostripe classname="kontaktskjema__infostripe">
                         NAV bruker disse opplysningene når vi kontakter deg. Vi lagrer disse
                         opplysningene om deg, slik at vi kan kontakte deg om{' '}

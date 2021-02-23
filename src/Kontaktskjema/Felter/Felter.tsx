@@ -7,10 +7,10 @@ import { epostOk, inneholderKunVanligeTegn, orgnrOk, telefonnummerOk } from '../
 
 import './Felter.less';
 import { Besvarelse, SkjemaFelt } from '../utils/kontaktskjemaUtils';
-import { useQueryState } from 'react-router-use-location-state';
 import { TemaType } from '../../utils/kontaktskjemaApi';
 
 interface Props {
+    tema: TemaType;
     besvarelse: Besvarelse;
     oppdaterBesvarelse: (id: SkjemaFelt, input: string | boolean) => void;
 }
@@ -18,13 +18,11 @@ interface Props {
 export const Felter: FunctionComponent<Props> = (props) => {
     const { orgnr, epost, telefonnr, bedriftsnavn, navn } = props.besvarelse;
 
-    const [valgtTemaType] = useQueryState<TemaType | ''>('tema', '');
-
     return (
         <>
             <div className="kontaktskjema-felter__bolk">
                 <div className="kontaktskjema-felter__row kontaktskjema-felter__row__enkel">
-                    { valgtTemaType === 'REKRUTTERING' ?
+                    { props.tema  === 'REKRUTTERING' ?
                         <KommuneFelt
                             label="Hvilken kommune ligger arbeidsplassen i?"
                             felt={SkjemaFelt.kommune}
