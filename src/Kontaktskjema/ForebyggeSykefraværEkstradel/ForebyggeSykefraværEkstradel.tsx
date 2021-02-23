@@ -8,6 +8,7 @@ import { Besvarelse, SkjemaFelt } from '../utils/kontaktskjemaUtils';
 interface Props {
     besvarelse: Besvarelse;
     oppdaterBesvarelse: (id: SkjemaFelt, input: string | boolean) => void;
+    feil?: React.ReactNode | boolean;
 }
 
 export const ForebyggeSykefraværEkstradel: FunctionComponent<Props> = (props) => {
@@ -21,6 +22,7 @@ export const ForebyggeSykefraværEkstradel: FunctionComponent<Props> = (props) =
             <AnsattrepresentantFelter
                 oppdaterBesvarelse={props.oppdaterBesvarelse}
                 besvarelse={props.besvarelse}
+                feil={props.feil}
             />
         </>
     );

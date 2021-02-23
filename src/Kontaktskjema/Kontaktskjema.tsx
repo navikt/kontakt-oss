@@ -64,6 +64,8 @@ const Kontaktskjema: FunctionComponent<KommunerProps & RouteComponentProps> = (p
         if (felt) {
             const { [felt] : fjernet, ...resterende } = valideringsfeil;
             setValideringsfeil(resterende);
+        } else {
+            setValideringsfeil({});
         }
         setInnsendingStatus({
             senderInn: false,
@@ -157,6 +159,7 @@ const Kontaktskjema: FunctionComponent<KommunerProps & RouteComponentProps> = (p
                     />
                     {valgtTemaType === TemaType.ForebyggeSykefravær && (
                         <ForebyggeSykefraværEkstradel
+                            feil={feilFor(SkjemaFelt.harSnakketMedAnsattrepresentant)}
                             oppdaterBesvarelse={oppdaterBesvarelse}
                             besvarelse={besvarelse}
                         />
@@ -176,6 +179,7 @@ const Kontaktskjema: FunctionComponent<KommunerProps & RouteComponentProps> = (p
                                 <FylkeFelt
                                     label="Hvilket fylke ligger arbeidsplassen i?"
                                     felt={SkjemaFelt.fylkesenhetsnr}
+                                    feil={feilFor(SkjemaFelt.fylkesenhetsnr)}
                                     oppdaterBesvarelse={oppdaterBesvarelse}
                                     valgtFylkenøkkel={besvarelse.fylkesenhetsnr}
                                 />

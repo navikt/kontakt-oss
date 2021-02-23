@@ -3,10 +3,12 @@ import { RadioPanel } from 'nav-frontend-skjema';
 
 import './ansattrepresentantFelter.less';
 import { Besvarelse, SkjemaFelt } from '../../utils/kontaktskjemaUtils';
+import {Feilmelding} from "nav-frontend-typografi";
 
 interface Props {
     besvarelse: Besvarelse;
     oppdaterBesvarelse: (id: SkjemaFelt, input: boolean) => void;
+    feil?: React.ReactNode | boolean;
 }
 
 export const AnsattrepresentantFelter: React.FunctionComponent<Props> = (props) => {
@@ -15,7 +17,7 @@ export const AnsattrepresentantFelter: React.FunctionComponent<Props> = (props) 
     };
 
     return (
-        <fieldset className="ansattrepresentant">
+        <fieldset className="ansattrepresentant" id={SkjemaFelt.harSnakketMedAnsattrepresentant}>
             <legend className={'ansattrepresentant__label typo-element'}>
                 Har du snakket med tillitsvalgt eller annen ansattrepresentant om forebygging av
                 sykefravær?
@@ -36,6 +38,11 @@ export const AnsattrepresentantFelter: React.FunctionComponent<Props> = (props) 
                     checked={props.besvarelse.harSnakketMedAnsattrepresentant === false}
                 />
             </div>
+            {props.feil && (
+                <div className="skjemaelement__feilmelding">
+                    <Feilmelding>{props.feil}</Feilmelding>
+                </div>
+            )}
         </fieldset>
     );
 };
