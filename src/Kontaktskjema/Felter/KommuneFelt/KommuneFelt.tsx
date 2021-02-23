@@ -76,6 +76,7 @@ const KommuneFelt: FunctionComponent<Props & KommunerProps> = (props) => {
                 id="searchbox"
                 ariaLabel="Søk"
                 feil={feil}
+                data-testid="kommune"
             />
     );
 };

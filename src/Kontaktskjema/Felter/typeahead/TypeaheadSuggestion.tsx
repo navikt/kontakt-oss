@@ -1,7 +1,6 @@
-import * as React from "react";
-import "./typeaheadSuggestion.less";
-import { Suggestion } from "./Typeahead";
-import { Ref } from 'react';
+import * as React from 'react';
+import './typeaheadSuggestion.less';
+import { Suggestion } from './Typeahead';
 
 interface Props {
     id: string;

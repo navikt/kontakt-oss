@@ -20,6 +20,7 @@ interface Props {
     ariaLabel: string;
     id: string;
     feil?: string;
+    'data-testid'?: string;
 }
 
 interface State {
@@ -257,6 +258,7 @@ class Typeahead extends React.Component<Props, State> {
                     inputRef={element => this.inputElement = element}
                     className="felt typo-normal"
                     feil={feil}
+                    data-testid={this.props['data-testid']}
                 />
                 <ul
                     id={`${this.props.id}-suggestions`}

@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import React, { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { useQueryState } from 'react-router-use-location-state';
 import { AlertStripeAdvarsel } from 'nav-frontend-alertstriper';
@@ -7,13 +7,8 @@ import { Temavalg } from './Temavalg/Temavalg';
 import { getTema, Tema, TemaType } from '../utils/kontaktskjemaApi';
 import { ForebyggeSykefraværEkstradel } from './ForebyggeSykefraværEkstradel/ForebyggeSykefraværEkstradel';
 import { Felter } from './Felter/Felter';
-import { KommunerProps, medFylkesinndeling } from '../providers/KommunerProvider';
-import {
-    Besvarelse,
-    SkjemaFelt,
-    tomBesvarelse,
-    validerBesvarelseOgSendInn,
-} from './utils/kontaktskjemaUtils';
+import { KommunerContext, KommunerProps, medFylkesinndeling } from '../providers/KommunerProvider';
+import { Besvarelse, SkjemaFelt, tomBesvarelse, validerBesvarelseOgSendInn, } from './utils/kontaktskjemaUtils';
 import { BEKREFTELSE_PATH } from '../utils/paths';
 import { HvaSkjerVidere } from './HvaSkjerVidere/HvaSkjerVidere';
 import { EnkelInfostripe } from './EnkelInfostripe/EnkelInfostripe';
@@ -38,6 +33,7 @@ const Kontaktskjema: FunctionComponent<KommunerProps & RouteComponentProps> = (p
 
     const [valgtTemaType, setTemaType] = useQueryState<TemaType | ''>('tema', '');
 
+    const {kommuner} = useContext(KommunerContext);
     const [innsendingStatus, setInnsendingStatus] = useState<{
         feilmelding?: string;
         senderInn: boolean;
@@ -76,6 +72,10 @@ const Kontaktskjema: FunctionComponent<KommunerProps & RouteComponentProps> = (p
     const besvarelse: Besvarelse = {
         ...tekstbesvarelse,
         fylkesenhetsnr: valgtFylkenøkkel,
+        kommune: {
+            navn: "",
+            nummer: valgtKommunenr
+        }
     };
     const tema = getTema(valgtTemaType);
 
@@ -99,7 +99,16 @@ const Kontaktskjema: FunctionComponent<KommunerProps & RouteComponentProps> = (p
             return;
         }
 
-        const sendInnResultat = await validerBesvarelseOgSendInn(besvarelse, tema);
+        const kommunenr = besvarelse.kommune.nummer;
+        const besvarelseMedKommunenavn = {
+            ...besvarelse,
+            kommune: {
+                nummer: kommunenr,
+                navn: kommuner.find(k => k.nummer === kommunenr)?.navn ?? ''
+            }
+        }
+
+        const sendInnResultat = await validerBesvarelseOgSendInn(besvarelseMedKommunenavn, tema);
 
         if (sendInnResultat.ok) {
             props.history.push(BEKREFTELSE_PATH + '?tema=' + tema.type);

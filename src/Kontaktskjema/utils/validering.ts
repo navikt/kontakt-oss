@@ -11,7 +11,7 @@ const VANLIGE_BOKSTAVER = LATIN + SAMISK + NORSK;
 const SIFRE = '0-9';
 const AKSENTER = 'ëÿüïöäéúíóáèùìòàêûîôâõãñËŸÜÏÖÄÉÚÍÓÁÈÙÌÒÀÊÛÎÔÂÕÃÑ';
 
-const EPOSTTEGN = "[" + VANLIGE_BOKSTAVER + SIFRE + AKSENTER + '.+' + "]+";
+const EPOSTTEGN = "[" + VANLIGE_BOKSTAVER + SIFRE + AKSENTER + ".+]+";
 const EPOST_REGEX = new RegExp(`^${EPOSTTEGN}@${EPOSTTEGN}\\.${EPOSTTEGN}$`)
 
 export const epostOk = (epost: string = ''): boolean =>
