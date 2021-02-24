@@ -44,7 +44,7 @@ class TypeaheadSuggestion extends React.Component<Props, State> {
             const ref = this.ref;
             if (ref) {
                 ref.scrollIntoView({
-                    block: "center"
+                    block: "nearest"
                 })
             }
         }
