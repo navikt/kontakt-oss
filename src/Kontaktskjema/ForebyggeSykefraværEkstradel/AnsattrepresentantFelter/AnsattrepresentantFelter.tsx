@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { RadioPanel } from 'nav-frontend-skjema';
+import {RadioPanelGruppe} from 'nav-frontend-skjema';
 
 import './ansattrepresentantFelter.less';
-import { Besvarelse, SkjemaFelt } from '../../utils/kontaktskjemaUtils';
-import {Feilmelding} from "nav-frontend-typografi";
+import {Besvarelse, SkjemaFelt} from '../../utils/kontaktskjemaUtils';
+
 
 interface Props {
     besvarelse: Besvarelse;
@@ -16,33 +16,23 @@ export const AnsattrepresentantFelter: React.FunctionComponent<Props> = (props) 
         props.oppdaterBesvarelse(SkjemaFelt.harSnakketMedAnsattrepresentant, svar);
     };
 
+    let checked;
+    if (props.besvarelse.harSnakketMedAnsattrepresentant !== undefined) {
+        checked = props.besvarelse.harSnakketMedAnsattrepresentant ? "Ja" : "Nei";
+    }
     return (
-        <fieldset className="ansattrepresentant" id={SkjemaFelt.harSnakketMedAnsattrepresentant}>
-            <legend className={'ansattrepresentant__label typo-element'}>
-                Har du snakket med tillitsvalgt eller annen ansattrepresentant om forebygging av
-                sykefravær?
-            </legend>
-            <div className="ansattrepresentant__felt-wrapper">
-                <RadioPanel
-                    onChange={() => oppdaterBesvarelse(true)}
-                    name="ansattrepresentant"
-                    label="Ja"
-                    value="Ja"
-                    checked={props.besvarelse.harSnakketMedAnsattrepresentant === true}
-                />
-                <RadioPanel
-                    onChange={() => oppdaterBesvarelse(false)}
-                    name="ansattrepresentant"
-                    label="Nei"
-                    value="Nei"
-                    checked={props.besvarelse.harSnakketMedAnsattrepresentant === false}
-                />
-            </div>
-            {props.feil && (
-                <div className="skjemaelement__feilmelding">
-                    <Feilmelding>{props.feil}</Feilmelding>
-                </div>
-            )}
-        </fieldset>
+        <div id={SkjemaFelt.harSnakketMedAnsattrepresentant} className="ansattrepresentant">
+            <RadioPanelGruppe
+                name="ansattrepresentant"
+                legend="Har du snakket med tillitsvalgt eller annen ansattrepresentant om forebygging av sykefravær?"
+                radios={[
+                    {label: "Ja", value: "Ja", id: "Ja" },
+                    {label: "Nei", value: "Nei", id: "Nei"},
+                ]}
+                checked={checked}
+                feil={props.feil}
+                onChange={(_, verdi) => oppdaterBesvarelse(verdi === "Ja")}
+            />
+        </div>
     );
 };
