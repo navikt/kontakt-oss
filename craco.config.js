@@ -31,7 +31,7 @@ module.exports = {
             plugins: ['@typescript-eslint'],
             extends: [
                 'plugin:jsx-a11y/recommended',
-                'plugin:@typescript-eslint/recommended'
+                // 'plugin:@typescript-eslint/recommended'
             ],
             rules: {
                 'no-use-before-define': 'off',

@@ -2,7 +2,6 @@ import React, {
     FormEvent,
     FunctionComponent,
     MutableRefObject,
-    RefObject,
     useContext,
     useEffect,
     useRef,
