@@ -1,4 +1,13 @@
-import React, {FunctionComponent, useContext, useEffect, useRef, useState} from 'react';
+import React, {
+    FormEvent,
+    FunctionComponent,
+    MutableRefObject,
+    RefObject,
+    useContext,
+    useEffect,
+    useRef,
+    useState
+} from 'react';
 import {RouteComponentProps} from 'react-router-dom';
 import {useQueryState} from 'react-router-use-location-state';
 import {AlertStripeAdvarsel} from 'nav-frontend-alertstriper';
@@ -27,39 +36,49 @@ import {validerBesvarelse} from "./utils/validering";
 type BesvarelseUtenFylkeOgKommune = Omit<Besvarelse,
     SkjemaFelt.kommune | SkjemaFelt.fylkesenhetsnr>;
 
+
 const Kontaktskjema: FunctionComponent<KommunerProps & RouteComponentProps> = (props) => {
     useEffect(() => {
         scrollToBanner();
         sendEvent('kontaktskjema', 'vist');
     }, []);
 
-    const [valgtTemaType, setTemaType] = useQueryState<TemaType>('tema', TemaType.Rekruttering);
-
     const {kommuner} = useContext(KommunerContext);
+
+    const [valgtTemaType, setTemaType] = useQueryState<TemaType>('tema', TemaType.Rekruttering);
+    const [valgtFylkenøkkel, setFylkenøkkel] = useQueryState<string>('fylkesenhetsnr', '');
+    const [valgtKommunenr, setKommunenr] = useQueryState<string>('kommune', '');
+
     const [innsendingStatus, setInnsendingStatus] = useState<{
         feilmelding?: string;
         senderInn: boolean;
     }>({
         senderInn: false,
     });
-
-    const [valgtFylkenøkkel, setFylkenøkkel] = useQueryState<string>('fylkesenhetsnr', '');
-    const [valgtKommunenr, setKommunenr] = useQueryState<string>('kommune', '');
-
     const [tekstbesvarelse, setTekstbesvarelse] = useState<BesvarelseUtenFylkeOgKommune>(
         tomBesvarelse
     );
     const [valideringsfeil, setValideringsfeil] = useState<Partial<Record<SkjemaFelt, FeiloppsummeringFeil>>>({});
-    const feilFor = (felt: SkjemaFelt) => {
-        return valideringsfeil[felt]?.feilmelding;
-    }
-    const feiloppsummeringRef = useRef<HTMLDivElement>() as React.RefObject<HTMLDivElement>;
-    const focusRef = () => {
-        feiloppsummeringRef.current && feiloppsummeringRef.current.scrollIntoView({behavior: "smooth"});
+
+    const feiloppsummeringRef = useRef<HTMLDivElement>();
+
+    const tema = getTema(valgtTemaType);
+
+    const focusFeiloppsummering = () => {
+        if (feiloppsummeringRef.current) {
+            feiloppsummeringRef.current.scrollIntoView({behavior: "smooth"});
+        }
         setTimeout(() => {
-            feiloppsummeringRef.current && feiloppsummeringRef.current.focus();
+            if (feiloppsummeringRef.current) {
+                feiloppsummeringRef.current.focus();
+            }
         }, 500);
     };
+
+    const feilFor = (felt: SkjemaFelt) => {
+        return valideringsfeil[felt]?.feilmelding;
+    };
+
     const fjernFeilmeldinger = (felt?: SkjemaFelt) => {
         if (felt) {
             const { [felt] : fjernet, ...resterende } = valideringsfeil;
@@ -71,7 +90,8 @@ const Kontaktskjema: FunctionComponent<KommunerProps & RouteComponentProps> = (p
             senderInn: false,
             feilmelding: '',
         });
-    }
+    };
+
     const oppdaterBesvarelse = (felt: SkjemaFelt, feltverdi: string | boolean) => {
         switch (felt) {
             case SkjemaFelt.fylkesenhetsnr:
@@ -87,17 +107,7 @@ const Kontaktskjema: FunctionComponent<KommunerProps & RouteComponentProps> = (p
         fjernFeilmeldinger(felt);
     };
 
-    const besvarelse: Besvarelse = {
-        ...tekstbesvarelse,
-        fylkesenhetsnr: valgtFylkenøkkel,
-        kommune: {
-            navn: "",
-            nummer: valgtKommunenr
-        }
-    };
-    const tema = getTema(valgtTemaType);
-
-    const sendInn = async (event: any): Promise<void> => {
+    const sendInn = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
         event.preventDefault();
 
         if (innsendingStatus.senderInn) {
@@ -121,7 +131,7 @@ const Kontaktskjema: FunctionComponent<KommunerProps & RouteComponentProps> = (p
         const validering = validerBesvarelse(besvarelseMedKommunenavn, tema);
         if (!validering.ok) {
             setValideringsfeil(validering.feilmelding);
-            focusRef();
+            focusFeiloppsummering();
             return;
         }
 
@@ -134,6 +144,15 @@ const Kontaktskjema: FunctionComponent<KommunerProps & RouteComponentProps> = (p
                 senderInn: false,
             });
             return;
+        }
+    };
+
+    const besvarelse: Besvarelse = {
+        ...tekstbesvarelse,
+        fylkesenhetsnr: valgtFylkenøkkel,
+        kommune: {
+            navn: "",
+            nummer: valgtKommunenr
         }
     };
 
@@ -253,13 +272,14 @@ const Kontaktskjema: FunctionComponent<KommunerProps & RouteComponentProps> = (p
                             {innsendingStatus.feilmelding}
                         </AlertStripeAdvarsel>
                     )}
-                    {Object.keys(valideringsfeil).length > 0 && (
-                        <Feiloppsummering
-                            innerRef={feiloppsummeringRef}
-                            tittel="For å gå videre må du rette opp følgende:"
-                            feil={Object.values(valideringsfeil).sort().filter(e => e) as FeiloppsummeringFeil[]}
-                        />
-                    )}
+                    <Feiloppsummering
+                        // TODO: burde finne en måte å bruke useRef på, slik at scroll fungerer både første gang og
+                        // senere den lastes. Styling er en hack.
+                        style={Object.keys(valideringsfeil).length > 0 ? {} : {visibility: 'hidden', height: 0, margin: 0, padding: 0, border: 0}}
+                        innerRef={feiloppsummeringRef as MutableRefObject<HTMLDivElement>}
+                        tittel="For å gå videre må du rette opp følgende:"
+                        feil={Object.values(valideringsfeil).sort().filter(e => e) as FeiloppsummeringFeil[]}
+                    />
                     <Hovedknapp
                         htmlType="submit"
                         data-testid="sendinn"

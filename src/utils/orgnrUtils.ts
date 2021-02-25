@@ -11,15 +11,14 @@ export const validerOrgnr = (orgNumber: string) => {
 };
 
 const mod11OfNumberWithControlDigit = (input: any) => {
-    var controlNumber = 2,
-        sumForMod = 0,
-        i;
+    let controlNumber = 2;
+    let sumForMod = 0;
 
-    for (i = input.length - 2; i >= 0; --i) {
+    for (let i = input.length - 2; i >= 0; --i) {
         sumForMod += input.charAt(i) * controlNumber;
         if (++controlNumber > 7) controlNumber = 2;
     }
-    var result = 11 - (sumForMod % 11);
+    const  result = 11 - (sumForMod % 11);
 
     return result === 11 ? 0 : result;
 };

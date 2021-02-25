@@ -55,8 +55,8 @@
         "@types/react": "^16.9.9",
         "@types/react-dom": "^16.9.2",
         "@types/react-router-dom": "^5.1.0",
-        "@typescript-eslint/eslint-plugin": "^4.0.1",
-        "@typescript-eslint/parser": "^4.0.1",
+        "@typescript-eslint/eslint-plugin": "^4.15.2",
+        "@typescript-eslint/parser": "^4.15.2",
         "axios": "^0.21.0",
         "craco-less": "^1.16.0",
         "eslint": "^6.6.0",
@@ -79,9 +79,6 @@
         "test:e2e": "node endeTilEndeTest/runner.js",
         "docker:build": "docker build -t kontakt-oss .",
         "docker:start": "docker run -p 3000:3000 kontakt-oss"
-    },
-    "eslintConfig": {
-        "extends": "react-app"
     },
     "browserslist": [
         ">0.2%",

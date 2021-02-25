@@ -15,6 +15,6 @@ instance.init(getApiKey(), '', {
     includeReferrer: true,
 });
 
-export const sendEvent = (område: string, hendelse: string, data?: Object): void => {
+export const sendEvent = (område: string, hendelse: string, data?: Record<string, unknown>): void => {
     instance.logEvent(['#kontakt-oss', område, hendelse].join('-'), data);
 };

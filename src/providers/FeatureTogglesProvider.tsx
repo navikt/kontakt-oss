@@ -1,9 +1,12 @@
 import * as React from 'react';
 import { featureTogglePath } from '../utils/paths';
 
-export enum FeatureToggle {}
+export enum FeatureToggle {
+
+}
 // f.eks. ForebyggeSykefraværFeature = 'kontakt-oss.forebygge-sykefravaer',
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface FeatureToggles {
     // f.eks. [FeatureToggle.ForebyggeSykefraværFeature]: boolean;
 }
