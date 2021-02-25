@@ -1,7 +1,8 @@
 import { validerOrgnr } from '../../utils/orgnrUtils';
 import { fjernWhitespace, inneholderKunSifre } from '../../utils/stringUtils';
 import { Tema, TemaType } from '../../utils/kontaktskjemaApi';
-import { Besvarelse } from './kontaktskjemaUtils';
+import {Besvarelse, SkjemaFelt} from './kontaktskjemaUtils';
+import {FeiloppsummeringFeil} from "nav-frontend-skjema/src/feiloppsummering";
 
 const LATIN = "a-zA-Z\\- –'._)(/";
 const SAMISK = 'ÁáČčĐđŊŋŠšŦŧŽž';
@@ -14,7 +15,7 @@ const AKSENTER = 'ëÿüïöäéúíóáèùìòàêûîôâõãñËŸÜÏÖÄÉ
 const EPOSTTEGN = "[" + VANLIGE_BOKSTAVER + SIFRE + AKSENTER + ".+]+";
 const EPOST_REGEX = new RegExp(`^${EPOSTTEGN}@${EPOSTTEGN}\\.${EPOSTTEGN}$`)
 
-export const epostOk = (epost: string = ''): boolean =>
+export const epostOk = (epost = ''): boolean =>
     EPOST_REGEX.test(epost);
 
 export const RAUS_TEXT = VANLIGE_BOKSTAVER + SIFRE + AKSENTER;
@@ -26,52 +27,73 @@ const isPresent = (str: string | undefined): boolean =>
 
 interface ValideringResultat {
     ok: boolean;
-    feilmelding?: string;
+    feilmelding: Partial<Record<SkjemaFelt, FeiloppsummeringFeil>>;
 }
 
-export const validerBesvarelse = (besvarelse: Besvarelse, tema: Tema): ValideringResultat => {
-    let feilmelding;
-    if (!paakrevdeFelterErUtfylte(besvarelse, tema)) {
-        feilmelding = 'Du må fylle ut alle feltene for å sende inn.';
-    } else if (!felterErGyldige(besvarelse)) {
-        feilmelding = 'Ett eller flere av feltene er ikke fylt ut riktig.';
-    } else {
-        return { ok: true };
-    }
+type Validator<T> = (input: T, tema: Tema) => string | undefined;
+const valideringsregler: {[felt in SkjemaFelt]: Validator<Besvarelse[felt]>[]} /* Record<SkjemaFelt, Validator<string>[]> */ = {
+    [SkjemaFelt.kommune]: [
+        (verdi, tema) => tema.type === TemaType.Rekruttering && !isPresent(verdi.nummer) ? 'Du må oppgi kommune' : undefined,
+    ],
+    [SkjemaFelt.harSnakketMedAnsattrepresentant]: [
+        (verdi, tema) => tema.type === TemaType.ForebyggeSykefravær && verdi === undefined ? 'Du må oppgi om du har snakket med representant' : undefined,
+    ],
+    [SkjemaFelt.fylkesenhetsnr]: [
+        (verdi, tema) => tema.type === TemaType.ForebyggeSykefravær && !isPresent(verdi) ? 'Du må oppgi fylke' : undefined,
+    ],
+    [SkjemaFelt.bedriftsnavn]: [
+        (verdi, _) => isPresent(verdi) ? undefined : 'Du må oppgi bedriftsnavn',
+        (verdi, _) => inneholderKunVanligeTegn(verdi) ? undefined : 'Dette feltet kan ikke inneholde spesialtegn',
+    ],
+    [SkjemaFelt.orgnr]: [
+        (verdi, _) => orgnrOk(verdi) ? undefined : 'Du må oppgi et gyldig organisasjonsnummer',
+    ],
+    [SkjemaFelt.navn]: [
+        (verdi, _) => isPresent(verdi) ? undefined : 'Du må fylle inn navnet ditt',
+        (verdi, _) => inneholderKunVanligeTegn(verdi) ? undefined : 'Dette feltet kan ikke inneholde spesialtegn',
+    ],
+    [SkjemaFelt.epost]: [
+        (verdi, _) => isPresent(verdi) ? undefined : 'Du må fylle inn epost',
+        (verdi, _) => epostOk(verdi) ? undefined : 'Vennligst oppgi en gyldig e-post-adresse',
+    ],
+    [SkjemaFelt.telefonnr]: [
+        (verdi, _) => isPresent(verdi) ? undefined : 'Du må fylle inn telefonnummer',
+        (verdi, _) => telefonnummerOk(verdi) ? undefined : 'Vennligst oppgi et gyldig telefonnummer',
+    ],
+}
+
+export const validerBesvarelse = (
+    besvarelse: Besvarelse,
+    tema: Tema
+): ValideringResultat => {
+    const feilmelding: Partial<Record<SkjemaFelt, FeiloppsummeringFeil>> = Object.fromEntries([
+        SkjemaFelt.kommune,
+        SkjemaFelt.harSnakketMedAnsattrepresentant,
+        SkjemaFelt.fylkesenhetsnr,
+        SkjemaFelt.bedriftsnavn,
+        SkjemaFelt.orgnr,
+        SkjemaFelt.navn,
+        SkjemaFelt.epost,
+        SkjemaFelt.telefonnr,
+    ].flatMap((felt: SkjemaFelt): [string, FeiloppsummeringFeil][] =>
+        (valideringsregler[felt] as Validator<Besvarelse[typeof felt]>[])
+            .map((valideringsregel): FeiloppsummeringFeil | undefined => {
+                const feilmelding = valideringsregel(besvarelse[felt], tema);
+                return feilmelding ? { skjemaelementId: felt, feilmelding } : undefined;
+            })
+            .filter((e): e is FeiloppsummeringFeil => e !== undefined)
+            .map((feil): [string, FeiloppsummeringFeil] => [feil.skjemaelementId, feil])
+            .slice(0, 1)
+    ));
 
     return {
-        ok: false,
+        ok: Object.keys(feilmelding).length === 0,
         feilmelding,
     };
 };
 
 export const inneholderKunVanligeTegn = (str: string): boolean => {
     return RAUS_TEXT_REGEX.test(str);
-};
-
-export const felterErGyldige = (besvarelse: Besvarelse) =>
-    orgnrOk(besvarelse.orgnr) &&
-    telefonnummerOk(besvarelse.telefonnr) &&
-    epostOk(besvarelse.epost) &&
-    inneholderKunVanligeTegn(besvarelse.bedriftsnavn) &&
-    inneholderKunVanligeTegn(besvarelse.navn);
-
-export const paakrevdeFelterErUtfylte = (besvarelse: Besvarelse, tema: Tema): boolean => {
-
-    const rekrutteringsfeltUtfylt = tema.type === TemaType.Rekruttering &&
-        isPresent(besvarelse.kommune.navn) &&
-        isPresent(besvarelse.kommune.nummer);
-
-    const forebyggeSykefraværsfeltUtfylt = tema.type === TemaType.ForebyggeSykefravær &&
-        besvarelse.harSnakketMedAnsattrepresentant !== undefined &&
-        isPresent(besvarelse.fylkesenhetsnr);
-
-    const fellesFeltUtfylt = isPresent(besvarelse.bedriftsnavn) &&
-        isPresent(besvarelse.epost) &&
-        isPresent(besvarelse.navn) &&
-        isPresent(besvarelse.telefonnr);
-
-    return (rekrutteringsfeltUtfylt || forebyggeSykefraværsfeltUtfylt) && fellesFeltUtfylt;
 };
 
 export const orgnrOk = (orgnr?: string): boolean => {
@@ -87,7 +109,7 @@ export const orgnrOk = (orgnr?: string): boolean => {
     return validerOrgnr(orgnr);
 };
 
-export const telefonnummerOk = (telefonnummer: string = ''): boolean => {
+export const telefonnummerOk = (telefonnummer = ''): boolean => {
     telefonnummer = fjernWhitespace(telefonnummer);
 
     if (telefonnummer.length === 0) {

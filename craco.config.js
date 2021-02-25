@@ -29,12 +29,17 @@ module.exports = {
                 sourceType: 'module',
             },
             plugins: ['@typescript-eslint'],
-            extends: ['plugin:jsx-a11y/recommended'],
+            extends: [
+                'plugin:jsx-a11y/recommended',
+                // 'plugin:@typescript-eslint/recommended'
+            ],
             rules: {
                 'no-use-before-define': 'off',
                 // Kan slås på når react-scripts oppgraderer sin avheigighet til eslint https://github.com/typescript-eslint/typescript-eslint/issues/2540
                 '@typescript-eslint/no-use-before-define': ['off'],
-            },
+                "no-unused-expressions": "off",
+                '@typescript-eslint/no-unused-expressions': ['error', { "allowShortCircuit": true }]
+            }
         },
     },
 };

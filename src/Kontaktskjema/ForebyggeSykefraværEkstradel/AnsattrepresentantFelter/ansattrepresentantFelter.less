@@ -2,7 +2,7 @@
 
 .ansattrepresentant {
     width: 100%;
-    margin: 3rem 0 2rem;
+    margin: 1rem 0 2rem;
     border: 0;
     padding: 0;
 
@@ -15,19 +15,18 @@
         margin-top: 0.5rem;
     }
 
+    .radioPanel {
+        display: inline-block;
+    }
+
     @media (min-width: @screen-sm-min) {
         .radioPanel {
-            width: 50% - 0.5rem;
+            width: calc(((50% - 1rem) - 1rem) / 2);
 
             + .radioPanel {
                 margin-top: 0;
                 margin-left: 1rem;
             }
-        }
-
-        &__felt-wrapper {
-            display: flex;
-            max-width: 50% - 2rem;
         }
     }
 }

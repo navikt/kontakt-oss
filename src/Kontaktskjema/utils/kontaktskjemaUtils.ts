@@ -1,5 +1,4 @@
 import { sendKontaktskjema, Tema } from '../../utils/kontaktskjemaApi';
-import { validerBesvarelse } from './validering';
 import { Kommune, tomKommune } from '../../utils/fylker';
 import { sendEvent } from '../../amplitude/amplitude';
 
@@ -28,34 +27,25 @@ export const tomBesvarelse = {
     epost: '',
     telefonnr: '',
 };
-export const validerBesvarelseOgSendInn = async (
+export const sendInnBesvarelse = async (
     besvarelse: Besvarelse,
     tema: Tema
 ): Promise<SendInnBesvarelseResultat> => {
-    const validering = validerBesvarelse(besvarelse, tema);
-
-    if (validering.ok) {
-        const res = await sendKontaktskjema(besvarelse, tema);
-        if (res.ok) {
-            sendEvent('kontaktskjema', 'sendt inn', {
-                tema: tema.type
-            });
-            return { ok: true };
-        }
-
-        sendEvent('kontaktskjema', 'innsendingsfeil', {
+    const res = await sendKontaktskjema(besvarelse, tema);
+    if (res.ok) {
+        sendEvent('kontaktskjema', 'sendt inn', {
             tema: tema.type
         });
-        return {
-            ok: false,
-            feilmelding: 'Noe gikk feil med innsendingen. Vennligst prøv igjen senere.',
-        };
-    } else {
-        return {
-            ok: false,
-            feilmelding: validering.feilmelding,
-        };
+        return { ok: true };
     }
+
+    sendEvent('kontaktskjema', 'innsendingsfeil', {
+        tema: tema.type
+    });
+    return {
+        ok: false,
+        feilmelding: 'Noe gikk feil med innsendingen. Vennligst prøv igjen senere.',
+    };
 };
 
 export enum SkjemaFelt {

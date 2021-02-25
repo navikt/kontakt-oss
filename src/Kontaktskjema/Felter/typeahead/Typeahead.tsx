@@ -19,7 +19,7 @@ interface Props {
     label: string;
     ariaLabel: string;
     id: string;
-    feil?: string;
+    feil?: React.ReactNode | boolean;
     'data-testid'?: string;
 }
 

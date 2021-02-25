@@ -7,6 +7,7 @@ import { SkjemaFelt } from '../../utils/kontaktskjemaUtils';
 interface Props {
     label: string;
     felt: SkjemaFelt;
+    feil?: React.ReactNode | boolean;
     oppdaterBesvarelse: (felt: SkjemaFelt, input: string) => void;
     valgtFylkenøkkel: string;
 }
@@ -23,6 +24,7 @@ const FylkeFelt: FunctionComponent<Props> = (props) => {
             label={<Element>{props.label}</Element>}
             value={props.valgtFylkenøkkel}
             className="felt"
+            feil={props.feil}
             onChange={(event) => props.oppdaterBesvarelse(props.felt, event.target.value)}
             data-testid="fylkerDropdown"
         >
