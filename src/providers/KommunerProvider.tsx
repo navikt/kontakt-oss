@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { KOMMUNER_PATH } from '../utils/paths';
 import { Kommune } from '../utils/fylker';
+import {FunctionComponent, useEffect, useState} from "react";
+import {useGlobalFeil} from "../hooks/useGlobalFeil";
 
 export type Kommuner = Kommune[];
 
@@ -15,36 +17,35 @@ const defaultKommunerProps: KommunerProps = {
 export const KommunerContext = React.createContext<KommunerProps>(defaultKommunerProps);
 const KommunerConsumer = KommunerContext.Consumer;
 
-export class KommunerProvider extends React.Component<{}, KommunerProps> {
-    constructor(props: {}) {
-        super(props);
-        this.state = defaultKommunerProps;
-    }
+export const KommunerProvider: FunctionComponent = (props) => {
+    const [kommuner, setKommuner] = useState(defaultKommunerProps);
+    const {rapporterFeil} = useGlobalFeil();
 
-    componentDidMount(): void {
+    useEffect(() => {
         fetch(KOMMUNER_PATH)
             .then((response) => {
                 if (response.ok) {
                     return response;
                 } else {
-                    throw new Error(response.statusText);
+                    rapporterFeil({
+                        feilmelding: "Henting av kommuner feilet",
+                        error: new Error(response.statusText),
+                    })
                 }
             })
-            .then((response) => response.json() as Promise<Kommuner>)
+            .then((response) => response?.json() as Promise<Kommuner> || [])
             .then(kommuner =>
-                    kommuner.sort((kommuneA, kommuneB) =>
+                kommuner.sort((kommuneA, kommuneB) =>
                     kommuneA.navn.localeCompare(kommuneB.navn, 'nb-NO')
-            ))
-            .then((kommuner) => this.setState({ kommuner }));
-    }
+                ))
+            .then((kommuner) => setKommuner({kommuner}));
+    }, [rapporterFeil]);
 
-    render() {
-        return (
-            <KommunerContext.Provider value={this.state}>
-                {this.props.children}
-            </KommunerContext.Provider>
-        );
-    }
+    return (
+        <KommunerContext.Provider value={kommuner}>
+            {props.children}
+        </KommunerContext.Provider>
+    )
 }
 
 export function medFylkesinndeling<PROPS>(

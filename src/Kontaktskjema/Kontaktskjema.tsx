@@ -1,15 +1,6 @@
-import React, {
-    FormEvent,
-    FunctionComponent,
-    MutableRefObject,
-    useContext,
-    useEffect,
-    useRef,
-    useState
-} from 'react';
+import React, {FormEvent, FunctionComponent, MutableRefObject, useContext, useEffect, useRef, useState} from 'react';
 import {RouteComponentProps} from 'react-router-dom';
 import {useQueryState} from 'react-router-use-location-state';
-import {AlertStripeAdvarsel} from 'nav-frontend-alertstriper';
 import {Hovedknapp} from 'nav-frontend-knapper';
 import {Temavalg} from './Temavalg/Temavalg';
 import {getTema, Tema, TemaType} from '../utils/kontaktskjemaApi';
@@ -31,6 +22,8 @@ import {FeiloppsummeringFeil} from "nav-frontend-skjema/src/feiloppsummering";
 import KommuneFelt from "./Felter/KommuneFelt/KommuneFelt";
 import FylkeFelt from "./Felter/FylkeFelt/FylkeFelt";
 import {validerBesvarelse} from "./utils/validering";
+import {GlobalFeilmelding} from "./GlobalFeilmelding";
+import {useGlobalFeil} from "../hooks/useGlobalFeil";
 
 type BesvarelseUtenFylkeOgKommune = Omit<Besvarelse,
     SkjemaFelt.kommune | SkjemaFelt.fylkesenhetsnr>;
@@ -43,13 +36,13 @@ const Kontaktskjema: FunctionComponent<KommunerProps & RouteComponentProps> = (p
     }, []);
 
     const {kommuner} = useContext(KommunerContext);
+    const {rapporterFeil} = useGlobalFeil();
 
     const [valgtTemaType, setTemaType] = useQueryState<TemaType>('tema', TemaType.Rekruttering);
     const [valgtFylkenøkkel, setFylkenøkkel] = useQueryState<string>('fylkesenhetsnr', '');
     const [valgtKommunenr, setKommunenr] = useQueryState<string>('kommune', '');
 
     const [innsendingStatus, setInnsendingStatus] = useState<{
-        feilmelding?: string;
         senderInn: boolean;
     }>({
         senderInn: false,
@@ -87,7 +80,6 @@ const Kontaktskjema: FunctionComponent<KommunerProps & RouteComponentProps> = (p
         }
         setInnsendingStatus({
             senderInn: false,
-            feilmelding: '',
         });
     };
 
@@ -114,7 +106,6 @@ const Kontaktskjema: FunctionComponent<KommunerProps & RouteComponentProps> = (p
         } else {
             setInnsendingStatus({
                 senderInn: true,
-                feilmelding: '',
             });
         }
 
@@ -138,8 +129,10 @@ const Kontaktskjema: FunctionComponent<KommunerProps & RouteComponentProps> = (p
         if (sendInnResultat.ok) {
             props.history.push(BEKREFTELSE_PATH + '?tema=' + tema.type);
         } else {
+            if (sendInnResultat.feilmelding !== undefined) {
+                rapporterFeil({feilmelding: sendInnResultat.feilmelding})
+            }
             setInnsendingStatus({
-                feilmelding: sendInnResultat.feilmelding,
                 senderInn: false,
             });
             return;
@@ -165,6 +158,7 @@ const Kontaktskjema: FunctionComponent<KommunerProps & RouteComponentProps> = (p
             />
             <div className="kontaktskjema">
                 <div className="kontaktskjema__innhold">
+                    <GlobalFeilmelding />
                     <div className="kontaktskjema__vanlig-tekst">
                         <Normaltekst>Alle felter må fylles ut.</Normaltekst>
                     </div>
@@ -266,11 +260,6 @@ const Kontaktskjema: FunctionComponent<KommunerProps & RouteComponentProps> = (p
                         {tema ? tema.tekst.toLowerCase() : 'ditt valgte tema'} i bedriften du
                         representerer. Opplysningene blir ikke delt eller brukt til andre formål.
                     </EnkelInfostripe>
-                    {innsendingStatus.feilmelding && (
-                        <AlertStripeAdvarsel className="kontaktskjema__feilmelding">
-                            {innsendingStatus.feilmelding}
-                        </AlertStripeAdvarsel>
-                    )}
                     <Feiloppsummering
                         // TODO: burde finne en måte å bruke useRef på, slik at scroll fungerer både første gang og
                         // senere den lastes. Styling er en hack.

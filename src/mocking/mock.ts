@@ -7,10 +7,10 @@ import {
 import fylkesinndeling from './fylkesinndeling.json';
 import { FeatureToggles } from '../providers/FeatureTogglesProvider';
 
-fetchMock.get(KOMMUNER_PATH, fylkesinndeling);
+fetchMock.get(KOMMUNER_PATH, { status: 500, body: {} });
 
 const featureToggleResponse: FeatureToggles = {};
 
 fetchMock.get('begin:' + FEATURE_TOGGLE_BASEPATH, featureToggleResponse);
 
-fetchMock.post(SEND_KONTAKTSKJEMA_PATH, { status: 200, body: {} });
+fetchMock.post(SEND_KONTAKTSKJEMA_PATH, { status: 500, body: {} });
