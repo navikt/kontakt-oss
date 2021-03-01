@@ -19,7 +19,6 @@ import { ReactComponent as Person2Illustrasjon } from './Illustrasjoner/person2.
 import { ReactComponent as Person3Illustrasjon } from './Illustrasjoner/person3.svg';
 
 import './Forside.less';
-import './AndreKontaktpunkter.less';
 
 const ARBEIDSGIVER_TLF = "55 55 33 36"
 const ARBEIDSGIVER_TLF_URL = `tlf:+47${ARBEIDSGIVER_TLF.replace(/ /g, "")}`
