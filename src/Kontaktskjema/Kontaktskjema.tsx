@@ -1,11 +1,11 @@
-import React, {FormEvent, FunctionComponent, MutableRefObject, useContext, useEffect, useRef, useState} from 'react';
+import React, {FormEvent, FunctionComponent, MutableRefObject, useEffect, useRef, useState} from 'react';
 import {RouteComponentProps} from 'react-router-dom';
 import {useQueryState} from 'react-router-use-location-state';
 import {Hovedknapp} from 'nav-frontend-knapper';
 import {Temavalg} from './Temavalg/Temavalg';
 import {getTema, Tema, TemaType} from '../utils/kontaktskjemaApi';
 import {ForebyggeSykefraværEkstradel} from './ForebyggeSykefraværEkstradel/ForebyggeSykefraværEkstradel';
-import {KommunerContext, KommunerProps, medFylkesinndeling} from '../providers/KommunerProvider';
+// import {KommunerContext, KommunerProps} from '../providers/KommunerProvider';
 import {Besvarelse, sendInnBesvarelse, SkjemaFelt, tomBesvarelse,} from './utils/kontaktskjemaUtils';
 import {BEKREFTELSE_PATH} from '../utils/paths';
 import {HvaSkjerVidere} from './HvaSkjerVidere/HvaSkjerVidere';
@@ -29,14 +29,13 @@ type BesvarelseUtenFylkeOgKommune = Omit<Besvarelse,
     SkjemaFelt.kommune | SkjemaFelt.fylkesenhetsnr>;
 
 
-const Kontaktskjema: FunctionComponent<KommunerProps & RouteComponentProps> = (props) => {
+const Kontaktskjema: FunctionComponent<RouteComponentProps> = (props) => {
     useEffect(() => {
         scrollToBanner();
         sendEvent('kontaktskjema', 'vist');
     }, []);
 
-    const {kommuner} = useContext(KommunerContext);
-    const {rapporterFeil} = useGlobalFeil();
+    const {rapporterFeil,fjernFeil} = useGlobalFeil();
 
     const [valgtTemaType, setTemaType] = useQueryState<TemaType>('tema', TemaType.Rekruttering);
     const [valgtFylkenøkkel, setFylkenøkkel] = useQueryState<string>('fylkesenhetsnr', '');
@@ -109,28 +108,26 @@ const Kontaktskjema: FunctionComponent<KommunerProps & RouteComponentProps> = (p
             });
         }
 
-        const kommunenr = besvarelse.kommune.nummer;
-        const besvarelseMedKommunenavn = {
-            ...besvarelse,
-            kommune: {
-                nummer: kommunenr,
-                navn: kommuner.find(k => k.nummer === kommunenr)?.navn ?? ''
-            }
-        }
-
-        const validering = validerBesvarelse(besvarelseMedKommunenavn, tema);
+        const validering = validerBesvarelse(besvarelse, tema);
         if (!validering.ok) {
             setValideringsfeil(validering.feilmelding);
             focusFeiloppsummering();
             return;
         }
 
-        const sendInnResultat = await sendInnBesvarelse(besvarelseMedKommunenavn, tema);
+        const sendInnResultat = await sendInnBesvarelse(besvarelse, tema);
         if (sendInnResultat.ok) {
             props.history.push(BEKREFTELSE_PATH + '?tema=' + tema.type);
         } else {
             if (sendInnResultat.feilmelding !== undefined) {
-                rapporterFeil({feilmelding: sendInnResultat.feilmelding})
+                rapporterFeil({
+                    feilmelding: <>
+                        Noe gikk feil med innsendingen. Du kan prøve igjen senere eller
+                        <a href="https://arbeidsgiver.nav.no/kontakt-oss/fylkesvelger"> ring en markedskontakt direkte
+                        </a>
+                    </>,
+                    error: new Error(sendInnResultat.feilmelding),
+                })
             }
             setInnsendingStatus({
                 senderInn: false,
@@ -158,7 +155,6 @@ const Kontaktskjema: FunctionComponent<KommunerProps & RouteComponentProps> = (p
             />
             <div className="kontaktskjema">
                 <div className="kontaktskjema__innhold">
-                    <GlobalFeilmelding />
                     <div className="kontaktskjema__vanlig-tekst">
                         <Normaltekst>Alle felter må fylles ut.</Normaltekst>
                     </div>
@@ -166,6 +162,7 @@ const Kontaktskjema: FunctionComponent<KommunerProps & RouteComponentProps> = (p
                         velgTema={(tema: Tema) => {
                             setTemaType(tema.type);
                             fjernFeilmeldinger();
+                            fjernFeil();
                         }}
                         valgtTemaType={valgtTemaType}
                     />
@@ -260,6 +257,7 @@ const Kontaktskjema: FunctionComponent<KommunerProps & RouteComponentProps> = (p
                         {tema ? tema.tekst.toLowerCase() : 'ditt valgte tema'} i bedriften du
                         representerer. Opplysningene blir ikke delt eller brukt til andre formål.
                     </EnkelInfostripe>
+                    <GlobalFeilmelding />
                     <Feiloppsummering
                         // TODO: burde finne en måte å bruke useRef på, slik at scroll fungerer både første gang og
                         // senere den lastes. Styling er en hack.
@@ -284,4 +282,4 @@ const Kontaktskjema: FunctionComponent<KommunerProps & RouteComponentProps> = (p
     );
 };
 
-export default medFylkesinndeling(Kontaktskjema);
+export default Kontaktskjema;

@@ -1,5 +1,5 @@
 import React, {FunctionComponent, useEffect, useRef} from "react";
-import {AlertStripeAdvarsel} from "nav-frontend-alertstriper";
+import {AlertStripeFeil} from "nav-frontend-alertstriper";
 import {useGlobalFeil} from "../hooks/useGlobalFeil";
 
 export const GlobalFeilmelding: FunctionComponent = () => {
@@ -14,9 +14,9 @@ export const GlobalFeilmelding: FunctionComponent = () => {
 
     return (feil ? (
         <div ref={ref}>
-            <AlertStripeAdvarsel className="kontaktskjema__feilmelding">
+            <AlertStripeFeil className="kontaktskjema__feilmelding">
                 {feil.feilmelding}
-            </AlertStripeAdvarsel>
+            </AlertStripeFeil>
         </div>
     ) : null)
 }

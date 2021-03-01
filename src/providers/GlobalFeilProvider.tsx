@@ -2,7 +2,7 @@ import React, {useState, useCallback, FunctionComponent} from 'react';
 import * as Sentry from '@sentry/browser';
 
 interface GlobalFeil {
-    feilmelding: String,
+    feilmelding: React.ReactNode,
     error?: Error,
 }
 
@@ -16,7 +16,7 @@ export interface GlobalFeilProps {
 export const GlobalFeilContext = React.createContext<GlobalFeilProps>({
     feil: undefined,
     rapporterFeil: (_: GlobalFeil) => {},
-    fjernFeil: () => {}
+    fjernFeil: () => {},
 });
 
 
