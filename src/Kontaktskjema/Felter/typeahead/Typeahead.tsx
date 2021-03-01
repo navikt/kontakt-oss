@@ -250,7 +250,7 @@ class Typeahead extends React.Component<Props, State> {
                     aria-activedescendant={activeDescendant}
                     placeholder={this.props.placeholder}
                     value={this.props.value}
-                    autoComplete="off"
+                    autoComplete={"off" + Date.now()}
                     onChange={(event: any) => this.onChange(event)}
                     onBlur={() => this.onBlur()}
                     onKeyDown={(event: any) => this.onKeyDown(event)}
