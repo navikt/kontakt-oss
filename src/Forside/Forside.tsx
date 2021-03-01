@@ -34,40 +34,38 @@ export const Forside: FunctionComponent<FeatureToggles> = () => {
             <Banner tekst="Kontakt NAV – arbeidsgiver" />
 
             <div className="forside">
-                <div className="kontakt-oss-paneler">
-                    <LenkepanelBase href="https://www.nav.no/person/kontakt-oss/chat/arbeidsgiver" border>
-                        <Panelinnhold
-                            illustrasjon={SnakkeboblerIllustrasjon}
-                            overskrift="Spørsmål om permittering i forbindelse med koronaviruset?"
-                            beskrivelse="Chat med NAV"
-                        />
-                    </LenkepanelBase>
+                <LenkepanelBase href="https://www.nav.no/person/kontakt-oss/chat/arbeidsgiver" border>
+                    <Panelinnhold
+                        illustrasjon={SnakkeboblerIllustrasjon}
+                        overskrift="Spørsmål om permittering i forbindelse med koronaviruset?"
+                        beskrivelse="Chat med NAV"
+                    />
+                </LenkepanelBase>
 
-                    <LenkepanelBase href="kontaktskjema" border>
-                        <Panelinnhold
-                            illustrasjon={SkjemaIllustrasjon}
-                            overskrift="Få hjelp fra NAV med rekruttering eller inkludering"
-                            beskrivelse="Send en henvendelse"
-                        />
-                    </LenkepanelBase>
+                <LenkepanelBase href="kontaktskjema" border>
+                    <Panelinnhold
+                        illustrasjon={SkjemaIllustrasjon}
+                        overskrift="Få hjelp fra NAV med rekruttering eller inkludering"
+                        beskrivelse="Send en henvendelse"
+                    />
+                </LenkepanelBase>
 
-                    <Panel border>
-                        <Panelinnhold
-                            illustrasjon={TelefonIllustrasjon}
-                            overskrift="Ring arbeidsgivertelefonen"
-                            beskrivelse="Generell informasjon, status i en sak og veiledning i selvbetjente løsninger."
-                            ekstra={<>
-                                <a
-                                    href={ARBEIDSGIVER_TLF_URL}
-                                    className="typo-innholdstittel arbeidsgivertelefonen__tlf"
-                                >
-                                    {ARBEIDSGIVER_TLF}
-                                </a>
-                                <Normaltekst>Kl. 09.00–15.00 (hverdager)</Normaltekst>
-                            </>}
-                        />
-                    </Panel>
-                </div>
+                <Panel border>
+                    <Panelinnhold
+                        illustrasjon={TelefonIllustrasjon}
+                        overskrift="Ring arbeidsgivertelefonen"
+                        beskrivelse="Generell informasjon, status i en sak og veiledning i selvbetjente løsninger."
+                        ekstra={<>
+                            <a
+                                href={ARBEIDSGIVER_TLF_URL}
+                                className="typo-innholdstittel arbeidsgivertelefonen__tlf"
+                            >
+                                {ARBEIDSGIVER_TLF}
+                            </a>
+                            <Normaltekst>Kl. 09.00–15.00 (hverdager)</Normaltekst>
+                        </>}
+                    />
+                </Panel>
 
                 <div className="andre-kontaktpunkter">
                     <Kort
