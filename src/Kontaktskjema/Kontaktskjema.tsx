@@ -156,7 +156,7 @@ const Kontaktskjema: FunctionComponent<KommunerProps & RouteComponentProps> = (p
     };
 
     return (
-        <form onSubmit={sendInn} autoComplete="off">
+        <form onSubmit={sendInn}>
             <Brodsmulesti brodsmuler={[{url: '/kontaktskjema', title: 'Kontaktskjema', handleInApp: true}]}/>
             <Banner
                 tekst="Kontaktskjema – arbeidsgiver"
