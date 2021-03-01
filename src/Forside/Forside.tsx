@@ -120,7 +120,7 @@ const Panelinnhold: FunctionComponent<PanelinnholdProps> = props => {
             <props.illustrasjon />
         </div>
         <div className="kontakt-oss-panel__middle">
-            <Systemtittel tag="h2">
+            <Systemtittel className="kontakt-oss-panel__tittel" tag="h2">
                 {props.overskrift}
             </Systemtittel>
             <Normaltekst>
