@@ -8,7 +8,7 @@ export const GlobalFeilmelding: FunctionComponent = () => {
 
     useEffect(() => {
         if (feil !== undefined && ref.current) {
-            ref.current.scrollIntoView({ behavior: "smooth" })
+            ref.current.scrollIntoView({ behavior: "smooth", block: "nearest" })
         }
     }, [feil]);
 
