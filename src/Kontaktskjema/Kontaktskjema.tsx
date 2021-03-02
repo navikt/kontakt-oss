@@ -1,20 +1,11 @@
-import React, {
-    FormEvent,
-    FunctionComponent,
-    MutableRefObject,
-    useContext,
-    useEffect,
-    useRef,
-    useState
-} from 'react';
+import React, {FormEvent, FunctionComponent, MutableRefObject, useEffect, useRef, useState} from 'react';
 import {RouteComponentProps} from 'react-router-dom';
 import {useQueryState} from 'react-router-use-location-state';
-import {AlertStripeAdvarsel} from 'nav-frontend-alertstriper';
 import {Hovedknapp} from 'nav-frontend-knapper';
 import {Temavalg} from './Temavalg/Temavalg';
 import {getTema, Tema, TemaType} from '../utils/kontaktskjemaApi';
 import {ForebyggeSykefraværEkstradel} from './ForebyggeSykefraværEkstradel/ForebyggeSykefraværEkstradel';
-import {KommunerContext, KommunerProps, medFylkesinndeling} from '../providers/KommunerProvider';
+// import {KommunerContext, KommunerProps} from '../providers/KommunerProvider';
 import {Besvarelse, sendInnBesvarelse, SkjemaFelt, tomBesvarelse,} from './utils/kontaktskjemaUtils';
 import {BEKREFTELSE_PATH} from '../utils/paths';
 import {HvaSkjerVidere} from './HvaSkjerVidere/HvaSkjerVidere';
@@ -31,25 +22,26 @@ import {FeiloppsummeringFeil} from "nav-frontend-skjema/src/feiloppsummering";
 import KommuneFelt from "./Felter/KommuneFelt/KommuneFelt";
 import FylkeFelt from "./Felter/FylkeFelt/FylkeFelt";
 import {validerBesvarelse} from "./utils/validering";
+import {GlobalFeilmelding} from "./GlobalFeilmelding";
+import {useGlobalFeil} from "../hooks/useGlobalFeil";
 
 type BesvarelseUtenFylkeOgKommune = Omit<Besvarelse,
     SkjemaFelt.kommune | SkjemaFelt.fylkesenhetsnr>;
 
 
-const Kontaktskjema: FunctionComponent<KommunerProps & RouteComponentProps> = (props) => {
+const Kontaktskjema: FunctionComponent<RouteComponentProps> = (props) => {
     useEffect(() => {
         scrollToBanner();
         sendEvent('kontaktskjema', 'vist');
     }, []);
 
-    const {kommuner} = useContext(KommunerContext);
+    const {rapporterFeil,fjernFeil} = useGlobalFeil();
 
     const [valgtTemaType, setTemaType] = useQueryState<TemaType>('tema', TemaType.Rekruttering);
     const [valgtFylkenøkkel, setFylkenøkkel] = useQueryState<string>('fylkesenhetsnr', '');
     const [valgtKommunenr, setKommunenr] = useQueryState<string>('kommune', '');
 
     const [innsendingStatus, setInnsendingStatus] = useState<{
-        feilmelding?: string;
         senderInn: boolean;
     }>({
         senderInn: false,
@@ -87,7 +79,6 @@ const Kontaktskjema: FunctionComponent<KommunerProps & RouteComponentProps> = (p
         }
         setInnsendingStatus({
             senderInn: false,
-            feilmelding: '',
         });
     };
 
@@ -114,32 +105,31 @@ const Kontaktskjema: FunctionComponent<KommunerProps & RouteComponentProps> = (p
         } else {
             setInnsendingStatus({
                 senderInn: true,
-                feilmelding: '',
             });
         }
 
-        const kommunenr = besvarelse.kommune.nummer;
-        const besvarelseMedKommunenavn = {
-            ...besvarelse,
-            kommune: {
-                nummer: kommunenr,
-                navn: kommuner.find(k => k.nummer === kommunenr)?.navn ?? ''
-            }
-        }
-
-        const validering = validerBesvarelse(besvarelseMedKommunenavn, tema);
+        const validering = validerBesvarelse(besvarelse, tema);
         if (!validering.ok) {
             setValideringsfeil(validering.feilmelding);
             focusFeiloppsummering();
             return;
         }
 
-        const sendInnResultat = await sendInnBesvarelse(besvarelseMedKommunenavn, tema);
+        const sendInnResultat = await sendInnBesvarelse(besvarelse, tema);
         if (sendInnResultat.ok) {
             props.history.push(BEKREFTELSE_PATH + '?tema=' + tema.type);
         } else {
+            if (sendInnResultat.feilmelding !== undefined) {
+                rapporterFeil({
+                    feilmelding: <>
+                        Noe gikk feil med innsendingen. Du kan prøve igjen senere eller
+                        <a href="https://arbeidsgiver.nav.no/kontakt-oss/fylkesvelger"> ring en markedskontakt direkte
+                        </a>
+                    </>,
+                    error: new Error(sendInnResultat.feilmelding),
+                })
+            }
             setInnsendingStatus({
-                feilmelding: sendInnResultat.feilmelding,
                 senderInn: false,
             });
             return;
@@ -172,6 +162,7 @@ const Kontaktskjema: FunctionComponent<KommunerProps & RouteComponentProps> = (p
                         velgTema={(tema: Tema) => {
                             setTemaType(tema.type);
                             fjernFeilmeldinger();
+                            fjernFeil();
                         }}
                         valgtTemaType={valgtTemaType}
                     />
@@ -266,11 +257,7 @@ const Kontaktskjema: FunctionComponent<KommunerProps & RouteComponentProps> = (p
                         {tema ? tema.tekst.toLowerCase() : 'ditt valgte tema'} i bedriften du
                         representerer. Opplysningene blir ikke delt eller brukt til andre formål.
                     </EnkelInfostripe>
-                    {innsendingStatus.feilmelding && (
-                        <AlertStripeAdvarsel className="kontaktskjema__feilmelding">
-                            {innsendingStatus.feilmelding}
-                        </AlertStripeAdvarsel>
-                    )}
+                    <GlobalFeilmelding />
                     <Feiloppsummering
                         // TODO: burde finne en måte å bruke useRef på, slik at scroll fungerer både første gang og
                         // senere den lastes. Styling er en hack.
@@ -295,4 +282,4 @@ const Kontaktskjema: FunctionComponent<KommunerProps & RouteComponentProps> = (p
     );
 };
 
-export default medFylkesinndeling(Kontaktskjema);
+export default Kontaktskjema;

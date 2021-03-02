@@ -42,10 +42,7 @@ export const sendInnBesvarelse = async (
     sendEvent('kontaktskjema', 'innsendingsfeil', {
         tema: tema.type
     });
-    return {
-        ok: false,
-        feilmelding: 'Noe gikk feil med innsendingen. Vennligst prøv igjen senere.',
-    };
+    return { ok: false, feilmelding: res.statusText };
 };
 
 export enum SkjemaFelt {
