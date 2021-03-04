@@ -34,8 +34,11 @@ const renderApp = (decoratorFragments) =>
     });
 
 const startServer = (html) => {
+    app.use('/*', (req, res, next) => {
+        res.setHeader('NAIS_APP_IMAGE', process.env.NAIS_APP_IMAGE || '?');
+        next();
+    });
     app.use(basePath('/'), express.static(buildPath, { index: false }));
-
     app.use(
         apiMetrics({
             metricsPath: BASE_PATH + '/internal/metrics',
