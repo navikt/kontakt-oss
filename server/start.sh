@@ -11,4 +11,4 @@ then
     done
 fi
 
-exec node server.js
+exec node --experimental-modules server.js
