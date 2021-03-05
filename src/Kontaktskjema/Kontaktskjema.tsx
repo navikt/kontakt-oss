@@ -155,9 +155,6 @@ const Kontaktskjema: FunctionComponent<RouteComponentProps> = (props) => {
             />
             <div className="kontaktskjema">
                 <div className="kontaktskjema__innhold">
-                    <div className="kontaktskjema__vanlig-tekst">
-                        <Normaltekst>Alle felter må fylles ut.</Normaltekst>
-                    </div>
                     <Temavalg
                         velgTema={(tema: Tema) => {
                             setTemaType(tema.type);
