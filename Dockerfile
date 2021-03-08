@@ -1,11 +1,13 @@
-FROM node:10.23.1-alpine3.9
+FROM navikt/node-express:12.2.0-alpine
+
 WORKDIR /usr/src/app
 
 COPY build/ build/
-COPY server/ server/
 
 WORKDIR /usr/src/app/server
-RUN yarn install --frozen-lockfile
+COPY server/ .
+
+RUN npm ci
 
 EXPOSE 3000
 ENTRYPOINT ["/bin/sh", "start.sh"]

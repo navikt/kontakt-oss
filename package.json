@@ -73,9 +73,7 @@
     },
     "scripts": {
         "start": "craco start",
-        "mock": "REACT_APP_MOCK=true yarn start",
-        "install-server": "cd server && yarn && cd ..",
-        "serve": "node server/server.js",
+        "start:mock": "REACT_APP_MOCK=true yarn start",
         "build": "craco build",
         "test": "craco test",
         "test:e2e": "node endeTilEndeTest/runner.js",
