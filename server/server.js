@@ -8,7 +8,6 @@ import Prometheus from "prom-client";
 import require from "./esm-require.js";
 
 const apiMetricsMiddleware = require('prometheus-api-metrics');
-
 const {JSDOM} = jsdom;
 const {createProxyMiddleware} = httpProxyMiddleware;
 
