@@ -7,7 +7,7 @@ createTestCafe('localhost', 1337, 1338)
         const runner = testcafe.createRunner();
 
         return runner
-            .startApp('yarn mock', 5000)
+            .startApp('yarn start:mock', 5000)
             .src(['endeTilEndeTest/sendInnBesvarelse.test.ts'])
             .browsers(['chrome:headless'])
             .run();
