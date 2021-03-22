@@ -7,6 +7,7 @@ import jsdom from "jsdom";
 import Prometheus from "prom-client";
 import require from "./esm-require.js";
 
+const {createLogger, transports, format} = require('winston');
 const apiMetricsMiddleware = require('prometheus-api-metrics');
 const {JSDOM} = jsdom;
 const {createProxyMiddleware} = httpProxyMiddleware;
@@ -19,7 +20,17 @@ const {
     NAIS_CLUSTER_NAME = 'local',
     API_GATEWAY = 'http://localhost:8080',
     APIGW_HEADER,
+    DECORATOR_UPDATE_MS = 30 * 60 * 1000,
+    PROXY_LOG_LEVEL = 'info',
 } = process.env;
+const log = createLogger({
+    transports: [
+        new transports.Console({
+            timestamp: true,
+            format: format.json()
+        })
+    ]
+});
 const decoratorUrl = NAIS_CLUSTER_NAME === 'prod-sbs' ? defaultDecoratorUrl : DECORATOR_EXTERNAL_URL;
 const BUILD_PATH = path.join(process.cwd(), '../build');
 const getDecoratorFragments = async () => {
@@ -50,9 +61,9 @@ const startApiGWGauge = () => {
                 ...(APIGW_HEADER ? {headers: {'x-nav-apiKey': APIGW_HEADER}} : {})
             });
             gauge.set(res.ok ? 1 : 0);
-            console.log("healthcheck: ", gauge.name, res.ok);
+            log.info("healthcheck: ", gauge.name, res.ok);
         } catch (error) {
-            console.error("healthcheck error:", gauge.name, error)
+            log.error("healthcheck error:", gauge.name, error)
             gauge.set(0);
         }
     }, 60 * 1000);
@@ -69,8 +80,19 @@ app.use('/*', (req, res, next) => {
     next();
 });
 app.use(
+    apiMetricsMiddleware({
+        metricsPath: '/kontakt-oss/internal/metrics',
+    })
+);
+
+app.use(
     '/kontakt-oss/api',
     createProxyMiddleware({
+        logLevel: PROXY_LOG_LEVEL,
+        logProvider: _ => log,
+        onError: (err, req, res) => {
+            log.error(`${req.method} ${req.path} => [${res.statusCode}:${res.statusText}]: ${err.message}`);
+        },
         changeOrigin: true,
         pathRewrite: {
             '^/kontakt-oss/api/feature': '/kontakt-oss-api/feature',
@@ -85,11 +107,6 @@ app.use(
     })
 );
 app.use('/kontakt-oss/', express.static(BUILD_PATH, {index: false}));
-app.use(
-    apiMetricsMiddleware({
-        metricsPath: '/kontakt-oss/internal/metrics',
-    })
-);
 
 app.get('/kontakt-oss/internal/isAlive', (req, res) => res.sendStatus(200));
 app.get('/kontakt-oss/internal/isReady', (req, res) => res.sendStatus(200));
@@ -100,7 +117,7 @@ const serve = async () => {
         app.get('/kontakt-oss/*', (req, res) => {
             res.render('index.html', fragments, (err, html) => {
                 if (err) {
-                    console.error(err);
+                    log.error(err);
                     res.sendStatus(500);
                 } else {
                     res.send(html);
@@ -108,10 +125,10 @@ const serve = async () => {
             });
         });
         app.listen(PORT, () => {
-            console.log('Server listening on port ', PORT);
+            log.info('Server listening on port ', PORT);
         });
     } catch (error) {
-        console.error('Server failed to start ', error);
+        log.error('Server failed to start ', error);
         process.exit(1);
     }
 
