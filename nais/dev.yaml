@@ -1,3 +1,3 @@
-ingress: "https://arbeidsgiver-q.nav.no/kontakt-oss"
+ingress: "https://arbeidsgiver-kontakt-oss.dev.nav.no"
 api_gateway: "https://api-gw-q0.oera.no"
 decorator_external_url: "https://www-q1.nav.no/dekoratoren/?context=arbeidsgiver"
