@@ -33,7 +33,7 @@ jobs:
   build:
     name: Build
     needs: test
-    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/arbeidsgiver_namespace'
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/migrere_gcp'
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v1
