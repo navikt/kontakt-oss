@@ -53,8 +53,8 @@ jobs:
               env:
                   APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
                   CLUSTER: dev-sbs
-                  VAR: version=${{ env.IMAGE }}
-                  RESOURCE: nais/dev-sbs.yaml
+                  RESOURCE: nais/application.yaml
+                  VARS: nais/dev.yaml
                   PRINT_PAYLOAD: true
 
     deploy-to-prod:
@@ -68,6 +68,6 @@ jobs:
               env:
                   APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
                   CLUSTER: prod-sbs
-                  VAR: version=${{ env.IMAGE }}
-                  RESOURCE: nais/prod-sbs.yaml
+                  RESOURCE: nais/application.yaml
+                  VARS: nais/prod.yaml
                   PRINT_PAYLOAD: true
