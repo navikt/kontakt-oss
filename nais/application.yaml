@@ -9,8 +9,6 @@ spec:
   image: {{image}}
   team: arbeidsgiver
   port: 3000
-  vault:
-    enabled: true
   ingresses:
     - {{ingress}}
   liveness:
