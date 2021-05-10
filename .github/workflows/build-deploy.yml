@@ -33,7 +33,7 @@ jobs:
   build:
     name: Build
     needs: test
-    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/migrere_gcp'
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/dependabot/npm_and_yarn/url-parse-1.5.1'
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v1
